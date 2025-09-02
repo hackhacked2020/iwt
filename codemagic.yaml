@@ -9,6 +9,18 @@ workflows:
       vars:
         PACKAGE_NAME: "dcmchonorable.iwt"
     scripts:
+      # --- Étape de diagnostic ---
+      - name: Diagnostiquer la structure du projet
+        script: |
+          echo "Structure du projet :"
+          ls -la
+          echo ""
+          echo "Contenu du dossier courant :"
+          pwd
+          echo ""
+          echo "Liste des fichiers build.gradle :"
+          find . -type f -name "build.gradle" | head -10
+
       # --- Étape 1 : Décoder le keystore de signature ---
       - name: Décoder le keystore de signature
         script: |
