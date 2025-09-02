@@ -43,23 +43,15 @@ EOL
         script: |
           # Essayer de trouver gradlew ou utiliser gradle du système
           if [ -f "gradlew" ]; then
-              echo "Utilisation du gradlew existant"
               chmod +x gradlew
-              ./gradlew bundleRelease --no-daemon --warning-mode=none
+              ./gradlew bundleRelease --no-daemon
           elif command -v gradle >/dev/null 2>&1; then
-              echo "Utilisation de gradle du système"
-              gradle bundleRelease --no-daemon --warning-mode=none
+              gradle bundleRelease --no-daemon
           else
-              echo "Gradle non trouvé, tentative d'installation..."
-              # Méthodes alternatives pour exécuter Gradle
-              if [ -f "android/gradlew" ]; then
-                  cd android
-                  chmod +x gradlew
-                  ./gradlew bundleRelease --no-daemon --warning-mode=none
-              else
-                  echo "ERREUR: Gradle non disponible"
-                  exit 1
-              fi
+              # Installer une version spécifique de Gradle
+              sdk install gradle 6.9.4
+              sdk use gradle 6.9.4
+              gradle bundleRelease --no-daemon
           fi
           echo "Build AAB terminé."
 
