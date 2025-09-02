@@ -15,11 +15,24 @@ workflows:
           echo "Structure du projet :"
           ls -la
           echo ""
-          echo "Fichiers build.gradle :"
-          find . -name "build.gradle" -exec echo {} \;
+          echo "Contenu du dossier courant :"
+          pwd
           echo ""
-          echo "Recherche de gradle wrapper :"
-          find . -name "gradle-wrapper.properties" -exec cat {} \;
+          echo "Liste des fichiers build.gradle :"
+          find . -type f -name "build.gradle" | head -10
+          echo ""
+          echo "Recherche de gradlew :"
+          find . -name "gradlew" -type f
+
+      # --- Étape 0 : Installer Gradle si nécessaire ---
+      - name: Installer Gradle
+        script: |
+          if [ ! -f "./gradlew" ]; then
+            echo "gradlew non trouvé, installation de Gradle..."
+            gradle wrapper --gradle-version 7.5.1
+          else
+            echo "gradlew trouvé, poursuite du build..."
+          fi
 
       # --- Étape 1 : Décoder le keystore de signature ---
       - name: Décoder le keystore de signature
@@ -30,29 +43,24 @@ workflows:
       # --- Étape 2 : Créer le fichier key.properties ---
       - name: Créer le fichier key.properties
         script: |
-          cat > app/key.properties << 'EOF'
-storeFile=keystore.jks
-storePassword=$CM_KEYSTORE_PASSWORD
-keyAlias=$CM_KEY_ALIAS
-keyPassword=$CM_KEY_PASSWORD
-EOF
+          cat > app/key.properties <<EOL
+          storeFile=keystore.jks
+          storePassword=$CM_KEYSTORE_PASSWORD
+          keyAlias=$CM_KEY_ALIAS
+          keyPassword=$CM_KEY_PASSWORD
+          EOL
           echo "Fichier key.properties créé."
 
-      # --- Étape 3 : Utiliser Gradle système ---
-      - name: Utiliser Gradle système
+      # --- Étape 3 : Donner les permissions à gradlew ---
+      - name: Donner les permissions d'exécution à gradlew
         script: |
-          # Essayer de trouver gradlew ou utiliser gradle du système
-          if [ -f "gradlew" ]; then
-              chmod +x gradlew
-              ./gradlew bundleRelease --no-daemon
-          elif command -v gradle >/dev/null 2>&1; then
-              gradle bundleRelease --no-daemon
-          else
-              # Installer une version spécifique de Gradle
-              sdk install gradle 6.9.4
-              sdk use gradle 6.9.4
-              gradle bundleRelease --no-daemon
-          fi
+          chmod +x ./gradlew
+          echo "Permissions gradlew mises à jour."
+
+      # --- Étape 4 : Construire l'Android App Bundle (AAB) signé ---
+      - name: Build Android App Bundle (AAB)
+        script: |
+          ./gradlew bundleRelease
           echo "Build AAB terminé."
 
     artifacts:
