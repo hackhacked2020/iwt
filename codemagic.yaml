@@ -8,6 +8,7 @@ workflows:
         - keystore_credentials
       vars:
         PACKAGE_NAME: "dcmchonorable.iwt"
+        GRADLE_VERSION: "6.9.4" # Version compatible avec votre ancien projet
     scripts:
       # --- Étape de diagnostic ---
       - name: Diagnostiquer la structure du projet
@@ -15,24 +16,19 @@ workflows:
           echo "Structure du projet :"
           ls -la
           echo ""
-          echo "Contenu du dossier courant :"
-          pwd
+          echo "Fichiers build.gradle :"
+          find . -name "build.gradle" -exec echo {} \;
           echo ""
-          echo "Liste des fichiers build.gradle :"
-          find . -type f -name "build.gradle" | head -10
-          echo ""
-          echo "Recherche de gradlew :"
-          find . -name "gradlew" -type f
+          echo "Fichiers gradle-wrapper.properties :"
+          find . -name "gradle-wrapper.properties" -exec cat {} \;
 
-      # --- Étape 0 : Installer Gradle si nécessaire ---
-      - name: Installer Gradle
+      # --- Étape 0 : Installer la bonne version de Gradle ---
+      - name: Installer Gradle compatible
         script: |
-          if [ ! -f "./gradlew" ]; then
-            echo "gradlew non trouvé, installation de Gradle..."
-            gradle wrapper --gradle-version 7.5.1
-          else
-            echo "gradlew trouvé, poursuite du build..."
-          fi
+          echo "Installation de Gradle $GRADLE_VERSION..."
+          gradle wrapper --gradle-version $GRADLE_VERSION --distribution-type all
+          chmod +x ./gradlew
+          echo "Gradle $GRADLE_VERSION installé"
 
       # --- Étape 1 : Décoder le keystore de signature ---
       - name: Décoder le keystore de signature
@@ -51,16 +47,10 @@ workflows:
           EOL
           echo "Fichier key.properties créé."
 
-      # --- Étape 3 : Donner les permissions à gradlew ---
-      - name: Donner les permissions d'exécution à gradlew
-        script: |
-          chmod +x ./gradlew
-          echo "Permissions gradlew mises à jour."
-
-      # --- Étape 4 : Construire l'Android App Bundle (AAB) signé ---
+      # --- Étape 3 : Construire avec l'ancienne version de Gradle ---
       - name: Build Android App Bundle (AAB)
         script: |
-          ./gradlew bundleRelease
+          ./gradlew bundleRelease --no-daemon
           echo "Build AAB terminé."
 
     artifacts:
