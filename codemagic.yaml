@@ -21,110 +21,13 @@ workflows:
           echo "Recherche de gradle wrapper :"
           find . -name "gradle-wrapper.properties" -exec cat {} \;
 
-      # --- Étape 1 : Télécharger Gradle 6.9.4 ---
-      - name: Télécharger Gradle 6.9.4
-        script: |
-          # Créer la structure de dossier gradle
-          mkdir -p gradle/wrapper
-          
-          # Télécharger directement la version 6.9.4 de Gradle
-          curl -L https://services.gradle.org/distributions/gradle-6.9.4-bin.zip -o gradle-6.9.4-bin.zip
-          unzip gradle-6.9.4-bin.zip
-          mv gradle-6.9.4 gradle
-          rm gradle-6.9.4-bin.zip
-          echo "Gradle 6.9.4 téléchargé"
-
-      # --- Étape 2 : Créer le script gradlew ---
-      - name: Créer le script gradlew
-        script: |
-          # Créer le script gradlew avec une syntaxe simplifiée
-          cat > gradlew << 'EOF'
-#!/usr/bin/env bash
-
-APP_NAME="Gradle"
-APP_BASE_NAME=$(basename "$0")
-
-# Use the maximum available, or set MAX_FD != -1 to use that value.
-MAX_FD="maximum"
-
-warn() {
-    echo "$*"
-}
-
-die() {
-    echo
-    echo "$*"
-    echo
-    exit 1
-}
-
-# OS specific support
-cygwin=false
-msys=false
-darwin=false
-case "$(uname)" in
-  CYGWIN* )
-    cygwin=true
-    ;;
-  Darwin* )
-    darwin=true
-    ;;
-  MINGW* )
-    msys=true
-    ;;
-esac
-
-# Attempt to set APP_HOME
-PRG="$0"
-while [ -h "$PRG" ] ; do
-    ls=$(ls -ld "$PRG")
-    link=$(expr "$ls" : '.*-> \(.*\)$')
-    if expr "$link" : '/.*' > /dev/null; then
-        PRG="$link"
-    else
-        PRG=$(dirname "$PRG")"/$link"
-    fi
-done
-SAVED="$(pwd)"
-cd "$(dirname "$PRG")/" >/dev/null
-APP_HOME="$(pwd -P)"
-cd "$SAVED" >/dev/null
-
-CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
-
-# Determine the Java command to use to start the JVM.
-if [ -n "$JAVA_HOME" ] ; then
-    if [ -x "$JAVA_HOME/jre/bin/java" ] ; then
-        JAVACMD="$JAVA_HOME/jre/bin/java"
-    else
-        JAVACMD="$JAVA_HOME/bin/java"
-    fi
-    if [ ! -x "$JAVACMD" ] ; then
-        die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME"
-    fi
-else
-    JAVACMD="java"
-    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH."
-fi
-
-# Execute Gradle
-exec "$JAVACMD" \
-    -classpath "$CLASSPATH" \
-    -Dorg.gradle.appname="$APP_BASE_NAME" \
-    org.gradle.wrapper.GradleWrapperMain \
-    "$@"
-EOF
-
-          chmod +x gradlew
-          echo "Script gradlew créé"
-
-      # --- Étape 3 : Décoder le keystore de signature ---
+      # --- Étape 1 : Décoder le keystore de signature ---
       - name: Décoder le keystore de signature
         script: |
           echo $CM_KEYSTORE | base64 --decode > app/keystore.jks
           echo "Keystore décodé avec succès."
 
-      # --- Étape 4 : Créer le fichier key.properties ---
+      # --- Étape 2 : Créer le fichier key.properties ---
       - name: Créer le fichier key.properties
         script: |
           cat > app/key.properties <<EOL
@@ -135,10 +38,29 @@ keyPassword=$CM_KEY_PASSWORD
 EOL
           echo "Fichier key.properties créé."
 
-      # --- Étape 5 : Construire l'Android App Bundle (AAB) signé ---
-      - name: Build Android App Bundle (AAB)
+      # --- Étape 3 : Utiliser Gradle système ---
+      - name: Utiliser Gradle système
         script: |
-          ./gradlew bundleRelease --no-daemon --warning-mode=none
+          # Essayer de trouver gradlew ou utiliser gradle du système
+          if [ -f "gradlew" ]; then
+              echo "Utilisation du gradlew existant"
+              chmod +x gradlew
+              ./gradlew bundleRelease --no-daemon --warning-mode=none
+          elif command -v gradle >/dev/null 2>&1; then
+              echo "Utilisation de gradle du système"
+              gradle bundleRelease --no-daemon --warning-mode=none
+          else
+              echo "Gradle non trouvé, tentative d'installation..."
+              # Méthodes alternatives pour exécuter Gradle
+              if [ -f "android/gradlew" ]; then
+                  cd android
+                  chmod +x gradlew
+                  ./gradlew bundleRelease --no-daemon --warning-mode=none
+              else
+                  echo "ERREUR: Gradle non disponible"
+                  exit 1
+              fi
+          fi
           echo "Build AAB terminé."
 
     artifacts:
