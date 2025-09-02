@@ -1,0 +1,1252 @@
+<?php // Démarrer la session si ce n'est pas déjà fait if (session_status() == PHP_SESSION_NONE) { session_start(); } if (!isset($_SESSION['from_index']) || $_SESSION['from_index'] != "actif3") { header('Location: index.php'); exit(); } ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours Pharmaco Infas Chap1-15</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>:root{--primary-color:#8e44ad;--secondary-color:#6c3483;--accent-color:#e74c3c;--light-color:#f5eef8;--dark-color:#2c3e50;--transition-speed:0.3s;}*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}body{min-height:100vh;background-color:#f9f9f9;color:#333;padding:10px;user-select:none;}.drawer{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background-color:#333;color:white;width:60px;height:60px;display:flex;align-items:
+center;justify-content:center;border-radius:50%;box-shadow:0 4px 10px rgba(0,0,0,0.2);cursor:pointer;transition:background-color 0.3s ease,transform 0.2s ease;z-index:1000;}.drawer:hover{background-color:#555;transform:translateX(-50%) scale(1.1);}.sidebar{position:fixed;left:0;top:0;width:5cm;height:100%;background-color:#333;display:flex;flex-direction:column;align-items:center;padding-top:20px;z-index:1000;box-shadow:2px 0 10px rgba(0,0,0,0.1);transform:translateX(-100%);transition:transform
+0.3s ease;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#888 #333;}.sidebar.show{transform:translateX(0);}.icon{color:white;font-size:2rem;margin:10px 0;cursor:pointer;transition:transform 0.2s,color 0.2s;}.icon:hover{transform:scale(1.2);color:#1e90ff;}.sidebar::-webkit-scrollbar{width:8px;}.sidebar::-webkit-scrollbar-thumb{background-color:#888;border-radius:4px;}.sidebar::-webkit-scrollbar-track{background-color:#333;}.icon i{font-size:2.5rem;}.menu-button{position:fixed;top:20px;left:
+20px;background-color:#333;color:white;width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);z-index:1001;}.menu-button:hover{background-color:#555;}.overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:999;}.body-disabled{overflow:hidden;}.main-content{max-width:1200px;margin:0 auto;padding:10px;}.search-filter-container{display:flex;
+flex-wrap:wrap;gap:15px;margin-bottom:20px;padding:15px;background-color:white;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.08);}.search-box{flex:1;min-width:250px;}.search-box input{width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-size:1rem;}.pathology-selector{flex:1;min-width:250px;}.pathology-selector select{width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-size:1rem;background-color:white;}.advanced-search-btn{padding:10px 15px;
+background-color:var(--primary-color);color:white;border:none;border-radius:4px;cursor:pointer;font-size:1rem;transition:background-color 0.3s;}.advanced-search-btn:hover{background-color:var(--secondary-color);}.protocol-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid #ddd;}.protocol-title{font-size:1.8rem;color:var(--secondary-color);}.protocol-number{background-color:var(--accent-color);color:white;padding:5px
+10px;border-radius:20px;font-weight:bold;font-size:0.9rem;}.case-studies-container{position:relative;min-height:400px;}.case-study-card{background-color:white;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.08);padding:15px;margin-bottom:15px;display:none;transition:opacity 0.5s ease;}.case-study-card.active{display:block;opacity:1;}.case-study-card h3{font-size:1.3rem;color:var(--secondary-color);margin-bottom:10px;display:flex;align-items:center;gap:8px;}.case-study-card h3 i{color:
+var(--primary-color);}.case-description{line-height:1.6;margin-bottom:15px;font-size:0.95rem;}.tabs{display:flex;border-bottom:2px solid #ddd;margin-bottom:15px;}.tab{flex:1;padding:8px 0;text-align:center;cursor:pointer;font-weight:bold;color:var(--dark-color);border-bottom:3px solid transparent;transition:all 0.3s;font-size:0.9rem;}.tab.active{color:var(--primary-color);border-bottom:3px solid var(--primary-color);}.tab:hover{color:var(--primary-color);}.tab-content{display:none;line-height:
+1.6;font-size:0.9rem;}.tab-content.active{display:block;}.prescription-list{margin-left:15px;margin-bottom:10px;}.prescription-list li{margin-bottom:8px;}.navigation{display:flex;justify-content:space-between;margin-top:15px;gap:10px;}.nav-btn{background-color:var(--primary-color);color:white;border:none;padding:8px 15px;border-radius:4px;cursor:pointer;font-size:0.9rem;transition:background-color 0.3s;flex:1;}.nav-btn:disabled{background-color:#ccc;cursor:not-allowed;}
+.nav-btn:hover:not(:disabled){background-color:var(--secondary-color);}.definition-box{background-color:#f0f8ff;border-left:4px solid var(--primary-color);padding:15px;margin:15px 0;border-radius:0 5px 5px 0;}.classification-box{background-color:#fffaf0;border-left:4px solid #ffa500;padding:15px;margin:15px 0;border-radius:0 5px 5px 0;}.indication-box{background-color:#f0fff0;border-left:4px solid #2ecc71;padding:15px;margin:15px 0;border-radius:0 5px 5px 0;}.specialty-box{background-color:
+#f5f0ff;border-left:4px solid #9b59b6;padding:15px;margin:15px 0;border-radius:0 5px 5px 0;}.pillar{margin-bottom:30px;padding:15px;border-radius:5px;background-color:#f8f9fa;border-left:4px solid var(--secondary-color);}.pillar-title{font-weight:bold;color:var(--secondary-color);margin-bottom:10px;}.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:2000;justify-content:center;align-items:center;}.modal-content{background-color:white;
+padding:20px;border-radius:8px;width:90%;max-width:600px;max-height:80vh;overflow-y:auto;}.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}.modal-title{font-size:1.5rem;color:var(--secondary-color);}.close-modal{font-size:1.5rem;cursor:pointer;color:var(--dark-color);}.filter-group{margin-bottom:15px;}.filter-group label{display:block;margin-bottom:5px;font-weight:bold;}.filter-group input,.filter-group select{width:100%;padding:8px;border:1px solid
+#ddd;border-radius:4px;}.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;}.modal-btn{padding:8px 15px;border:none;border-radius:4px;cursor:pointer;font-size:0.9rem;}.apply-btn{background-color:var(--primary-color);color:white;}.apply-btn:hover{background-color:var(--secondary-color);}.cancel-btn{background-color:#ddd;color:var(--dark-color);}.cancel-btn:hover{background-color:#ccc;}
+@media (max-width:768px){.main-content{padding:5px;}.protocol-header{flex-direction:column;align-items:flex-start;gap:8px;}.protocol-title{font-size:1.4rem;}.protocol-number{font-size:0.8rem;padding:4px 8px;}.case-study-card{padding:10px;}.case-study-card h3{font-size:1.1rem;}.case-description,.tab-content{font-size:0.85rem;}.tabs{flex-direction:column;}.tab{padding:8px;border-bottom:1px solid #ddd;}.tab:last-child{border-bottom:none;}.navigation{flex-direction:row;gap:5px;}.nav-btn{padding:6px
+10px;font-size:0.8rem;}.search-filter-container{flex-direction:column;gap:10px;} }
+@media (max-width:480px){.protocol-title{font-size:1.2rem;}.case-study-card h3{font-size:1rem;}.case-description,.tab-content{font-size:0.8rem;}.nav-btn{padding:5px 8px;font-size:0.75rem;}.modal-content{width:95%;padding:15px;} }.protocol-box{background-color:#e8f5e9;border-left:4px solid #4caf50;padding:15px;margin:15px 0;border-radius:0 5px 5px 0;}.who-recommendation{background-color:#e3f2fd;border-left:4px solid #2196f3;padding:10px;margin:10px 0;border-radius:0 5px 5px 0;font-style:italic;}
+.warning-box{background-color:#ffebee;border-left:4px solid #f44336;padding:10px;margin:10px 0;border-radius:0 5px 5px 0;}.regimen-table{width:100%;border-collapse:collapse;margin:15px 0;overflow-x:auto;display:block;white-space:nowrap;}.regimen-table th,.regimen-table td{border:1px solid #ddd;padding:8px;text-align:left;white-space:normal;}.regimen-table th{background-color:var(--primary-color);color:white;position:sticky;top:0;}.regimen-table tr:nth-child(even){background-color:#f2f2f2;}
+.side-effects{background-color:#fff3e0;border-left:4px solid #ff9800;padding:10px;margin:10px 0;border-radius:0 5px 5px 0;}marquee{padding:8px 0;background-color:rgba(0,0,0,0.1);border-radius:4px;margin-bottom:10px;}marquee a{color:var(--primary-color);text-decoration:none;font-weight:500;margin:0 15px;}
+</style>
+</head>
+<body><marquee> <a href="https://wa.me/225054783595" target="_blank">ME CONTACTER SUR WHATSAPP ! 💬</a> <a href="https://whatsapp.com/channel/0029VaJvdFJF6smp7250ba2a" target="_blank">NOTRE CHAÎNE WHATSAPP 📱</a></marquee><div id="overlay" class="overlay" onclick="closeDrawer()"></div><div id="sidebar" class="sidebar"><div class="icon" onclick="navigateTo('https://sujetsinfas.com/index.php')"> <i>🏛️</i></div></div><div class="drawer" onclick="toggleDrawer()">☰</div><main class="main-content">
+<div class="search-filter-container"><div class="search-box"> <input type="text" id="searchInput" placeholder="Rechercher un cas..."></div><div class="pathology-selector"> <select id="pathologySelect"><option value="all">Toutes les spécialités</option><option value="pharmacologie">Les fondamentaux</option><!-- Maladies infectieuses --><optgroup label="Maladies Infectieuses"><option value="antibiotiques">Antibiotiques</option><option value="tuberculose">Tuberculose</option><option
+value="paludisme">Paludisme</option><option value="parasitaires">Antiparasitaires</option><option value="detergents">Hygiène & Désinfection</option></optgroup><!-- Systèmes organiques --><optgroup label="Systèmes Organiques"><option value="cardiovasculaire">Cardiovasculaire</option><option value="path-digestive">Digestif</option><option value="infection-respiratoire">Respiratoire</option><option value="snc">Neurologique</option><option value="hormonaux-gynecologiques">Endocrinologie &
+Gynécologie</option></optgroup><!-- Classes thérapeutiques --><optgroup label="Classes Thérapeutiques"><option value="antihistaminiques">Antihistaminiques</option><option value="antidiabetiques">Antidiabétiques</option><option value="douleur-fievre">Antalgiques et Antipyrétiques</option></optgroup><!-- Nutrition et prévention --><optgroup label="Nutrition & Prévention"><option value="vitamines">Vitamines</option><option value="oligoelements">Oligo-éléments</option></optgroup><!-- Protocoles -->
+<optgroup label="Protocoles Cliniques"><option value="protocoles">Protocoles Standardisés</option></optgroup></select></div> <button class="advanced-search-btn" onclick="openAdvancedSearch()"> <i class="fas fa-search-plus"></i> Recherche avancée </button></div>
+<header class="protocol-header"><h1 class="protocol-title" id="dynamicTitle">Études de Cas : Douleur et Fièvre</h1> <span class="protocol-number" id="dynamicProtocol">Protocole Antalgiques</span>
+</header><div class="case-studies-container" id="caseStudies"><!-- Cas 22 : Fondamentaux de Pharmacie --><div class="case-study-card" data-index="0" data-pathology="pharmacologie" data-age="all" data-weight="all"><h3><i class="fas fa-book-medical"></i> Chapitre 1 : Fondamentaux de la Pratique Pharmaceutique</h3><p class="case-description">Comprendre les concepts clés, la réglementation et les bonnes pratiques en sciences pharmaceutiques.</p><div class="tabs"><div class="tab active"
+data-tab="pharma-1">Concepts Fondamentaux</div><div class="tab" data-tab="pharma-2">Voies & Formes Galéniques</div><div class="tab" data-tab="pharma-3">Réglementation & Éthique</div></div><div class="tab-content active" id="pharma-1"><div class="definition-box"><h4><i class="fas fa-atom"></i> Définitions Structurantes</h4><div class="pillar"><div class="pillar-title">PHARMACIE</div><p>Science multidisciplinaire (biologie, chimie, médecine) englobant :</p><ul class="prescription-list"><li>Conception
+et développement du médicament</li><li>Contrôle qualité et assurance sécurité</li><li>Dispensation et suivi thérapeutique</li><li>Pharmacovigilance</li></ul></div><div class="protocol-box"><h4><i class="fas fa-prescription-bottle"></i> Le Médicament (Art. L5111-1 CSP)</h4><p>Toute substance ou composition présentée comme possédant des propriétés curatives ou préventives, incluant :</p>
+<table class="regimen-table"><tr><th>Composant</th><th>Rôle</th><th>Exemple</th></tr><tr><td>Principe Actif (PA)
+</td><td>Effet thérapeutique
+</td><td>Paracétamol
+</td></tr><tr><td>Excipient
+</td><td>Stabilité, forme galénique
+</td><td>Amidon, lactose
+</td></tr></table></div></div><div class="classification-box"><h4><i class="fas fa-clinic-medical"></i> Spécialisations Pharmaceutiques</h4><div class="multi-column"><div><h5>En Officine</h5><ul><li>Dispensation</li><li>Préparations magistrales</li><li>Éducation thérapeutique</li></ul></div><div><h5>En Milieu Hospitalier</h5><ul><li>Gestion des stocks</li><li>Chimiothérapies</li><li>Nutrition parentérale</li></ul></div><div><h5>En Industrie</h5><ul><li>Recherche & Développement</li><li>Production
+</li><li>Affaires réglementaires</li></ul></div></div></div></div><div class="tab-content" id="pharma-2"><div class="specialty-box"><h4><i class="fas fa-syringe"></i> Voies d'Administration Comparées</h4>
+<table class="regimen-table"><tr><th>Voie</th><th>Biodisponibilité</th><th>T<sub>max</sub></th><th>Avantages</th><th>Risques</th></tr><tr><td>Orale
+</td><td>Variable (20-80%)
+</td><td>30-120 min
+</td><td>Non invasive
+</td><td>Effet premier passage hépatique
+</td></tr><tr><td>IV
+</td><td>100%
+</td><td>Immédiat
+</td><td>Urgence
+</td><td>Choc anaphylactique
+</td></tr><tr><td>Transdermique
+</td><td>40-90%
+</td><td>Heures à jours
+</td><td>Libération prolongée
+</td><td>Irritation cutanée
+</td></tr></table></div><div class="protocol-box"><h4><i class="fas fa-tablets"></i> Innovations Galéniques</h4><div class="innovation-grid"><div><h5>Formes Orales</h5><ul><li><strong>ODT</strong> : Comprimés orodispersibles</li><li><strong>LP</strong> : Libération prolongée (12-24h)</li><li><strong>GR</strong> : Gastro-résistants</li></ul></div><div><h5>Biotechnologies</h5><ul><li>Anticorps monoclonaux</li><li>Thérapies géniques</li><li>Vecteurs nanotechnologiques</li></ul></div></div></div>
+</div><div class="tab-content" id="pharma-3"><div class="warning-box"><h4><i class="fas fa-gavel"></i> Cadre Réglementaire</h4><div class="legislation-flow"><div><h5>AMM</h5><p>Autorisation de Mise sur le Marché</p><p><em>Dossier technique + clinique</em></p></div><div><h5>DCI</h5><p>Dénomination Commune Internationale</p><p><em>Recommandée par l'OMS</em></p></div><div><h5>PG</h5><p>Médicaments Génériques</p><p><em>Bioéquivalence ≥80-125%</em></p></div></div></div><div class="side-effects"><h4><i
+class="fas fa-user-shield"></i> Bonnes Pratiques</h4><div class="practice-grid"><div><h5>Prescription</h5><ul><li>DCI recommandée</li><li>Posologie adaptée</li><li>Durée explicite</li></ul></div><div><h5>Dispensation</h5><ul><li>Vérification des interactions</li><li>Adaptation aux comorbidités</li><li>Éducation du patient</li></ul></div></div></div></div></div><!-- Cas 1 : Enfant avec fièvre --><div class="case-study-card" data-index="22" data-pathology="douleur-fievre" data-age="4ans"
+data-weight="15kg"><h3><i class="fas fa-child"></i> Cas 1 : Enfant de 4 ans (15 kg) avec fièvre</h3><p class="case-description">Un enfant de 4 ans, pesant 15 kg, présente une fièvre à 39°C sans autre symptôme notable.</p><div class="tabs"><div class="tab active" data-tab="no-ci-0">Traitement standard</div><div class="tab" data-tab="with-ci-0">Contre-indications</div></div><div class="tab-content active" id="no-ci-0"><div class="indication-box"><h4>Stratégie thérapeutique :</h4><ol><li>Mesures
+physiques (déshabillage, hydratation)</li><li>Antipyrétique de première intention</li><li>Surveillance de l'évolution</li></ol></div><div class="pillar"><div class="pillar-title">Palier 1 - Antalgiques/antipyrétiques</div><p><strong>Paracétamol</strong> : Traitement de première intention</p><ul class="prescription-list"><li>Posologie : 15 mg/kg par prise (soit 225 mg)</li><li>Présentation : Suspension buvable 30 mg/mL</li><li>Dose : 7,5 mL (1,5 cuillère-mesure)</li><li>Fréquence : Toutes les 6
+heures (max 4 prises/jour)</li><li>Spécialités : Doliprane, Efferalgan, Dafalgan pédiatrique</li></ul></div><div class="specialty-box"><h4>Alternatives si inefficace après 1h :</h4><p><strong>Ibuprofène</strong> (si pas de contre-indication) :</p><ul class="prescription-list"><li>Posologie : 10 mg/kg par prise (soit 150 mg)</li><li>Présentation : Suspension 20 mg/mL</li><li>Dose : 7,5 mL (3 x 2,5 mL)</li><li>Fréquence : Toutes les 8 heures (max 3 prises/jour)</li><li>Spécialités : Advil,
+Nureflex, Upfen</li></ul></div></div><div class="tab-content" id="with-ci-0"><div class="indication-box"><h4>Contre-indications principales :</h4><ul><li>Allergie au paracétamol ou aux AINS</li><li>Varicelle ou infection virale (éviter AINS)</li><li>Antécédent d'ulcère gastrique ou saignement digestif</li><li>Insuffisance rénale ou hépatique</li></ul></div><div class="classification-box"><h4>Options en cas de contre-indications :</h4><p><strong>Physique seule</strong> :</p><ul><li>Déshabillage</li>
+<li>Bain tiède (1-2°C en dessous de la température corporelle)</li><li>Hydratation régulière</li></ul><p><strong>Métamizole</strong> (Novalgine) en cas d'inefficacité :</p><ul class="prescription-list"><li>Posologie : 10-15 mg/kg par prise (150-225 mg)</li><li>Présentation : Gouttes 500 mg/mL</li><li>Dose : 0,3-0,45 mL</li><li>Fréquence : Toutes les 8 heures</li></ul></div></div></div><!-- Cas 2 : Adulte avec douleur post-opératoire --><div class="case-study-card" data-index="1"
+data-pathology="douleur-fievre" data-age="35ans" data-weight="70kg"><h3><i class="fas fa-user"></i> Cas 2 : Adulte de 35 ans (70 kg) - Douleur post-opératoire</h3><p class="case-description">Patient de 35 ans, 70 kg, présentant des douleurs modérées après une appendicectomie.</p><div class="tabs"><div class="tab active" data-tab="no-ci-1">Traitement standard</div><div class="tab" data-tab="with-ci-1">Douleur rebelle</div></div><div class="tab-content active" id="no-ci-1"><div
+class="definition-box"><h4>Stratégie analgésique selon l'OMS :</h4><p>Approche par paliers en fonction de l'intensité de la douleur</p></div><div class="pillar"><div class="pillar-title">Palier 1 + 2 - Association</div><p><strong>Paracétamol</strong> :</p><ul class="prescription-list"><li>1 g toutes les 6 heures (max 4 g/jour)</li></ul><p><strong>Ibuprofène</strong> :</p><ul class="prescription-list"><li>400 mg toutes les 8 heures (max 1200 mg/jour)</li></ul><p><strong>Tramadol</strong> (si
+insuffisant) :</p><ul class="prescription-list"><li>50 mg toutes les 6 heures (max 400 mg/jour)</li></ul></div><div class="specialty-box"><h4>Associations possibles :</h4><ul><li>Paracétamol + Codéine (Codoliprane, Efferalgan Codéine)</li><li>Paracétamol + Tramadol (Ixprim, Zaldiar)</li></ul></div></div><div class="tab-content" id="with-ci-1"><div class="indication-box"><h4>En cas de douleur rebelle :</h4><p>Passage au palier 3 - Antalgiques centraux forts</p></div><div
+class="classification-box"><h4>Options morphiniques :</h4><p><strong>Morphine</strong> :</p><ul class="prescription-list"><li>Voie orale : Actiskenan 10 mg toutes les 4 heures</li><li>Voie IV : Chlorhydrate de morphine 1-2 mg en bolus</li><li>PCA (Analgésie Contrôlée par le Patient) si nécessaire</li></ul><p><strong>Alternatives</strong> :</p><ul class="prescription-list"><li>Oxycodone (Oxynorm) 5-10 mg toutes les 6 heures</li><li>Fentanyl transdermique (Durogésic) pour douleur chronique</li>
+</ul></div></div></div><!-- Cas 3 : Migraine chez l'adulte --><div class="case-study-card" data-index="2" data-pathology="douleur-fievre" data-age="28ans" data-weight="60kg"><h3><i class="fas fa-head-side-virus"></i> Cas 3 : Femme de 28 ans (60 kg) avec migraine</h3><p class="case-description">Patiente connue pour migraines sans aura, présente une crise typique avec nausées et photophobie.</p><div class="tabs"><div class="tab active" data-tab="no-ci-2">Traitement de crise</div><div class="tab"
+data-tab="with-ci-2">Traitement de fond</div></div><div class="tab-content active" id="no-ci-2"><div class="indication-box"><h4>Traitement de la crise migraineuse :</h4><p>Approche séquentielle selon l'intensité</p></div><div class="pillar"><div class="pillar-title">Première ligne :</div><p><strong>Paracétamol</strong> 1 g + antiémétique (métoclopramide 10 mg)</p><p><strong>AINS</strong> (si contre-indication au triptan) :</p><ul class="prescription-list"><li>Ibuprofène 400 mg</li><li>Kétoprofène
+100 mg en comprimé orodispersible</li></ul></div><div class="specialty-box"><h4>Si insuffisant : Triptans</h4><ul class="prescription-list"><li>Sumatriptan 50 mg (Imigrane) - dose max 100 mg/prise</li><li>Zolmitriptan 2,5 mg (Zomig) - dose max 5 mg/prise</li><li>Életriptan 40 mg (Relpax) - dose max 80 mg/prise</li></ul><p>À prendre dès le début de la crise, à renouveler après 2h si besoin</p></div></div><div class="tab-content" id="with-ci-2"><div class="definition-box"><h4>Traitement de fond de
+la migraine :</h4><p>Indiqué en cas de ≥ 3 crises/mois ou crises sévères</p></div><div class="classification-box"><h4>Options thérapeutiques :</h4><p><strong>Bêta-bloquants</strong> :</p><ul class="prescription-list"><li>Propranolol 40-160 mg/jour</li><li>Métoprolol 100-200 mg/jour</li></ul><p><strong>Antidépresseurs</strong> :</p><ul class="prescription-list"><li>Amitriptyline 10-75 mg/jour</li></ul><p><strong>Antiépileptiques</strong> :</p><ul class="prescription-list"><li>Topiramate 25-100
+mg/jour</li><li>Valproate 500-1000 mg/jour</li></ul><p><strong>Nouveautés</strong> :</p><ul class="prescription-list"><li>Anticorps anti-CGRP (Erenumab - Aimovig) 70-140 mg/mois SC</li></ul></div></div></div><!-- Cas 4 : Douleur cancéreuse --><div class="case-study-card" data-index="3" data-pathology="douleur-fievre" data-age="65ans" data-weight="55kg"><h3><i class="fas fa-procedures"></i> Cas 4 : Patient de 65 ans (55 kg) - Douleur cancéreuse</h3><p class="case-description">Patient avec cancer
+du pancréas métastatique, présentant des douleurs abdominales persistantes malgré palier 2.</p><div class="tabs"><div class="tab active" data-tab="no-ci-3">Traitement standard</div><div class="tab" data-tab="with-ci-3">Douleur neuropathique</div></div><div class="tab-content active" id="no-ci-3"><div class="definition-box"><h4>Protocole OMS pour douleur cancéreuse :</h4><p>Paliers 1 + 2 + 3 avec adaptation posologique</p></div><div class="pillar"><div class="pillar-title">Traitement de base :</div>
+<p><strong>Paracétamol</strong> 1 g toutes les 6 heures</p><p><strong>Morphine LP</strong> (Skenan LP, Moscontin) :</p><ul class="prescription-list"><li>Dose initiale : 10 mg toutes les 12 heures</li><li>Titration selon besoins (augmentation de 30-50% tous les 2-3 jours)</li></ul><p><strong>Morphine à libération immédiate</strong> (Actiskenan, Sevredol) :</p><ul class="prescription-list"><li>Pour douleurs incidentes : 1/6 de la dose quotidienne</li></ul></div><div class="specialty-box"><h4>Alternatives
+morphiniques :</h4><ul class="prescription-list"><li>Oxycodone LP (Oxycontin) 10-20 mg toutes les 12 heures</li><li>Fentanyl transdermique (Durogésic) 12-25 µg/h tous les 3 jours</li><li>Hydromorphone (Sophidone LP) 4-8 mg toutes les 12 heures</li></ul></div></div><div class="tab-content" id="with-ci-3"><div class="indication-box"><h4>Douleur neuropathique associée :</h4><p>Nécessite des co-antalgiques spécifiques</p></div><div class="classification-box"><h4>Co-antalgiques :</h4><p><strong>Antidépresseurs
+tricycliques</strong> :</p><ul class="prescription-list"><li>Amitriptyline 10-75 mg le soir</li></ul><p><strong>Antiépileptiques</strong> :</p><ul class="prescription-list"><li>Gabapentine 300-1200 mg 3x/jour</li><li>Prégabaline (Lyrica) 75-300 mg 2x/jour</li></ul><p><strong>Anesthésiques locaux</strong> :</p><ul class="prescription-list"><li>Lidocaïne 5% en patch (Versatis)</li></ul><p><strong>Corticoides</strong> (si compression) :</p><ul class="prescription-list"><li>Dexaméthasone 4-8
+mg/jour</li></ul></div></div></div><!-- Cas 5 : Douleur post-traumatique --><div class="case-study-card" data-index="4" data-pathology="douleur-fievre" data-age="45ans" data-weight="80kg"><h3><i class="fas fa-bone"></i> Cas 5 : Patient de 45 ans (80 kg) - Douleur post-traumatique</h3><p class="case-description">Patient avec fracture du radius droit après chute, douleur intense (EVA 8/10).</p><div class="tabs"><div class="tab active" data-tab="no-ci-4">Traitement initial</div><div class="tab"
+data-tab="with-ci-4">Douleur persistante</div></div><div class="tab-content active" id="no-ci-4"><div class="definition-box"><h4>Prise en charge initiale :</h4><p>Association d'antalgiques selon l'échelle OMS</p></div><div class="pillar"><div class="pillar-title">Médication :</div><p><strong>Paracétamol</strong> : 1 g toutes les 6 heures</p><p><strong>AINS</strong> (sans contre-indication) :</p><ul class="prescription-list"><li>Ibuprofène 400 mg toutes les 8 heures</li><li>Ou Kétoprofène 100 mg
+2x/jour</li></ul><p><strong>Morphinique mineur</strong> :</p><ul class="prescription-list"><li>Tramadol 50 mg toutes les 6 heures</li><li>Ou Codéine 30 mg + Paracétamol 500 mg (Codoliprane)</li></ul></div><div class="specialty-box"><h4>Mesures adjuvantes :</h4><ul class="prescription-list"><li>Immobilisation</li><li>Glaçage 15-20 min toutes les 2-3 heures</li><li>Surélévation du membre</li></ul></div></div><div class="tab-content" id="with-ci-4"><div class="indication-box"><h4>Si douleur
+persistante :</h4><p>Passage au palier 3 avec surveillance étroite</p></div><div class="classification-box"><h4>Options :</h4><p><strong>Morphine</strong> :</p><ul class="prescription-list"><li>Voie orale : Actiskenan 10 mg toutes les 4 heures</li><li>Voie IV : Chlorhydrate de morphine 2-4 mg en bolus (répétable après 10 min si besoin)</li></ul><p><strong>MEOPA</strong> (Kalinox) :</p><ul class="prescription-list"><li>Pour les soins douloureux (réduction, pansement)</li></ul><p><strong>Bloc
+nerveux</strong> :</p><ul class="prescription-list"><li>Bloc du nerf radial sous échographie par anesthésiste</li></ul></div></div></div><!-- Cas 6 : Paludisme simple --><div class="case-study-card" data-index="5" data-pathology="paludisme" data-age="30ans" data-weight="65kg"><h3><i class="fas fa-mosquito"></i> Cas 6 : Adulte de 30 ans (65 kg) - Paludisme simple à P. falciparum</h3><p class="case-description">Patient revenant d'un voyage en zone d'endémie, fièvre à 39°C, frissons, céphalées.
+Frottis sanguin positif pour P. falciparum, parasitémie à 1%.</p><div class="tabs"><div class="tab active" data-tab="no-ci-5">Traitement standard</div><div class="tab" data-tab="with-ci-5">Cas particuliers</div></div><div class="tab-content active" id="no-ci-5"><div class="who-recommendation"><h4>Recommandations OMS 2023 :</h4><p>Utilisation des ACT (Artemisinin-based Combination Therapy) en première intention pour P. falciparum</p></div>
+<table class="regimen-table"><tr><th>Association</th><th>Posologie adulte</th><th>Durée</th><th>Spécialités</th></tr><tr><td>Artéméther + Luméfantrine
+</td><td>4 cp à H0, H8, J1, J2, J3 (80/480 mg/jour)
+</td><td>3 jours
+</td><td>COARTEM, ARTEFAN, BIMALARIL
+</td></tr><tr><td>Artésunate + Amodiaquine
+</td><td>200 mg + 600 mg/jour
+</td><td>3 jours
+</td><td>CAMOQUIN PLUS, ASAQ
+</td></tr><tr><td>Artésunate + Méfloquine
+</td><td>200 mg + 400 mg (J0-J2) puis 400 mg J7
+</td><td>3 jours + dose J7
+</td><td>ARTEQUIN
+</td></tr></table><div class="protocol-box"><h4>Protocole Côte d'Ivoire :</h4><ul><li>1ère ligne : Artéméther-Luméfantrine (3 jours)</li><li>2ème ligne : Artésunate-Amodiaquine (3 jours)</li><li>3ème ligne : Quinine IV + Doxycycline (7 jours)</li></ul></div></div><div class="tab-content" id="with-ci-5"><div class="warning-box"><h4>Cas particuliers :</h4><p>Adaptation thérapeutique selon contre-indications et situations spéciales</p></div>
+<table class="regimen-table"><tr><th>Situation</th><th>Traitement alternatif</th><th>Durée</th></tr><tr><td>Grossesse (1er trimestre)
+</td><td>Quinine + Clindamycine
+</td><td>7 jours
+</td></tr><tr><td>Allergie aux dérivés d'artémisinine
+</td><td>Atovaquone-Proguanil
+</td><td>3 jours
+</td></tr><tr><td>Enfant &lt;5 kg
+</td><td>Artésunate suppositoires puis ACT
+</td><td>3-7 jours
+</td></tr></table><div class="side-effects"><h4>Effets secondaires à surveiller :</h4><ul><li>Artéméther-Luméfantrine : vertiges, troubles digestifs</li><li>Artésunate-Amodiaquine : prurit, neutropénie</li><li>Méfloquine : troubles neuropsychiatriques</li></ul></div></div></div><!-- Cas 7 : VIH - Initiation TARV --><div class="case-study-card" data-index="6" data-pathology="protocoles" data-age="35ans" data-weight="70kg"><h3><i class="fas fa-virus"></i> Cas 7 : Patient de 35 ans (70 kg) -
+Initiation TARV</h3><p class="case-description">Nouveau diagnostic VIH+, CD4 à 250/mm3, charge virale 85 000 copies/mL. Pas de comorbidité ni d'infection opportuniste.</p><div class="tabs"><div class="tab active" data-tab="no-ci-6">1ère ligne</div><div class="tab" data-tab="with-ci-6">2ème ligne</div></div><div class="tab-content active" id="no-ci-6"><div class="who-recommendation"><h4>Recommandations OMS 2023 :</h4><p>Schémas basés sur les INTI (TDF/3TC/DTG) en première intention</p></div>
+<table class="regimen-table"><tr><th>Protocole</th><th>Composition</th><th>Posologie</th><th>Spécialités</th></tr><tr><td>1ère ligne standard
+</td><td>TDF + 3TC + DTG
+</td><td>1 cp/jour
+</td><td>TENOFOVIR + LAMIVUDINE + DOLUTEGRAVIR
+</td></tr><tr><td>Alternative
+</td><td>TAF + FTC + DTG
+</td><td>1 cp/jour
+</td><td>DESCOVY + TIVICAY
+</td></tr><tr><td>Grossesse
+</td><td>TDF + 3TC + EFV
+</td><td>1 cp/jour
+</td><td>TENOFOVIR + LAMIVUDINE + SUSTIVA
+</td></tr></table><div class="protocol-box"><h4>Protocole Côte d'Ivoire :</h4><ul><li>Adulte standard : TDF/3TC/DTG (TLD) - 1 cp/jour</li><li>Femme enceinte : TDF/3TC/EFV - 1 cp/jour</li><li>Enfant &lt;30 kg : ABC/3TC/DTG - doses adaptées</li></ul></div></div><div class="tab-content" id="with-ci-6"><div class="warning-box"><h4>2ème ligne (après échec virologique) :</h4><p>Basée sur les résultats du génotype de résistance</p></div>
+<table class="regimen-table"><tr><th>Situation</th><th>Protocole recommandé</th><th>Surveillance</th></tr><tr><td>Résistance aux INTI
+</td><td>TAF/FTC + DTG + DRV/r
+</td><td>CV à 3 et 6 mois
+</td></tr><tr><td>Résistance aux INNTI
+</td><td>TDF/3TC + DTG + LPV/r
+</td><td>CV mensuelle
+</td></tr><tr><td>Résistance aux IP
+</td><td>TDF/FTC + DTG + ETR
+</td><td>CV trimestrielle
+</td></tr></table><div class="side-effects"><h4>Effets secondaires des ARV :</h4><ul><li>TDF : néphrotoxicité, ostéoporose</li><li>DTG : insomnie, prise de poids</li><li>EFV : troubles neuropsychiatriques</li><li>LPV/r : diarrhée, hyperlipidémie</li></ul></div></div></div><!-- Cas 8 : Tuberculose pulmonaire --><div class="case-study-card" data-index="7" data-pathology="tuberculose" data-age="40ans" data-weight="60kg"><h3><i class="fas fa-lungs"></i> Cas 8 : Patient de 40 ans (60 kg) -
+Tuberculose pulmonaire</h3><p class="case-description">Toux productive depuis 3 semaines, amaigrissement, sueurs nocturnes. Frottis d'expectoration positif à BK. Pas d'antécédent de traitement.</p><div class="tabs"><div class="tab active" data-tab="no-ci-7">TB sensible</div><div class="tab" data-tab="with-ci-7">TB résistante</div></div><div class="tab-content active" id="no-ci-7"><div class="who-recommendation"><h4>Protocole OMS TB sensible :</h4><p>Traitement standard en 2 phases (RHZE puis
+RH)</p></div>
+<table class="regimen-table"><tr><th>Phase</th><th>Médicaments</th><th>Posologie</th><th>Durée</th></tr><tr><td>Intensive
+</td><td>Rifampicine + Isoniazide + Pyrazinamide + Ethambutol
+</td><td>RHZE 150/75/400/275 mg (4 cp/jour)
+</td><td>2 mois
+</td></tr><tr><td>Continuation
+</td><td>Rifampicine + Isoniazide
+</td><td>RH 150/75 mg (2 cp/jour)
+</td><td>4 mois
+</td></tr></table><div class="protocol-box"><h4>Protocole Côte d'Ivoire :</h4><ul><li>TB pulmonaire : 2RHZE/4RH</li><li>TB extrapulmonaire : 2RHZE/4RH ou 2RHZE/7RH selon localisation</li><li>Enfant : doses adaptées au poids</li></ul></div></div><div class="tab-content" id="with-ci-7"><div class="warning-box"><h4>TB multirésistante (MDR-TB) :</h4><p>Basée sur les résultats de l'antibiogramme</p></div>
+<table class="regimen-table"><tr><th>Résistance</th><th>Protocole recommandé</th><th>Durée</th></tr><tr><td>MDR (R+H)
+</td><td>6-9 mois : Bdq + Lzd + Cfz + Cs + Z + E
+</td><td>18-20 mois
+</td></tr><tr><td>Pré-XDR (R+H+FQ)
+</td><td>Bdq + Lzd + Cfz + Cs + Z + E ± Dlm
+</td><td>18-24 mois
+</td></tr><tr><td>XDR (R+H+FQ+Inj)
+</td><td>Bdq + Lzd + Cfz + Cs + Dlm + E
+</td><td>24 mois
+</td></tr></table><div class="side-effects"><h4>Surveillance des effets secondaires :</h4><ul><li>Rifampicine : hépatotoxicité, coloration des fluides</li><li>Isoniazide : neuropathie périphérique</li><li>Pyrazinamide : hyperuricémie, hépatite</li><li>Ethambutol : névrite optique</li><li>Ligne 2 : ototoxicité, troubles psychiatriques</li></ul></div></div></div><!-- Cas 9 : Co-infection VIH/TB --><div class="case-study-card" data-index="8" data-pathology="protocoles" data-age="45ans"
+data-weight="55kg"><h3><i class="fas fa-viruses"></i> Cas 9 : Patient de 45 ans (55 kg) - Co-infection VIH/TB</h3><p class="case-description">Patient VIH+ connu, CD4 à 180/mm3, sous TDF/3TC/EFV depuis 2 ans. Apparition de toux, fièvre, amaigrissement. BK positif dans les crachats.</p><div class="tabs"><div class="tab active" data-tab="no-ci-8">Traitement simultané</div><div class="tab" data-tab="with-ci-8">Interactions</div></div><div class="tab-content active" id="no-ci-8"><div
+class="who-recommendation"><h4>Recommandations OMS :</h4><p>Traitement simultané de la TB et du VIH avec adaptation des ARV</p></div>
+<table class="regimen-table"><tr><th>Protocole</th><th>Composition</th><th>Début</th></tr><tr><td>Traitement TB
+</td><td>2RHZE/4RH
+</td><td>Immédiat
+</td></tr><tr><td>Traitement VIH
+</td><td>TDF + 3TC + DTG
+</td><td>Dès que possible (idéalement dans les 2 semaines)
+</td></tr><tr><td>Prophylaxie CPT
+</td><td>Cotrimoxazole 800/160 mg
+</td><td>Pendant toute la durée du traitement
+</td></tr></table><div class="protocol-box"><h4>Protocole Côte d'Ivoire :</h4><ul><li>Débuter le traitement TB immédiatement</li><li>Modifier les ARV si nécessaire (éviter EFV avec RFP)</li><li>Surveillance accrue des effets secondaires</li></ul></div></div><div class="tab-content" id="with-ci-8"><div class="warning-box"><h4>Interactions médicamenteuses clés :</h4><p>Adaptation nécessaire des schémas thérapeutiques</p></div>
+<table class="regimen-table"><tr><th>ARV</th><th>Interaction avec Rifampicine</th><th>Solution</th></tr><tr><td>EFV
+</td><td>Diminution des concentrations
+</td><td>Augmenter dose EFV à 800 mg/jour
+</td></tr><tr><td>DTG
+</td><td>Diminution des concentrations
+</td><td>Doubler dose DTG (50 mg 2x/jour)
+</td></tr><tr><td>LPV/r
+</td><td>Diminution majeure des concentrations
+</td><td>Contre-indiqué - changer de classe
+</td></tr></table><div class="side-effects"><h4>Surveillance particulière :</h4><ul><li>Syndrome inflammatoire de restauration immune (IRIS)</li><li>Toxicité hépatique cumulée</li><li>Adhérence au traitement (nombre de comprimés)</li><li>Réponse immunologique (CD4) et virologique (CV VIH)</li></ul></div></div></div><!-- Cas 10 : Prévention paludisme --><div class="case-study-card" data-index="9" data-pathology="paludisme" data-age="28ans" data-weight="70kg"><h3><i class="fas fa-syringe"></i> Cas
+10 : Voyageur de 28 ans (70 kg) - Prévention paludisme</h3><p class="case-description">Patient se rendant en zone d'endémie palustre (Afrique de l'Ouest) pour 3 mois. Recherche de stratégie de chimioprophylaxie adaptée.</p><div class="tabs"><div class="tab active" data-tab="no-ci-9">Chimioprophylaxie</div><div class="tab" data-tab="with-ci-9">Traitement d'urgence</div></div><div class="tab-content active" id="no-ci-9"><div class="who-recommendation"><h4>Recommandations OMS :</h4><p>Chimioprophylaxie
+adaptée à la zone géographique et au profil du voyageur</p></div>
+<table class="regimen-table"><tr><th>Médicament</th><th>Posologie</th><th>Début/Fin</th><th>Spécialités</th></tr><tr><td>Atovaquone-Proguanil
+</td><td>1 cp/jour
+</td><td>1j avant - 7j après
+</td><td>MALARONE
+</td></tr><tr><td>Doxycycline
+</td><td>100 mg/jour
+</td><td>1j avant - 4 sem après
+</td><td>DOXY, GRAMOX
+</td></tr><tr><td>Méfloquine
+</td><td>250 mg/semaine
+</td><td>2-3 sem avant - 4 sem après
+</td><td>LARIAM
+</td></tr></table><div class="protocol-box"><h4>Protocole Côte d'Ivoire (résidents) :</h4><ul><li>Femmes enceintes : Sulfadoxine-Pyriméthamine (3 doses)</li><li>Enfants : Chimioprévention saisonnière (CSP)</li><li>Voyageurs : Adaptation selon zone et durée</li></ul></div></div><div class="tab-content" id="with-ci-9"><div class="warning-box"><h4>Traitement d'urgence (stand-by) :</h4><p>Pour voyageurs en zones reculées sans accès rapide aux soins</p></div>
+<table class="regimen-table"><tr><th>Situation</th><th>Traitement</th><th>Posologie</th></tr><tr><td>Autotraitement présomptif
+</td><td>Artéméther-Luméfantrine
+</td><td>4 cp à H0, H8, puis 2x/j pendant 2 jours
+</td></tr><tr><td>Alternative
+</td><td>Atovaquone-Proguanil
+</td><td>4 cp/jour pendant 3 jours
+</td></tr><tr><td>Après retour
+</td><td>Consultation médicale obligatoire
+</td><td>Même en cas d'amélioration
+</td></tr></table><div class="side-effects"><h4>Mesures complémentaires :</h4><ul><li>Protection contre les piqûres (moustiquaire, répulsifs)</li><li>Reconnaissance des symptômes</li><li>Certificat de prise de médicaments (zones à risque)</li><li>Vaccination si disponible (RTS,S/AS01)</li></ul></div></div></div><!-- Cas 11 : Antibiotiques --><div class="case-study-card" data-index="10" data-pathology="antibiotiques" data-age="all" data-weight="all"><h3><i class="fas fa-pills"></i> Cas 11 : Guide
+des Antibiotiques</h3><p class="case-description">Référence complète sur les antibiotiques: classifications, indications, contre-indications et bonnes pratiques.</p><div class="tabs"><div class="tab active" data-tab="antibio-def">Définitions</div><div class="tab" data-tab="antibio-class">Classifications</div><div class="tab" data-tab="antibio-ci">Contre-indications</div></div><div class="tab-content active" id="antibio-def"><div class="definition-box"><h4>Définitions :</h4><p><strong>Antibiotiques</strong>
+: Substances chimiques élaborées par des micro-organismes capables d'inhiber la multiplication (bactériostatique) ou de tuer (bactéricide) d'autres micro-organismes.</p><p><strong>Antibiogramme</strong> : Examen de laboratoire qui détermine la sensibilité d'une souche bactérienne aux différents antibiotiques.</p><div class="protocol-box"><h4>Types d'antibiothérapie :</h4><ul><li><strong>Probabiliste</strong> : Basée sur le germe le plus probable</li><li><strong>Documentée</strong> : Basée sur
+l'antibiogramme</li><li><strong>Préventive</strong> : Prophylaxie avant intervention</li></ul></div></div><div class="warning-box"><h4>Antibiorésistance :</h4><p>Problème majeur de santé publique dû à :</p><ul><li>Utilisation excessive d'antibiotiques</li><li>Traitements trop courts</li><li>Automédication</li></ul></div></div><div class="tab-content" id="antibio-class"><div class="classification-box"><h4>Familles d'antibiotiques :</h4>
+<table class="regimen-table"><tr><th>Famille</th><th>Action</th><th>Exemples</th><th>Spectre</th></tr><tr><td>Bêta-lactamines
+</td><td>Bactéricide
+</td><td>Pénicillines, Céphalosporines, Carbapénèmes
+</td><td>Large selon génération
+</td></tr><tr><td>Macrolides
+</td><td>Bactériostatique
+</td><td>Erythromycine, Azithromycine
+</td><td>Gram+ et certains Gram-
+</td></tr><tr><td>Fluoroquinolones
+</td><td>Bactéricide
+</td><td>Ciprofloxacine, Lévofloxacine
+</td><td>Large spectre
+</td></tr><tr><td>Aminosides
+</td><td>Bactéricide
+</td><td>Gentamicine, Amikacine
+</td><td>Gram- et certains Gram+
+</td></tr><tr><td>Tétracyclines
+</td><td>Bactériostatique
+</td><td>Doxycycline
+</td><td>Large spectre
+</td></tr></table></div><div class="who-recommendation"><h4>Bactéries prioritaires (OMS) :</h4><ul><li><strong>Critique</strong> : Acinetobacter, Pseudomonas, Entérobactéries résistantes</li><li><strong>Haute</strong> : S. aureus résistant, H. pylori résistant</li><li><strong>Moyenne</strong> : S. pneumoniae non sensible</li></ul></div></div><div class="tab-content" id="antibio-ci"><div class="warning-box"><h4>Contre-indications majeures :</h4>
+<table class="regimen-table"><tr><th>Situation</th><th>Antibiotiques contre-indiqués</th></tr><tr><td>Grossesse
+</td><td>Tétracyclines, Fluoroquinolones, Sulfamides
+</td></tr><tr><td>Allaitement
+</td><td>Métronidazole, Chloramphénicol
+</td></tr><tr><td>Enfants <8 ans
+</td><td>Tétracyclines (coloration dentaire)
+</td></tr><tr><td>Insuffisance rénale
+</td><td>Aminosides, Vancomycine
+</td></tr><tr><td>Insuffisance hépatique
+</td><td>Macrolides, Tétracyclines
+</td></tr></table></div><div class="side-effects"><h4>Effets secondaires fréquents :</h4><ul><li><strong>Allergies</strong> : Urticaire, œdème de Quincke (Bêta-lactamines)</li><li><strong>Digestifs</strong> : Diarrhées, nausées (tous antibiotiques)</li><li><strong>Tendinopathies</strong> : Fluoroquinolones</li><li><strong>Photosensibilisation</strong> : Tétracyclines</li></ul></div></div></div><!-- Cas 12 : Antiparasitaires --><div class="case-study-card" data-index="11"
+data-pathology="parasitaires" data-age="all" data-weight="all"><h3><i class="fas fa-bug"></i> Cas 12 : Guide des Antiparasitaires</h3><p class="case-description">Référence complète sur les antiparasitaires: classifications, indications et protocoles d'utilisation.</p><div class="tabs"><div class="tab active" data-tab="antipara-1">Antiparasitaires</div><div class="tab" data-tab="antipara-2">Antifongiques</div><div class="tab" data-tab="antipara-3">Antilépreux</div></div><div class="tab-content
+active" id="antipara-1"><div class="definition-box"><h4>Définition :</h4><p>Les antiparasitaires sont des médicaments utilisés pour traiter les infections causées par des parasites (protozoaires, helminthes, arthropodes).</p></div><div class="classification-box"><h4>Classes d'antiparasitaires :</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Médicaments</th><th>Indications</th></tr><tr><td>Antiamibiens
+</td><td>Métronidazole, Secnidazole, Ornidazole
+</td><td>Amibiase, giardiase
+</td></tr><tr><td>Antitoxoplasmose
+</td><td>Pyriméthamine (MALOCIDE)
+</td><td>Toxoplasmose
+</td></tr><tr><td>Antipneumocystose
+</td><td>Atovaquone (MALARONE)
+</td><td>Pneumocystose
+</td></tr><tr><td>Antileshmaniose
+</td><td>Antimoniate de méglumine (GLUCANTINE)
+</td><td>Leishmaniose
+</td></tr><tr><td>Trypanocides
+</td><td>Pentamidine (PENTACARINAT)
+</td><td>Trypanosomiase
+</td></tr></table></div><div class="specialty-box"><h4>Anthelminthiques :</h4>
+<table class="regimen-table"><tr><th>Médicament</th><th>Spécialités</th><th>Indications</th></tr><tr><td>Albendazole
+</td><td>ZENTEL, ALBEN
+</td><td>Vers intestinaux
+</td></tr><tr><td>Mebendazole
+</td><td>VERMOX, CARBEN
+</td><td>Oxyurose, ascaridiose
+</td></tr><tr><td>Praziquantel
+</td><td>BILTRICIDE
+</td><td>Bilharziose, téniasis
+</td></tr><tr><td>Ivermectine
+</td><td>STOMECTROL
+</td><td>Onchocercose, gale
+</td></tr></table></div><div class="protocol-box"><h4>Antiscabieux :</h4><ul><li><strong>Benzoate de benzyle</strong> : ASCABIOL, ACARIBIAL</li><li><strong>Pyréthrinoïdes</strong> : SPREGAL</li><li><strong>Malathion</strong> : PRIODERM</li></ul></div></div><div class="tab-content" id="antipara-2"><div class="definition-box"><h4>Antifongiques :</h4><p>Médicaments utilisés pour traiter les infections fongiques (mycoses).</p></div><div class="classification-box"><h4>Antifongiques topiques :</h4>
+<table class="regimen-table"><tr><th>Médicament</th><th>Spécialités</th><th>Indications</th></tr><tr><td>Kétoconazole
+</td><td>KETODERME 2%
+</td><td>Mycoses cutanées
+</td></tr><tr><td>Terbinafine
+</td><td>LAMISIL 1%
+</td><td>Mycoses cutanées
+</td></tr><tr><td>Amorolfine
+</td><td>LOCERYL 5%
+</td><td>Onychomycoses
+</td></tr><tr><td>Miconazole
+</td><td>DAKTARIN
+</td><td>Candidoses cutanées
+</td></tr></table></div><div class="specialty-box"><h4>Antifongiques systémiques :</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Médicaments</th><th>Indications</th></tr><tr><td>Azolés
+</td><td>Fluconazole, Itraconazole
+</td><td>Candidoses systémiques
+</td></tr><tr><td>Polyènes
+</td><td>Amphotéricine B
+</td><td>Mycoses profondes
+</td></tr><tr><td>Echinocandines
+</td><td>Caspofungine
+</td><td>Candidoses invasives
+</td></tr></table></div></div><div class="tab-content" id="antipara-3"><div class="definition-box"><h4>Antilépreux :</h4><p>Médicaments utilisés dans le traitement de la lèpre.</p></div><div class="protocol-box"><h4>Médicaments antilépreux :</h4>
+<table class="regimen-table"><tr><th>Médicament</th><th>Spécialités</th><th>Rôle</th></tr><tr><td>Dapsone
+</td><td>DISULONE
+</td><td>Bactériostatique
+</td></tr><tr><td>Clofazimine
+</td><td>LAMPRENE
+</td><td>Bactéricide et anti-inflammatoire
+</td></tr><tr><td>Rifampicine
+</td><td>RIFADINE
+</td><td>Bactéricide puissant
+</td></tr></table></div><div class="who-recommendation"><h4>Protocole OMS :</h4><ul><li><strong>Lèpre paucibacillaire</strong> : Rifampicine + Dapsone pendant 6 mois</li><li><strong>Lèpre multibacillaire</strong> : Rifampicine + Dapsone + Clofazimine pendant 12 mois</li></ul></div><div class="warning-box"><h4>Effets secondaires :</h4><ul><li><strong>Dapsone</strong> : Anémie hémolytique, méthémoglobinémie</li><li><strong>Clofazimine</strong> : Coloration cutanée rouge-brun</li><li><strong>Rifampicine</strong>
+: Coloration des fluides en orange</li></ul></div></div></div><!-- Cas 13 : Médicaments respiratoires --><div class="case-study-card" data-index="12" data-pathology="infection-respiratoire" data-age="all" data-weight="all"><h3><i class="fas fa-lungs"></i> Cas 13 : Médicaments de l'Appareil Respiratoire</h3><p class="case-description">Guide complet sur les médicaments antitussifs, expectorants et anti-asthmatiques.</p><div class="tabs"><div class="tab active" data-tab="resp-1">Antitussifs</div>
+<div class="tab" data-tab="resp-2">Expectorants</div><div class="tab" data-tab="resp-3">Anti-asthmatiques</div></div><div class="tab-content active" id="resp-1"><div class="definition-box"><h4>Antitussifs :</h4><p>Médicaments utilisés pour traiter la toux. Le choix dépend du type de toux (sèche ou grasse).</p></div><div class="classification-box"><h4>Antitussifs centraux (toux sèche) :</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Médicaments</th><th>Spécialités</th></tr><tr><td>Opiacés
+</td><td>Codéine, Pholcodine, Dextrométhorphane
+</td><td>NEO CODION, BIOCALYPTOL, PULMODEXANE
+</td></tr><tr><td>Antihistaminiques
+</td><td>Oxomémazine, Alimémazine
+</td><td>TOPLEXIL, THERALENE
+</td></tr><tr><td>Non opiacés
+</td><td>Oxéladine, Pentoxyvérine
+</td><td>PAXELADINE, CODOTUSSYL
+</td></tr></table></div><div class="warning-box"><h4>Précautions :</h4><ul><li>Contre-indiqués en cas de toux grasse (risque de rétention des sécrétions)</li><li>Effets secondaires : constipation (opiacés), somnolence (antihistaminiques)</li><li>Ne pas utiliser chez l'enfant < 2 ans</li></ul></div></div><div class="tab-content" id="resp-2"><div class="definition-box"><h4>Expectorants et Mucolytiques :</h4><p>Médicaments qui fluidifient les sécrétions bronchiques et facilitent leur expulsion.</p>
+</div><div class="specialty-box"><h4>Principales molécules :</h4>
+<table class="regimen-table"><tr><th>Médicament</th><th>Action</th><th>Spécialités</th></tr><tr><td>Acétylcystéine
+</td><td>Mucolytique direct
+</td><td>EXOMUC, FLUIMUCIL
+</td></tr><tr><td>Carbocistéine
+</td><td>Mucorégulateur
+</td><td>BRONCHOKOD, FLUIDIBRONC
+</td></tr><tr><td>Ambroxol
+</td><td>Stimule la production de surfactant
+</td><td>SURBRONC, MUXOL
+</td></tr><tr><td>Guaïfénésine
+</td><td>Expectorant
+</td><td>VICKS
+</td></tr></table></div><div class="protocol-box"><h4>Recommandations :</h4><ul><li>Associer à une hydratation suffisante</li><li>Éviter en cas d'impossibilité de tousser (risque d'inondation bronchique)</li><li>Privilégier la prise matinale pour éviter les toux nocturnes</li></ul></div></div><div class="tab-content" id="resp-3"><div class="definition-box"><h4>Anti-asthmatiques :</h4><p>Médicaments utilisés dans le traitement de l'asthme, agissant sur la bronchoconstriction et l'inflammation.</p>
+</div><div class="classification-box"><h4>Bronchodilatateurs :</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Médicaments</th><th>Mode d'action</th></tr><tr><td>Bêta-2 agonistes
+</td><td>Salbutamol, Terbutaline, Formotérol
+</td><td>Relaxation musculaire bronchique
+</td></tr><tr><td>Anticholinergiques
+</td><td>Ipratropium, Tiotropium
+</td><td>Blocage des récepteurs muscariniques
+</td></tr><tr><td>Xanthines
+</td><td>Théophylline
+</td><td>Inhibition de la phosphodiestérase
+</td></tr></table></div><div class="specialty-box"><h4>Traitement de fond :</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Médicaments</th><th>Spécialités</th></tr><tr><td>Corticostéroïdes inhalés
+</td><td>Béclométasone, Budésonide
+</td><td>ASMABEC, PULMICORT
+</td></tr><tr><td>Antileucotriènes
+</td><td>Montélukast
+</td><td>SINGULAIR
+</td></tr><tr><td>Associations fixes
+</td><td>Formotérol/Budésonide
+</td><td>SYMBICORT
+</td></tr></table></div><div class="who-recommendation"><h4>Stratégie thérapeutique (GINA) :</h4><ol><li>Bêta-2 agonistes de courte durée (SABA) pour le soulagement rapide</li><li>Corticostéroïdes inhalés (CSI) pour le contrôle à long terme</li><li>Associations fixes (LABA + CSI) pour l'asthme persistant</li></ol></div></div></div><!-- Cas 14 : Antihistaminiques --><div class="case-study-card" data-index="13" data-pathology="antihistaminiques" data-age="all" data-weight="all"><h3><i class="fas
+fa-allergies"></i> Cas 14 : Antihistaminiques et Antiallergiques</h3><p class="case-description">Guide complet sur les antihistaminiques: classifications, indications et protocoles d'utilisation.</p><div class="tabs"><div class="tab active" data-tab="antiH-1">Antihistaminiques H1</div><div class="tab" data-tab="antiH-2">Antiallergiques divers</div><div class="tab" data-tab="antiH-3">Anticorps anti-IgE</div></div><div class="tab-content active" id="antiH-1"><div class="definition-box"><h4>Antihistaminiques
+H1 :</h4><p>Médicaments bloquant les récepteurs H1 de l'histamine, utilisés dans le traitement des réactions allergiques.</p></div><div class="classification-box"><h4>Classification :</h4>
+<table class="regimen-table"><tr><th>Type</th><th>Médicaments</th><th>Spécialités</th><th>Profil</th></tr><tr><td>Peu sédatifs
+</td><td>Desloratadine, Cétirizine, Fexofénadine
+</td><td>AERIUS, ZYRTEC, TELFAST
+</td><td>1ère intention, peu d'effets secondaires
+</td></tr><tr><td>Sédatifs
+</td><td>Dexchlorphéniramine, Prométhazine
+</td><td>POLARAMINE, PHENERGAN
+</td><td>Effet sédatif marqué
+</td></tr><tr><td>Phénothiaziniques
+</td><td>Cyproheptadine, Alimémazine
+</td><td>PERIACTINE, THERALENE
+</td><td>Action antiémétique et sédative
+</td></tr></table></div><div class="protocol-box"><h4>Indications principales :</h4><ul><li>Rhinite allergique saisonnière ou perannuelle</li><li>Conjonctivite allergique</li><li>Urticaire aiguë ou chronique</li><li>Prurit allergique</li><li>Prévention des réactions allergiques</li></ul></div></div><div class="tab-content" id="antiH-2"><div class="definition-box"><h4>Antiallergiques divers :</h4><p>Médicaments agissant par d'autres mécanismes que le blocage des récepteurs H1.</p></div><div
+class="specialty-box"><h4>Principales molécules :</h4>
+<table class="regimen-table"><tr><th>Médicament</th><th>Classe</th><th>Spécialités</th><th>Mode d'action</th></tr><tr><td>Cromoglycate
+</td><td>Stabilisateur mastocytes
+</td><td>LOMUDAL, INTERCRON
+</td><td>Prévient la libération d'histamine
+</td></tr><tr><td>Kétotifène
+</td><td>Antihistaminique atypique
+</td><td>ZADITEN
+</td><td>Blocage des canaux calciques
+</td></tr><tr><td>Tritoqualine
+</td><td>Inhibiteur histidine décarboxylase
+</td><td>TRITOQUALINE
+</td><td>Réduction de la synthèse d'histamine
+</td></tr></table></div><div class="warning-box"><h4>Indications spécifiques :</h4><ul><li>Prévention de l'asthme allergique (Cromoglycate)</li><li>Conjonctivite allergique (Kétotifène)</li><li>Prévention des migraines (Cyproheptadine)</li></ul></div></div><div class="tab-content" id="antiH-3"><div class="definition-box"><h4>Anticorps anti-IgE :</h4><p>Traitements biologiques ciblés pour les allergies sévères.</p></div><div class="who-recommendation"><h4>Omalizumab (XOLAIR) :</h4><ul><li><strong>Indication</strong>
+: Asthme allergique sévère persistant malgré les CSI</li><li><strong>Mode d'action</strong> : Se lie aux IgE libres, empêchant leur fixation aux mastocytes</li><li><strong>Administration</strong> : Injection sous-cutanée toutes les 2-4 semaines</li></ul></div><div class="protocol-box"><h4>Critères de prescription :</h4><ol><li>Asthme persistant modéré à sévère</li><li>Test cutané positif ou IgE spécifiques positives</li><li>IgE totales entre 30 et 1500 UI/mL</li><li>Âge > 6 ans</li><li>Symptômes
+non contrôlés par CSI + LABA</li></ol></div><div class="side-effects"><h4>Effets secondaires :</h4><ul><li>Réactions au site d'injection</li><li>Céphalées</li><li>Risque théorique d'anaphylaxie (surveillance nécessaire)</li></ul></div></div></div><!-- Cas 15 : Médicaments digestifs --><div class="case-study-card" data-index="14" data-pathology="path-digestive" data-age="all" data-weight="all"><h3><i class="fas fa-stomach"></i> Cas 15 : Médicaments de l'Appareil Digestif</h3><p
+class="case-description">Guide complet sur les médicaments gastro-intestinaux : antiulcéreux, antiémétiques, antidiarrhéiques et plus.</p><div class="tabs"><div class="tab active" data-tab="digest-1">Antiulcéreux</div><div class="tab" data-tab="digest-2">Antiémétiques</div><div class="tab" data-tab="digest-3">Troubles intestinaux</div></div><div class="tab-content active" id="digest-1"><div class="definition-box"><h4>Antiulcéreux :</h4><p>Médicaments utilisés dans le traitement des ulcères
+gastroduodénaux et du reflux gastro-œsophagien (RGO).</p></div><div class="classification-box"><h4>Classes principales :</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Mécanisme</th><th>Médicaments</th><th>Spécialités</th></tr><tr><td>Inhibiteurs de la pompe à protons (IPP)
+</td><td>Blocage de la sécrétion acide
+</td><td>Oméprazole, Lansoprazole
+</td><td>MOPRAL, LANZOR
+</td></tr><tr><td>Anti-H2
+</td><td>Réduction de l'acidité
+</td><td>Ranitidine, Famotidine
+</td><td>AZANTAC, PEPDINE
+</td></tr><tr><td>Pansements gastriques
+</td><td>Protection de la muqueuse
+</td><td>Sucralfate, Alginate
+</td><td>ULCAR, GAVISCON
+</td></tr><tr><td>Antiacides
+</td><td>Neutralisation de l'acide
+</td><td>Hydroxyde d'aluminium
+</td><td>MAALOX, PHOSPHALUGEL
+</td></tr></table></div><div class="protocol-box"><h4>Protocole Helicobacter pylori :</h4><p>Trithérapie pendant 10-14 jours :</p><ul><li><strong>IPP</strong> : Oméprazole 40mg/j</li><li><strong>Antibiotique 1</strong> : Amoxicilline 2g/j</li><li><strong>Antibiotique 2</strong> : Clarithromycine 1g/j</li></ul></div><div class="warning-box"><h4>Conseils hygiéno-diététiques :</h4><ul><li>Éviter alcool, tabac, épices</li><li>Repas fractionnés (3-4/jour)</li><li>Surélever la tête du lit</li><li>Éviter
+les positions penchées après repas</li></ul></div></div><div class="tab-content" id="digest-2"><div class="definition-box"><h4>Antiémétiques :</h4><p>Médicaments utilisés pour prévenir ou traiter les nausées et vomissements.</p></div><div class="specialty-box"><h4>Classes thérapeutiques :</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Indications</th><th>Médicaments</th><th>Spécialités</th></tr><tr><td>Prokinétiques
+</td><td>RGO, dyspepsie
+</td><td>Dompéridone, Métoclopramide
+</td><td>MOTILUM, PRIMPERAN
+</td></tr><tr><td>Antagonistes 5-HT3
+</td><td>Chimiothérapie
+</td><td>Ondansétron
+</td><td>ZOPHREN
+</td></tr><tr><td>Neuroleptiques
+</td><td>Post-opératoire
+</td><td>Alizapride
+</td><td>PLITICAN
+</td></tr><tr><td>Antihistaminiques
+</td><td>Mal des transports
+</td><td>Dimenhydrinate
+</td><td>NAUSICALM
+</td></tr></table></div><div class="who-recommendation"><h4>Choix selon l'étiologie :</h4><ul><li><strong>Chimiothérapie</strong> : Ondansétron + Dexaméthasone</li><li><strong>Grossesse</strong> : Doxylamine + Pyridoxine</li><li><strong>Post-opératoire</strong> : Dropéridol</li></ul></div></div><div class="tab-content" id="digest-3"><div class="definition-box"><h4>Troubles intestinaux :</h4><p>Médicaments pour la prise en charge de la diarrhée et de la constipation.</p></div><div
+class="classification-box"><h4>Antidiarrhéiques :</h4>
+<table class="regimen-table"><tr><th>Type</th><th>Mécanisme</th><th>Médicaments</th><th>Spécialités</th></tr><tr><td>Ralentisseurs du transit
+</td><td>Diminution motilité
+</td><td>Lopéramide
+</td><td>IMODIUM
+</td></tr><tr><td>Antisécrétoires
+</td><td>Réduction sécrétions
+</td><td>Racécadotril
+</td><td>TIORFAN
+</td></tr><tr><td>Probiotiques
+</td><td>Rééquilibrage flore
+</td><td>Saccharomyces
+</td><td>ULTRA-LEVURE
+</td></tr><tr><td>Argiles
+</td><td>Adsorption
+</td><td>Diosmectite
+</td><td>SMECTA
+</td></tr></table></div><div class="specialty-box"><h4>Laxatifs :</h4>
+<table class="regimen-table"><tr><th>Type</th><th>Mécanisme</th><th>Médicaments</th><th>Spécialités</th></tr><tr><td>Osmotiques
+</td><td>Rétention d'eau
+</td><td>Macrogol
+</td><td>FORLAX
+</td></tr><tr><td>De lest
+</td><td>Augmentation volume
+</td><td>Psyllium
+</td><td>MUCIVITAL
+</td></tr><tr><td>Stimulants
+</td><td>Irritation muqueuse
+</td><td>Bisacodyl
+</td><td>DULCOLAX
+</td></tr><tr><td>Lubrifiants
+</td><td>Ramollissement
+</td><td>Huile de paraffine
+</td><td>LUBENTYL
+</td></tr></table></div><div class="protocol-box"><h4>Médicaments hépatiques :</h4><ul><li><strong>Hépatites virales</strong> : Entécavir, Télaprévir</li><li><strong>Cholestase</strong> : Acide ursodésoxycholique</li><li><strong>Hépatoprotecteurs</strong> : Silymarine</li></ul></div></div></div><!-- Cas 16 : Médicaments du SNC --><div class="case-study-card" data-index="15" data-pathology="snc" data-age="all" data-weight="all"><h3><i class="fas fa-brain"></i> Cas 16 : Médicaments du Système
+Nerveux Central</h3><p class="case-description">Guide complet sur les psychotropes, antiépileptiques et antiparkinsoniens : classifications, indications et protocoles.</p><div class="tabs"><div class="tab active" data-tab="snc-1">Psychotropes</div><div class="tab" data-tab="snc-2">Antiépileptiques</div><div class="tab" data-tab="snc-3">Antiparkinsoniens</div></div><div class="tab-content active" id="snc-1"><div class="definition-box"><h4>Psychotropes :</h4><p>Substances agissant sur le système
+nerveux central en modifiant les processus biochimiques cérébraux, affectant la perception, l'humeur et le comportement.</p></div><div class="classification-box"><h4>Classes principales :</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Médicaments</th><th>Indications</th><th>Spécialités</th></tr><tr><td>Anxiolytiques (BZD)
+</td><td>Alprazolam, Diazépam, Lorazépam
+</td><td>Anxiété, insomnie
+</td><td>XANAX, VALIUM, TEMESTA
+</td></tr><tr><td>Antidépresseurs
+</td><td>Fluoxétine, Sertraline, Amitriptyline
+</td><td>Dépression, troubles anxieux
+</td><td>PROZAC, ZOLOFT, LAROXYL
+</td></tr><tr><td>Neuroleptiques
+</td><td>Halopéridol, Risperidone, Olanzapine
+</td><td>Schizophrénie, troubles bipolaires
+</td><td>HALDOL, RISPERDAL, ZYPREXA
+</td></tr><tr><td>Thymorégulateurs
+</td><td>Lithium, Valproate, Carbamazépine
+</td><td>Trouble bipolaire
+</td><td>THERALITE, DEPAKOTE, TEGRETOL
+</td></tr></table></div><div class="protocol-box"><h4>Protocole d'utilisation des benzodiazépines :</h4><ul><li><strong>Durée limitée</strong> : 4 semaines maximum (risque de dépendance)</li><li><strong>Doses minimales efficaces</strong></li><li><strong>Arrêt progressif</strong> pour éviter le syndrome de sevrage</li><li>Surveillance des effets secondaires (somnolence, troubles mnésiques)</li></ul></div></div><div class="tab-content" id="snc-2"><div class="definition-box"><h4>Antiépileptiques
+:</h4>
+<p>Médicaments utilisés dans la prévention des crises d'épilepsie, agissant en stabilisant l'activité électrique neuronale.</p></div><div class="specialty-box"><h4>Principales molécules :</h4>
+<table class="regimen-table"><tr><th>Médicament</th><th>Classe</th><th>Indications</th><th>Posologie adulte</th></tr><tr><td>Valproate
+</td><td>Dérivés d'acides gras
+</td><td>Crises tonico-cloniques, absences
+</td><td>20-30 mg/kg/j en 2 prises
+</td></tr><tr><td>Carbamazépine
+</td><td>Dibenzazépine
+</td><td>Crises partielles, névralgie
+</td><td>200-1200 mg/j
+</td></tr><tr><td>Phénobarbital
+</td><td>Barbiturique
+</td><td>Crises généralisées
+</td><td>2-5 mg/kg/j
+</td></tr><tr><td>Lamotrigine
+</td><td>Phényltriazine
+</td><td>Épilepsies partielles
+</td><td>25-500 mg/j
+</td></tr></table></div><div class="who-recommendation"><h4>Stratégie thérapeutique :</h4><ol><li>Monothérapie en première intention</li><li>Adaptation posologique progressive</li><li>Surveillance des taux sanguins si nécessaire</li><li>Bithérapie si échec (associations compatibles)</li></ol></div></div><div class="tab-content" id="snc-3"><div class="definition-box"><h4>Antiparkinsoniens :</h4><p>Médicaments visant à compenser le déficit en dopamine dans la maladie de Parkinson et syndromes
+parkinsoniens.</p></div><div class="classification-box"><h4>Classes thérapeutiques :</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Mécanisme</th><th>Médicaments</th><th>Spécialités</th></tr><tr><td>Lévodopa
+</td><td>Précurseur dopamine
+</td><td>L-Dopa + inhibiteur DDC
+</td><td>MODOPAR, SINEMET
+</td></tr><tr><td>Agonistes dopaminergiques
+</td><td>Stimulation récepteurs D2
+</td><td>Ropinirole, Pramipexole
+</td><td>REQUIP, SIFROL
+</td></tr><tr><td>IMAO-B
+</td><td>Inhibition dégradation dopamine
+</td><td>Sélégiline, Rasagiline
+</td><td>DEPRENYL, AZILECT
+</td></tr><tr><td>Anticholinergiques
+</td><td>Rééquilibrage dopamine/acétylcholine
+</td><td>Trihexyphenidyl
+</td><td>ARTANE
+</td></tr></table></div><div class="warning-box"><h4>Effets secondaires majeurs :</h4><ul><li><strong>Lévodopa</strong> : dyskinésies, fluctuations motrices</li><li><strong>Agonistes dopaminergiques</strong> : somnolence, troubles du contrôle des impulsions</li><li><strong>Anticholinergiques</strong> : sécheresse buccale, troubles cognitifs</li></ul></div></div></div><!-- Cas 17 : Antidiabétiques --><div class="case-study-card" data-index="16" data-pathology="antidiabetiques" data-age="all"
+data-weight="all"><h3><i class="fas fa-syringe"></i> Cas 17 : Médicaments Antidiabétiques</h3><p class="case-description">Guide complet sur les traitements du diabète : insulines, antidiabétiques oraux et stratégies thérapeutiques.</p><div class="tabs"><div class="tab active" data-tab="diab-1">Antidiabétiques oraux</div><div class="tab" data-tab="diab-2">Insulinothérapie</div><div class="tab" data-tab="diab-3">Stratégies thérapeutiques</div></div><div class="tab-content active" id="diab-1"><div
+class="definition-box"><h4>Antidiabétiques oraux :</h4><p>Médicaments utilisés principalement dans le diabète de type 2 pour contrôler la glycémie par différents mécanismes d'action.</p></div><div class="classification-box"><h4>Classes principales :</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Mécanisme</th><th>Médicaments</th><th>Spécialités</th></tr><tr><td>Biguanides
+</td><td>Diminue la production hépatique de glucose
+</td><td>Metformine
+</td><td>GLUCOPHAGE, METFORAL
+</td></tr><tr><td>Sulfamides
+</td><td>Stimulation de la sécrétion d'insuline
+</td><td>Glibenclamide, Gliclazide
+</td><td>DAONIL, DIAMICRON
+</td></tr><tr><td>Glinides
+</td><td>Sécrétagogue rapide d'insuline
+</td><td>Repaglinide
+</td><td>NOVONORM
+</td></tr><tr><td>Glitazones
+</td><td>Améliore la sensibilité à l'insuline
+</td><td>Pioglitazone
+</td><td>ACTOS
+</td></tr><tr><td>Inhibiteurs DPP-4
+</td><td>Augmente les incrétines
+</td><td>Sitagliptine, Vildagliptine
+</td><td>JANUVIA, GALVUS
+</td></tr><tr><td>Inhibiteurs SGLT2
+</td><td>Excrétion urinaire du glucose
+</td><td>Dapagliflozine
+</td><td>FORXIGA
+</td></tr></table></div><div class="protocol-box"><h4>Metformine (1ère intention DT2) :</h4><ul><li><strong>Posologie</strong> : 500-3000 mg/j en 2-3 prises</li><li><strong>Avantages</strong> : Pas de risque hypoglycémique, perte de poids modérée</li><li><strong>Effets secondaires</strong> : Troubles digestifs (à début progressif), acidose lactique (rare)</li><li><strong>Contre-indications</strong> : Insuffisance rénale (DFG <30), insuffisance respiratoire/hepatique</li></ul></div></div><div
+class="tab-content" id="diab-2"><div class="definition-box"><h4>Insulinothérapie :</h4><p>Traitement substitutif indispensable dans le diabète de type 1 et nécessaire dans les diabètes de type 2 évolués.</p></div><div class="specialty-box"><h4>Types d'insuline :</h4>
+<table class="regimen-table"><tr><th>Type</th><th>Début d'action</th><th>Pic</th><th>Durée</th><th>Exemples</th></tr><tr><td>Ultra-rapide
+</td><td>5-15 min
+</td><td>1h
+</td><td>3-5h
+</td><td>Lispro (HUMALOG), Aspart (NOVORAPID)
+</td></tr><tr><td>Rapide
+</td><td>30 min
+</td><td>2-4h
+</td><td>6-8h
+</td><td>Actrapid, Humuline R
+</td></tr><tr><td>Intermediaire
+</td><td>1-2h
+</td><td>4-12h
+</td><td>12-18h
+</td><td>NPH (Insulatard, Humuline N)
+</td></tr><tr><td>Lente
+</td><td>1-2h
+</td><td>Pas de pic
+</td><td>24h
+</td><td>Glargine (LANTUS), Detemir (LEVEMIR)
+</td></tr><tr><td>Ultra-lente
+</td><td>6h
+</td><td>Pas de pic
+</td><td>36-42h
+</td><td>Degludec (TRESIBA)
+</td></tr></table></div><div class="who-recommendation"><h4>Schémas insuliniques :</h4><ul><li><strong>Basal-bolus</strong> : 1-2 injections lente + rapide avant repas (DT1)</li><li><strong>Basal seule</strong> : 1 injection lente (DT2 début insulinothérapie)</li><li><strong>Prémix</strong> : 2 injections mixte rapide/intermédiaire (30/70)</li></ul></div></div><div class="tab-content" id="diab-3"><div class="definition-box"><h4>Stratégies thérapeutiques :</h4><p>Adaptation du traitement selon le
+type de diabète et son évolution.</p></div><div class="classification-box"><h4>Diabète de type 1 :</h4><ul><li><strong>Traitement obligatoire</strong> : Insulinothérapie intensive (basal-bolus ou pompe)</li><li><strong>Objectifs</strong> : HbA1c <7% (adapté au patient)</li><li><strong>Éducation</strong> : Autosurveillance glycémique, adaptation des doses</li></ul><h4>Diabète de type 2 :</h4><ol><li><strong>1ère ligne</strong> : Metformine + mesures hygiéno-diététiques</li><li><strong>2ème
+ligne</strong> : Association metformine + sulfamide/glitazone/inhibiteur DPP-4</li><li><strong>3ème ligne</strong> : Tri-thérapie orale ou introduction insuline basale</li><li><strong>Évolution</strong> : Insulinothérapie intensive si échec</li></ol></div><div class="warning-box"><h4>Complications aiguës :</h4>
+<table class="regimen-table"><tr><th>Complication</th><th>Traitement</th><th>Prévention</th></tr><tr><td>Hypoglycémie
+</td><td>15-20g sucre rapide + resucrage
+</td><td>Adapter doses, collations si activité
+</td></tr><tr><td>Acidocétose
+</td><td>Insuline IV + réhydratation + K+
+</td><td>Surveillance glycémie/urines si hyper
+</td></tr><tr><td>Coma hyperosmolaire
+</td><td>Réhydratation progressive + insuline
+</td><td>Hydratation suffisante
+</td></tr></table></div></div></div><!-- Cas 18 : Médicaments hormonaux gynécologiques --><div class="case-study-card" data-index="17" data-pathology="hormonaux-gynecologiques" data-age="all" data-weight="all"><h3><i class="fas fa-female"></i> Cas 18 : Médicaments Hormonaux Gynécologiques</h3><p class="case-description">Guide complet sur les hormones gynécologiques, ocytociques, prostaglandines et méthodes contraceptives.</p><div class="tabs"><div class="tab active" data-tab="gyn-1">Hormones
+sexuelles</div><div class="tab" data-tab="gyn-2">Ocytociques & Prostaglandines</div><div class="tab" data-tab="gyn-3">Contraception</div></div><div class="tab-content active" id="gyn-1"><div class="definition-box"><h4>Hormones sexuelles féminines :</h4><p>Substances utilisées en gynécologie pour le traitement substitutif, les troubles menstruels et la prise en charge de la ménopause.</p></div><div class="classification-box"><h4>Classes principales :</h4>
+<table class="regimen-table"><tr><th>Hormone</th><th>Médicaments</th><th>Indications</th><th>Voies d'administration</th></tr><tr><td>Œstrogènes
+</td><td>Estradiol (ESTREVA), Promestriène (COLPOTROPHINE)
+</td><td>THS ménopause, sécheresse vaginale
+</td><td>Gel, patch, comprimé, crème
+</td></tr><tr><td>Progestatifs
+</td><td>Progestérone (UTROGESTAN), Didrogestérone (DUPHASTON)
+</td><td>Insuffisance lutéale, troubles menstruels
+</td><td>Oral, vaginal, IM
+</td></tr><tr><td>Androgènes
+</td><td>Testostérone (ANDROGEL), Danazol (DANATROL)
+</td><td>Baisse de libido, endométriose
+</td><td>Gel, comprimé
+</td></tr><tr><td>Inducteurs d'ovulation
+</td><td>Clomifène (CLOMID), FSH (GONAL-F), HCG (GONADOTROPHINE)
+</td><td>Infertilité anovulatoire
+</td><td>Oral, SC, IM
+</td></tr></table></div><div class="protocol-box"><h4>Traitement Hormonal Substitutif (THS) :</h4><ul><li><strong>Association</strong> : Œstrogène + progestatif (sauf hystérectomie)</li><li><strong>Voies</strong> : Transdermique (1ère intention) ou per os</li><li><strong>Durée</strong> : Au plus faible dose et durée possible</li><li><strong>Surveillance</strong> : Sein, thrombose, HTA</li></ul></div></div><div class="tab-content" id="gyn-2"><div class="definition-box"><h4>Ocytociques &
+Prostaglandines :</h4><p>Médicaments utilisés pour provoquer ou renforcer les contractions utérines lors de l'accouchement ou pour traiter les hémorragies du post-partum.</p></div><div class="specialty-box"><h4>Médicaments ocytociques :</h4>
+<table class="regimen-table"><tr><th>Médicament</th><th>Classe</th><th>Indications</th><th>Posologie</th></tr><tr><td>Ocytocine (SYNTHOCINON)
+</td><td>Hormone naturelle
+</td><td>Déclenchement travail, hémorragie post-partum
+</td><td>5-10 UI IV lente ou perfusion
+</td></tr><tr><td>Méthyergométrine (METHERGIN)
+</td><td>Dérivé ergoté
+</td><td>Atonie utérine, hémorragie post-partum
+</td><td>0,2 mg IM/IV (max 5 doses)
+</td></tr><tr><td>Dinoprostone (PROSTINE E2)
+</td><td>Prostaglandine E2
+</td><td>Maturation cervicale, IVG 2ème trimestre
+</td><td>Gel vaginal 1-2 mg
+</td></tr><tr><td>Sulprostone (NALADOR)
+</td><td>Prostaglandine E2
+</td><td>Hémorragie du post-partum, IVG
+</td><td>500 µg IM/IV
+</td></tr></table></div><div class="warning-box"><h4>Contre-indications des prostaglandines :</h4><ul><li>Asthme sévère</li><li>Glauome</li><li>Cardiopathie ischémique</li><li>Hypersensibilité aux prostaglandines</li></ul></div></div><div class="tab-content" id="gyn-3"><div class="definition-box"><h4>Contraception :</h4><p>Méthodes et médicaments utilisés pour prévenir une grossesse non désirée.</p></div><div class="classification-box"><h4>Méthodes contraceptives :</h4>
+<table class="regimen-table"><tr><th>Type</th><th>Médicaments/Dispositifs</th><th>Efficacité</th><th>Avantages/Inconvénients</th></tr><tr><td>Œstroprogestatifs
+</td><td>ADEPAL, CILEST, QLAIRA
+</td><td>>99%
+</td><td>Règles régulières mais CI nombreuses
+</td></tr><tr><td>Progestatifs seuls
+</td><td>CERAZETTE, MICROVAL
+</td><td>99%
+</td><td>Allaitement possible mais spottings
+</td></tr><tr><td>Dispositifs intra-utérins
+</td><td>DIU cuivre, MIRENA
+</td><td>>99%
+</td><td>Longue durée mais risque infections
+</td></tr><tr><td>Contraception d'urgence
+</td><td>NORLEVO (LNG), ELLAONE (UPA)
+</td><td>85-95%
+</td><td>À utiliser en urgence uniquement
+</td></tr></table></div><div class="who-recommendation"><h4>Contraception d'urgence :</h4><ul><li><strong>Lévonorgestrel</strong> (NORLEVO) : Dans les 72h (3j) après rapport</li><li><strong>Acétate d'ulipristal</strong> (ELLAONE) : Dans les 120h (5j)</li><li><strong>DIU cuivre</strong> : Dans les 5 jours (meilleure efficacité)</li></ul></div><div class="protocol-box"><h4>Choix de la contraception :</h4><ol><li>Évaluer les contre-indications (HTA, thrombose, migraines)</li><li>Privilégier les
+méthodes longue durée (DIU, implant)</li><li>Adapter à l'âge et au projet parental</li><li>Prévoir une contraception post-IVG immédiate</li></ol></div></div></div><!-- Cas 19 : Médicaments cardiovasculaires --><div class="case-study-card" data-index="18" data-pathology="cardiovasculaire" data-age="all" data-weight="all"><h3><i class="fas fa-heartbeat"></i> Cas 19 : Médicaments Cardiovasculaires</h3><p class="case-description">Guide complet sur les médicaments du système cardiovasculaire :
+antihypertenseurs, antiarythmiques, diurétiques et plus.</p><div class="tabs"><div class="tab active" data-tab="cardio-1">Antihypertenseurs</div><div class="tab" data-tab="cardio-2">Traitement de l'IC</div><div class="tab" data-tab="cardio-3">Autres traitements</div></div><div class="tab-content active" id="cardio-1"><div class="definition-box"><h4>Antihypertenseurs :</h4><p>Médicaments utilisés pour traiter l'hypertension artérielle, principale cause de complications cardiovasculaires.</p>
+</div><div class="classification-box"><h4>Classes principales :</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Mécanisme</th><th>Médicaments</th><th>Spécialités</th></tr><tr><td>IEC
+</td><td>Inhibe l'enzyme de conversion
+</td><td>Périndopril, Ramipril
+</td><td>COVERSYL, TRIATEC
+</td></tr><tr><td>ARA II
+</td><td>Blocage récepteurs AT1
+</td><td>Losartan, Valsartan
+</td><td>COZAAR, TAREG
+</td></tr><tr><td>Bêta-bloquants
+</td><td>Réduction activité sympathique
+</td><td>Bisoprolol, Métoprolol
+</td><td>DETENSEL, LOPRESSOR
+</td></tr><tr><td>Inhibiteurs calciques
+</td><td>Vasodilatation artérielle
+</td><td>Amlodipine, Nicardipine
+</td><td>AMLOR, LOXEN
+</td></tr><tr><td>Diurétiques
+</td><td>Réduction volémie
+</td><td>Hydrochlorothiazide, Indapamide
+</td><td>ESIDREX, FLUDEX
+</td></tr></table></div><div class="protocol-box"><h4>Stratégie thérapeutique HTA :</h4><ol><li><strong>Monothérapie</strong> : IEC/ARA II en 1ère intention (sauf contre-indication)</li><li><strong>Bithérapie</strong> : IEC/ARA II + diurétique thiazidique ou inhibiteur calcique</li><li><strong>Tritthérapie</strong> : Ajout d'un 3ème classe si objectif tensionnel non atteint</li><li><strong>Adaptation</strong> selon comorbidités (BB si coronaropathie, diurétique si IC)</li></ol></div></div><div
+class="tab-content" id="cardio-2"><div class="definition-box"><h4>Traitement de l'Insuffisance Cardiaque :</h4><p>Approche médicamenteuse pour améliorer la fonction cardiaque et réduire les symptômes.</p></div><div class="specialty-box"><h4>Médicaments clés :</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Rôle</th><th>Médicaments</th><th>Posologie type</th></tr><tr><td>Diurétiques
+</td><td>Réduction surcharge volémique
+</td><td>Furosémide, Spironolactone
+</td><td>20-250 mg/j selon stade
+</td></tr><tr><td>IEC/ARA II
+</td><td>Rémodélage ventriculaire
+</td><td>Énalapril, Valsartan
+</td><td>Dose maximale tolérée
+</td></tr><tr><td>Bêta-bloquants
+</td><td>Réduction mortalité
+</td><td>Carvedilol, Bisoprolol
+</td><td>Titration progressive
+</td></tr><tr><td>Antialdostérone
+</td><td>Réduction fibrose
+</td><td>Spironolactone, Éplérénone
+</td><td>25-50 mg/j
+</td></tr><tr><td>Digitaliques
+</td><td>Amélioration symptômes
+</td><td>Digoxine
+</td><td>0.125-0.25 mg/j
+</td></tr></table></div><div class="who-recommendation"><h4>Protocole IC à FEVG altérée :</h4><ol><li>Diurétique de l'anse si signes de congestion</li><li>Introduction IEC/ARA II + BB à doses progressives</li><li>Ajout antialdostérone si persistance symptômes</li><li>En dernier recours : association sacubitril/valsartan (ENTRESTO)</li></ol></div></div><div class="tab-content" id="cardio-3"><div class="definition-box"><h4>Autres traitements cardiovasculaires :</h4><p>Médicaments pour les troubles
+du rythme, l'angor et les pathologies vasculaires.</p></div><div class="classification-box"><h4>Anti-arythmiques (classification de Vaughan Williams) :</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Mécanisme</th><th>Médicaments</th><th>Indications</th></tr><tr><td>I
+</td><td>Bloqueurs Na+
+</td><td>Lidocaïne, Flécaïnide
+</td><td>Troubles ventriculaires
+</td></tr><tr><td>II
+</td><td>Bêta-bloquants
+</td><td>Métoprolol, Bisoprolol
+</td><td>Tachycardies
+</td></tr><tr><td>III
+</td><td>Bloqueurs K+
+</td><td>Amiodarone, Dronédarone
+</td><td>FA, TV
+</td></tr><tr><td>IV
+</td><td>Bloqueurs Ca2+
+</td><td>Vérapamil, Diltiazem
+</td><td>Troubles supra-ventriculaires
+</td></tr></table></div><div class="specialty-box"><h4>Traitement de l'angor :</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Médicaments</th><th>Mode d'action</th></tr><tr><td>Dérivés nitrés
+</td><td>Trinitrine, Isosorbide
+</td><td>Vasodilatation coronarienne
+</td></tr><tr><td>Bêta-bloquants
+</td><td>Bisoprolol, Carvedilol
+</td><td>↓ Consommation O2 myocardique
+</td></tr><tr><td>Inhibiteurs calciques
+</td><td>Amlodipine, Diltiazem
+</td><td>Vasodilatation + effet inotrope négatif
+</td></tr></table></div><div class="warning-box"><h4>Précautions importantes :</h4><ul><li><strong>Digitaliques</strong> : Marge thérapeutique étroite (surveillance ECG + kaliémie)</li><li><strong>Amiodarone</strong> : Risque thyroïdien, pulmonaire, hépatique (bilan avant/durant)</li><li><strong>Dérivés nitrés</strong> : Contre-indication absolue avec inhibiteurs PDE5 (Viagra)</li></ul></div></div></div><!-- Cas 20 : Vitamines --><div class="case-study-card" data-index="19"
+data-pathology="vitamines" data-age="all" data-weight="all"><h3><i class="fas fa-apple-alt"></i> Cas 20 : Vitamines et Micronutriments</h3><p class="case-description">Guide complet sur les vitamines : rôles physiologiques, carences, apports recommandés et sources alimentaires.</p><div class="tabs"><div class="tab active" data-tab="vit-1">Vitamines liposolubles</div><div class="tab" data-tab="vit-2">Vitamines hydrosolubles</div><div class="tab" data-tab="vit-3">Minéraux & Oligo-éléments</div>
+</div><div class="tab-content active" id="vit-1"><div class="definition-box"><h4>Vitamines liposolubles :</h4><p>Vitamines stockées dans les tissus adipeux, nécessitant des apports lipidiques pour leur absorption. Risque d'hypervitaminose.</p></div><div class="classification-box"><h4>Principales vitamines :</h4>
+<table class="regimen-table"><tr><th>Vitamine</th><th>Rôle physiologique</th><th>Apports recommandés</th><th>Carence</th></tr><tr><td>Vitamine A (Rétinol)
+</td><td>Vision, immunité, croissance cellulaire
+</td><td>800 µg/j (homme), 600 µg/j (femme)
+</td><td>Cécité nocturne, xérophtalmie
+</td></tr><tr><td>Vitamine D (Calciférol)
+</td><td>Métabolisme phosphocalcique, immunité
+</td><td>15 µg/j (adulte), 20 µg/j (>70 ans)
+</td><td>Rachitisme, ostéomalacie
+</td></tr><tr><td>Vitamine E (Tocophérol)
+</td><td>Antioxydant, protection membranaire
+</td><td>12 mg/j
+</td><td>Neuropathie, hémolyse
+</td></tr><tr><td>Vitamine K (Phylloquinone)
+</td><td>Coagulation, métabolisme osseux
+</td><td>45-65 µg/j
+</td><td>Troubles de la coagulation
+</td></tr></table></div><div class="protocol-box"><h4>Supplémentation recommandée :</h4><ul><li><strong>Vitamine D</strong> : 100 000 UI trimestrielles chez personnes âgées</li><li><strong>Vitamine K</strong> : 2 mg IM à la naissance (prévention maladie hémorragique)</li><li><strong>Vitamine A</strong> : 200 000 UI semestrielles en zones carencées</li></ul></div><div class="warning-box"><h4>Risque d'hypervitaminose :</h4><ul><li><strong>Vitamine A</strong> : Hypertension intracrânienne,
+hépatotoxicité</li><li><strong>Vitamine D</strong> : Hypercalcémie, lithiases rénales</li><li><strong>Vitamine E</strong> : Risque hémorragique à haute dose</li></ul></div></div><div class="tab-content" id="vit-2"><div class="definition-box"><h4>Vitamines hydrosolubles :</h4><p>Vitamines non stockées, éliminées par les urines. Nécessitent un apport régulier. Faible risque de surdosage.</p></div><div class="specialty-box"><h4>Complexe vitaminique B :</h4>
+<table class="regimen-table"><tr><th>Vitamine</th><th>Rôle</th><th>Apports</th><th>Carence</th></tr><tr><td>B1 (Thiamine)
+</td><td>Métabolisme glucidique
+</td><td>1.1-1.3 mg/j
+</td><td>Béribéri, encéphalopathie de Gayet-Wernicke
+</td></tr><tr><td>B3 (Niacine)
+</td><td>Métabolisme énergétique
+</td><td>14-16 mg/j
+</td><td>Pellagre (3D : Dermatite, Diarrhée, Démence)
+</td></tr><tr><td>B6 (Pyridoxine)
+</td><td>Synthèse neurotransmetteurs
+</td><td>1.5-1.8 mg/j
+</td><td>Anémie, neuropathie périphérique
+</td></tr><tr><td>B9 (Folate)
+</td><td>Synthèse ADN/ARN
+</td><td>400 µg/j (600 µg grossesse)
+</td><td>Anémie mégaloblastique, anomalies du tube neural
+</td></tr><tr><td>B12 (Cobalamine)
+</td><td>Érythropoïèse, système nerveux
+</td><td>2.4 µg/j
+</td><td>Anémie pernicieuse, neuropathie
+</td></tr></table></div><div class="who-recommendation"><h4>Vitamine C (Acide ascorbique) :</h4><ul><li><strong>Rôle</strong> : Synthèse collagène, antioxydant, absorption fer</li><li><strong>Apports</strong> : 110 mg/j</li><li><strong>Carence</strong> : Scorbut (hémorragies, cicatrisation altérée)</li><li><strong>Sources</strong> : Agrumes, kiwi, poivron, brocoli</li></ul></div><div class="protocol-box"><h4>Supplémentation ciblée :</h4><ul><li><strong>Grossesse</strong> : Acide folique 400 µg/j
+(1 mois avant conception)</li><li><strong>Alcoolisme</strong> : Thiamine 250 mg/j (prévention encéphalopathie)</li><li><strong>Végétaliens</strong> : Vitamine B12 10 µg/j ou 2000 µg/semaine</li></ul></div></div><div class="tab-content" id="vit-3"><div class="definition-box"><h4>Minéraux & Oligo-éléments :</h4><p>Éléments inorganiques essentiels au fonctionnement de l'organisme.</p></div><div class="classification-box"><h4>Principaux minéraux :</h4>
+<table class="regimen-table"><tr><th>Élément</th><th>Rôle</th><th>Apports</th><th>Carence</th></tr><tr><td>Calcium
+</td><td>Os/dents, coagulation, excitabilité neuromusculaire
+</td><td>900-1200 mg/j
+</td><td>Ostéoporose, tétanie
+</td></tr><tr><td>Magnésium
+</td><td>Transmission neuromusculaire, cofacteur enzymatique
+</td><td>360-420 mg/j
+</td><td>Crampes, hyperexcitabilité
+</td></tr><tr><td>Fer
+</td><td>Transport O2 (hémoglobine), métabolisme énergétique
+</td><td>8-16 mg/j (femme +)
+</td><td>Anémie ferriprive
+</td></tr><tr><td>Zinc
+</td><td>Immunité, cicatrisation, métabolisme protéique
+</td><td>11-14 mg/j
+</td><td>Retard croissance, alopécie
+</td></tr></table></div><div class="specialty-box"><h4>Autres oligo-éléments importants :</h4><ul><li><strong>Iode</strong> : Hormones thyroïdiennes (150 µg/j)</li><li><strong>Sélénium</strong> : Antioxydant (glutathion peroxydase) (55-70 µg/j)</li><li><strong>Cuivre</strong> : Synthèse hémoglobine, collagène (1.5-2 mg/j)</li><li><strong>Fluor</strong> : Prévention caries dentaires (2-4 mg/j)</li></ul></div><div class="warning-box"><h4>Surdosages dangereux :</h4><ul><li><strong>Fer</strong> :
+Nécrose hépatique, coma</li><li><strong>Sélénium</strong> : Sélénose (perte cheveux, ongles)</li><li><strong>Vitamine B6</strong> : Neuropathie périphérique (>50 mg/j)</li></ul></div></div></div><!-- Cas 21 : Oligo-éléments --><div class="case-study-card" data-index="20" data-pathology="oligoelements" data-age="all" data-weight="all"><h3><i class="fas fa-atom"></i> Cas 21 : Oligo-éléments Essentiels</h3><p class="case-description">Guide complet sur les oligo-éléments : rôles physiologiques,
+carences, apports recommandés et sources alimentaires.</p><div class="tabs"><div class="tab active" data-tab="oligo-1">Minéraux majeurs</div><div class="tab" data-tab="oligo-2">Oligo-éléments</div><div class="tab" data-tab="oligo-3">Carences & Toxicité</div></div><div class="tab-content active" id="oligo-1"><div class="definition-box"><h4>Minéraux majeurs :</h4><p>Éléments nécessaires en quantités relativement importantes (>100 mg/jour) pour l'organisme.</p></div><div class="classification-box">
+<h4>Principaux minéraux :</h4>
+<table class="regimen-table"><tr><th>Minéral</th><th>Rôle physiologique</th><th>Apports recommandés</th><th>Sources alimentaires</th></tr><tr><td>Calcium (Ca)
+</td><td>Structure osseuse, contraction musculaire, coagulation
+</td><td>900-1200 mg/j
+</td><td>Produits laitiers, sardines, légumes verts
+</td></tr><tr><td>Magnésium (Mg)
+</td><td>Transmission neuromusculaire, cofacteur enzymatique
+</td><td>360-420 mg/j
+</td><td>Chocolat noir, oléagineux, eaux minérales
+</td></tr><tr><td>Phosphore (P)
+</td><td>Structure osseuse, métabolisme énergétique (ATP)
+</td><td>700 mg/j
+</td><td>Viandes, poissons, produits laitiers
+</td></tr><tr><td>Potassium (K)
+</td><td>Équilibre hydro-électrolytique, excitabilité cellulaire
+</td><td>3500-4700 mg/j
+</td><td>Bananes, légumineuses, pommes de terre
+</td></tr></table></div><div class="protocol-box"><h4>Supplémentation spécifique :</h4><ul><li><strong>Calcium</strong> : 1000-1500 mg/j en prévention ostéoporose</li><li><strong>Magnésium</strong> : 300 mg/j en cas de stress chronique ou crampes</li><li><strong>Potassium</strong> : Correction des hypokaliémies sous diurétiques</li></ul></div></div><div class="tab-content" id="oligo-2"><div class="definition-box"><h4>Oligo-éléments essentiels :</h4><p>Éléments traces nécessaires en très petites
+quantités (<100 mg/jour) mais indispensables.</p></div><div class="specialty-box"><h4>Principaux oligo-éléments :</h4>
+<table class="regimen-table"><tr><th>Élément</th><th>Rôle</th><th>Apports</th><th>Sources</th></tr><tr><td>Fer (Fe)
+</td><td>Transport O2 (hémoglobine), métabolisme énergétique
+</td><td>8-16 mg/j
+</td><td>Viandes rouges, boudin, légumineuses
+</td></tr><tr><td>Zinc (Zn)
+</td><td>Immunité, cicatrisation, goût/odorat
+</td><td>11-14 mg/j
+</td><td>Huîtres, germe de blé, viandes
+</td></tr><tr><td>Iode (I)
+</td><td>Hormones thyroïdiennes, développement cérébral
+</td><td>150 µg/j
+</td><td>Poissons, algues, sel iodé
+</td></tr><tr><td>Sélénium (Se)
+</td><td>Antioxydant (glutathion peroxydase)
+</td><td>55-70 µg/j
+</td><td>Noix du Brésil, poissons, abats
+</td></tr><tr><td>Cuivre (Cu)
+</td><td>Synthèse hémoglobine, collagène
+</td><td>1.5-2 mg/j
+</td><td>Foie, crustacés, chocolat noir
+</td></tr><tr><td>Chrome (Cr)
+</td><td>Potentialisation insuline
+</td><td>25-35 µg/j
+</td><td>Brocoli, levure de bière, céréales
+</td></tr></table></div><div class="who-recommendation"><h4>Recommandations spécifiques :</h4><ul><li><strong>Femmes enceintes</strong> : Fer 30-50 mg/j + Iode 200 µg/j</li><li><strong>Végétariens</strong> : Zinc + Fer + Vitamine B12</li><li><strong>Personnes âgées</strong> : Zinc pour immunité et cicatrisation</li></ul></div></div><div class="tab-content" id="oligo-3"><div class="definition-box"><h4>Carences & Toxicité :</h4><p>Manifestations cliniques des déficits et risques de surdosage.</p>
+</div><div class="classification-box"><h4>Principales carences :</h4>
+<table class="regimen-table"><tr><th>Élément</th><th>Manifestations carentielles</th><th>Populations à risque</th></tr><tr><td>Fer
+</td><td>Anémie microcytaire, fatigue, pâleur
+</td><td>Femmes en âge de procréer, enfants
+</td></tr><tr><td>Iode
+</td><td>Goitre, hypothyroïdie, retard mental
+</td><td>Zones montagneuses, sans sel iodé
+</td></tr><tr><td>Zinc
+</td><td>Retard croissance, alopécie, troubles immunitaires
+</td><td>Végétariens, alcooliques, cirrhotiques
+</td></tr><tr><td>Magnésium
+</td><td>Hyperexcitabilité neuromusculaire, crampes
+</td><td>Personnes âgées, stress chronique
+</td></tr></table></div><div class="warning-box"><h4>Risques de toxicité :</h4>
+<table class="regimen-table"><tr><th>Élément</th><th>Effets toxiques</th><th>Seuil de toxicité</th></tr><tr><td>Fer
+</td><td>Nécrose hépatique, coma
+</td><td>>20 mg/kg
+</td></tr><tr><td>Sélénium
+</td><td>Sélénose (perte cheveux/ongles)
+</td><td>>400 µg/j
+</td></tr><tr><td>Cuivre
+</td><td>Hépatite, troubles neurologiques
+</td><td>>10 mg/j
+</td></tr><tr><td>Manganèse
+</td><td>Syndrome parkinsonien
+</td><td>>11 mg/j
+</td></tr></table></div><div class="protocol-box"><h4>Prise en charge des carences :</h4><ol><li><strong>Diagnostic biologique</strong> : Dosage sanguin/urinaire</li><li><strong>Correction alimentaire</strong> : Aliments riches en élément carentiel</li><li><strong>Supplémentation</strong> : Formes chélatées pour meilleure absorption</li><li><strong>Surveillance</strong> : Clinique et biologique</li></ol></div></div></div><!-- Cas 22 : Détergents-Antiseptiques-Désinfectants --><div
+class="case-study-card" data-index="21" data-pathology="detergents" data-age="all" data-weight="all"><h3><i class="fas fa-hand-sparkles"></i> Cas 22 : Détergents, Antiseptiques et Désinfectants</h3><p class="case-description">Guide complet sur les produits d'hygiène et de désinfection : définitions, usages, protocoles et précautions d'emploi.</p><div class="tabs"><div class="tab active" data-tab="hygiene-1">Définitions</div><div class="tab" data-tab="hygiene-2">Produits courants</div><div
+class="tab" data-tab="hygiene-3">Protocoles</div></div><div class="tab-content active" id="hygiene-1"><div class="definition-box"><h4>Définitions :</h4><p><strong>Détergent</strong> : Produit utilisé pour enlever les salissures et graisses, sans action microbicide.</p><p><strong>Antiseptique</strong> : Produit éliminant les microorganismes sur les tissus vivants (peau, muqueuses).</p><p><strong>Désinfectant</strong> : Produit éliminant les microorganismes sur les surfaces inertes.</p></div><div
+class="classification-box"><h4>Concepts clés :</h4><ul><li><strong>Antisepsie</strong> : Élimination des microbes sur tissus vivants (résultat momentané)</li><li><strong>Asepsie</strong> : Prévention de la contamination microbienne (méthode préventive)</li><li><strong>Désinfection</strong> : Élimination des microbes sur surfaces inertes</li></ul></div></div><div class="tab-content" id="hygiene-2"><div class="specialty-box"><h4>Produits courants :</h4>
+<table class="regimen-table"><tr><th>Type</th><th>Exemples</th><th>Usage</th><th>Précautions</th></tr><tr><td>Eau de Javel
+</td><td>12°chl, 8°chl
+</td><td>Désinfection surfaces, antiseptique (<5°chl)
+</td><td>Ne pas mélanger avec détergents, conservation à l'abri de la lumière
+</td></tr><tr><td>Antiseptiques cutanés
+</td><td>Chlorhexidine, Povidone iodée, Alcool
+</td><td>Désinfection peau avant soins, plaies
+</td><td>Vérifier date péremption, durée après ouverture
+</td></tr><tr><td>Solutions Hydro-Alcooliques (SHA)
+</td><td>Gel ou solution à base d'alcool (60-70%)
+</td><td>Hygiène des mains en milieu médical
+</td><td>Mains non souillées, non lésées
+</td></tr></table></div><div class="protocol-box"><h4>Dilution de la Javel :</h4><p>Formule : N = Concentration initiale / Concentration finale</p><p>Dilution = 1 volume de Javel + (N-1) volumes d'eau</p><p><strong>Exemple</strong> : Pour obtenir 5°chl à partir de 12°chl → N = 12/5 = 2.4 → 1 volume Javel + 1.4 volumes eau</p></div></div><div class="tab-content" id="hygiene-3"><div class="who-recommendation"><h4>Protocole d'utilisation des SHA :</h4><ol><li>Mains propres et sèches</li><li>3 mL de
+SHA dans le creux de la main</li><li>Frictionner 30 secondes (paumes, dos mains, doigts entrelacés, pouces, poignets)</li><li>Laisser sécher naturellement</li></ol></div><div class="warning-box"><h4>Contre-indications SHA :</h4><ul><li>Mains mouillées ou souillées</li><li>Lésions cutanées</li><li>Muqueuses</li><li>Désinfection pré-interventionnelle</li></ul></div><div class="side-effects"><h4>Effets secondaires :</h4><ul><li><strong>Court terme</strong> : Irritation, allergies, somnolence (en
+cas d'ingestion)</li><li><strong>Long terme</strong> : Possible perturbation endocrinienne (triclosan, éthers de glycol)</li></ul></div></div></div></div><div class="navigation"> <button class="nav-btn" id="prevBtn" disabled>Précédent</button> <button class="nav-btn" id="nextBtn">Suivant</button></div></main><!-- Modal de recherche avancée --><div class="modal" id="advancedSearchModal"><div class="modal-content"><div class="modal-header"><h2 class="modal-title">Recherche avancée</h2>
+<span class="close-modal" onclick="closeAdvancedSearch()">&times;</span></div><div class="filter-group"> <label for="ageFilter">Âge</label> <select id="ageFilter"><option value="all">Tous les âges</option><option value="4ans">4 ans</option><option value="28ans">28 ans</option><option value="35ans">35 ans</option><option value="45ans">45 ans</option><option value="65ans">65 ans</option></select></div><div class="filter-group"> <label for="weightFilter">Poids (kg)</label>
+<select id="weightFilter"><option value="all">Tous les poids</option><option value="15kg">15 kg</option><option value="55kg">55 kg</option><option value="60kg">60 kg</option><option value="70kg">70 kg</option><option value="80kg">80 kg</option></select></div><div class="filter-group"> <label for="severityFilter">Type de douleur</label> <select id="severityFilter"><option value="all">Tous types</option><option value="aigue">Douleur aiguë</option><option value="chronique">Douleur chronique</option>
+<option value="neuropathique">Douleur neuropathique</option></select></div><div class="modal-actions"> <button class="modal-btn cancel-btn" onclick="closeAdvancedSearch()">Annuler</button> <button class="modal-btn apply-btn" onclick="applyAdvancedFilters()">Appliquer</button></div></div></div>
+<script>
+        // Gestion du drawer et du menu latéral
+        function toggleDrawer() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const body = document.body;
+
+            if (sidebar.classList.contains('show')) {
+                sidebar.classList.remove('show');
+                overlay.style.display = 'none';
+                body.classList.remove('body-disabled');
+            } else {
+                sidebar.classList.add('show');
+                overlay.style.display = 'block';
+                body.classList.add('body-disabled');
+            }
+        }
+
+        function closeDrawer() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const body = document.body;
+
+            sidebar.classList.remove('show');
+            overlay.style.display = 'none';
+            body.classList.remove('body-disabled');
+        }
+
+        function navigateTo(url) {
+            window.location.href = url;
+        }
+
+        // Gestion des cartes et des onglets
+        let currentIndex = 0;
+        let filteredCards = Array.from(document.querySelectorAll('.case-study-card'));
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pathologySelect = document.getElementById('pathologySelect');
+        const searchInput = document.getElementById('searchInput');
+        const dynamicTitle = document.getElementById('dynamicTitle');
+        const dynamicProtocol = document.getElementById('dynamicProtocol');
+
+        // Mise à jour initiale
+        updateDisplay();
+        updateNavigation();
+
+        // Écouteurs d'événements
+        pathologySelect.addEventListener('change', filterByPathology);
+        searchInput.addEventListener('input', filterBySearch);
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const card = tab.closest('.case-study-card');
+                const tabs = card.querySelectorAll('.tab');
+                const contents = card.querySelectorAll('.tab-content');
+
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                filteredCards[currentIndex].classList.remove('active');
+                currentIndex--;
+                filteredCards[currentIndex].classList.add('active');
+                updateNavigation();
+                updateTitleAndProtocol();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < filteredCards.length - 1) {
+                filteredCards[currentIndex].classList.remove('active');
+                currentIndex++;
+                filteredCards[currentIndex].classList.add('active');
+                updateNavigation();
+                updateTitleAndProtocol();
+            }
+        });
+
+        // Fonctions de filtrage
+        function filterByPathology() {
+            const selectedPathology = pathologySelect.value;
+            
+            // Masquer toutes les cartes d'abord
+            document.querySelectorAll('.case-study-card').forEach(card => {
+                card.style.display = 'none';
+            });
+            
+            // Afficher seulement les cartes correspondantes
+            if (selectedPathology === 'all') {
+                filteredCards = Array.from(document.querySelectorAll('.case-study-card'));
+            } else {
+                filteredCards = Array.from(document.querySelectorAll(`.case-study-card[data-pathology="${selectedPathology}"]`));
+            }
+            
+            filteredCards.forEach(card => {
+                card.style.display = 'block';
+            });
+            
+            currentIndex = 0;
+            updateDisplay();
+            updateNavigation();
+            updateTitleAndProtocol(selectedPathology);
+        }
+
+        function filterBySearch() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            const selectedPathology = pathologySelect.value;
+            
+            if (selectedPathology === 'all') {
+                filteredCards = Array.from(document.querySelectorAll('.case-study-card'));
+            } else {
+                filteredCards = Array.from(document.querySelectorAll(`.case-study-card[data-pathology="${selectedPathology}"]`));
+            }
+            
+            if (searchTerm) {
+                filteredCards = filteredCards.filter(card => {
+                    return card.textContent.toLowerCase().includes(searchTerm);
+                });
+            }
+            
+            currentIndex = 0;
+            updateDisplay();
+            updateNavigation();
+        }
+
+        function updateDisplay() {
+            // Masquer toutes les cartes
+            document.querySelectorAll('.case-study-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Afficher la carte actuelle si elle existe
+            if (filteredCards.length > 0) {
+                filteredCards[currentIndex].classList.add('active');
+            }
+        }
+
+        function updateNavigation() {
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === filteredCards.length - 1;
+        }
+
+        // Gestion de la recherche avancée
+        function openAdvancedSearch() {
+            document.getElementById('advancedSearchModal').style.display = 'flex';
+        }
+
+        function closeAdvancedSearch() {
+            document.getElementById('advancedSearchModal').style.display = 'none';
+        }
+
+        function applyAdvancedFilters() {
+            const ageFilter = document.getElementById('ageFilter').value;
+            const weightFilter = document.getElementById('weightFilter').value;
+            const severityFilter = document.getElementById('severityFilter').value;
+            
+            // Réinitialiser avec le filtre de pathologie
+            const selectedPathology = pathologySelect.value;
+            
+            if (selectedPathology === 'all') {
+                filteredCards = Array.from(document.querySelectorAll('.case-study-card'));
+            } else {
+                filteredCards = Array.from(document.querySelectorAll(`.case-study-card[data-pathology="${selectedPathology}"]`));
+            }
+            
+            // Appliquer les filtres avancés
+            if (ageFilter !== 'all') {
+                filteredCards = filteredCards.filter(card => card.dataset.age === ageFilter);
+            }
+            
+            if (weightFilter !== 'all') {
+                filteredCards = filteredCards.filter(card => card.dataset.weight === weightFilter);
+            }
+            
+            // Le filtre de type de douleur serait implémenté si les cartes avaient cet attribut
+            // if (severityFilter !== 'all') {
+            //     filteredCards = filteredCards.filter(card => card.dataset.severity === severityFilter);
+            // }
+            
+            // Réappliquer le filtre de recherche s'il y en a un
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            if (searchTerm) {
+                filteredCards = filteredCards.filter(card => {
+                    return card.textContent.toLowerCase().includes(searchTerm);
+                });
+            }
+            
+            currentIndex = 0;
+            updateDisplay();
+            updateNavigation();
+            closeAdvancedSearch();
+        }
+        
+        function updateTitleAndProtocol(pathology) {
+            let title = "Études de Cas";
+            let protocol = "Protocole";
+            
+            switch(pathology) {
+    // Maladies infectieuses
+    case 'pharmacologie':
+        title = "Fondamentaux";
+        protocol = "les concepts clés, la réglementation et les bonnes pratiques";
+        break;
+    case 'paludisme':
+        title = "Protocoles Paludisme";
+        protocol = "Traitements ACT, chimioprophylaxie et prise en charge des complications";
+        break;
+    case 'antibiotiques':
+        title = "Antibiothérapie";
+        protocol = "Classifications, spectres d'action et bonnes pratiques d'utilisation";
+        break;
+    case 'parasitaires':
+        title = "Antiparasitaires";
+        protocol = "Traitements des parasitoses intestinales et systémiques";
+        break;
+    case 'tuberculose':
+        title = "Tuberculose";
+        protocol = "Schémas thérapeutiques des TB sensible et multirésistante";
+        break;
+    case 'protocoles':
+        title = "Protocoles Internationaux";
+        protocol = "Recommandations OMS et stratégies thérapeutiques validées";
+        break;
+    
+    // Systèmes organiques
+    case 'path-digestive':
+        title = "Médicaments Digestifs";
+        protocol = "Antiulcéreux, antiémétiques, laxatifs et traitements hépatiques";
+        break;
+    case 'infection-respiratoire':
+        title = "Médicaments Respiratoires";
+        protocol = "Antitussifs, bronchodilatateurs et anti-asthmatiques";
+        break;
+    case 'cardiovasculaire':
+        title = "Médicaments Cardiovasculaires";
+        protocol = "Antihypertenseurs, antiarythmiques et traitements de l'insuffisance cardiaque";
+        break;
+    case 'snc':
+        title = "Médicaments du Système Nerveux";
+        protocol = "Psychotropes, antiépileptiques et traitements neurodégénératifs";
+        break;
+    case 'hormonaux-gynecologiques':
+        title = "Médicaments Hormonaux";
+        protocol = "Contraception, THS et traitements endocriniens";
+        break;
+    
+    // Classes thérapeutiques
+    case 'antihistaminiques':
+        title = "Antihistaminiques";
+        protocol = "Traitements des allergies et réactions d'hypersensibilité";
+        break;
+    case 'antidiabetiques':
+        title = "Antidiabétiques";
+        protocol = "Insulinothérapie et antidiabétiques oraux";
+        break;
+    case 'douleur-fievre':
+        title = "Antalgiques et Antipyrétiques";
+        protocol = "Gestion de la douleur selon l'échelle OMS";
+        break;
+    
+    // Nutrition et prévention
+    case 'vitamines':
+        title = "Vitamines";
+        protocol = "Besoins nutritionnels, carences et supplémentation";
+        break;
+    case 'oligoelements':
+        title = "Oligo-éléments";
+        protocol = "Rôles physiologiques et prise en charge des carences";
+        break;
+    case 'detergents':
+        title = "Hygiène Hospitalière";
+        protocol = "Détergents, antiseptiques et protocoles de désinfection";
+        break;
+    
+    default:
+        title = "COURS DE PHARMACOLOGIE INFAS";
+        protocol = "Chapitre 1 au Chapitre 15";
+}
+            
+            dynamicTitle.textContent = title;
+            dynamicProtocol.textContent = protocol;
+        }
+        
+          function updateTitleAndProtocol() {
+    const currentCard = filteredCards[currentIndex];
+    if (!currentCard) return; // Si aucune carte n'est trouvée
+
+    // Récupère la catégorie (data-pathology) de la carte active
+    const pathology = currentCard.dataset.pathology;
+    let title = "Référence Médicale"; // Valeur par défaut
+    let protocol = "Base de connaissances thérapeutiques"; // Valeur par défaut
+
+    // Utilise le switch pour définir titre/protocole selon la catégorie
+    switch(pathology) {
+    // Maladies infectieuses
+    case 'pharmacologie':
+        title = "Fondamentaux";
+        protocol = "les concepts clés, la réglementation et les bonnes pratiques";
+        break;
+    case 'paludisme':
+        title = "Protocoles Paludisme";
+        protocol = "Traitements ACT, chimioprophylaxie et prise en charge des complications";
+        break;
+    case 'antibiotiques':
+        title = "Antibiothérapie";
+        protocol = "Classifications, spectres d'action et bonnes pratiques d'utilisation";
+        break;
+    case 'parasitaires':
+        title = "Antiparasitaires";
+        protocol = "Traitements des parasitoses intestinales et systémiques";
+        break;
+    case 'tuberculose':
+        title = "Tuberculose";
+        protocol = "Schémas thérapeutiques des TB sensible et multirésistante";
+        break;
+    case 'protocoles':
+        title = "Protocoles Internationaux";
+        protocol = "Recommandations OMS et stratégies thérapeutiques validées";
+        break;
+    
+    // Systèmes organiques
+    case 'path-digestive':
+        title = "Médicaments Digestifs";
+        protocol = "Antiulcéreux, antiémétiques, laxatifs et traitements hépatiques";
+        break;
+    case 'infection-respiratoire':
+        title = "Médicaments Respiratoires";
+        protocol = "Antitussifs, bronchodilatateurs et anti-asthmatiques";
+        break;
+    case 'cardiovasculaire':
+        title = "Médicaments Cardiovasculaires";
+        protocol = "Antihypertenseurs, antiarythmiques et traitements de l'insuffisance cardiaque";
+        break;
+    case 'snc':
+        title = "Médicaments du Système Nerveux";
+        protocol = "Psychotropes, antiépileptiques et traitements neurodégénératifs";
+        break;
+    case 'hormonaux-gynecologiques':
+        title = "Médicaments Hormonaux";
+        protocol = "Contraception, THS et traitements endocriniens";
+        break;
+    
+    // Classes thérapeutiques
+    case 'antihistaminiques':
+        title = "Antihistaminiques";
+        protocol = "Traitements des allergies et réactions d'hypersensibilité";
+        break;
+    case 'antidiabetiques':
+        title = "Antidiabétiques";
+        protocol = "Insulinothérapie et antidiabétiques oraux";
+        break;
+    case 'douleur-fievre':
+        title = "Antalgiques et Antipyrétiques";
+        protocol = "Gestion de la douleur selon l'échelle OMS";
+        break;
+    
+    // Nutrition et prévention
+    case 'vitamines':
+        title = "Vitamines";
+        protocol = "Besoins nutritionnels, carences et supplémentation";
+        break;
+    case 'oligoelements':
+        title = "Oligo-éléments";
+        protocol = "Rôles physiologiques et prise en charge des carences";
+        break;
+    case 'detergents':
+        title = "Hygiène Hospitalière";
+        protocol = "Détergents, antiseptiques et protocoles de désinfection";
+        break;
+    
+    default:
+        title = "COURS DE PHARMACOLOGIE INFAS";
+        protocol = "Chapitre 1 au Chapitre 15";
+}
+
+    // Applique les valeurs
+    dynamicTitle.textContent = title;
+    dynamicProtocol.textContent = protocol;
+}
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Afficher la première carte
+            if (filteredCards.length > 0) {
+                filteredCards[0].classList.add('active');
+            }
+            
+            // Mettre à jour le titre et le protocole en fonction de la sélection initiale
+            updateTitleAndProtocol(pathologySelect.value);
+        });
+</script>
+</body>
+</html>

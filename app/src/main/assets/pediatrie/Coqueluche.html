@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coqueluche - Protocole de traitement</title>
+    <style>
+        /* Thème Orange-Blanc-Vert */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header-orange {
+            background-color: #FF8F00;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .content-green {
+            background-color: #E8F5E9;
+            border: 2px solid #C8E6C9;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            color: #E65100;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            font-size: 1.1em;
+            border-left: 4px solid #FF8F00;
+            padding-left: 12px;
+        }
+        
+        .treatment-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 15px 0;
+        }
+        
+        .treatment-item {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .treatment-item:before {
+            content: "✔";
+            color: #FF8F00;
+            font-weight: bold;
+            position: absolute;
+            left: 5px;
+        }
+        
+        .medication-box {
+            background-color: #F1F8E9;
+            border-left: 3px solid #2E7D32;
+            padding: 12px 15px;
+            margin: 15px 0 15px 20px;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .med-name {
+            font-weight: bold;
+            color: #0D47A1;
+        }
+        
+        .dosage {
+            color: #1B5E20;
+        }
+        
+        .note {
+            font-style: italic;
+            color: #2E7D32;
+            margin-top: 10px;
+        }
+        
+        .update-date {
+            text-align: center;
+            color: #2E7D32;
+            font-size: 0.9em;
+            margin-top: 25px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="corps">
+    <div class="header-orange">
+        <h4>COQUELUCHE</h4>
+    </div>
+    
+    <div class="content-green">
+        <div class="section-title">Traitement curatif</div>
+        <ul class="treatment-list">
+            <li class="treatment-item">Isoler le malade tant que contagieux (1 semaine)</li>
+            <li class="treatment-item">Eviction scolaire : 1 semaine</li>
+            <li class="treatment-item">
+                Antibiotiques : stérilisent la gorge en 2 à 6 jours ; évitent la dissémination mais ne modifient pas le cours de la maladie
+                <div class="medication-box">
+                    <div class="med-name">ZECLAR</div>
+                    <div class="dosage">Dose = poids en kilos, 2 fois par jour pendant 7 jours</div>
+                </div>
+            </li>
+        </ul>
+        
+        <div class="section-title">Antitussifs</div>
+        <div class="medication-box">
+            <div class="med-name">TOUX KID</div>
+            <div class="dosage">1 c à café (5 ml), 2 à 3 fois par jour</div>
+            
+            <div class="med-name" style="margin-top: 10px;">POLERY Enfant [Pholcodine]</div>
+            <div class="dosage">0,5 ml/kg et par jour en 6 prises maximum (pipette graduée en ml)</div>
+            <div class="note">(au-delà de 30 mois)</div>
+        </div>
+    </div>
+    
+    <div class="update-date">Date de dernière mise à jour: 24/06/2025</div>
+</body>
+</html>

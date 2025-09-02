@@ -1,0 +1,425 @@
+<?php // Démarrer la session si ce n'est pas déjà fait if (session_status() == PHP_SESSION_NONE) { session_start(); } if (!isset($_SESSION['from_index']) || $_SESSION['from_index'] != "actif3") { header('Location: index.php'); exit(); } ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portail Vaccinal - PEV</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>:root{--primary-color:rgba(41,128,185,0.8);--secondary-color:rgba(142,68,173,0.8);--success-color:rgba(39,174,96,0.8);--danger-color:rgba(231,76,60,0.8);--light-color:rgba(255,255,255,0.8);--dark-color:rgba(44,62,80,0.8);--bg-gradient:linear-gradient(135deg,rgba(52,152,219,0.1) 0%,rgba(155,89,182,0.1) 100%);--blur-amount:15px;--shadow:0 8px 32px 0 rgba(31,38,135,0.37);--border-radius:15px;--border:1px solid rgba(255,255,255,0.18);--btn-primary:rgba(41,128,185,0.7);--btn-secondary:
+rgba(142,68,173,0.7);--btn-text:blue;}.flip-btn{background:var(--btn-primary)!important;}.flashcard-btn{color:var(--btn-text)!important;}*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}body{background:var(--bg-gradient);background-attachment:fixed;background-size:cover;color:#333;min-height:100vh;padding:20px;position:relative;overflow-x:hidden;}body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:
+linear-gradient(135deg,rgba(52,152,219,0.9) 0%,rgba(155,89,182,0.9) 100%);z-index:-1;}body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 20% 30%,rgba(255,255,255,0.1) 0%,transparent 20%),radial-gradient(circle at 80% 70%,rgba(255,255,255,0.1) 0%,transparent 20%);z-index:-1;}.container{max-width:1200px;margin:0 auto;padding:20px;}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;}.logo{font-size:
+1.8rem;font-weight:700;color:white;text-shadow:2px 2px 4px rgba(0,0,0,0.3);}.menu-btn{display:none;background:none;border:none;color:white;font-size:1.5rem;cursor:pointer;}.glass-card{background:rgba(255,255,255,0.2);backdrop-filter:blur(var(--blur-amount));-webkit-backdrop-filter:blur(var(--blur-amount));border-radius:var(--border-radius);border:var(--border);box-shadow:var(--shadow);padding:20px;margin-bottom:20px;transition:transform 0.3s ease,box-shadow 0.3s ease;}.glass-card:hover{
+transform:translateY(-5px);box-shadow:0 12px 40px 0 rgba(31,38,135,0.45);}.card-title{font-size:1.5rem;margin-bottom:15px;color:white;text-shadow:1px 1px 3px rgba(0,0,0,0.3);border-bottom:1px solid rgba(255,255,255,0.3);padding-bottom:10px;}.category-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;}.tab-btn{padding:10px 20px;border-radius:30px;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);color:white;cursor:pointer;transition:all 0.3s ease;font-weight:500;
+backdrop-filter:blur(5px);}.tab-btn:hover,.tab-btn.active{background:rgba(255,255,255,0.4);transform:translateY(-2px);}.tab-content{display:none;}.tab-content.active{display:block;animation:fadeIn 0.5s ease;}@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);} }.disease-card{background:rgba(255,255,255,0.7);border-radius:10px;padding:15px;margin-bottom:15px;transition:all 0.3s ease;}.disease-card:hover{background:rgba(255,255,255,0.9);transform:
+translateY(-3px);}.disease-title{font-size:1.2rem;font-weight:600;color:var(--dark-color);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}.disease-vaccine{font-size:0.9rem;background:var(--primary-color);color:white;padding:3px 10px;border-radius:20px;}.disease-symptoms,.disease-details{font-size:0.95rem;margin-bottom:8px;color:#555;}.disease-details strong{color:#333;}.floating-window{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;
+max-width:800px;max-height:90vh;background:rgba(255,255,255,0.9);backdrop-filter:blur(20px);border-radius:var(--border-radius);box-shadow:0 20px 50px rgba(0,0,0,0.3);padding:25px;z-index:1000;display:none;overflow-y:auto;}.floating-window.active{display:block;animation:floatIn 0.4s ease;}@keyframes floatIn{from{opacity:0;transform:translate(-50%,-40%);}to{opacity:1;transform:translate(-50%,-50%);} }.close-btn{position:absolute;top:15px;right:15px;background:none;border:none;font-size:1.5rem;
+color:#666;cursor:pointer;transition:color 0.3s ease;}.close-btn:hover{color:#333;}.flashcard{perspective:1000px;width:300px;min-width:300px;height:400px;margin:0 10px;scroll-snap-align:start;flex-shrink:0;}.flashcard-inner{position:relative;width:100%;height:100%;transition:transform 0.8s;transform-style:preserve-3d;box-shadow:var(--shadow);}.flashcard.flipped .flashcard-inner{transform:rotateY(180deg);}.flashcard-front,.flashcard-back{position:absolute;width:100%;height:100%;
+backface-visibility:hidden;border-radius:var(--border-radius);padding:20px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;}.flashcard-front{background:var(--primary-color);color:white;}.flashcard-back{background:var(--secondary-color);color:white;transform:rotateY(180deg);}.flashcard-title{font-size:1.5rem;margin-bottom:15px;}.flashcard-content{font-size:1.1rem;line-height:1.6;}.flashcard-nav{display:flex;justify-content:space-between;width:100%;
+margin-top:20px;}.flashcard-btn{padding:8px 15px;border-radius:20px;background:rgba(255,255,255,0.3);border:none;color:white;cursor:pointer;transition:all 0.3s ease;}.flashcard-btn:hover{background:rgba(255,255,255,0.5);}.flashcards-carousel{display:flex;overflow-x:auto;gap:20px;padding:20px 0;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}.qcm-container{width:100%;}.qcm-question{font-size:1.2rem;margin-bottom:15px;font-weight:600;color:#333;}.qcm-options{display:grid;
+grid-template-columns:1fr;gap:10px;}.qcm-option{background:rgba(255,255,255,0.7);border-radius:8px;padding:12px 15px;cursor:pointer;transition:all 0.3s ease;border:1px solid rgba(0,0,0,0.1);}.qcm-option:hover{background:rgba(255,255,255,0.9);}.qcm-option.selected{background:var(--success-color);color:white;}.qcm-option.wrong{background:var(--danger-color);color:white;}.qcm-feedback{margin-top:15px;padding:10px;border-radius:8px;display:none;}.qcm-feedback.correct{background:rgba(39,174,96,0.2);
+color:#27ae60;display:block;}.qcm-feedback.incorrect{background:rgba(231,76,60,0.2);color:#e74c3c;display:block;}.qcm-nav{display:flex;justify-content:space-between;margin-top:20px;}.study-mode-selector{display:flex;justify-content:center;gap:15px;margin-bottom:30px;}.study-mode-btn{padding:12px 25px;border-radius:30px;background:rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.5);color:white;cursor:pointer;transition:all 0.3s ease;font-weight:500;backdrop-filter:blur(5px);}
+.study-mode-btn:hover,.study-mode-btn.active{background:rgba(255,255,255,0.5);transform:translateY(-2px);}.search-container{margin-bottom:30px;position:relative;}.search-input{width:100%;padding:12px 20px;border-radius:30px;border:none;background:rgba(255,255,255,0.7);backdrop-filter:blur(5px);font-size:1rem;box-shadow:0 4px 15px rgba(0,0,0,0.1);transition:all 0.3s ease;}.search-input:focus{outline:none;background:rgba(255,255,255,0.9);box-shadow:0 6px 20px rgba(0,0,0,0.15);}.search-icon{
+position:absolute;right:20px;top:50%;transform:translateY(-50%);color:#666;}.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);backdrop-filter:blur(5px);z-index:999;display:none;}.overlay.active{display:block;}.mobile-menu{position:fixed;top:0;right:-300px;width:280px;height:100%;background:rgba(255,255,255,0.9);backdrop-filter:blur(20px);box-shadow:-5px 0 15px rgba(0,0,0,0.1);z-index:1001;transition:right 0.3s ease;padding:20px;overflow-y:auto;}
+.mobile-menu.active{right:0;}.mobile-menu-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid rgba(0,0,0,0.1);}.mobile-menu-title{font-size:1.3rem;font-weight:600;color:#333;}.mobile-menu-close{background:none;border:none;font-size:1.5rem;color:#666;cursor:pointer;}.mobile-nav-item{padding:12px 0;border-bottom:1px solid rgba(0,0,0,0.05);}.mobile-nav-link{color:#333;text-decoration:none;font-size:1.1rem;display:block;
+transition:color 0.3s ease;}.mobile-nav-link:hover{color:var(--primary-color);}
+@media (max-width:768px){.menu-btn{display:block;}.category-tabs{flex-direction:column;}.tab-btn{width:100%;text-align:left;}.study-mode-selector{flex-direction:column;}.study-mode-btn{width:100%;}.flashcard{height:250px;} }::-webkit-scrollbar{width:8px;}::-webkit-scrollbar-track{background:rgba(255,255,255,0.2);border-radius:10px;}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.4);border-radius:10px;}::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.6);}.next-btn{display:
+none;pointer-events:none;background-color:#2196F3;color:white;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;transition:all 0.3s ease;}.qcm-feedback{display:none!important;opacity:0;transition:opacity 0.3s ease;}.qcm-feedback.show{display:block!important;opacity:1;}
+</style>
+</head>
+<body><div class="overlay" id="overlay"></div><div class="mobile-menu" id="mobileMenu"><div class="mobile-menu-header"><div class="mobile-menu-title">Menu</div> <button class="mobile-menu-close" id="mobileMenuClose"> <i class="fas fa-times"></i></button></div><nav><div class="mobile-nav-item"> <a href="#" class="mobile-nav-link" data-tab="child-vaccines">Vaccins Enfants</a></div><div class="mobile-nav-item"> <a href="#" class="mobile-nav-link" data-tab="women-vaccines">Vaccins Femmes</a></div>
+<div class="mobile-nav-item"> <a href="#" class="mobile-nav-link" data-tab="vaccine-storage">Conservation Vaccins</a></div><div class="mobile-nav-item"> <a href="#" class="mobile-nav-link" data-tab="disease-surveillance">Surveillance Maladies</a></div><div class="mobile-nav-item"> <a href="#" class="mobile-nav-link" data-tab="covid-19">COVID-19</a></div><!--<div class="mobile-nav-item"> <a href="#" class="mobile-nav-link" id="mobileFlashcardsBtn">Flashcards</a></div><div class="mobile-nav-item">
+<a href="#" class="mobile-nav-link" id="mobileQcmBtn">QCM</a></div>--></nav></div><div class="container">
+<header><div class="logo">Portail Vaccinal PEV</div> <button class="menu-btn" id="menuBtn"> <i class="fas fa-bars"></i></button>
+</header><div class="search-container"> <input type="text" class="search-input" placeholder="Rechercher une maladie, un vaccin..."> <i class="fas fa-search search-icon"></i></div><div class="study-mode-selector"> <button class="study-mode-btn" id="studyModeBtn" style="display:none;">Mode Étude</button> <button class="study-mode-btn" id="flashcardsBtn" style="display:none;">Flashcards</button> <button class="study-mode-btn" id="qcmBtn" style="display:none;">QCM</button></div><div
+class="category-tabs"> <button class="tab-btn active" data-tab="child-vaccines">Vaccins Enfants</button> <button class="tab-btn" data-tab="women-vaccines">Vaccins Femmes</button> <button class="tab-btn" data-tab="vaccine-storage">Conservation Vaccins</button> <button class="tab-btn" data-tab="disease-surveillance">Surveillance Maladies</button> <button class="tab-btn" data-tab="covid-19">COVID-19</button></div><!-- Child Vaccines Tab --><div class="tab-content active" id="child-vaccines"><h2
+class="card-title">Vaccins pour Enfants</h2><div class="glass-card"><div class="disease-card"><div class="disease-title"> Tuberculose <span class="disease-vaccine">BCG</span></div><div class="disease-symptoms"> <strong>Symptômes:</strong> Perte de poids, fatigue générale, diminution de l'appétit, fièvre, forte transpiration anormale pendant la nuit, toux persistante de plus de deux semaines </div><div class="disease-details"> <strong>Doses:</strong> 1 dose<br> <strong>Période
+d'administration:</strong> À la naissance<br> <strong>Rattrapage:</strong> Jusqu'à 23 mois<br> <strong>Voie d'administration:</strong> Intradermique (ID)<br> <strong>Site d'administration:</strong> Deltoïde du bras gauche </div></div><div class="disease-card"><div class="disease-title"> Hépatite B <span class="disease-vaccine">DNHép B</span></div><div class="disease-symptoms"> <strong>Symptômes:</strong> Jaunissement de la peau et des yeux, les urines foncées, les nausées, les vomissements et
+des douleurs abdominales </div><div class="disease-details"> <strong>Doses:</strong> 1 dose<br> <strong>Période d'administration:</strong> À la naissance dans les 24 heures de vie<br> <strong>Rattrapage:</strong> Jusqu'à 72h de vie<br> <strong>Voie d'administration:</strong> Intramusculaire (IM)<br> <strong>Site d'administration:</strong> Face latéro-externe de la cuisse gauche </div></div><div class="disease-card"><div class="disease-title"> Diphtérie
+<span class="disease-vaccine">DTC-HépB-Hib</span></div><div class="disease-symptoms"> <strong>Symptômes:</strong> Angine avec des dépôts blanchâtres (fausse membrane) dans la gorge et les fosses nasales, fièvre peu élevée (38°), tuméfaction du cou, céphalée </div><div class="disease-details"> <strong>Doses:</strong> 3 doses<br> <strong>Période d'administration:</strong> À 6 semaines, 10 semaines, 14 semaines<br> <strong>Rattrapage:</strong> Jusqu'à 23 mois<br> <strong>Voie
+d'administration:</strong> Intramusculaire (IM)<br> <strong>Site d'administration:</strong> Bras gauche (deltoïde) </div></div><div class="disease-card"><div class="disease-title"> Tétanos </div><div class="disease-symptoms"> <strong>Symptômes:</strong> Difficultés du nourrisson à ouvrir la bouche (téter ou pleurer) entre le 3ème et le 28ème jour de naissance. Contraction des muscles de la mâchoire jusqu'au cou, au dos et à tout le corps. raideur de l'enfant et crises. </div></div><div
+class="disease-card"><div class="disease-title"> Coqueluche </div><div class="disease-symptoms"> <strong>Symptômes:</strong> Rhume, très légère fièvre et toux sèche survenant surtout la nuit. Persistance des quintes de toux pendant près de trois mois, le jour comme la nuit. Difficulté à respirer, chant du coq. </div></div><div class="disease-card"><div class="disease-title"> Poliomyélite <span class="disease-vaccine">VPOb/VPI</span></div><div class="disease-symptoms"> <strong>Symptômes:</strong>
+Fièvre, fatigue, maux de tête, vomissements, raideur de la nuque et douleurs dans les membres. </div><div class="disease-details"> <strong>VPO:</strong> 4 doses (naissance, 6, 10, 14 semaines)<br> <strong>VPI:</strong> 2 doses (6 et 14 semaines)<br> <strong>Rattrapage:</strong> Jusqu'à 23 mois<br> <strong>Voie d'administration:</strong> Oral (VPO) ou IM (VPI)<br> <strong>Site d'administration:</strong> Bouche (VPO) ou Cuisse gauche (VPI) </div></div><div class="disease-card"><div
+class="disease-title"> Diarrhée à rotavirus <span class="disease-vaccine">Rota</span></div><div class="disease-symptoms"> <strong>Symptômes:</strong> Diarrhée liquide accompagnée de vomissements et de fièvre avec parfois des douleurs abdominales. </div><div class="disease-details"> <strong>Doses:</strong> 2 doses<br> <strong>Période d'administration:</strong> À 6 et 10 semaines<br> <strong>Rattrapage:</strong> Jusqu'à 23 mois<br> <strong>Voie d'administration:</strong> Oral<br> <strong>Site
+d'administration:</strong> Face interne de la joue </div></div><div class="disease-card"><div class="disease-title"> Infections à pneumocoque <span class="disease-vaccine">PCV13</span></div><div class="disease-symptoms"> <strong>Symptômes:</strong> Fièvre, toux avec respiration rapide ou difficulté à respirer, sueurs et pleurs incessants chez l'enfant. </div><div class="disease-details"> <strong>Doses:</strong> 3 doses<br> <strong>Période d'administration:</strong> À 6, 10, 14 semaines<br>
+<strong>Rattrapage:</strong> Jusqu'à 23 mois<br> <strong>Voie d'administration:</strong> IM<br> <strong>Site d'administration:</strong> Cuisse gauche (face latéro externe) </div></div><div class="disease-card"><div class="disease-title"> Méningite A <span class="disease-vaccine">Men A</span></div><div class="disease-symptoms"> <strong>Symptômes:</strong> Maux de tête, fièvre, raideur de la nuque, sensibilité à la lumière, nausées, vomissements, somnolence et la confusion. </div><div
+class="disease-details"> <strong>Doses:</strong> 1 dose<br> <strong>Période d'administration:</strong> À 9 mois<br> <strong>Rattrapage:</strong> Jusqu'à 23 mois<br> <strong>Voie d'administration:</strong> IM<br> <strong>Site d'administration:</strong> Cuisse gauche (face latéro externe) </div></div><div class="disease-card"><div class="disease-title"> Rougeole <span class="disease-vaccine">RR</span></div><div class="disease-symptoms"> <strong>Symptômes:</strong> Fièvre, rougeur des yeux (yeux
+rouges), écoulement du nez, boutons sur le corps, bouche rouge, toux et même diarrhée. </div><div class="disease-details"> <strong>Doses:</strong> 2 doses<br> <strong>Période d'administration:</strong> À 9 et 15 mois<br> <strong>Rattrapage:</strong> Jusqu'à 23 mois<br> <strong>Voie d'administration:</strong> Sous cutané<br> <strong>Site d'administration:</strong> Bras gauche (deltoïde) </div></div><div class="disease-card"><div class="disease-title"> Fièvre jaune
+<span class="disease-vaccine">VAA</span></div><div class="disease-symptoms"> <strong>Symptômes:</strong> Fièvre (38°C à 40°C), douleurs musculaires (surtout dorsales), céphalées (maux de tête), frissons, manque d'appétit, nausées et vomissements, Ictère franc (jaunisse au niveau des yeux, des paumes). </div><div class="disease-details"> <strong>Doses:</strong> 1 dose<br> <strong>Période d'administration:</strong> À 9 mois<br> <strong>Rattrapage:</strong> Jusqu'à 23 mois<br> <strong>Voie
+d'administration:</strong> Sous cutané<br> <strong>Site d'administration:</strong> Bras gauche (deltoïde) </div></div><div class="disease-card"><div class="disease-title"> Paludisme <span class="disease-vaccine">VAP</span></div><div class="disease-symptoms"> <strong>Symptômes:</strong> Fièvre (corps chaud), Frissons, Céphalées (maux de tête), Transpiration (sueur), Courbatures. Paludisme grave: Coma, Anémie, Vomissements, Convulsions. </div><div class="disease-details"> <strong>Doses:</strong> 4
+doses<br> <strong>Période d'administration:</strong> À 6, 8, 9, 15 mois<br> <strong>Rattrapage:</strong> Jusqu'à 23 mois<br> <strong>Voie d'administration:</strong> IM<br> <strong>Site d'administration:</strong> Cuisse gauche, face latéro-externe </div></div></div></div><!-- Women Vaccines Tab --><div class="tab-content" id="women-vaccines"><h2 class="card-title">Vaccins pour Femmes</h2><div class="glass-card"><div class="disease-card"><div class="disease-title"> Tétanos
+<span class="disease-vaccine">Td</span></div><div class="disease-symptoms"> <strong>Symptômes:</strong> Difficultés à ouvrir la bouche, contraction des muscles de la mâchoire jusqu'au cou, au dos et à tout le corps. raideur de la personne et crises. </div><div class="disease-details"> <strong>Doses:</strong> 5 doses<br> <strong>Période d'administration:</strong><ul><li>CPN1 : Td1 (pas de protection)</li><li>CPN2, 4 semaines après Td1 : 3 ans de protection</li><li>6 mois après Td2 : 5 ans de
+protection</li><li>1 an après Td3 : 10 ans de protection</li><li>1 an après Td4 : protection à vie</li></ul> <strong>Rattrapage:</strong> Jusqu'à 3 ans après l'accouchement<br> <strong>Voie d'administration:</strong> IM<br> <strong>Site d'administration:</strong> Bras gauche (deltoïde) </div></div><div class="disease-card"><div class="disease-title"> Cancer du col de l'utérus <span class="disease-vaccine">HPV</span></div><div class="disease-symptoms"> <strong>Symptômes:</strong> Pas de signe
+apparent jusqu'à une période avancée. Dépistage par des examens tels que le frottis cervico-vaginal, le test HPV. </div><div class="disease-details"> <strong>Doses:</strong> 1 dose<br> <strong>Période d'administration:</strong> À 9 ans<br> <strong>Rattrapage:</strong> Jusqu'à 14 ans<br> <strong>Voie d'administration:</strong> IM<br> <strong>Site d'administration:</strong> Bras gauche (deltoïde) </div></div></div></div><!-- Vaccine Storage Tab --><div class="tab-content" id="vaccine-storage"><h2
+class="card-title">Conservation des Vaccins</h2><div class="glass-card"><div class="disease-card"><div class="disease-title"> BCG </div><div class="disease-details"> <strong>Présentation:</strong> Flacon de 20 doses<br> <strong>Température de conservation:</strong> 2°C à 8°C<br> <strong>Type:</strong> Vaccin lyophilisé (poudre + solvant)<br> <strong>Spécificités:</strong> Ne doit pas être congelé ni exposé à la chaleur<br> <strong>Quantité par dose:</strong> 0,05 ml<br>
+<strong>Seringues:</strong> SAB 0,05ml et SAD 5 ml pour dilution<br> <strong>Politique d'utilisation:</strong> Flacon entamé à jeter 6h après reconstitution<br> <strong>Taux de perte:</strong> 0,4 </div></div><div class="disease-card"><div class="disease-title"> DNHép B </div><div class="disease-details"> <strong>Présentation:</strong> Flacon de 10 doses<br> <strong>Température de conservation:</strong> 2°C à 8°C<br> <strong>Type:</strong> Vaccin liquide<br> <strong>Spécificités:</strong> Ne
+doit pas être congelé ni exposé à la chaleur<br> <strong>Quantité par dose:</strong> 0,5 ml<br> <strong>Seringues:</strong> SAB 0,5ml<br> <strong>Politique d'utilisation:</strong> Flacon multidoses (ouvert, réutilisable pendant 28 jours)<br> <strong>Taux de perte:</strong> 0,1 </div></div><div class="disease-card"><div class="disease-title"> DTC-HépB-Hib </div><div class="disease-details"> <strong>Présentation:</strong> Flacon de 10 doses<br> <strong>Température de conservation:</strong> 2°C à
+8°C<br> <strong>Type:</strong> Vaccin liquide<br> <strong>Spécificités:</strong> Ne doit pas être congelé ni exposé à la chaleur<br> <strong>Quantité par dose:</strong> 0,5 ml<br> <strong>Seringues:</strong> SAB 0,5ml<br> <strong>Politique d'utilisation:</strong> Flacon multidoses (ouvert, réutilisable pendant 28 jours)<br> <strong>Taux de perte:</strong> 0,1 </div></div><div class="disease-card"><div class="disease-title"> VPI </div><div class="disease-details"> <strong>Présentation:</strong>
+Flacon de 5 ou 10 doses<br> <strong>Température de conservation:</strong> 2°C à 8°C<br> <strong>Type:</strong> Vaccin liquide lyophilisé<br> <strong>Spécificités:</strong> Ne doit pas être congelé ni exposé à la chaleur<br> <strong>Quantité par dose:</strong> 0,5 ml<br> <strong>Seringues:</strong> SAB 0,5ml<br> <strong>Politique d'utilisation:</strong> Si PCV sur bouchon: jeter après 6h. Si PCV sur flacon: réutilisable 28 jours<br> <strong>Taux de perte:</strong> 0,1 </div></div><div
+class="disease-card"><div class="disease-title"> PCV13 </div><div class="disease-details"> <strong>Présentation:</strong> Flacon de 4 doses<br> <strong>Température de conservation:</strong> 2°C à 8°C<br> <strong>Type:</strong> Vaccin liquide<br> <strong>Spécificités:</strong> Ne doit pas être congelé ni exposé à la chaleur<br> <strong>Quantité par dose:</strong> 0,5 ml<br> <strong>Seringues:</strong> SAB 0,5ml<br> <strong>Politique d'utilisation:</strong> Flacon multidoses (ouvert, réutilisable
+pendant 28 jours)<br> <strong>Taux de perte:</strong> 0,05 </div></div><div class="disease-card"><div class="disease-title"> Men A </div><div class="disease-details"> <strong>Présentation:</strong> Flacon de 10 doses<br> <strong>Température de conservation:</strong> 2°C à 8°C<br> <strong>Type:</strong> Vaccin lyophilisé (poudre + solvant)<br> <strong>Spécificités:</strong> Ne doit pas être congelé ni exposé à la chaleur<br> <strong>Quantité par dose:</strong> 0,5 ml<br>
+<strong>Seringues:</strong> SAB 0,5ml et SAD 5 ml pour dilution<br> <strong>Politique d'utilisation:</strong> Flacon entamé à jeter 6h après reconstitution<br> <strong>Taux de perte:</strong> 0,15 </div></div><div class="disease-card"><div class="disease-title"> RR (Rougeole-Rubéole) </div><div class="disease-details"> <strong>Présentation:</strong> Flacon de 10 doses<br> <strong>Température de conservation:</strong> 2°C à 8°C<br> <strong>Type:</strong> Vaccin lyophilisé (poudre + solvant)<br>
+<strong>Spécificités:</strong> Ne doit pas être congelé ni exposé à la chaleur<br> <strong>Quantité par dose:</strong> 0,5 ml<br> <strong>Seringues:</strong> SAB 0,5ml et SAD 5 ml pour dilution<br> <strong>Politique d'utilisation:</strong> Flacon entamé à jeter 6h après reconstitution<br> <strong>Taux de perte:</strong> 0,15 </div></div><div class="disease-card"><div class="disease-title"> VAA (Fièvre Jaune) </div><div class="disease-details"> <strong>Présentation:</strong> Flacon de 10 ou 5
+doses<br> <strong>Température de conservation:</strong> 2°C à 8°C<br> <strong>Type:</strong> Vaccin lyophilisé (poudre + solvant)<br> <strong>Spécificités:</strong> Ne doit pas être congelé ni exposé à la chaleur<br> <strong>Quantité par dose:</strong> 0,5 ml<br> <strong>Seringues:</strong> SAB 0,5ml et SAD 5 ml pour dilution<br> <strong>Politique d'utilisation:</strong> Flacon entamé à jeter 6h après reconstitution<br> <strong>Taux de perte:</strong> 0,15 </div></div><div class="disease-card">
+<div class="disease-title"> VAP (Paludisme) </div><div class="disease-details"> <strong>Présentation:</strong> Flacon de 2 doses<br> <strong>Température de conservation:</strong> 2°C à 8°C<br> <strong>Type:</strong> Vaccin liquide<br> <strong>Spécificités:</strong> Ne doit pas être congelé ni exposé à la chaleur<br> <strong>Quantité par dose:</strong> 0,5 ml<br> <strong>Seringues:</strong> SAB 0,5ml<br> <strong>Politique d'utilisation:</strong> Flacon multidoses (ouvert, réutilisable pendant 28
+jours)<br> <strong>Taux de perte:</strong> 0,0105 </div></div><div class="disease-card"><div class="disease-title"> Rangement des vaccins dans un réfrigérateur </div><div class="disease-details"><ol><li>Vaccins pouvant être congelés (VPO, RR, VAA) doivent être rangés du côté des parois réfrigérantes</li><li>Vaccins à sensibilité intermédiaire (Men A, BCG) doivent être rangés après les 1ers cités</li><li>Vaccins liquides (Td, HPV, PCV 13, Rota, VPI, Penta, Hép B) doivent être rangés le plus loin
+possible des parois réfrigérantes</li></ol></div></div></div></div><!-- Disease Surveillance Tab --><div class="tab-content" id="disease-surveillance"><h2 class="card-title">Surveillance des Maladies</h2><div class="glass-card"><div class="disease-card"><div class="disease-title"> Poliomyélite (PFA) </div><div class="disease-symptoms"> <strong>Signes de reconnaissance:</strong> Tout enfant qui se tenait bien debout ou marchait bien, qui tenait bien le bras et qui soudainement n'arrive plus à se
+tenir correctement debout ou à tenir le bras. Apparition brusque et soudaine d'une mollesse d'un membre. </div><div class="disease-details"> <strong>Conduite à tenir (ASC):</strong> Accompagner les parents et l'enfant au centre de santé le plus proche, informer l'agent de santé<br> <strong>Conduite à tenir (Agent de santé):</strong> Faire les deux prélèvements de selles selon les normes et transmettre l'échantillon selles au district sanitaire<br> <strong>Normes de prélèvement:</strong> Deux
+prélèvements dans un intervalle de 24H à 48H dans chaque tube au 3/4 et bien fermer. Dans les 11 jours depuis la date de début de paralysie.<br> <strong>Conservation:</strong> 0°C à 4°C </div></div><div class="disease-card"><div class="disease-title"> Tétanos Néonatal </div><div class="disease-symptoms"> <strong>Signes de reconnaissance:</strong> Enfant de moins d'un mois qui tétait et n'arrive plus à téter, ou n'arrive plus à pleurer correctement, ou devient raide. </div><div
+class="disease-details"> <strong>Conduite à tenir (ASC):</strong> Accompagner la mère et l'enfant au centre de santé le plus proche, informer l'agent de santé<br> <strong>Conduite à tenir (Agent de santé):</strong> Conduire une investigation dans le ménage, transmettre le rapport d'investigation au district sanitaire et au niveau central. Vacciner dans la localité toutes les femmes en âge de procréer contre le tétanos<br> <strong>Prélèvement:</strong> Aucun prélèvement. La confirmation est
+clinique </div></div><div class="disease-card"><div class="disease-title"> Rougeole </div><div class="disease-symptoms"> <strong>Signes de reconnaissance:</strong> Corps chaud plus bouton sur le corps plus yeux rouge </div><div class="disease-details"> <strong>Conduite à tenir (ASC):</strong> Accompagner les parents et l'enfant, ou la personne au centre de santé le plus proche, informer l'agent de santé<br> <strong>Conduite à tenir (Agent de santé):</strong> Faire le prélèvement de sang selon
+les normes et transmettre l'échantillon sang au district sanitaire<br> <strong>Normes de prélèvement:</strong> Prélèvement sanguin dans un tube rouge jusqu'à 28 jours après l'apparition des signes<br> <strong>Conservation:</strong> 2°C à 8°C </div></div><div class="disease-card"><div class="disease-title"> Fièvre Jaune </div><div class="disease-symptoms"> <strong>Signes de reconnaissance:</strong> Fièvre, plus yeux jaunes, paumes jaunes </div><div class="disease-details"> <strong>Conduite à
+tenir (ASC):</strong> Accompagner les parents et l'enfant, ou la personne au centre de santé le plus proche, informer l'agent de santé<br> <strong>Conduite à tenir (Agent de santé):</strong> Faire le prélèvement de sang selon les normes et transmettre l'échantillon sang au district sanitaire<br> <strong>Normes de prélèvement:</strong> Prélèvement sanguin dans un tube rouge jusqu'à 28 jours après l'apparition des signes<br> <strong>Conservation:</strong> 2°C à 8°C </div></div></div></div><!--
+COVID-19 Tab --><div class="tab-content" id="covid-19"><h2 class="card-title">COVID-19</h2><div class="glass-card"><div class="disease-card"><div class="disease-title"> Signes de reconnaissance </div><div class="disease-symptoms"> Maux de tête, fièvre, toux, mal de gorge, difficultés respiratoires </div></div><div class="disease-card"><div class="disease-title"> Transmission </div><div class="disease-symptoms"><ul><li>Par projection de postillons de salive ou gouttelettes respiratoires expulsées
+par le nez ou par la bouche d'une personne infectée</li><li>En touchant avec les mains des objets ou surfaces contaminées puis en touchant les yeux, le nez ou la bouche</li><li>En respirant les particules en suspension dans l'air dans des espaces fermés, bondés et insuffisamment ventilés</li></ul></div></div><div class="disease-card"><div class="disease-title"> Prévention </div><div class="disease-symptoms"> Se faire vacciner, respecter les mesures barrières, se laver régulièrement les mains à
+l'eau et au savon, tousser ou éternuer dans le pli de son coude </div></div><div class="disease-card"><div class="disease-title"> Vaccins - Pfizer </div><div class="disease-details"> <strong>Cibles:</strong> Enfants 12-17 ans, Femmes enceintes/allaitantes, 18 ans et plus<br> <strong>Présentation:</strong> Flacon de 6 doses de 0,3 ml<br> <strong>Conservation:</strong><ul><li>Flacon non ouvert décongelé: 31 jours entre 2° et 8°C</li><li>Ne pas recongeler</li><li>Marquer l'heure d'ouverture</li>
+<li>Diluer à température ambiante (<30°C)</li><li>Utiliser uniquement le diluant fourni</li><li>Secouer doucement 10 fois avant et après reconstitution</li><li>Prélever 1,8 ml de diluant par ampoule de 10 ml</li><li>Jeter le reste après 6h de reconstitution</li></ul> <strong>Calendrier:</strong> 2 doses de 0,3 ml espacées de 8 semaines </div></div><div class="disease-card"><div class="disease-title"> Vaccins - Astra Zeneca </div><div class="disease-details"> <strong>Cibles:</strong> 18 ans et
+plus<br> <strong>Présentation:</strong> Flacon de 10 doses de 0,5 ml<br> <strong>Conservation:</strong><ul><li>Entre 2° et 8°C</li><li>Ne pas congeler</li><li>Marquer l'heure d'ouverture</li><li>Ne nécessite pas de reconstitution</li><li>Jeter le reste après 6h d'ouverture</li></ul> <strong>Calendrier:</strong> 2 doses de 0,5 ml espacées de 12 semaines </div></div><div class="disease-card"><div class="disease-title"> Vaccins - Sinopharm </div><div class="disease-details">
+<strong>Cibles:</strong> 18 ans et plus<br> <strong>Présentation:</strong> Flacon monodose<br> <strong>Conservation:</strong><ul><li>Entre 2° et 8°C</li><li>Ne pas congeler</li><li>Ne pas utiliser immédiatement après ouverture</li></ul> <strong>Calendrier:</strong> 2 doses de 0,5 ml espacées de 4 semaines </div></div><div class="disease-card"><div class="disease-title"> Vaccins - Johnson & Johnson </div><div class="disease-details"> <strong>Cibles:</strong> 18 ans et plus<br>
+<strong>Présentation:</strong> Flacon de 5 doses de 0,5 ml<br> <strong>Conservation:</strong><ul><li>Entre 2° et 8°C</li><li>Ne pas congeler</li><li>Marquer l'heure d'ouverture</li><li>Ne nécessite pas de reconstitution</li></ul> <strong>Calendrier:</strong> Une seule dose de 0,5 ml </div></div></div></div></div><!-- Flashcards Floating Window --><div class="floating-window" id="flashcardsWindow"> <button class="close-btn" id="closeFlashcardsBtn"> <i class="fas fa-times"></i></button><h2>Flashcards
+- Révision des Vaccins</h2><div class="flashcards-carousel"><div class="flashcard" id="flashcard1"><div class="flashcard-inner"><div class="flashcard-front"><div class="flashcard-title">BCG</div><div class="flashcard-content"> Contre quelle maladie protège ce vaccin? </div></div><div class="flashcard-back"><div class="flashcard-title">Tuberculose</div><div class="flashcard-content"> <strong>Symptômes:</strong> Perte de poids, fatigue, toux persistante, fièvre nocturne<br> <strong>Dose:</strong>
+1 à la naissance<br> <strong>Voie:</strong> Intradermique (bras gauche) </div></div></div><div class="flashcard-nav"> <button class="flashcard-btn" onclick="flipCard('flashcard1')"> <i class="fas fa-sync-alt"></i> Retourner </button></div></div><div class="flashcard" id="flashcard2"><div class="flashcard-inner"><div class="flashcard-front"><div class="flashcard-title">DNHép B</div><div class="flashcard-content"> Quand doit être administré ce vaccin? </div></div><div class="flashcard-back"><div
+class="flashcard-title">Hépatite B</div><div class="flashcard-content"> <strong>Administration:</strong> À la naissance dans les 24 heures<br> <strong>Rattrapage:</strong> Jusqu'à 72h de vie<br> <strong>Site:</strong> Cuisse gauche (IM) </div></div></div><div class="flashcard-nav"> <button class="flashcard-btn" onclick="flipCard('flashcard2')"> <i class="fas fa-sync-alt"></i> Retourner </button></div></div><div class="flashcard" id="flashcard3"><div class="flashcard-inner"><div
+class="flashcard-front"><div class="flashcard-title">DTC-HépB-Hib</div><div class="flashcard-content"> Quelles maladies couvre ce vaccin combiné? </div></div><div class="flashcard-back"><div class="flashcard-title">Diphtérie, Tétanos, Coqueluche, Hépatite B, Hib</div><div class="flashcard-content"> <strong>Calendrier:</strong> 6, 10, 14 semaines<br> <strong>Voie:</strong> IM (bras gauche)<br> <strong>Présentation:</strong> Flacon 10 doses (2-8°C) </div></div></div><div class="flashcard-nav">
+<button class="flashcard-btn" onclick="flipCard('flashcard3')"> <i class="fas fa-sync-alt"></i> Retourner </button></div></div></div><div class="flashcard-nav"> <button class="flashcard-btn" onclick="prevFlashcard()"> <i class="fas fa-arrow-left"></i> Précédent </button> <span id="flashcardCounter">1/10</span> <button class="flashcard-btn" onclick="nextFlashcard()"> Suivant <i class="fas fa-arrow-right"></i></button></div></div><!-- QCM Floating Window --><div class="floating-window"
+id="qcmWindow"> <button class="close-btn" id="closeQcmBtn"> <i class="fas fa-times"></i></button><h2>QCM - Testez vos connaissances</h2><div class="qcm-container" id="qcm1"><div class="qcm-question"> 1. Quel est le vaccin administré à la naissance contre la tuberculose? </div><div class="qcm-options"><div class="qcm-option" onclick="checkAnswer(this, 'correct')">BCG</div><div class="qcm-option" onclick="checkAnswer(this, 'wrong')">DTC-HepB-Hib</div><div class="qcm-option"
+onclick="checkAnswer(this, 'wrong')">VPO</div><div class="qcm-option" onclick="checkAnswer(this, 'wrong')">RR</div></div><div class="qcm-feedback correct"> Correct! Le BCG est administré à la naissance pour protéger contre la tuberculose. </div><div class="qcm-feedback incorrect"> Incorrect. La bonne réponse est BCG, administré à la naissance contre la tuberculose. </div></div><div class="qcm-container" id="qcm2" style="display:none;"><div class="qcm-question"> 2. Combien de doses du vaccin
+contre la rougeole (RR) sont recommandées? </div><div class="qcm-options"><div class="qcm-option" onclick="checkAnswer(this, 'wrong')">1 dose</div><div class="qcm-option" onclick="checkAnswer(this, 'correct')">2 doses</div><div class="qcm-option" onclick="checkAnswer(this, 'wrong')">3 doses</div><div class="qcm-option" onclick="checkAnswer(this, 'wrong')">4 doses</div></div><div class="qcm-feedback correct"> Exact! Le vaccin RR contre la rougeole est administré en 2 doses (à 9 et 15 mois). </div>
+<div class="qcm-feedback incorrect"> Faux. Le vaccin RR nécessite 2 doses (à 9 et 15 mois). </div></div><div class="qcm-container" id="qcm3" style="display:none;"><div class="qcm-question"> 3. Quel est le site d'administration du vaccin contre la fièvre jaune (VAA)? </div><div class="qcm-options"><div class="qcm-option" onclick="checkAnswer(this, 'wrong')">Cuisse gauche</div><div class="qcm-option" onclick="checkAnswer(this, 'correct')">Bras gauche (deltoïde)</div><div class="qcm-option"
+onclick="checkAnswer(this, 'wrong')">Face interne de la joue</div><div class="qcm-option" onclick="checkAnswer(this, 'wrong')">Sous-cutané abdominal</div></div><div class="qcm-feedback correct"> Correct! Le VAA est administré par voie sous-cutanée dans le bras gauche. </div><div class="qcm-feedback incorrect"> Incorrect. Le VAA est administré par voie sous-cutanée dans le bras gauche (deltoïde). </div></div><div class="qcm-nav"> <button class="flashcard-btn" onclick="prevQcm()">
+<i class="fas fa-arrow-left"></i> Précédent </button> <span id="qcmCounter">1/10</span> <button class="flashcard-btn" onclick="nextQcm()"> Suivant <i class="fas fa-arrow-right"></i></button></div></div>
+<script>
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Mobile menu functionality
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('overlay');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+        });
+        
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.getElementById('flashcardsWindow').classList.remove('active');
+            document.getElementById('qcmWindow').classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // Mobile nav items
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link[data-tab]');
+        // Modifier les écouteurs d'événements du menu
+mobileNavLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tabId = link.getAttribute('data-tab');
+        
+        mobileMenu.classList.remove('active');
+        overlay.classList.remove('active');
+        
+        tabBtns.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+        
+        // Ajouter ceci pour le défilement automatique
+        setTimeout(() => {
+            document.getElementById(tabId).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }, 100);
+    });
+});
+        
+        // Flashcards functionality
+        const flashcardsBtn = document.getElementById('flashcardsBtn');
+        const mobileFlashcardsBtn = document.getElementById('mobileFlashcardsBtn');
+        const flashcardsWindow = document.getElementById('flashcardsWindow');
+        const closeFlashcardsBtn = document.getElementById('closeFlashcardsBtn');
+        
+        function showFlashcards() {
+            flashcardsWindow.classList.add('active');
+            overlay.classList.add('active');
+            currentFlashcard = 1;
+            updateFlashcardCounter();
+        }
+        
+        flashcardsBtn.addEventListener('click', showFlashcards);
+        mobileFlashcardsBtn.addEventListener('click', showFlashcards);
+        
+        closeFlashcardsBtn.addEventListener('click', () => {
+            flashcardsWindow.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        function flipCard(cardId) {
+            document.getElementById(cardId).classList.toggle('flipped');
+        }
+        
+        let currentFlashcard = 0;
+const flashcards = document.querySelectorAll('.flashcard');
+const carousel = document.querySelector('.flashcards-carousel');
+
+function updateFlashcardPosition() {
+    carousel.scrollTo({
+        left: currentFlashcard * (300 + 20), // 300px width + 20px gap
+        behavior: 'smooth'
+    });
+    document.getElementById('flashcardCounter').textContent = 
+        `${currentFlashcard + 1}/${flashcards.length}`;
+}
+
+function nextFlashcard() {
+    if (currentFlashcard < flashcards.length - 1) {
+        currentFlashcard++;
+        updateFlashcardPosition();
+    }
+}
+
+function prevFlashcard() {
+    if (currentFlashcard > 0) {
+        currentFlashcard--;
+        updateFlashcardPosition();
+    }
+}
+
+        // QCM functionality
+        const qcmBtn = document.getElementById('qcmBtn');
+        const mobileQcmBtn = document.getElementById('mobileQcmBtn');
+        const qcmWindow = document.getElementById('qcmWindow');
+        const closeQcmBtn = document.getElementById('closeQcmBtn');
+        
+        function showQcm() {
+            qcmWindow.classList.add('active');
+            overlay.classList.add('active');
+            currentQcm = 1;
+            updateQcmCounter();
+        }
+        
+        qcmBtn.addEventListener('click', showQcm);
+        mobileQcmBtn.addEventListener('click', showQcm);
+        
+        closeQcmBtn.addEventListener('click', () => {
+            qcmWindow.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        let currentQcm = 1;
+        const totalQcms = 3;
+        
+        function updateQcmCounter() {
+            document.getElementById('qcmCounter').textContent = `${currentQcm}/${totalQcms}`;
+            
+            // Hide all QCMs
+            document.querySelectorAll('.qcm-container').forEach(qcm => {
+                qcm.style.display = 'none';
+            });
+            
+            // Show current QCM
+            document.getElementById(`qcm${currentQcm}`).style.display = 'block';
+        }
+        
+        function nextQcm() {
+            if (currentQcm < totalQcms) {
+                currentQcm++;
+                updateQcmCounter();
+            }
+        }
+        
+        function prevQcm() {
+            if (currentQcm > 1) {
+                currentQcm--;
+                updateQcmCounter();
+            }
+        }
+        
+        function checkAnswer(selectedOption, result) {
+    // Empêcher les réponses multiples
+    if (selectedOption.classList.contains('selected') || selectedOption.classList.contains('wrong')) {
+        return;
+    }
+
+    // Récupérer tous les éléments nécessaires
+    const questionContainer = selectedOption.closest('.qcm-container');
+    const options = questionContainer.querySelectorAll('.qcm-option');
+    const correctFeedback = questionContainer.querySelector('.qcm-feedback.correct');
+    const incorrectFeedback = questionContainer.querySelector('.qcm-feedback.incorrect');
+
+    // Désactiver tous les options pour éviter les clics multiples
+    options.forEach(option => {
+        option.style.pointerEvents = 'none';
+    });
+
+    // Marquer la réponse sélectionnée
+    selectedOption.classList.add(result === 'correct' ? 'selected' : 'wrong');
+
+    // Si réponse incorrecte, montrer la bonne réponse
+    if (result === 'wrong') {
+        options.forEach(option => {
+            if (option.getAttribute('onclick').includes("'correct'")) {
+                option.classList.add('selected');
+            }
+        });
+        incorrectFeedback.classList.add('show');
+    } else {
+        correctFeedback.classList.add('show');
+    }
+
+    // Activer le bouton suivant après un délai
+    setTimeout(() => {
+        const nextBtn = questionContainer.querySelector('.next-btn');
+        if (nextBtn) {
+            nextBtn.style.display = 'inline-block';
+            nextBtn.style.pointerEvents = 'auto';
+        }
+    }, 1000);
+}
+        
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (searchTerm.length > 2) {
+                const diseaseCards = document.querySelectorAll('.disease-card');
+                
+                diseaseCards.forEach(card => {
+                    const title = card.querySelector('.disease-title').textContent.toLowerCase();
+                    const content = card.textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        // Highlight the matching text
+                        highlightText(card, searchTerm);
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            } else {
+                // Reset if search term is too short or empty
+                document.querySelectorAll('.disease-card').forEach(card => {
+                    card.style.display = 'block';
+                    removeHighlights(card);
+                });
+            }
+        });
+        
+        // Ajouter ce gestionnaire d'événement
+document.getElementById('studyModeBtn').addEventListener('click', function() {
+    // Activer le premier onglet
+    document.querySelector('.tab-btn').click();
+    
+    // Faire défiler vers la section principale
+    document.querySelector('.container').scrollIntoView({
+        behavior: 'smooth'
+    });
+    
+    // Option: mettre en surbrillance la section
+    this.classList.add('active');
+    setTimeout(() => this.classList.remove('active'), 1000);
+});
+        
+        function highlightText(element, searchTerm) {
+            removeHighlights(element);
+            
+            const regex = new RegExp(searchTerm, 'gi');
+            const textNodes = getTextNodes(element);
+            
+            textNodes.forEach(node => {
+                const text = node.nodeValue;
+                const matches = text.match(regex);
+                
+                if (matches) {
+                    const span = document.createElement('span');
+                    span.className = 'highlight';
+                    span.style.backgroundColor = 'yellow';
+                    span.style.color = 'black';
+                    
+                    const replacedText = text.replace(regex, match => 
+                        `<span class="highlight" style="background-color: yellow; color: black;">${match}</span>`
+                    );
+                    
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = replacedText;
+                    
+                    const parent = node.parentNode;
+                    while (tempDiv.firstChild) {
+                        parent.insertBefore(tempDiv.firstChild, node);
+                    }
+                    parent.removeChild(node);
+                }
+            });
+        }
+        
+        function removeHighlights(element) {
+            const highlights = element.querySelectorAll('.highlight');
+            highlights.forEach(highlight => {
+                const parent = highlight.parentNode;
+                parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+                parent.normalize();
+            });
+        }
+        
+        function getTextNodes(element) {
+            const textNodes = [];
+            const walker = document.createTreeWalker(
+                element, 
+                NodeFilter.SHOW_TEXT, 
+                null, 
+                false
+            );
+            
+            let node;
+            while (node = walker.nextNode()) {
+                textNodes.push(node);
+            }
+            
+            return textNodes;
+        }
+        
+        // Initialize
+        // Mettre à jour l'initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    // Activer la première flashcard
+    document.getElementById('flashcard1').classList.add('active');
+    updateFlashcardPosition();
+    
+    // Cacher tous les feedbacks QCM au départ
+    document.querySelectorAll('.qcm-feedback').forEach(fb => {
+        fb.classList.remove('show');
+    });
+    
+    // Activer le premier QCM
+    document.getElementById('qcm1').style.display = 'block';
+});
+        updateFlashcardCounter();
+        updateQcmCounter();
+</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oreillons - Protocole de traitement</title>
+    <style>
+        /* Thème Orange-Blanc-Vert */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header-orange {
+            background-color: #FF8F00; /* Orange */
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .content-green {
+            background-color: #E8F5E9; /* Vert clair */
+            border: 2px solid #C8E6C9;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            color: #E65100; /* Orange foncé */
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            font-size: 1.1em;
+            border-left: 4px solid #FF8F00;
+            padding-left: 12px;
+        }
+        
+        .treatment-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 15px 0;
+        }
+        
+        .treatment-item {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .treatment-item:before {
+            content: "✔";
+            color: #FF8F00; /* Orange */
+            font-weight: bold;
+            position: absolute;
+            left: 5px;
+        }
+        
+        .sub-item {
+            margin-left: 40px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .sub-item:before {
+            content: "🔸";
+            color: #FF8F00; /* Orange */
+            position: absolute;
+            left: 0;
+        }
+        
+        .update-date {
+            text-align: center;
+            color: #2E7D32; /* Vert foncé */
+            font-size: 0.9em;
+            margin-top: 25px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="corps">
+    <div class="header-orange">
+        <h4>OREILLONS</h4>
+    </div>
+    
+    <div class="content-green">
+        <div class="section-title">Sédation des douleurs parotidiennes</div>
+        <ul class="treatment-list">
+            <li class="treatment-item">ASPEGIC [acétylsalicylate de DL-lysine] 100 mg, 250 mg, 500 mg - 50 mg/kg/jour en 4 prises</li>
+            <li class="treatment-item">EFFERALGAN [paracétamol] sirop pédiatrique, dose par prise = poids de l'enfant toutes les 6 heures</li>
+        </ul>
+        
+        <div class="section-title">En présence d'orchite</div>
+        <ul class="treatment-list">
+            <li class="treatment-item">Immobilisation des bourses (suspensoir)</li>
+            <li class="treatment-item">Repos au lit</li>
+            <li class="treatment-item">Anti-inflammatoire :
+                <div class="sub-item">Acide acétylsalicylique</div>
+                <div class="sub-item">Corticoïdes : SOLUPRED orodispersible [prednisolone], 1 mg/kg/jour pendant 3 jours et diminution sur 1 semaine</div>
+            </li>
+        </ul>
+        
+        <div class="section-title">Prévention</div>
+        <ul class="treatment-list">
+            <li class="treatment-item">Eviction scolaire jusqu'à guérison clinique</li>
+            <li class="treatment-item">Vaccin associé ROR (rougeole, oreillon, rubéole) à pratiquer dès l'âge de 11 mois voire 9 mois en crèches et rappel avant 2 ans</li>
+        </ul>
+    </div>
+    
+    <div class="update-date">Date de dernière mise à jour: 24/06/2025</div>
+</body>
+</html>

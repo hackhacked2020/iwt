@@ -1,0 +1,387 @@
+<?php // Démarrer la session si ce n'est pas déjà fait if (session_status() == PHP_SESSION_NONE) { session_start(); } if (!isset($_SESSION['from_index']) || $_SESSION['from_index'] != "actif3") { header('Location: index.php'); exit(); } ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcards IDE/SFDE | DIPLÔMÉ D'ÉTAT</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<style>:root{--primary-color:#4a6bff;--secondary-color:#6c5ce7;--accent-color:#00b894;--warning-color:#fdcb6e;--stats-color:#e84393;--auth-color:#ff6b6b;--background-color:#ffffff;--text-color:#333333;--border-color:#e0e0e0;--card-shadow:rgba(0,0,0,0.1);--glass-effect:rgba(255,255,255,0.2);--dark-bg:#121212;--dark-text:#e0e0e0;--dark-card:#1e1e1e;}body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);min-height:100vh;margin:0;padding:0;color:
+var(--text-color);transition:background-color 0.3s,color 0.3s;display:flex;flex-direction:column;align-items:center;user-select:none;}body.dark-mode{background:var(--dark-bg);color:var(--dark-text);}.container{max-width:800px;width:90%;margin:20px auto;padding:20px;}.quiz-header{padding:20px;background:linear-gradient(135deg,var(--primary-color) 0%,var(--secondary-color) 100%);color:white;border-radius:16px 16px 0 0;text-align:center;margin-bottom:20px;}#flashcards-container{position:relative;
+margin:20px 0;perspective:1000px;width:100%;height:300px;display:flex;justify-content:center;align-items:center;}.flashcard{width:100%;height:100%;background-color:var(--background-color);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.15);transform-style:preserve-3d;transition:transform 0.6s;cursor:pointer;border:1px solid var(--border-color);}body.dark-mode .flashcard{background-color:var(--dark-card);}.flashcard .front,.flashcard .back{position:absolute;width:100%;height:100%;
+backface-visibility:hidden;display:flex;align-items:center;justify-content:center;border-radius:16px;padding:30px;text-align:center;box-sizing:border-box;}.flashcard .front{background-color:var(--background-color);color:var(--text-color);font-size:1.5rem;font-weight:600;}body.dark-mode .flashcard .front{background-color:var(--dark-card);}.flashcard .back{background-color:var(--background-color);color:var(--text-color);transform:rotateY(180deg);font-size:1.2rem;line-height:1.6;overflow-y:auto;}
+body.dark-mode .flashcard .back{background-color:var(--dark-card);}.flashcard .back img{max-width:100%;max-height:100%;border-radius:8px;}#controls{display:flex;justify-content:center;gap:15px;margin:30px 0;}.btn{padding:12px 25px;border:none;border-radius:8px;cursor:pointer;transition:all 0.2s ease;font-weight:500;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:1rem;}.btn-primary{background-color:var(--primary-color);color:white;}.btn-secondary{background-color:
+#6c757d;color:white;}.btn:hover{opacity:0.9;transform:translateY(-2px);}.form-select{padding:10px 15px;border:1px solid var(--border-color);border-radius:8px;font-size:1rem;background-color:var(--background-color);color:var(--text-color);margin-top:15px;width:100%;max-width:400px;}body.dark-mode .form-select{background-color:var(--dark-card);border-color:#444;}#instructions{text-align:center;padding:15px;background-color:rgba(255,255,255,0.9);border-radius:8px;margin-top:20px;font-size:0.9rem;}
+body.dark-mode #instructions{background-color:rgba(30,30,30,0.9);}.bg-animation{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden;}.bubble{position:absolute;border-radius:50%;background:var(--glass-effect);backdrop-filter:blur(5px);animation:float linear infinite;}@keyframes float{0%{transform:translateY(0) rotate(0deg);}100%{transform:translateY(-100vh) rotate(360deg);} }#darkModeToggle{background:none;border:none;color:var(--text-color);cursor:pointer;font-size:
+16px;position:fixed;top:15px;right:15px;z-index:1000;background-color:var(--background-color);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.1);}body.dark-mode #darkModeToggle{background-color:var(--dark-card);}marquee{padding:8px 0;background-color:rgba(0,0,0,0.1);border-radius:4px;margin-bottom:10px;width:100%;}marquee a{color:var(--primary-color);text-decoration:none;font-weight:500;margin:0 15px;}
+body.dark-mode marquee{background-color:rgba(255,255,255,0.1);}body.dark-mode marquee a{color:#74b9ff;}.sidebar{position:fixed;left:0;top:0;width:70px;height:100%;background-color:var(--dark-card);display:flex;flex-direction:column;align-items:center;padding-top:20px;z-index:1000;box-shadow:2px 0 10px rgba(0,0,0,0.1);transform:translateX(-100%);transition:transform 0.3s ease;}.sidebar.show{transform:translateX(0);}.icon{color:white;font-size:1.5rem;margin:15px 0;cursor:pointer;transition:
+transform 0.2s,color 0.2s;}.icon:hover{transform:scale(1.2);color:var(--primary-color);}.drawer{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background-color:var(--primary-color);color:white;width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:50%;box-shadow:0 4px 10px rgba(0,0,0,0.2);cursor:pointer;transition:all 0.3s;z-index:1000;}.drawer:hover{transform:translateX(-50%) scale(1.1);background-color:var(--secondary-color);}.overlay{
+display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:999;}.body-disabled{overflow:hidden;}@media (max-width:768px){.flashcard .front,.flashcard .back{padding:20px;font-size:1.2rem;}#flashcards-container{height:250px;} }
+</style>
+</head>
+<body><!-- Animation de fond --><div class="bg-animation" id="bgAnimation"></div><!-- Bouton mode sombre --> <button id="darkModeToggle"> <i class="fas fa-moon"></i></button><!-- Marquee --><marquee> <a href="https://wa.me/225054783595" target="_blank">ME CONTACTER SUR WHATSAPP ! 💬</a> <a href="https://whatsapp.com/channel/0029VaJvdFJF6smp7250ba2a" target="_blank">NOTRE CHAÎNE WHATSAPP 📱</a></marquee><!-- Conteneur principal --><div class="container"><div class="quiz-header"><h1><i class="fas
+fa-layer-group"></i> Flashcards IDE/SFDE</h1> <select id="matière-select" class="form-select"><option value="GESTION DES VACCINS">GESTION DES VACCINS</option><option value="ÉPIDÉMIOLOGIE">ÉPIDÉMIOLOGIE</option></select></div><!-- Flashcard --><div id="flashcards-container"><div class="flashcard"><div class="front"></div><div class="back"></div></div></div><!-- Contrôles --><div id="controls"> <button id="prev-btn" class="btn btn-secondary"> <i class="fas fa-arrow-left"></i> Précédent </button>
+<button id="next-btn" class="btn btn-primary"> Suivant <i class="fas fa-arrow-right"></i></button></div><!-- Instructions --><div id="instructions"> Cliquez sur la carte pour la retourner. Utilisez les boutons pour naviguer entre les flashcards. </div></div><!-- Sidebar --><div id="sidebar" class="sidebar"><div class="icon" onclick="navigateTo('https://sujetsinfas.com/index.php')"> <i class="fas fa-home"></i></div></div><!-- Drawer --><div class="drawer" onclick="toggleDrawer()"> <i class="fas
+fa-bars"></i></div><!-- Overlay --><div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+<script>
+    // Configuration initiale
+    let flashcardsData = {
+        "GESTION DES VACCINS": [
+            {
+                "question": "PROPORTION DES POPULATIONS CIBLES DU PEV ET POPULATIONS CIBLES SUPPLÉMENTAIRES",
+                "réponse": "<img src='img_flashcard/2/pc.png'/>"
+            },
+            {
+                "question": "POPULATION CIBLE EN CAMPAGNE DE VACCINATION",
+                "réponse": "<img src='img_flashcard/2/pc2.jpg'/>"
+            },
+            {
+                "question": "TABLEAU RÉCAPITULATIF DE L'OBJECTIF VACCINAL PAR ANTIGÈNE EN CÔTE D'IVOIRE",
+                "réponse": "<img src='img_flashcard/2/ov.jpg'/>"
+            },
+            {
+                "question": "RAPPEL DU CALENDRIER DE VACCINATION CHEZ LES ENFANT DE 0 À 11 MOIS",
+                "réponse": "<img src='img_flashcard/2/0-11.jpg'/>"
+            },
+            {
+                "question": "RAPPEL DU CALENDRIER DE VACCINATION CHEZ LES LA FILLE DE 9 ANS",
+                "réponse": "<img src='img_flashcard/2/9-ans.jpg'/>"
+            },
+            {
+                "question": "RAPPEL DU CALENDRIER DE VACCINATION CHEZ LES LA FEMME ENCEINTE",
+                "réponse": "<img src='img_flashcard/2/femmes-enceintes.jpg'/>"
+            },
+            {
+                "question": "CONTACTS VACCINAUX PAR ANTIGÈNE",
+                "réponse": "<img src='img_flashcard/2/contact-vaccinaux.jpg'/>"
+            },
+            {
+                "question": "TAUX DE PERTE DES VACCINS",
+                "réponse": "<img src='img_flashcard/2/TP.png'/>"
+            },
+            {
+                "question": "FACTEUR DE PERTE DES VACCINS",
+                "réponse": "<img src='img_flashcard/2/FP.png'/>"
+            },
+            {
+                "question": "NORMES DES FACTEURS DE PERTE DU PEV",
+                "réponse": "<img src='img_flashcard/2/normes-fp.jpg'/>"
+            },
+            {
+                "question": "TAUX D'UTILISATION DES VACCINS",
+                "réponse": "<img src='img_flashcard/2/TU.png'/>"
+            },
+            {
+                "question": "NORMES DES TAUX D'UTILISATION DES VACCINS",
+                "réponse": "<img src='img_flashcard/2/normes-tu.jpg'/>"
+            },
+            {
+                "question": "FACTEUR DE PERTE À PARTIR DU TAUX D'UTILISATION",
+                "réponse": "<img src='img_flashcard/2/fp-tu.png'/>"
+            },
+            {
+                "question": "LIEN ENTRE TAUX D'UTILISATION ET TAUX DE PERTE",
+                "réponse": "<img src='img_flashcard/2/tu-tp.png'/>"
+            },
+            {
+                "question": "BESOIN THÉORIQUE ANNUEL",
+                "réponse": "<img src='img_flashcard/2/bta.jpg'/>"
+            },
+            {
+                "question": "BESOIN THÉORIQUE MENSUEL",
+                "réponse": "<img src='img_flashcard/2/btm.png'/>"
+            },
+            {
+                "question": "LE STOCK DE SÉCURITÉ DES VACCINS",
+                "réponse": "<img src='img_flashcard/2/ssv.png'/>"
+            },
+            {
+                "question": "LE STOCK DE SÉCURITÉ DES CONSOMMABLES",
+                "réponse": "<img src='img_flashcard/2/ssc.png'/>"
+            },
+            {
+                "question": "LE BESOIN RÉEL",
+                "réponse": "<img src='img_flashcard/2/br.png'/>"
+            },
+            {
+                "question": "QUANTITÉ À COMMANDER",
+                "réponse": "<img src='img_flashcard/2/qc.png'/>"
+            },
+            {
+                "question": "CALCUL DU NOMBRE DE BOITES DE SÉCURITÉ",
+                "réponse": "<img src='img_flashcard/2/bs.png'/>"
+            },
+            {
+                "question": "TAUX DE COUVERTURE VACCINALE (TCV)",
+                "réponse": "<img src='img_flashcard/2/tcv.png'/>"
+            },
+            {
+                "question": "TAUX DE COUVERTURE VACCINALE D'UN VACCIN",
+                "réponse": "<img src='img_flashcard/2/tcv2.png'/>"
+            },
+            {
+                "question": "TAUX D'ABANDON GLOBAL (TAG)",
+                "réponse": "<img src='img_flashcard/2/tag.png'/>"
+            },
+            {
+                "question": "TAUX D'ABANDON DU VPO",
+                "réponse": "<img src='img_flashcard/2/ta-vpo.png'/>"
+            },
+            {
+                "question": "TAUX D'ABANDON DU TD",
+                "réponse": "<img src='img_flashcard/2/ta-td.png'/>"
+            },
+            {
+                "question": "SENSIBLITÉ DES VACCINS DU PEV",
+                "réponse": "<img src='img_flashcard/2/vs.jpg'/>"
+            },
+            {
+                "question": "RÉSUMÉ SUR LES VACCINS DU PEV IVOIRIEN",
+                "réponse": "<img src='img_flashcard/2/resume.jpg'/>"
+            },
+            {
+                "question": "LA POLITIQUE DU FLACON ENTAMÉ (PFE)",
+                "réponse": "<img src='img_flashcard/2/pfa.jpg'/>"
+            }
+        ],
+        "ÉPIDÉMIOLOGIE": [
+            {
+                "question": "TAUX BRUTE DE NATALITÉ",
+                "réponse": "<img src='img_flashcard/1/TBN.png'/>"
+            },
+            {
+                "question": "TAUX D'ACCOUCHEMENT ASSISTÉ (TAA)",
+                "réponse": "<img src='img_flashcard/1/TAA.png'/>"
+            },
+            {
+                "question": "TAUX GÉNÉRAL DE FÉCONDITÉ (TGF)",
+                "réponse": "<img src='img_flashcard/1/TGF.png'/>"
+            },
+            {
+                "question": "TAUX D'ACCROISSEMENT NATUREL (T.A.N)",
+                "réponse": "<img src='img_flashcard/1/TAN.png'/>"
+            },
+            {
+                "question": "TAUX D'ACCROISSEMENT ANNUEL (T.A.A)",
+                "réponse": "<img src='img_flashcard/1/TAAn.png'/>"
+            },
+            {
+                "question": "EQUATION DE PROJECTION DÉMOGRAPHIQUE (Equation de projection de la population)",
+                "réponse": "<img src='img_flashcard/1/Pt.png'/>"
+            },
+            {
+                "question": "CALCUL DU TEMPS DE DÉDOUBLEMENT D'UNE POPULATION",
+                "réponse": "<img src='img_flashcard/1/TD.png'/>"
+            },
+            {
+                "question": "CALCUL DE L'ANNÉE DE DÉDOUBLEMENT D'UNE POPULATION",
+                "réponse": "<img src='img_flashcard/1/AD.png'/>"
+            },
+            {
+                "question": "TAUX BRUT DE MORBIDITÉ (TBM)",
+                "réponse": "<img src='img_flashcard/1/TBM.png'/>"
+            },
+            {
+                "question": "LE TAUX D'INCIDENCE",
+                "réponse": "<img src='img_flashcard/1/TI.png'/>"
+            },
+            {
+                "question": "TAUX DE PRÉVALENCE ou LA PRÉVALENCE",
+                "réponse": "<img src='img_flashcard/1/prevalence.png'/>"
+            },
+            {
+                "question": "TAUX BRUT DE MORTALITÉ (TBM)",
+                "réponse": "<img src='img_flashcard/1/TBM2.png'/>"
+            },
+            {
+                "question": "TAUX DE MORTALITÉ SPÉCIFIQUE (TMS)",
+                "réponse": "<img src='img_flashcard/1/TMS.png'/>"
+            },
+            {
+                "question": "TAUX DE LÉTALITÉ (TL)",
+                "réponse": "<img src='img_flashcard/1/TL.png'/>"
+            },
+            {
+                "question": "TAUX DE MORTALITÉ INFANTILE (TMI)",
+                "réponse": "<img src='img_flashcard/1/TMI.png'/>"
+            },
+            {
+                "question": "TAUX DE MORTALITÉ JUVÉNILE",
+                "réponse": "<img src='img_flashcard/1/TMJ.png'/>"
+            },
+            {
+                "question": "TAUX DE MORTALITÉ MATERNELLE (TMM)",
+                "réponse": "<img src='img_flashcard/1/TMM.png'/>"
+            },
+            {
+                "question": "TAUX DE MORTALITÉ NÉONATALE (TMNN)",
+                "réponse": "<img src='img_flashcard/1/TMNN.png'/>"
+            },
+            {
+                "question": "TAUX DE MORTALITÉ NÉONATALE PRÉCOCE",
+                "réponse": "<img src='img_flashcard/1/TMNNP.png'/>"
+            },
+            {
+                "question": "TAUX DE MORTALITÉ NÉONATALE TARDIF (TMNNT)",
+                "réponse": "<img src='img_flashcard/1/TMNNT.png'/>"
+            },
+            {
+                "question": "TAUX DE MORTALITÉ POSTNATALE (TMPNN)",
+                "réponse": "<img src='img_flashcard/1/TMPNN.png'/>"
+            },
+            {
+                "question": "LA POPULATION MOYENNE",
+                "réponse": "<img src='img_flashcard/1/PM.png'/>"
+            }
+        ]
+    };
+
+    let currentMatière = "GESTION DES VACCINS";
+    let currentIndex = 0;
+    let quizSettings = {
+        darkMode: false
+    };
+
+    // Éléments DOM
+    const flashcard = document.querySelector(".flashcard");
+    const front = document.querySelector(".front");
+    const back = document.querySelector(".back");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const matièreSelect = document.getElementById("matière-select");
+    const darkModeToggle = document.getElementById("darkModeToggle");
+
+    // Afficher une carte
+    function afficherCarte() {
+        const cartes = flashcardsData[currentMatière];
+        if (!cartes || cartes.length === 0) return;
+        
+        const carte = cartes[currentIndex];
+        front.textContent = carte.question;
+        back.innerHTML = carte.réponse;
+    }
+
+    // Rotation de la carte
+    flashcard.addEventListener("click", () => {
+        flashcard.style.transform = flashcard.style.transform === "rotateY(180deg)" 
+            ? "rotateY(0)" 
+            : "rotateY(180deg)";
+    });
+
+    // Navigation
+    nextBtn.addEventListener("click", () => {
+        const cartes = flashcardsData[currentMatière];
+        currentIndex = (currentIndex + 1) % cartes.length;
+        afficherCarte();
+        flashcard.style.transform = "rotateY(0)";
+    });
+
+    prevBtn.addEventListener("click", () => {
+        const cartes = flashcardsData[currentMatière];
+        currentIndex = (currentIndex - 1 + cartes.length) % cartes.length;
+        afficherCarte();
+        flashcard.style.transform = "rotateY(0)";
+    });
+
+    // Changement de matière
+    matièreSelect.addEventListener("change", (e) => {
+        currentMatière = e.target.value;
+        currentIndex = 0;
+        afficherCarte();
+        flashcard.style.transform = "rotateY(0)";
+    });
+
+    // Gestion du mode sombre
+    function initDarkMode() {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedMode = localStorage.getItem('darkMode');
+        
+        if (savedMode === 'dark' || (prefersDark && savedMode !== 'light')) {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            quizSettings.darkMode = true;
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            quizSettings.darkMode = !quizSettings.darkMode;
+            
+            if (quizSettings.darkMode) {
+                localStorage.setItem('darkMode', 'dark');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                localStorage.setItem('darkMode', 'light');
+                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+    }
+
+    // Sidebar
+    function toggleDrawer() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const body = document.body;
+
+        if (sidebar.classList.contains('show')) {
+            sidebar.classList.remove('show');
+            overlay.style.display = 'none';
+            body.classList.remove('body-disabled');
+        } else {
+            sidebar.classList.add('show');
+            overlay.style.display = 'block';
+            body.classList.add('body-disabled');
+        }
+    }
+
+    function closeDrawer() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const body = document.body;
+
+        sidebar.classList.remove('show');
+        overlay.style.display = 'none';
+        body.classList.remove('body-disabled');
+    }
+
+    function navigateTo(url) {
+        window.location.href = url;
+    }
+
+    // Créer des bulles d'animation
+    function createBubbles() {
+        const colors = ['rgba(74, 107, 255, 0.1)', 'rgba(108, 92, 231, 0.1)', 'rgba(0, 184, 148, 0.1)'];
+        const bgAnimation = document.getElementById('bgAnimation');
+        
+        for (let i = 0; i < 15; i++) {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            
+            const size = Math.random() * 150 + 50;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${Math.random() * 100}%`;
+            bubble.style.top = `${Math.random() * 100 + 100}%`;
+            bubble.style.background = colors[Math.floor(Math.random() * colors.length)];
+            bubble.style.animationDuration = `${Math.random() * 20 + 10}s`;
+            bubble.style.animationDelay = `${Math.random() * 5}s`;
+            bgAnimation.appendChild(bubble);
+        }
+    }
+
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', () => {
+        initDarkMode();
+        createBubbles();
+        afficherCarte();
+        
+        // Animation initiale
+        setTimeout(() => {
+            flashcard.style.transform = "rotateY(180deg)";
+            setTimeout(() => {
+                flashcard.style.transform = "rotateY(0)";
+            }, 1000);
+        }, 1000);
+    });
+</script>
+</body>
+</html>

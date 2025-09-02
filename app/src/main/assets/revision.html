@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Résumé des cours ( 4 Matières du diplôme d'état IDE - INFAS)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>:root{--primary-color:#3498db;--secondary-color:#2980b9;--accent-color:#e74c3c;--light-color:#f5eef8;--dark-color:#2c3e50;--transition-speed:0.3s;}*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}body{min-height:100vh;background-color:#f9f9f9;color:#333;padding:10px;user-select:none;}.drawer{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background-color:#333;color:white;width:60px;height:60px;display:flex;align-items:
+center;justify-content:center;border-radius:50%;box-shadow:0 4px 10px rgba(0,0,0,0.2);cursor:pointer;transition:background-color 0.3s ease,transform 0.2s ease;z-index:1000;}.drawer:hover{background-color:#555;transform:translateX(-50%) scale(1.1);}.sidebar{position:fixed;left:0;top:0;width:5cm;height:100%;background-color:#333;display:flex;flex-direction:column;align-items:center;padding-top:20px;z-index:1000;box-shadow:2px 0 10px rgba(0,0,0,0.1);transform:translateX(-100%);transition:transform
+0.3s ease;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#888 #333;}.sidebar.show{transform:translateX(0);}.icon{color:white;font-size:2rem;margin:10px 0;cursor:pointer;transition:transform 0.2s,color 0.2s;}.icon:hover{transform:scale(1.2);color:#1e90ff;}.sidebar::-webkit-scrollbar{width:8px;}.sidebar::-webkit-scrollbar-thumb{background-color:#888;border-radius:4px;}.sidebar::-webkit-scrollbar-track{background-color:#333;}.icon i{font-size:2.5rem;}.menu-button{position:fixed;top:20px;left:
+20px;background-color:#333;color:white;width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);z-index:1001;}.menu-button:hover{background-color:#555;}.overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:999;}.body-disabled{overflow:hidden;}.main-content{max-width:1200px;margin:0 auto;padding:10px;}.search-filter-container{display:flex;
+flex-wrap:wrap;gap:15px;margin-bottom:20px;padding:15px;background-color:white;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.08);}.search-box{flex:1;min-width:250px;}.search-box input{width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-size:1rem;}.pathology-selector{flex:1;min-width:250px;}.pathology-selector select{width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-size:1rem;background-color:white;}.advanced-search-btn{padding:10px 15px;
+background-color:var(--primary-color);color:white;border:none;border-radius:4px;cursor:pointer;font-size:1rem;transition:background-color 0.3s;}.advanced-search-btn:hover{background-color:var(--secondary-color);}.protocol-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid #ddd;}.protocol-title{font-size:1.8rem;color:var(--secondary-color);}.protocol-subtitle{font-size:1rem;color:#7f8c8d;margin-top:5px;}
+.protocol-number{background-color:var(--accent-color);color:white;padding:5px 10px;border-radius:20px;font-weight:bold;font-size:0.9rem;}.case-studies-container{position:relative;min-height:400px;}.case-study-card{background-color:white;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.08);padding:15px;margin-bottom:15px;display:none;transition:opacity 0.5s ease;}.case-study-card.active{display:block;opacity:1;}.case-study-card h3{font-size:1.3rem;color:var(--secondary-color);margin-bottom:
+10px;display:flex;align-items:center;gap:8px;}.case-study-card h3 i{color:var(--primary-color);}.case-description{line-height:1.6;margin-bottom:15px;font-size:0.95rem;}.tabs{display:flex;border-bottom:2px solid #ddd;margin-bottom:15px;}.tab{flex:1;padding:8px 0;text-align:center;cursor:pointer;font-weight:bold;color:var(--dark-color);border-bottom:3px solid transparent;transition:all 0.3s;font-size:0.9rem;}.tab.active{color:var(--primary-color);border-bottom:3px solid var(--primary-color);}
+.tab:hover{color:var(--primary-color);}.tab-content{display:none;line-height:1.6;font-size:0.9rem;}.tab-content.active{display:block;}.prescription-list{margin-left:15px;margin-bottom:10px;}.prescription-list li{margin-bottom:8px;}.navigation{display:flex;justify-content:space-between;margin-top:15px;gap:10px;}.nav-btn{background-color:var(--primary-color);color:white;border:none;padding:8px 15px;border-radius:4px;cursor:pointer;font-size:0.9rem;transition:background-color 0.3s;flex:1;}
+.nav-btn:disabled{background-color:#ccc;cursor:not-allowed;}.nav-btn:hover:not(:disabled){background-color:var(--secondary-color);}.definition-box{background-color:#f0f8ff;border-left:4px solid var(--primary-color);padding:15px;margin:15px 0;border-radius:0 5px 5px 0;}.classification-box{background-color:#fffaf0;border-left:4px solid #ffa500;padding:15px;margin:15px 0;border-radius:0 5px 5px 0;}.indication-box{background-color:#f0fff0;border-left:4px solid #2ecc71;padding:15px;margin:15px 0;
+border-radius:0 5px 5px 0;}.specialty-box{background-color:#f5f0ff;border-left:4px solid #9b59b6;padding:15px;margin:15px 0;border-radius:0 5px 5px 0;}.pillar{margin-bottom:30px;padding:15px;border-radius:5px;background-color:#f8f9fa;border-left:4px solid var(--secondary-color);}.pillar-title{font-weight:bold;color:var(--secondary-color);margin-bottom:10px;}.protocol-box{background-color:#e8f5e9;border-left:4px solid #4caf50;padding:15px;margin:15px 0;border-radius:0 5px 5px 0;}
+.who-recommendation{background-color:#e3f2fd;border-left:4px solid #2196f3;padding:10px;margin:10px 0;border-radius:0 5px 5px 0;font-style:italic;}.warning-box{background-color:#ffebee;border-left:4px solid #f44336;padding:10px;margin:10px 0;border-radius:0 5px 5px 0;}.regimen-table{width:100%;border-collapse:collapse;margin:15px 0;overflow-x:auto;display:block;white-space:nowrap;}.regimen-table th,.regimen-table td{border:1px solid #ddd;padding:8px;text-align:left;white-space:normal;}
+.regimen-table th{background-color:var(--primary-color);color:white;position:sticky;top:0;}.regimen-table tr:nth-child(even){background-color:#f2f2f2;}.side-effects{background-color:#fff3e0;border-left:4px solid #ff9800;padding:10px;margin:10px 0;border-radius:0 5px 5px 0;}
+@media (max-width:768px){.main-content{padding:5px;}.protocol-header{flex-direction:column;align-items:flex-start;gap:8px;}.protocol-title{font-size:1.4rem;}.protocol-number{font-size:0.8rem;padding:4px 8px;}.case-study-card{padding:10px;}.case-study-card h3{font-size:1.1rem;}.case-description,.tab-content{font-size:0.85rem;}.tabs{flex-direction:column;}.tab{padding:8px;border-bottom:1px solid #ddd;}.tab:last-child{border-bottom:none;}.navigation{flex-direction:row;gap:5px;}.nav-btn{padding:6px
+10px;font-size:0.8rem;}.search-filter-container{flex-direction:column;gap:10px;} }
+@media (max-width:480px){.protocol-title{font-size:1.2rem;}.case-study-card h3{font-size:1rem;}.case-description,.tab-content{font-size:0.8rem;}.nav-btn{padding:5px 8px;font-size:0.75rem;}.modal-content{width:95%;padding:15px;} }.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:2000;justify-content:center;align-items:center;}.modal-content{background-color:white;padding:20px;border-radius:8px;width:90%;max-width:600px;max-height:80vh;
+overflow-y:auto;}.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}.modal-title{font-size:1.5rem;color:var(--secondary-color);}.close-modal{font-size:1.5rem;cursor:pointer;color:var(--dark-color);}.filter-group{margin-bottom:15px;}.filter-group label{display:block;margin-bottom:5px;font-weight:bold;}.filter-group input,.filter-group select{width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;}.modal-actions{display:flex;justify-content:
+flex-end;gap:10px;margin-top:20px;}.modal-btn{padding:8px 15px;border:none;border-radius:4px;cursor:pointer;font-size:0.9rem;}.apply-btn{background-color:var(--primary-color);color:white;}.apply-btn:hover{background-color:var(--secondary-color);}.cancel-btn{background-color:#ddd;color:var(--dark-color);}.cancel-btn:hover{background-color:#ccc;}marquee{padding:8px 0;background-color:rgba(0,0,0,0.1);border-radius:4px;margin-bottom:10px;}marquee a{color:var(--primary-color);text-decoration:none;
+font-weight:500;margin:0 15px;}
+</style>
+</head>
+<body><marquee> <a href="https://wa.me/225054783595" target="_blank">ME CONTACTER SUR WHATSAPP ! 💬</a> <a href="https://whatsapp.com/channel/0029VaJvdFJF6smp7250ba2a" target="_blank">NOTRE CHAÎNE WHATSAPP 📱</a></marquee><div id="overlay" class="overlay" onclick="closeDrawer()"></div><div id="sidebar" class="sidebar"><div class="icon" onclick="navigateTo('https://sujetsinfas.com/index.php')"> <i>🏛️</i></div></div><div class="drawer" onclick="toggleDrawer()">☰</div><main class="main-content">
+<div class="search-filter-container"><div class="search-box"> <input type="text" id="searchInput" placeholder="Rechercher une pathologie..."></div><div class="pathology-selector"> <select id="pathologySelect"><option value="all">Tout le contenu</option><option value="traumatologie">Traumatologie et Orthopédie</option><option value="chir_digestive">Chirurgie Digestive</option><option value="urologie">Urologie</option><option value="cancers">Pathologies Cancéreuses</option><option value="divers">Divers
+</option><option value="respiratoire">Pathologies Respiratoires</option><option value="cardio">Pathologies Cardiovasculaires</option><option value="path_digestive">Pathologies Digestives</option><option value="path_urinaire">Pathologies Urinaires</option><option value="pediatrie">Pathologies Pédiatriques</option><option value="urgences">Urgences et Intoxications</option><option value="sante-publique">Besoins de Virginia Henderson</option><option value="pev">Programme Élargi de Vaccination (PEV)</option>
+<option value="sns">Système National de Santé</option><option value="hygiene">Hygiène et Assainissement</option><option value="fleaux-sociaux">Fléaux Sociaux</option><option value="gyneco-obstetrique">gyneco-obstetrique</option></select></div> <button class="advanced-search-btn" onclick="openAdvancedSearch()"> <i class="fas fa-search-plus"></i> Filtres avancés </button></div>
+<header class="protocol-header"><div><h1 class="protocol-title" id="dynamicTitle">Résumé des cours ( 4 Matières du diplôme d'état IDE - INFAS)</h1><!-- <p class="protocol-subtitle">Réalisé par Yves Carmel Adingran - IDE 2 22ème Promotion « 2016 - 2019 » INFAS ABIDJAN</p>--></div> <span class="protocol-number" id="dynamicProtocol">Licence 2 & 3 / 2019</span>
+</header><div class="case-studies-container" id="caseStudies"><!-- Module 1 : Traumatologie et Orthopédie --><div class="case-study-card active" data-index="0" data-pathology="traumatologie"><h3><i class="fas fa-bone"></i> Module 1 : Traumatologie et Orthopédie</h3><p class="case-description">Pathologies traumatiques et orthopédiques : fractures, luxations, traumatismes divers.</p><div class="tabs"><div class="tab active" data-tab="trauma-1">Traumatismes</div><div class="tab"
+data-tab="trauma-2">Fractures</div><div class="tab" data-tab="trauma-3">Luxations</div></div><div class="tab-content active" id="trauma-1"><div class="definition-box"><h4>Traumatisme du thorax</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Ensemble des conséquences médicales d'un choc subi au niveau du thorax
+</td></tr><tr><td>Étiologies
+</td><td>Accidents de la voie publique (AVP), accidents de travail
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Inspection : Pâleur, cyanose, rythme respiratoire</li><li>Palpation : Vibration vocales, choc de pointe</li><li>Auscultation : Murmure vésiculaire, bruits de cœur</li><li>Percussion : Hypersonorité</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Confirmé par l'examen clinique
+</td></tr><tr><td>Bilans
+</td><td><ul><li>Examen général : Recherche de traumatisme crânien, rachis, bassin</li><li>Paraclinique : Radiographie thoracique, Scanner thoracique</li><li>Biologie : NFS, Groupe sanguin</li></ul>
+</td></tr><tr><td>Complications
+</td><td>Septicémie, ischémie, hémothorax, pneumothorax, rupture des gros vaisseaux
+</td></tr><tr><td>Traitement
+</td><td><ul><li>Médical : Patient demi-assis, désobstruction des voies aériennes, oxygénothérapie</li><li>Chirurgical : Pansement des plaies, suture, drainage d'un hémothorax ou pneumothorax, réparation des lésions</li></ul>
+</td></tr></table></div><div class="protocol-box"><h4>Impact du traumatisme thoracique</h4><ul><li>Douleur et contusions pulmonaires</li><li>Épanchements pleuraux et lésions pariétales</li><li>Hypoventilation et hypoxémie</li><li>Aggravation possible d'un traumatisme crânien associé</li></ul><p><strong>Hypoxémie</strong> : Diminution de la quantité d'oxygène transportée dans le sang</p><p><strong>Ventilation</strong> : Renouvellement de l'air contenu dans les poumons par l'action des muscles
+respiratoires dont le principal est le diaphragme</p></div></div><div class="tab-content" id="trauma-2"><div class="classification-box"><h4>Fractures courantes</h4><h5>Fracture de la clavicule</h5>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Fractures de la clavicule dues à un traumatisme
+</td></tr><tr><td>Étiologies
+</td><td>Accidents de la voie publique (AVP), traumatismes
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Signes fonctionnels : Douleurs vives et persistantes, impotence fonctionnelle</li><li>Signes physiques : Épaule abaissée, tête inclinée du côté atteint</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Confirmé par radiographie ou la sortie de l'os
+</td></tr><tr><td>Bilans
+</td><td>Radiographie de la face ; recherche une fracture associée de la ceinture scapulaire
+</td></tr><tr><td>Complications
+</td><td><ul><li>Immédiates : Ouverture du foyer, atteinte pleurale</li><li>Secondaires : Ostéite</li><li>Tardives : Retard de consolidation, cal vicieux, séquelles douloureuses</li></ul>
+</td></tr><tr><td>Traitement
+</td><td><ul><li>Orthopédique : Réduction orthopédique, bandage en 8, simple mobilisation</li><li>Chirurgicale : Sur les foyers ouverts avec réduction de la fracture</li></ul>
+</td></tr></table><h5>Fracture de l'humérus</h5>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Fractures qui concernent le corps ou la diaphyse et le col de l'os du bras
+</td></tr><tr><td>Variétés
+</td><td>Corps de l'humérus, supracondylienne, de l'olécrâne
+</td></tr><tr><td>Étiologies
+</td><td>Choc direct, torsion indirecte, AVP, chute sur le coude
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Fonctionnels : Douleur et impotence fonctionnelle</li><li>Physiques : Raccourcissement du membre, crépitation, tuméfaction, décoloration de la peau</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Confirmé par radiographie de la face et du profil
+</td></tr><tr><td>Complications
+</td><td>Troubles cérébraux et pulmonaires, infections secondaires
+</td></tr><tr><td>Traitement
+</td><td><ul><li>Réduction et contention</li><li>Méthode orthopédique : Immobilisation plâtrée</li><li>Méthode chirurgicale : Ostéosynthèse et fermeture du foyer</li></ul>
+</td></tr></table><h5>Fracture des deux os de l'avant-bras</h5>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Fractures qui intéressent les deux os de l'avant-bras (radius et cubitus)
+</td></tr><tr><td>Variétés
+</td><td>Tête et du col du radius, corps du radius et du cubitus, des deux os de l'avant-bras, extrémité inférieure du radius
+</td></tr><tr><td>Étiologies
+</td><td>Choc direct, torsion indirecte, AVP, chute sur le bras
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Fonctionnels : Douleur et impotence fonctionnelle</li><li>Physiques : Raccourcissement du membre, crépitation, œdème</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Confirmé par radiographie
+</td></tr><tr><td>Complications
+</td><td><ul><li>Immédiates : Syndrome de Volkmann</li><li>Tardives : Cals vicieux, pseudarthroses</li></ul>
+</td></tr><tr><td>Traitement
+</td><td><ul><li>Sans déplacement : Plâtre</li><li>Avec déplacement : Réduction sous anesthésie générale avec hyperflexion dorsale et ostéosynthèse</li></ul>
+</td></tr></table></div></div><div class="tab-content" id="trauma-3"><div class="indication-box"><h4>Luxation de l'épaule</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Sortie de la tête humérale de la cavité glénoïde de l'omoplate
+</td></tr><tr><td>Variétés
+</td><td>1. Antéro-interne extra-coracodienne<br>2. Antéro-interne sous-coracodienne<br>3. Intra-coracodienne
+</td></tr><tr><td>Étiologies
+</td><td>Traumatisme direct et traumatisme indirect
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Fonctionnels : Douleur violente, impotence fonctionnelle absolue</li><li>Physiques : Abduction du bras, rotation externe du bras, œdème de l'épaule</li></ul>
+</td></tr><tr><td>Diagnostic différentiel
+</td><td><ul><li>Fracture du col de l'humérus : Déformation et sensation de crépitation osseuse</li><li>Fracture du col de l'omoplate : Aplatissement du moignon de l'épaule et déformation</li></ul>
+</td></tr><tr><td>Bilans
+</td><td>Radiographie de la face, profil de l'épaule et trans-thoracique
+</td></tr><tr><td>Complications
+</td><td><ul><li>Nerveuses : Atteinte du nerf circonflexe et du plexus brachial</li><li>Vasculaires : Compression du pouls, hématome</li><li>Association fracture-luxation</li></ul>
+</td></tr><tr><td>Traitement
+</td><td>Traitement orthopédique sous anesthésie générale : Anesthésie avec du valium, blessé en décubitus dorsal, exercer une traction assez forte
+</td></tr></table></div></div></div><!-- Module 2 : Chirurgie Digestive --><div class="case-study-card" data-index="1" data-pathology="chir_digestive"><h3><i class="fas fa-procedures"></i> Module 2 : Chirurgie Digestive</h3><p class="case-description">Pathologies abdominales, hernies, appendicite, occlusions et affections digestives.</p><div class="tabs"><div class="tab active" data-tab="chir_dig-1">Traumatismes</div><div class="tab" data-tab="chir_dig-2">Hernies</div><div class="tab"
+data-tab="chir_dig-3">Inflammations</div></div><div class="tab-content active" id="chir_dig-1"><div class="definition-box"><h4>Contusions abdominales</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Traumatismes de l'abdomen sans solution de continuité au niveau de la paroi abdominale (traumatismes fermés)
+</td></tr><tr><td>Étiologies
+</td><td>Choc direct sur l'abdomen, choc indirect dû à la décélération brutale
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Hémopéritoine : Anémie aiguë, choc hypovolémique, TA basse</li><li>Péritonite : Douleurs abdominales, nausées, vomissements, "ventre de bois"</li><li>Abdomen contus : Douleurs provoquées, défense localisée</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Interrogatoire (arrêt des matières et gaz), refus des palpations
+</td></tr><tr><td>Bilans
+</td><td><ul><li>Biologiques : NFS, bilan d'hémostase, ionogramme sanguin, urée, créatinine</li><li>Imagerie : Echo abdomen, ASP, cliché face couché</li></ul>
+</td></tr><tr><td>Complications
+</td><td>Péritonite (urgence vitale pouvant conduire à la mort)
+</td></tr><tr><td>Traitement
+</td><td>Chirurgical (laparotomie) après préparation par l'IDE
+</td></tr></table></div></div><div class="tab-content" id="chir_dig-2"><div class="classification-box"><h4>Hernies</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Issue d'un organe hors de sa cavité naturelle à travers un point de faiblesse anatomique
+</td></tr><tr><td>Variétés
+</td><td><ul><li>Inguinale oblique</li><li>Inguinale directe</li><li>Crurale ou fémorale</li><li>Ligne blanche</li><li>Ombilicales</li><li>Epigastriques</li><li>Hypogastriques</li></ul>
+</td></tr><tr><td>Étiologies
+</td><td><ul><li>Faiblesse musculaire</li><li>Facteurs herniogènes : toux chronique, travail de force, adénome de la prostate, grossesse</li></ul>
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Hernies non compliquées : <ul><li>Fonctionnels : Indolores</li><li>Physiques : Orifice superficiel, canal inguinal</li></ul></li><li>Hernies compliquées : <ul><li>Fonctionnels : Douleurs vives, vomissements, arrêt des matières et gaz</li><li>Physiques : Tuméfaction dure, irréductibilité, dysurie</li></ul></li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td><ul><li>Non compliquée : Tuméfaction indolore, état général conservé</li><li>Compliquée : Pas de fièvre, pouls accéléré</li></ul>
+</td></tr><tr><td>Bilans
+</td><td><ul><li>Imagerie : Echo abdomen, ASP, cliché face couché/debout</li></ul>
+</td></tr><tr><td>Complications
+</td><td>Hypertrophie de la hernie
+</td></tr><tr><td>Traitement
+</td><td><ul><li>Réduire la hernie</li><li>Supprimer le point de faiblesse</li><li>Chirurgie : Raphe, autoplastie</li><li>Traiter le contenu du sac herniaire</li></ul>
+</td></tr></table></div></div><div class="tab-content" id="chir_dig-3"><div class="indication-box"><h4>Appendicite aiguë</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Inflammation aiguë de l'appendice
+</td></tr><tr><td>Variétés
+</td><td>Appendicite catarrhale, phlegmoneuse, gangréneuse
+</td></tr><tr><td>Étiologies
+</td><td><ul><li>Voie endogène : Stérolithe, hyperplasie du tissu lymphoïde, corps étrangers</li><li>Voie hématogène : Atteinte par voie sanguine</li></ul>
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Vomissements alimentaires, nausées, anorexie, constipation</li><li>Généraux : Température 38-38.5°C, pouls filant</li><li>Physiques : Douleurs provoquées à la fosse iliaque droite</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Douleurs intenses à la fosse iliaque droite
+</td></tr><tr><td>Bilans
+</td><td><ul><li>Biologiques : NFS (hyperleucocytose), CRP</li><li>Imagerie : Echo abdomen, ASP, radiographie de la face couché</li></ul>
+</td></tr><tr><td>Complications
+</td><td>Péritonite appendiculaire, plastron appendiculaire, abcès appendiculaire
+</td></tr><tr><td>Traitement
+</td><td><ul><li>Chirurgical : Appendicectomie, coelioscopie, laparotomie</li><li>Médical : Apport hydrique, antalgiques, antibiotiques</li></ul>
+</td></tr></table></div><div class="protocol-box"><h4>Occlusion intestinale aiguë</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Arrêt complet et persistant du transit intestinal des matières et gaz
+</td></tr><tr><td>Variétés
+</td><td>Occlusions mécaniques, fonctionnelles, inflammatoires ou mixtes
+</td></tr><tr><td>Étiologies
+</td><td>Calcul biliaire, vers intestinaux, fécalome, péritonite aiguë ou chronique, affection appendice
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Fonctionnels : Douleurs abdominales, vomissements, arrêt des matières et gaz</li><li>Physiques : Météorisme abdominal</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Début brutal avec douleurs très vives et paroxysmes
+</td></tr><tr><td>Bilans
+</td><td><ul><li>Biologiques : NFS, hématocrites élevés</li><li>Imagerie : Echo abdomen, ASP, radiographie de la face</li></ul>
+</td></tr><tr><td>Complications
+</td><td>Évolution rapide vers la mort en l'absence de traitement
+</td></tr><tr><td>Traitement
+</td><td>Correction des équilibres hormonaux et suppression de l'obstacle par laparotomie
+</td></tr></table></div></div></div><!-- Module 3 : Urologie --><div class="case-study-card" data-index="2" data-pathology="urologie"><h3><i class="fas fa-bladder"></i> Module 3 : Pathologies Urologiques</h3><p class="case-description">Affections urologiques : adénome de la prostate, rétention urinaire, cryptorchidie, hydrocèle.</p><div class="tabs"><div class="tab active" data-tab="uro-1">Prostate</div><div class="tab" data-tab="uro-2">Troubles mictionnels</div><div class="tab"
+data-tab="uro-3">Anomalies testiculaires</div></div><div class="tab-content active" id="uro-1"><div class="definition-box"><h4>Adénome de la prostate</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Tumeur bénigne se traduisant par l'hyperplasie et l'hypertrophie de la glande prostatique
+</td></tr><tr><td>Étiologies
+</td><td>Prostatite (inflammation de la prostate), douleurs vésicales, hématurie
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Fonctionnels : Pollakiurie nocturne, miction retardée, gouttes retardataires</li><li>Physiques : Recherche de globe vésical, palpation des organes génitaux externes</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Échographie de la prostate et des organes avoisinants, échographie rénale
+</td></tr><tr><td>Bilans
+</td><td><ul><li>Biologiques : Biopsie prostatique, urée, créatinine, dosage de PSA</li><li>Radiographie : Echo rénale, vésicale et prostatique, urographie intraveineuse</li></ul>
+</td></tr><tr><td>Complications
+</td><td>Cancer de la prostate ou néoplasie prostatique
+</td></tr><tr><td>Traitement
+</td><td><ul><li>Médical : Phytothérapie, alpha-bloquants, traitement hormonal</li><li>Chirurgical : Suppression de l'obstruction due à l'hypertrophie, résection prostatique</li></ul>
+</td></tr></table></div></div><div class="tab-content" id="uro-2"><div class="protocol-box"><h4>Rétention urinaire</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Impossibilité brutale et totale d'uriner ou d'émettre les urines
+</td></tr><tr><td>Variétés
+</td><td>Aiguë (résidu post-mictionnel <300cc), chronique (>300cc)
+</td></tr><tr><td>Étiologies
+</td><td>Adénome de la prostate, cancer de la prostate, maladie du col vésical, phimosis serré
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Fonctionnels : Impossibilité d'uriner, douleurs sus-pubiennes, besoin d'uriner</li><li>Physiques : Globe vésical, douleur à la palpation</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Globe vésical et impossibilité d'uriner
+</td></tr><tr><td>Bilans
+</td><td><ul><li>Biologique : Bilan rénal (urée et créatinine)</li><li>Bactériologique : ECBU avec antibiogramme</li><li>Radiologique : Echographie (vessie, prostate)</li></ul>
+</td></tr><tr><td>Complications
+</td><td>Distension progressive vésicale indolore
+</td></tr><tr><td>Traitement
+</td><td>Drainage vésical dans des conditions aseptiques
+</td></tr></table><h4>Rétrécissement de l'urètre</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Réduction de la lumière urétrale à travers le méat du fait d'un processus scléro-inflammatoire
+</td></tr><tr><td>Étiologies
+</td><td><ul><li>Première cause : Urétrite gonococcique ou blennorragie</li><li>Autres causes : Tuberculose, parasitaires, traumatiques, accidentelles</li></ul>
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Fonctionnels : Dysurie, troubles mictionnels, foulure mictionnelle</li><li>Physiques : Distension vésicale, pollakiurie, incontinence</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Échographie de l'appareil urinaire
+</td></tr><tr><td>Bilans
+</td><td>Urétrocystographie rétrograde, urographie intraveineuse, scanner, biopsie
+</td></tr><tr><td>Complications
+</td><td>Rétention urinaire aiguë ou chronique
+</td></tr><tr><td>Traitement
+</td><td><ul><li>Instrumental : Dilatation de l'urètre sous anesthésie</li><li>Chirurgical : Urétrotomie consistant à inciser la paroi de l'urètre</li></ul>
+</td></tr></table></div></div><div class="tab-content" id="uro-3"><div class="indication-box"><h4>Cryptorchidie</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Anomalie de la descente du testicule dans la bourse due à un défaut de sécrétion hormonale ou obstacle anatomique
+</td></tr><tr><td>Étiologies
+</td><td>Défaut de sécrétion des hormones
+</td></tr><tr><td>Signes cliniques
+</td><td>Testicule atrophié, température de l'abdomen
+</td></tr><tr><td>Diagnostic
+</td><td>Vacuité de la bourse unilatérale ou bilatérale
+</td></tr><tr><td>Bilans
+</td><td>Échographie ou scanner pour localiser le testicule dans l'abdomen
+</td></tr><tr><td>Complications
+</td><td>Suppression du testicule si non traité
+</td></tr><tr><td>Traitement
+</td><td><ul><li>Médical : Stimulation de la descente par les hormones</li><li>Chirurgical : Orchidopexie (repositionnement du testicule dans la bourse)</li></ul>
+</td></tr></table><h4>Hydrocèle</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Épanchement liquidien séreux entre les deux feuillets de la vaginale
+</td></tr><tr><td>Étiologies
+</td><td>Orchite aiguë, cancer du testicule, bilharziose
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Grosses bourses</li><li>Peau du scrotum déplissée</li><li>Signes inflammatoires</li><li>Tuméfaction réintente</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Impossibilité de pincer la vaginale, tuméfaction transparente à l'échographie
+</td></tr><tr><td>Bilans
+</td><td><ul><li>Radiographie : Cliché de la face</li><li>Imagerie : Échographie</li></ul>
+</td></tr><tr><td>Complications
+</td><td>Augmentation de volume avec la toux
+</td></tr><tr><td>Traitement
+</td><td><ul><li>Retournement</li><li>Résection de la vaginale</li></ul>
+</td></tr></table></div></div></div><!-- Module 4 : Pathologies Cancéreuses --><div class="case-study-card" data-index="3" data-pathology="cancers"><h3><i class="fas fa-dna"></i> Module 4 : Pathologies Cancéreuses</h3><p class="case-description">Tumeurs malignes : œsophage, estomac, rectum, rein.</p><div class="tabs"><div class="tab active" data-tab="can-1">Digestifs</div><div class="tab" data-tab="can-2">Rein</div></div><div class="tab-content active" id="can-1"><div class="definition-box"><h4>Cancer
+de l'œsophage</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Tumeur maligne primitive développée aux dépens de la paroi œsophagienne entre la bouche de Killian et le cardia
+</td></tr><tr><td>Étiologies
+</td><td><ul><li>Endogènes : Œsophagite chronique, achalasie, syndrome de Plummer, irradiation cervicale</li><li>Exogènes : Alcool, tabagisme, carence en vitamines A, C, E</li></ul>
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Fonctionnels : Dysphagie, halitose, arrêt des matières et gaz</li><li>Généraux : Altération rapide de l'état du patient</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Confirmé par radiographie en ORL-CCF
+</td></tr><tr><td>Bilans
+</td><td>Fibroscopie œsophagienne, écho-endoscopie, immunohistochimie, échographie cervicale et abdominale
+</td></tr><tr><td>Complications
+</td><td>Dysphagie et altération de l'état général
+</td></tr><tr><td>Traitement
+</td><td>Chirurgical (mieux indiqué)
+</td></tr></table></div><div class="protocol-box"><h4>Cancer de l'estomac</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Tumeur maligne primitive développée au dépend de la paroi gastrique, le plus souvent à partir de la muqueuse
+</td></tr><tr><td>Étiologies
+</td><td><ul><li>Endogène : Ulcère gastrique chronique, moignon de gastrectomie</li><li>Exogènes : Sel, nitrites, Helicobacter pylori, diète faible en résidus et riche en sucre</li><li>Lésions prédisposantes</li></ul>
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Fonctionnels : Dysphagie épigastrique, troubles dyspeptiques, éructation</li><li>Généraux : Altération de l'état général, fièvre, troubles de la défécation, anémie, amaigrissement</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Endoscopie digestive haute + histologie
+</td></tr><tr><td>Bilans
+</td><td><ul><li>Echo abdo-pelvienne</li><li>Endoscopie digestive haute</li><li>Radiographie pulmonaire</li><li>Recto-sigmoidoscopie</li><li>Lavement baryté</li></ul>
+</td></tr><tr><td>Complications
+</td><td>Hémorragies digestives, perforations gastriques
+</td></tr><tr><td>Traitement
+</td><td>Chirurgie essentielle (gastrectomie)
+</td></tr></table><h4>Cancer du rectum</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Lésion qui se développe au dépend de la muqueuse rectale
+</td></tr><tr><td>Diagnostic
+</td><td>Confirmé par les examens de prélèvement biopsique
+</td></tr><tr><td>Bilans
+</td><td>Recto-sigmoidoscopie, lavement baryté
+</td></tr><tr><td>Complications
+</td><td>Hémorragie grave
+</td></tr><tr><td>Traitement
+</td><td>Ablation du cancer et rétablissement de la continuité
+</td></tr></table></div></div><div class="tab-content" id="can-2"><div class="indication-box"><h4>Cancer du rein</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Tumeur primitive d'origine inconnue, maligne, développée aux dépens de l'épithélium glandulaire du rein
+</td></tr><tr><td>Types
+</td><td>Adénocarcinome à cellules claires, sarcomatoïdes à cellules affectant des aspects de cellules en faisceaux
+</td></tr><tr><td>Diagnostic
+</td><td>Échographie rénale montrant une hypertrophie du rein
+</td></tr><tr><td>Bilans
+</td><td><ul><li>Biologiques : NFS (plaquettes), calcémie et hypercalcémie</li><li>Imagerie : Echo rénale, IRM, ECG</li></ul>
+</td></tr><tr><td>Complications
+</td><td>Métastases (mort dans 99% des cas)
+</td></tr><tr><td>Traitement
+</td><td><ul><li>Chirurgical : Néphrectomie</li><li>Radiothérapie et chimiothérapie</li></ul>
+</td></tr></table></div></div></div><!-- Module 5 : Divers --><div class="case-study-card" data-index="4" data-pathology="divers"><h3><i class="fas fa-notes-medical"></i> Module 5 : Pathologies Diverses</h3><p class="case-description">Autres pathologies importantes : péritonite, mal de Pott.</p><div class="tabs"><div class="tab active" data-tab="div-1">Péritonite</div><div class="tab" data-tab="div-2">Mal de Pott</div></div><div class="tab-content active" id="div-1"><div class="definition-box">
+<h4>Péritonite</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Inflammation de la cavité péritonéale habituellement causée par une infection bactérienne
+</td></tr><tr><td>Variétés
+</td><td>Aiguë diffuse, initiale, terminale, localisée, chronique, encapsulante
+</td></tr><tr><td>Étiologies
+</td><td><ul><li>Lésions gastro-duodénales</li><li>Salpingite</li><li>Iléite nécrosante aiguë</li><li>Pancréatite aiguë</li><li>Thrombose mésentérique</li></ul>
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Douleur diffuse</li><li>Abdomen sensible à la palpation</li><li>Nausées, vomissements</li><li>Température élevée</li><li>Pouls élevé</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Ballonnement du ventre avec défense au palper (ventre de bois)
+</td></tr><tr><td>Bilans
+</td><td><ul><li>Biologiques : NFS (hyperleucocytose), anémie, urée, créatinémie</li><li>Imagerie : Echo abdomen, ASP, ECG</li><li>Radiographie : Radio pulmonaire</li></ul>
+</td></tr><tr><td>Complications
+</td><td>Décès en 2-3 jours sans traitement
+</td></tr><tr><td>Traitement
+</td><td><ul><li>Médical : Aspiration gastrique, correction des déséquilibres hydriques</li><li>Chirurgical : Laparotomie</li></ul>
+</td></tr></table></div></div><div class="tab-content" id="div-2"><div class="protocol-box"><h4>Mal de Pott</h4>
+<table class="regimen-table"><tr><th>Catégorie</th><th>Détails</th></tr><tr><td>Définition
+</td><td>Infection disco-vertébrale due au bacille de Koch (contamination par voie hématogène)
+</td></tr><tr><td>Étiologie
+</td><td>Bacille de Koch (Mycobacterium tuberculosis)
+</td></tr><tr><td>Signes cliniques
+</td><td><ul><li>Fonctionnels : Douleur locale spontanée</li><li>Généraux : Altération de l'état général, fièvre vespérale, asthénie</li><li>Physiques : Gibbosité, douleur, contracture des muscles</li></ul>
+</td></tr><tr><td>Diagnostic
+</td><td>Confirmé par radiographie standard avec prélèvement disco-vertébral
+</td></tr><tr><td>Bilans
+</td><td><ul><li>Scanner (TDM)</li><li>Imagerie par résonance magnétique (IRM)</li><li>Intradermoréaction à la tuberculine (IDR)</li></ul>
+</td></tr><tr><td>Complications
+</td><td>Abcès froid, paraplégie, déformation osseuse (gibbosité)
+</td></tr><tr><td>Traitement
+</td><td><ul><li>Médicamenteux : Rifampicine, isoniazide, éthambutol</li><li>Chirurgical : Chirurgie radicale</li></ul>
+</td></tr></table></div></div></div><!-- ============================================ --><!-- MODULE 1 : PATHOLOGIES RESPIRATOIRES --><!-- ============================================ --><div class="case-study-card active" data-index="5" data-pathology="respiratoire"><h3><i class="fas fa-lungs"></i>Module 6 : Pathologies Respiratoires</h3><p class="case-description">Affections bronchopulmonaires et pleuropulmonaires aiguës et chroniques</p><div class="tabs"><div class="tab active"
+data-tab="resp-1">Infections aiguës</div><div class="tab" data-tab="resp-2">Pathologies chroniques</div><div class="tab" data-tab="resp-3">Autres affections</div></div><!-- Infections aiguës --><div class="tab-content active" id="resp-1"><!-- Pneumonie franche lobaire aiguë --><div class="definition-box"><h4>Pneumonie franche lobaire aiguë (PFLA)</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Infection pulmonaire aussi appelée pneumonie aiguë frontale
+</td></tr><tr><th>Étiologies</th><td>Pneumocoque, légionnelle, haemophilus, staphylocoque
+</td></tr><tr><th>Signes cliniques</th><td><ul><li>Généraux : frisson, fièvre à 40°C, pouls augmenté</li><li>Physiques : rougeur, herpès naso-labial, toux sèche</li></ul>
+</td></tr><tr><th>Diagnostic</th><td>Douleur thoracique accentuée par respiration et toux sèche
+</td></tr><tr><th>Bilans</th><td><ul><li>Biologiques : NFS, longramme</li><li>Radiologie : Rx thorax de face</li></ul>
+</td></tr><tr><th>Complications</th><td>Abcès du poumon, pleurésie, pneumothorax
+</td></tr><tr><th>Traitement</th><td>Antibiothérapie : pénicilline et quinolone (7-14 jours voire 3 semaines)
+</td></tr></table></div><!-- Bronchite aiguë --><div class="protocol-box"><h4>Bronchite aiguë</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Infection aiguë des voies aériennes inférieures par inflammation de la muqueuse bronchique
+</td></tr><tr><th>Étiologies</th><td><ul><li>Virus : Adénovirus, virus grippe, rhinovirus</li><li>Bactéries : Mycoplasma (rare)</li></ul>
+</td></tr><tr><th>Signes cliniques</th><td>Frissons, asthénie, céphalées, fièvre modérée (38°C), toux sèche, baisse d'appétit, faiblesse
+</td></tr><tr><th>Diagnostic</th><td>Toux sèche/grasses avec sécrétions jaunâtres
+</td></tr><tr><th>Bilans</th><td>Radiographie Rx, imagerie (cliché face/profil), ORL (rhinite)
+</td></tr><tr><th>Complications</th><td>Surinfection bactérienne, hémoptysie, pneumonie, décompensation d'asthme
+</td></tr><tr><th>Traitement</th><td><ul><li>Antibiothérapie si nécessaire</li><li>Symptomatique : antalgique + antitussif + AINS</li><li>Préventif : arrêt tabac, mesures d'hygiène</li></ul>
+</td></tr></table></div><!-- Pleurésies --><div class="warning-box"><h4>Pleurésies</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Inflammation aiguë ou chronique de la plèvre avec ou sans épanchement
+</td></tr><tr><th>Étiologies</th><td><ul><li>Primitive : enflure tissus, microbes, tumeur, blessure</li><li>Secondaire : pneumonie, tuberculose, abcès pulmonaire</li></ul>
+</td></tr><tr><th>Signes cliniques</th><td><ul><li>Fonctionnels : douleur thoracique, toux sèche, dyspnée (tachypnée)</li><li>Physiques : murmure à l'auscultation</li></ul>
+</td></tr><tr><th>Diagnostic</th><td>Abolition vibration vocale à la palpation, matité thoracique
+</td></tr><tr><th>Bilans</th><td><ul><li>Biologie : cytologie, bactériologie (BK), biopsie pleurale</li><li>Radiologie : radiographie pulmonaire de face</li></ul>
+</td></tr><tr><th>Complications</th><td>Détresse respiratoire, inconfort, surinfection, pleurésie purulente, lipothymie, OAP
+</td></tr><tr><th>Traitement</th><td><ul><li>Local : ponction pleurale pour évacuer liquide</li><li>Général : antibiothérapie ou antituberculeux si BK</li></ul>
+</td></tr></table></div></div><!-- Pathologies chroniques --><div class="tab-content" id="resp-2"><!-- Insuffisance respiratoire --><div class="definition-box"><h4>Insuffisance respiratoire</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Incapacité de l'appareil respiratoire à fournir l'oxygène nécessaire avec ou sans incapacité à éliminer le CO₂
+</td></tr><tr><th>Étiologies</th><td>Traumatisme thoracique, hypoventilation, déformation rachis dorsal, noyade, intoxication CO
+</td></tr><tr><th>Signes cliniques</th><td>Dyspnée importante, cyanose, sueurs, battements des ailes du nez
+</td></tr><tr><th>Diagnostic</th><td>Fréquence respiratoire anormale, tachypnée, agitation
+</td></tr><tr><th>Complications</th><td>Arrêt respiratoire, mort
+</td></tr><tr><th>Traitement</th><td><ul><li>Antibiotique si infection</li><li>Oxygénothérapie (3L/min)</li><li>Kinésithérapie respiratoire</li></ul>
+</td></tr></table></div><!-- BPCO --><div class="protocol-box"><h4>Broncho-pneumopathie chronique obstructive (BPCO)</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Groupe de maladies chroniques (asthme, dilatation des bronches, bronchite, emphysème)
+</td></tr><tr><th>Étiologies</th><td>Séquelles de BK, sténoses, séquelles pneumothorax, déficits immunitaires, mucoviscidose
+</td></tr><tr><th>Signes cliniques</th><td><ul><li>Fonctionnels : bronchorrhée purulente, expectoration, toux productive, fièvre</li><li>Physiques : bon état général, hippocratisme digital</li></ul>
+</td></tr><tr><th>Diagnostic</th><td>Hémoptysie, toux productive intense
+</td></tr><tr><th>Bilans</th><td>Bronchographie, scanner thoracique, exploration fonctionnelle respiratoire
+</td></tr><tr><th>Complications</th><td>Arrêt respiratoire, OAP
+</td></tr><tr><th>Traitement</th><td><ul><li>Kinésithérapie</li><li>Médicaments : Antibiothérapie + mucolytiques</li><li>Chirurgie si nécessaire</li></ul>
+</td></tr></table></div><!-- OAP --><div class="warning-box"><h4>Œdème aigu du poumon (OAP)</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Insuffisance cardiaque gauche aiguë avec inondation des alvéoles pulmonaires par plasma
+</td></tr><tr><th>Étiologies</th><td><ul><li>Cardiaque : HTA, rétrécissement mitral, IC gauche</li><li>Infectieuse : grippe, rougeole</li><li>Toxique : gaz toxiques, monoxyde de carbone</li></ul>
+</td></tr><tr><th>Signes cliniques</th><td>Polypnée, sueurs, angoisse, pâleur, cyanose, pouls accéléré
+</td></tr><tr><th>Diagnostic</th><td>Présence d'œdèmes aux membres inférieurs indolores
+</td></tr><tr><th>Bilans</th><td>Radiographie thoracique, ECG, gaz du sang, enzymes cardiaques
+</td></tr><tr><th>Complications</th><td>Trouble de conscience, cyanose, bradycardie
+</td></tr><tr><th>Traitement</th><td><ul><li>Oxygénothérapie</li><li>Diurétique (Lasilix)</li><li>Dérivés nitrés (Trinitrine)</li></ul>
+</td></tr></table></div></div><!-- Autres affections --><div class="tab-content" id="resp-3"><!-- Cancer bronchopulmonaire --><div class="definition-box"><h4>Cancer bronchopulmonaire (CBP)</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Tumeur maligne primitive développée au niveau des bronches
+</td></tr><tr><th>Étiologies</th><td>Tabagisme, travail dans les mines, pollution atmosphérique
+</td></tr><tr><th>Signes cliniques</th><td>Hémoptysie, toux persistante, infections respiratoires, expectoration, dyspnée, asthénie
+</td></tr><tr><th>Diagnostic</th><td>Radiographie pulmonaire et altération chez grands fumeurs
+</td></tr><tr><th>Bilans</th><td>Radiographie pulmonaire, scanner thoracique, fibroscopie bronchique
+</td></tr><tr><th>Complications</th><td>Arrêt cardiaque, cyanose, mort
+</td></tr><tr><th>Traitement</th><td><ul><li>Chimiothérapie</li><li>Radiothérapie</li><li>Chirurgie</li></ul>
+</td></tr></table></div><!-- Tuberculose --><div class="protocol-box"><h4>Tuberculose</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Maladie infectieuse contagieuse causée par le Bacille de Koch
+</td></tr><tr><th>Étiologies</th><td><ul><li>Agent : Bacille de Koch, Mycobacterium bovis/canetti</li><li>Contamination : voie aérienne (crachats)</li></ul>
+</td></tr><tr><th>Signes cliniques</th><td><ul><li>Généraux : Asthénie, anorexie, fièvre moyenne, amaigrissement</li><li>Respiratoires : toux sèche/productive, expectorations</li><li>Autres : dyspnée, dysphonie</li></ul>
+</td></tr><tr><th>Diagnostic</th><td>Examen de crachat à la recherche du BK
+</td></tr><tr><th>Bilans</th><td><ul><li>Radiographie pulmonaire</li><li>Laboratoire : Tubage gastrique pour sécrétions bronchiques</li></ul>
+</td></tr><tr><th>Complications</th><td>Miliaire tuberculeuse, adénopathies, fistulisation ganglionnaire
+</td></tr><tr><th>Traitement</th><td><ul><li>Médicamenteux : isoniazide, rifampicine, ethambutol, thiamines</li><li>Préventif : vaccination BCG, amélioration conditions de vie</li></ul>
+</td></tr></table></div></div></div><!-- ============================================ --><!-- MODULE 2 : PATHOLOGIES CARDIOVASCULAIRES --><!-- ============================================ --><div class="case-study-card" data-index="6" data-pathology="cardio"><h3><i class="fas fa-heartbeat"></i>Module 7 : Pathologies Cardiovasculaires</h3><p class="case-description">Affections cardiaques, vasculaires et maladies coronariennes</p><div class="tabs"><div class="tab active" data-tab="cardio-1">Maladies
+des vaisseaux</div><div class="tab" data-tab="cardio-2">Affections du myocarde</div><div class="tab" data-tab="cardio-3">Maladies coronariennes</div></div><!-- Maladies des vaisseaux --><div class="tab-content active" id="cardio-1"><!-- HTA --><div class="definition-box"><h4>Hypertension artérielle (HTA)</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>PAS ≥ 140mmHg et/ou PAD ≥ 90mmHg lors de 2 consultations
+</td></tr><tr><th>Étiologies</th><td>Âge, hérédité, obésité, sédentarité, tabagisme, alcoolisme, stress, désordre alimentaire
+</td></tr><tr><th>Signes cliniques</th><td>Céphalée occipitale matinale, acouphènes, pollakiurie nocturne
+</td></tr><tr><th>Diagnostic</th><td>Découverte fortuite lors d'examen de routine
+</td></tr><tr><th>Bilans</th><td><ul><li>Biologie : urée, NFS, ions, glycémie, créatinémie</li><li>Rx pulmonaire de face, ECG</li></ul>
+</td></tr><tr><th>Complications</th><td><ul><li>Générales : Epistaxis, AVC, OAP, toxémie gravidique</li><li>Organes : Cœur (angor, IVG), Cerveau (AVC), Rein (insuffisance rénale)</li></ul>
+</td></tr><tr><th>Traitement</th><td><ul><li>Préventif : éviter sel, modération alcool, activité physique</li><li>Médicamenteux : diurétiques, bétabloquants, vasodilatateurs</li></ul>
+</td></tr></table></div><!-- Insuffisance veineuse --><div class="protocol-box"><h4>Insuffisance veineuse/Varices MI</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Altération de la paroi veineuse entraînant un retour insuffisant du sang vers le cœur
+</td></tr><tr><th>Étiologies</th><td>Hérédité, âge, obésité, grossesse, vêtements serrés, position debout/assise prolongée
+</td></tr><tr><th>Signes cliniques</th><td>Sensation de jambes lourdes avec œdème vespéral, démangeaisons, crampes
+</td></tr><tr><th>Diagnostic</th><td>Confirmé par palpation des membres inférieurs
+</td></tr><tr><th>Bilans</th><td>Bilan sanguin standard, échodoppler veineux, phlébographie
+</td></tr><tr><th>Complications</th><td>Rupture des varices, thrombose, dermite, eczéma, ulcère variqueux
+</td></tr><tr><th>Traitement</th><td><ul><li>Médicamenteux : veinotoniques, injections (Cléticam)</li><li>Autres : kinésithérapie, chirurgie</li><li>Préventif : hygiène de vie</li></ul>
+</td></tr></table></div><!-- Thrombose veineuse profonde --><div class="warning-box"><h4>Thrombose veineuse profonde (TVP)</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Oblitération partielle ou complète d'une veine profonde par un thrombus
+</td></tr><tr><th>Étiologies</th><td>Alitement >24h, âge, obésité, sédentarité, tabagisme, pilule contraceptive
+</td></tr><tr><th>Signes cliniques</th><td><ul><li>Généraux : fièvre, tachycardie</li><li>Fonctionnels : paresthésies/crampes, douleur du mollet, signe de Homans, œdèmes</li></ul>
+</td></tr><tr><th>Diagnostic</th><td>Œdème dur sans godet, membre augmenté de volume
+</td></tr><tr><th>Bilans</th><td><ul><li>Sanguin : D-dimères, protéines C et S</li><li>ECG, radio pulmonaire face</li></ul>
+</td></tr><tr><th>Complications</th><td><ul><li>Immédiates : Embolie pulmonaire</li><li>Tardives : récidive, maladie post-phlébitique</li></ul>
+</td></tr><tr><th>Traitement</th><td><ul><li>Anticoagulants (aspirine 100mg)</li><li>Prévention récidives</li><li>Ablation chirurgicale du caillot</li></ul>
+</td></tr></table></div></div><!-- Affections du myocarde --><div class="tab-content" id="cardio-2"><!-- Insuffisance ventriculaire gauche --><div class="definition-box"><h4>Insuffisance ventriculaire gauche</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Incapacité du ventricule gauche à assurer le débit sanguin nécessaire
+</td></tr><tr><th>Étiologies</th><td>Trouble du rythme, pneumopathies, poussée hypertensive, endocardite bactérienne
+</td></tr><tr><th>Signes cliniques</th><td>Dyspnée d'effort, toux, expectorations, cyanose
+</td></tr><tr><th>Diagnostic</th><td>Dyspnée permanente au repos
+</td></tr><tr><th>Bilans</th><td>ECG, Rx pulmonaire, Echo-Doppler, gazométrie, troponine, ionogramme
+</td></tr><tr><th>Complications</th><td>Cyanose, mort rapide
+</td></tr><tr><th>Traitement</th><td><ul><li>Non médicamenteux : arrêt tabac, éviter excitants, activité physique</li><li>Médicamenteux : inhibiteurs d'enzyme, bétabloquants, diurétiques, anti-aldostérone</li></ul>
+</td></tr></table></div><!-- Insuffisance ventriculaire droite --><div class="protocol-box"><h4>Insuffisance ventriculaire droite</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Augmentation des pressions de remplissage du ventricule droit
+</td></tr><tr><th>Étiologies</th><td>Cœur pulmonaire aigu/chronique, amylose, cardiopathie congénitale, insuffisance mitrale
+</td></tr><tr><th>Signes cliniques</th><td>Hépatalgie, troubles digestifs (dyspepsie, nausées, vomissements), dyspnée d'effort
+</td></tr><tr><th>Diagnostic</th><td>Hépatomégalie, reflux hépato-jugulaire, oligurie, œdèmes MI, signe de Hazer, cyanose, ascite
+</td></tr><tr><th>Bilans</th><td>Rx pulmonaire, ECG, Echo-Doppler, gaz du sang
+</td></tr><tr><th>Complications</th><td>Cyanose, mort rapide
+</td></tr><tr><th>Traitement</th><td><ul><li>Symptomatique : diurétiques (Lasilix, Burinex), digitaliques (Digoxine)</li><li>Préventif : prévention thrombose (aspirine)</li></ul>
+</td></tr></table></div><!-- Insuffisance cardiaque globale --><div class="warning-box"><h4>Insuffisance cardiaque globale</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Incapacité du cœur à assurer correctement le débit sanguin nécessaire
+</td></tr><tr><th>Étiologies</th><td>Infection pulmonaire aiguë, embolie pulmonaire
+</td></tr><tr><th>Signes cliniques</th><td>Dyspnée d'effort, hépatomégalie douloureuse, cyanose, toux sèche, oligo-anurie
+</td></tr><tr><th>Diagnostic</th><td>Confirmé par examens complémentaires
+</td></tr><tr><th>Bilans</th><td>Rx pulmonaire, ECG, Echo-Doppler, gaz du sang
+</td></tr><tr><th>Complications</th><td>Arrêt cardiaque, mort rapide
+</td></tr><tr><th>Traitement</th><td><ul><li>Oxygénothérapie</li><li>Anticoagulants</li><li>Tonacardiaques</li><li>Diurétiques</li></ul>
+</td></tr></table></div></div><!-- Maladies coronariennes --><div class="tab-content" id="cardio-3"><!-- Angine de poitrine --><div class="definition-box"><h4>Angine de poitrine</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Syndrome douloureux thoracique par diminution du débit sanguin coronaire
+</td></tr><tr><th>Étiologies</th><td>Hérédité, obésité, HTA, diabète, tabagisme
+</td></tr><tr><th>Signes cliniques</th><td>Douleur rétro-sternale en barre, cesse à l'arrêt de l'effort
+</td></tr><tr><th>Diagnostic</th><td>Basé sur les caractéristiques de la douleur
+</td></tr><tr><th>Bilans</th><td><ul><li>Biologie : NFS, TP, glycémie, créatinine</li><li>Spécifique : enzymes cardiaques, troponine</li><li>Radiologie : Rx face, coronarographie</li></ul>
+</td></tr><tr><th>Complications</th><td>Insuffisance coronaire chronique, infarctus
+</td></tr><tr><th>Traitement</th><td><ul><li>Médicamenteux : dérivés nitrés, trinitrine spray, aspirine</li><li>Chirurgical : pontage aorto-coronaire</li><li>Préventif : arrêt tabac, activité physique</li></ul>
+</td></tr></table></div><!-- Syndrome coronarien aigu --><div class="protocol-box"><h4>Syndrome coronarien aigu</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Obstruction complète d'une ou plusieurs artères coronaires
+</td></tr><tr><th>Étiologies</th><td>Caillot sanguin, dépôt de graisse, membrane de végétation valvulaire
+</td></tr><tr><th>Signes cliniques</th><td>Sueurs froides, pâleur, fatigue extrême, nausées, vomissements
+</td></tr><tr><th>Diagnostic</th><td>Douleur thoracique rétro-sternale très violente
+</td></tr><tr><th>Bilans</th><td>ECG, dosage marqueurs cardiaques (troponine, CPK), coronarographie
+</td></tr><tr><th>Complications</th><td>Arrêt cardiaque, cyanose, dyspnée aiguë, mort
+</td></tr><tr><th>Traitement</th><td><ul><li>Oxygénothérapie</li><li>Sérum glucosé iso</li><li>Thrombolytique (Ténectéplase)</li><li>Bétabloquants, antiagrégants plaquettaires</li></ul>
+</td></tr></table></div><!-- Péricardite --><div class="warning-box"><h4>Péricardite aiguë liquidienne</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Inflammation des deux feuillets du péricarde avec épanchement liquidien
+</td></tr><tr><th>Étiologies</th><td>Infarctus, virus (hépatite, rougeole), BK, traumatisme thorax, IRC, staphylocoque, amibiase
+</td></tr><tr><th>Signes cliniques</th><td><ul><li>Fonctionnels : douleurs en décubitus, fièvre 38-39°C</li><li>Respiratoires : toux, dyspnée d'effort</li><li>Digestifs : hoquet, nausées</li><li>Généraux : hypotension artérielle</li></ul>
+</td></tr><tr><th>Diagnostic</th><td>Frottement péricardique à l'auscultation
+</td></tr><tr><th>Bilans</th><td><ul><li>Biologie : NFS, TP, glycémie, créatinine</li><li>Spécifique : ECG</li><li>Radiologie : Rx face, Echo-Doppler</li></ul>
+</td></tr><tr><th>Complications</th><td>Arrêt cardiaque, AVC, constriction tamponnade, mort
+</td></tr><tr><th>Traitement</th><td><ul><li>Repos au lit</li><li>Antalgiques (Paracétamol)</li><li>Ponction péricardique</li><li>Drainage chirurgical si liquide purulent</li></ul>
+</td></tr></table></div></div></div><!-- ============================================ --><!-- MODULE 3 : PATHOLOGIES DIGESTIVES --><!-- ============================================ --><div class="case-study-card" data-index="7" data-pathology="path_digestive"><h3><i class="fas fa-procedures"></i>Module 8 : Pathologies Digestives</h3><p class="case-description">Affections œsogastroduodénales, hépatobiliaires et intestinales</p><div class="tabs"><div class="tab active" data-tab="path_dig-1">Œsogastroduodénales
+</div><div class="tab" data-tab="path_dig-2">Hépatobiliaires</div><div class="tab" data-tab="path_dig-3">Autres</div></div><!-- Œsogastroduodénales --><div class="tab-content active" id="path_dig-1"><!-- RGO --><div class="definition-box"><h4>Reflux gastro-œsophagien (RGO)</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Remontée anormale du contenu gastrique dans l'œsophage sans vomissements
+</td></tr><tr><th>Étiologies</th><td>Modification anatomique, pyrosis de grossesse, maladie altérant le muscle lisse
+</td></tr><tr><th>Signes cliniques</th><td>Régurgitation, pyrosis postural, douleur épigastrique, pharyngite, douleur thoracique, toux
+</td></tr><tr><th>Diagnostic</th><td>Clinique suffisant pour formes mineures occasionnelles
+</td></tr><tr><th>Bilans</th><td>Endoscopie, pH-métrie de 24h
+</td></tr><tr><th>Complications</th><td>Œsophagite peptique, œsophage de Barrett, sténose peptique
+</td></tr><tr><th>Traitement</th><td><ul><li>Médicamenteux : antiacides, sucralfate, anti-sécrétoires, inhibiteurs H2</li><li>Chirurgical si nécessaire</li></ul>
+</td></tr></table></div><!-- Ulcère gastroduodénal --><div class="protocol-box"><h4>Ulcère gastroduodénal</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Perte de substance atteignant la musculeuse de la paroi gastrique/duodénale
+</td></tr><tr><th>Étiologies</th><td>AINS, Helicobacter pylori, tabagisme, terrain génétique, stress
+</td></tr><tr><th>Signes cliniques</th><td>Douleur épigastrique, faim douloureuse, calmée par aliments/antiacides
+</td></tr><tr><th>Diagnostic</th><td>Poussées douloureuses antérieures, prise d'AINS, intoxication tabagique
+</td></tr><tr><th>Bilans</th><td>Endoscopie digestive haute, recherche H. pylori
+</td></tr><tr><th>Complications</th><td>Hémorragie digestive, perforation, sténose, transformation cancéreuse
+</td></tr><tr><th>Traitement</th><td><ul><li>Antibiotiques : Amoxicilline 500mg 2x/j + Métronidazole 500mg 2x/j</li><li>Inhibiteurs de la pompe à protons</li><li>Chirurgie : vagotomie</li></ul>
+</td></tr></table></div></div><!-- Hépatobiliaires --><div class="tab-content" id="path_dig-2"><!-- Hépatites virales --><div class="definition-box"><h4>Hépatites virales</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Processus inflammatoire du foie d'origine virale
+</td></tr><tr><th>Étiologies</th><td>Virus hépatite B/C, alcool, syndrome métabolique, médicaments
+</td></tr><tr><th>Signes cliniques</th><td>Asthénie, céphalées, nausées, douleurs abdominales, fièvre, urticaire, arthralgies
+</td></tr><tr><th>Diagnostic</th><td>Examen sérologique de l'hépatite
+</td></tr><tr><th>Bilans</th><td>Tests hépatiques, fibroscopie, glycémie
+</td></tr><tr><th>Complications</th><td>Cirrhose, cancer du foie, périartérite noueuse
+</td></tr><tr><th>Traitement</th><td>Vaccination contre les virus hépatiques
+</td></tr></table></div><!-- Cirrhoses --><div class="protocol-box"><h4>Cirrhoses</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Bouleversement de l'architecture hépatique aboutissant à une désorganisation
+</td></tr><tr><th>Étiologies</th><td>Alcool (+++), carence protidique
+</td></tr><tr><th>Signes cliniques</th><td>Nausées, manque d'appétit, asthénie, amaigrissement, troubles digestifs/nerveux
+</td></tr><tr><th>Diagnostic</th><td>Oligurie, ictère, hémorragie, AEG sévère, ascite, œdèmes MI
+</td></tr><tr><th>Bilans</th><td><ul><li>Biologie : NFS, TP, glycémie, CRP</li><li>Imagerie : Echo abdominale</li><li>Fibroscopie, tests hépatiques, transaminases</li></ul>
+</td></tr><tr><th>Complications</th><td>Cancer du foie, mort si non traité rapidement
+</td></tr><tr><th>Traitement</th><td><ul><li>Préventif : arrêt alcool, hygiène de vie</li><li>Médicamenteux : diurétiques, vitamines B/C/K</li><li>Ponction évacuatrice d'ascite</li></ul>
+</td></tr></table></div><!-- Cancer primitif du foie --><div class="warning-box"><h4>Cancer primitif du foie</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Carcinome hépatocellulaire développé aux dépens des cellules hépatiques
+</td></tr><tr><th>Étiologies</th><td>Cirrhose alcoolique, hémochromatose, aflatoxine, infestation parasitaire/chimique
+</td></tr><tr><th>Signes cliniques</th><td>Asthénie, amaigrissement, douleur hépatique, fièvre
+</td></tr><tr><th>Diagnostic</th><td>Hépatomégalie dure à surface irrégulière, parfois douloureuse
+</td></tr><tr><th>Bilans</th><td><ul><li>Scintigraphie, artériographie, laparoscopie, biopsies</li><li>Biologie : NFS, CRP, glycémie, urée, créatininémie</li></ul>
+</td></tr><tr><th>Complications</th><td>Hémopéritoine, hémorragie intense, abcès hépatique, mort
+</td></tr><tr><th>Traitement</th><td><ul><li>Chirurgical : hépatectomie, transplantation</li><li>Chimiothérapie</li></ul>
+</td></tr></table></div></div><!-- Autres --><div class="tab-content" id="path_dig-3"><!-- Lithiase biliaire --><div class="definition-box"><h4>Lithiase biliaire (Cholélithiase)</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Formation de calculs dans la vésicule biliaire
+</td></tr><tr><th>Étiologies</th><td>Excès en calcium, carence en eau
+</td></tr><tr><th>Signes cliniques</th><td>Douleurs, ballonnement abdominal, vomissements
+</td></tr><tr><th>Diagnostic</th><td>Présence de calculs de formes et dimensions variables
+</td></tr><tr><th>Bilans</th><td><ul><li>Biologie : NFS, TP, glycémie, CRP</li><li>Imagerie : Echo abdominale</li><li>Bilan hépatique : Amylase, lipase</li></ul>
+</td></tr><tr><th>Complications</th><td>Saignement, péritonite biliaire, abcès sous-phrénique
+</td></tr><tr><th>Traitement</th><td><ul><li>Antispasmodiques</li><li>Antalgiques</li></ul>
+</td></tr></table></div></div></div><!-- ============================================ --><!-- MODULE 4 : PATHOLOGIES URINAIRES --><!-- ============================================ --><div class="case-study-card" data-index="8" data-pathology="path_urinaire"><h3><i class="fas fa-bladder"></i>Module 9 : Pathologies Urinaires</h3><p class="case-description">Affections rénales, vésicales et troubles mictionnels</p><div class="tabs"><div class="tab active" data-tab="path_uro-1">Lithiases/Infections</div>
+<div class="tab" data-tab="path_uro-2">Insuffisance rénale</div><div class="tab" data-tab="path_uro-3">Tuberculose uro-génitale</div></div><!-- Lithiases/Infections --><div class="tab-content active" id="path_uro-1"><!-- Lithiase urinaire --><div class="definition-box"><h4>Lithiase urinaire</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Formation de calculs dans les cavités excrétrices urinaires
+</td></tr><tr><th>Étiologies</th><td>Infection urinaire, déshydratation, agglomération cristaux, traumatisme osseux
+</td></tr><tr><th>Signes cliniques</th><td>Souffrance urinaire aiguë, douleur lombaire, fièvre 39-40°C, douleurs abdominales, collapsus
+</td></tr><tr><th>Diagnostic</th><td>Crise de colique néphrétique, urographie intraveineuse
+</td></tr><tr><th>Bilans</th><td><ul><li>Biologie : urée sanguine, pH urinaire, ECBU, créatinine</li><li>Radiologie : ASP, Echo abdomen</li></ul>
+</td></tr><tr><th>Complications</th><td>Septicémie, anurie, abcès périphérique, péritonite d'origine urinaire
+</td></tr><tr><th>Traitement</th><td><ul><li>Morphine ou mépéridine</li><li>Diétothérapie (régime pauvre en calcium)</li></ul>
+</td></tr></table></div><!-- Infections urinaires --><div class="protocol-box"><h4>Infections des voies urinaires</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Présence de germes pathogènes dans les voies excrétrices urinaires
+</td></tr><tr><th>Étiologies</th><td>Bactéries, virus, champignons, obstruction, néphropathie
+</td></tr><tr><th>Signes cliniques</th><td>Fièvre, frissons, douleur au flanc, douleurs mictionnelles, cystite, pyurie
+</td></tr><tr><th>Diagnostic</th><td>Recherche de bactéries dans les urines
+</td></tr><tr><th>Bilans</th><td>Urée sanguine, pH urinaire, ECBU, créatinine
+</td></tr><tr><th>Complications</th><td>Infection urinaire chronique
+</td></tr><tr><th>Traitement</th><td><ul><li>Antibiotiques : Amoxicilline 3g ou Co-trimoxazole</li><li>Préventif : mesures d'hygiène</li></ul>
+</td></tr></table></div></div><!-- Insuffisance rénale --><div class="tab-content" id="path_uro-2"><!-- Insuffisance rénale aiguë --><div class="definition-box"><h4>Insuffisance rénale aiguë (IRA)</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Défaillance rapide et souvent transitoire de la fonction excrétrice rénale
+</td></tr><tr><th>Étiologies</th><td><ul><li>Pré-rénales : hémorragie, déshydratation, septicémie</li><li>Rénales : AINS, hémoglobinurie, aminoglycosides</li><li>Post-rénales : calcul, tumeur, hypertrophie prostate</li></ul>
+</td></tr><tr><th>Signes cliniques</th><td>Hypovolémie, oligo-anurie, troubles gastro-intestinaux, troubles cardio-vasculaires, anémie, HTA, arythmie
+</td></tr><tr><th>Diagnostic</th><td>Examens complémentaires des urines
+</td></tr><tr><th>Bilans</th><td>ECBU, urée, pH sanguin, NFS, CRP, créatininémie
+</td></tr><tr><th>Complications</th><td>Insuffisance rénale, nécrose tubulaire, mort par hyperventilation
+</td></tr><tr><th>Traitement</th><td><ul><li>Étiologique : antibiothérapie</li><li>Équilibre hydrique : glucose</li><li>Dialyse si nécessaire</li></ul>
+</td></tr></table></div><!-- Insuffisance rénale chronique --><div class="protocol-box"><h4>Insuffisance rénale chronique (IRC)</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Détérioration progressive et irréversible de la fonction rénale
+</td></tr><tr><th>Étiologies</th><td>Pyélonéphrite, HTA, diabète, trouble vasculaire, uropathie obstructive
+</td></tr><tr><th>Signes cliniques</th><td>Fatigue, léthargie, céphalées, anorexie, vomissements, diarrhée
+</td></tr><tr><th>Diagnostic</th><td>Somnolence, respiration de Kussmaul, diminution diurèse
+</td></tr><tr><th>Bilans</th><td>ECBU, NFS, urée, créatininémie
+</td></tr><tr><th>Complications</th><td>Hépatite virale chronique, cancer du rein
+</td></tr><tr><th>Traitement</th><td><ul><li>Vaccin contre l'hépatite virale</li><li>Maintien équilibre hydroélectrique</li><li>Apport calcium</li><li>Dialyse péritonéale</li></ul>
+</td></tr></table></div></div><!-- Tuberculose uro-génitale --><div class="tab-content" id="path_uro-3"><div class="warning-box"><h4>Tuberculose uro-génitale</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Infection tuberculeuse du rein par voie hématogène
+</td></tr><tr><th>Étiologies</th><td>Bacille tuberculeux, infection prostate, vésicules séminales, épididyme
+</td></tr><tr><th>Signes cliniques</th><td><ul><li>Cystite avec dysurie, pollakiurie, hématurie en fin de miction</li><li>Chez la femme : salpingites</li></ul>
+</td></tr><tr><th>Diagnostic</th><td>Pyurie stérile sur milieux de culture, mise en évidence BK
+</td></tr><tr><th>Bilans</th><td><ul><li>Biologie : urée, pH urinaire, ECBU, protéinurie, BK</li><li>Radiologie : endoscopie, ASP, Echo abdomen</li></ul>
+</td></tr><tr><th>Complications</th><td>Prostate, infection chronique si mal traité
+</td></tr><tr><th>Traitement</th><td><ul><li>Médical : trithérapie, bithérapie, antibiothérapie</li><li>Chirurgical : néphrectomie, épididymectomie</li></ul>
+</td></tr></table></div></div></div><!-- ============================================ --><!-- MODULE 5 : SANTÉ PUBLIQUE --><!-- ============================================ --><div class="case-study-card" data-index="9" data-pathology="sante-publique"><h3><i class="fas fa-clinic-medical"></i>Module 10 : Santé Publique</h3><p class="case-description">Besoins fondamentaux et approche globale des soins infirmiers</p><div class="tabs"><div class="tab active" data-tab="sp-1">Besoins fondamentaux</div>
+</div><div class="tab-content active" id="sp-1"><!-- Besoins de Virginia Henderson --><div class="specialty-box"><h4>Les 14 besoins fondamentaux de Virginia Henderson</h4><ol class="prescription-list"><li><strong>Respirer</strong> - Maintenir une oxygénation cellulaire adéquate</li><li><strong>Manger et boire</strong> - Assurer l'apport nutritionnel et hydrique</li><li><strong>Éliminer les déchets biologiques</strong> - Élimination urinaire, fécale et cutanée</li><li><strong>Se mouvoir et se
+maintenir en position convenable</strong> - Mobilité et posture</li><li><strong>Dormir et se reposer</strong> - Récupération physique et psychique</li><li><strong>S'habiller et se déshabiller</strong> - Protection et adaptation à l'environnement</li><li><strong>Maintenir la température du corps</strong> - Thermorégulation</li><li><strong>Être propre, soigné et protéger ses téguments</strong> - Hygiène corporelle</li><li><strong>Éviter les dangers</strong> - Sécurité physique et psychologique</li>
+<li><strong>Communiquer avec ses semblables</strong> - Interactions sociales</li><li><strong>Pratiquer sa religion ou agir selon ses croyances</strong> - Spiritualité</li><li><strong>S'occuper en vue de se réaliser</strong> - Activités valorisantes</li><li><strong>Se recréer</strong> - Loisirs et divertissement</li><li><strong>Apprendre</strong> - Acquisition de connaissances et compétences</li></ol><div class="who-recommendation"><p>Cette classification est fondamentale pour une approche
+holistique des soins infirmiers, permettant d'évaluer tous les aspects des besoins du patient.</p></div></div></div></div><!-- Dans la partie HTML existante, après le module 10 (Santé Publique), ajouter : --><!-- ============================================ --><!-- MODULE 11 : PATHOLOGIES PÉDIATRIQUES --><!-- ============================================ --><div class="case-study-card" data-index="10" data-pathology="pediatrie"><h3><i class="fas fa-baby"></i>Module 11 : Pathologies Pédiatriques</h3>
+<p class="case-description">Affections courantes chez le nouveau-né et l'enfant</p><div class="tabs"><div class="tab active" data-tab="ped-1">Infections</div><div class="tab" data-tab="ped-2">Troubles respiratoires</div><div class="tab" data-tab="ped-3">Autres pathologies</div></div><!-- Infections --><div class="tab-content active" id="ped-1"><!-- Otite de l'enfant --><div class="definition-box"><h4>Otite de l'enfant</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Inflammation et infection aiguë de la muqueuse des cavités de l'oreille moyenne
+</td></tr><tr><th>Étiologies</th><td><ul><li>Virus +++</li><li>Bactéries : haemophilus influenzae, streptococcus pneumoniae</li></ul>
+</td></tr><tr><th>Signes cliniques</th><td>Otalgie (grognon, pleurs incessants), fièvre, diarrhée, anorexie, trouble du sommeil
+</td></tr><tr><th>Diagnostic</th><td>Ecoulement parfois purulent au niveau du conduit auditif externe et tympan rosé ou rouge
+</td></tr><tr><th>Bilans</th><td>ORL : otoscopie pour visualiser le germe en cause
+</td></tr><tr><th>Complications</th><td>Mastoïdite aiguë, paralysie faciale, méningite, abcès du cerveau
+</td></tr><tr><th>Traitement</th><td><ul><li>Préventif : allaitement, vaccination</li><li>Curatif : OT congestives (antipyrétique, anti-inflammatoire), OT suppurée (ATB, mécilage et para.)</li></ul>
+</td></tr></table></div><!-- Rhinopharyngite de l'enfant --><div class="protocol-box"><h4>Rhinopharyngite de l'enfant</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Affection la plus fréquente chez l'enfant entre 6 mois et 3 ans, caractérisée par une inflammation des fosses nasales et du cavum rhinopharyngé
+</td></tr><tr><th>Étiologies</th><td><ul><li>Virale (syncytial) au début</li><li>Surinfection bactérienne (pneumocoque)</li><li>Facteurs favorisants : prématurité, hypotrophie, manque d'hygiène</li></ul>
+</td></tr><tr><th>Signes cliniques</th><td>Fièvre 39-40°C, obstruction nasale et rhinorrhée, diarrhée, vomissement, adénopathie cervicale
+</td></tr><tr><th>Diagnostic</th><td>Confirmé par une détresse respiratoire et examens ORL
+</td></tr><tr><th>Bilans</th><td>ORL à la recherche du germe en cause, NFS, CRP, hémoculture
+</td></tr><tr><th>Complications</th><td>Convulsion, sinusite aiguë, laryngite aiguë, bronchopneumopathies
+</td></tr><tr><th>Traitement</th><td><ul><li>Préventif : Vaccination, allaitement maternel, hygiène corporelle</li><li>Curatif : aspirine, paracétamol, ATB, lavage des fosses nasales et antipyrétique</li></ul>
+</td></tr></table></div><!-- Infection bactérienne du nouveau-né --><div class="warning-box"><h4>Infection bactérienne du nouveau-né</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Manifestations cliniques, biologiques et radiologiques liées à la contamination du nouveau-né par un germe pathogène
+</td></tr><tr><th>Étiologies</th><td><ul><li>Famille des cocci (staphylocoque, gonocoque etc.)</li><li>Contamination : anténatal (sang), périnatal (accouchement), postnatal (infection localisée)</li></ul>
+</td></tr><tr><th>Signes cliniques</th><td>Troubles respiratoires, ictère, troubles digestifs, hépatomégalie, splénomégalie, éruptions cutanées, convulsion, trouble du tonus
+</td></tr><tr><th>Diagnostic</th><td>Confirmé par la mise en évidence du germe spécifique (bactérie)
+</td></tr><tr><th>Bilans</th><td><ul><li>Biologie : NFS</li><li>Biochimie : CRP, procalcitonine</li><li>Bactériologie : ECBU, hémoculture, coproculture</li></ul>
+</td></tr><tr><th>Complications</th><td>Rapidement mortelle sans traitement
+</td></tr><tr><th>Traitement</th><td><ul><li>Amoxicilline + aminoside</li><li>Céphalosporine de 3ème génération + aminoside</li><li>Prévention : Dépister les infections maternelles, SAT, asepsie de l'accouchement</li></ul>
+</td></tr></table></div></div><!-- Troubles respiratoires --><div class="tab-content" id="ped-2"><!-- Détresse respiratoire du nouveau-né --><div class="definition-box"><h4>Détresse respiratoire du nouveau-né</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Difficulté pour un nouveau-né de respirer normalement
+</td></tr><tr><th>Étiologies</th><td><ul><li>Lié au fœtus : prématurité, hypotrophie, malformation</li><li>Lié à la mère : glycémie, produit anesthésique, consommation de substance toxique</li></ul>
+</td></tr><tr><th>Signes cliniques</th><td><ul><li>Modification du rythme respiratoire</li><li>Cyanose à l'air ambiant</li><li>Signe de lutte respiratoire évaluée par le score de Silverman</li></ul>
+</td></tr><tr><th>Diagnostic</th><td>Confirmé par la modification du rythme respiratoire (polypnée >60/min ou bradypnée <20/min)
+</td></tr><tr><th>Bilans</th><td>Radiographie pulmonaire de face, gazométrie artérielle, glycémie, hémogramme
+</td></tr><tr><th>Complications</th><td><ul><li>Immédiat : asphyxie du nouveau-né, défaillance des organes nobles</li><li>À long terme : infirmité motrice cérébrale</li></ul>
+</td></tr><tr><th>Traitement</th><td>Réanimation, administration de 10mg de vitamine K1 intramusculaire et SAT
+</td></tr></table></div><!-- Staphylococcie pleuro-pulmonaire --><div class="protocol-box"><h4>Staphylococcie pleuro-pulmonaire</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Infection touchant les voies respiratoires basses de l'enfant
+</td></tr><tr><th>Étiologies</th><td>Staphylocoque aureus, cocci en amas de gram+
+</td></tr><tr><th>Signes cliniques</th><td>Troubles digestifs (diarrhée, vomissement, refus de boire, occlusion++), début brutal avec fièvre, geignements, teint grisâtre
+</td></tr><tr><th>Diagnostic</th><td>Confirmé par les examens complémentaires
+</td></tr><tr><th>Bilans</th><td><ul><li>Biologie : NFS, ionogramme sanguin</li><li>Radiologie : Rx pulmonaire de face</li><li>Imagerie : Echographie</li></ul>
+</td></tr><tr><th>Complications</th><td>Pneumopathie bulleuse, apnée, toxi-infection, abcès, mort, hémorragie intra-pulmonaire
+</td></tr><tr><th>Traitement</th><td><ul><li>Antibiotiques : oxacilline 200mg/kg/j + gentamicine 3-5mg/kg/j pendant 2 semaines</li><li>Corticothérapie : hydrocortisone 10mg/kg/j pendant 7 jours</li><li>Antifongique : mycostatine</li></ul>
+</td></tr></table></div><!-- Asthme chez l'enfant --><div class="warning-box"><h4>Asthme chez l'enfant</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Maladie inflammatoire chronique des bronches se manifestant par des crises de dyspnée avec respiration sifflante
+</td></tr><tr><th>Étiologies</th><td>Atopie familiale, infection trachéo-bronchique, air froid et sec, poils d'animaux, médicaments
+</td></tr><tr><th>Signes cliniques</th><td>Cyanose, polypnée, tachycardie, diminution de l'ampliation thoracique, trouble de la conscience
+</td></tr><tr><th>Diagnostic</th><td>Respiration difficile et sifflante (wheezing), en cas de complication : convulsions et trouble de la conscience
+</td></tr><tr><th>Bilans</th><td>Radiographie pulmonaire de face, distension thoracique, hyperclarté pulmonaire
+</td></tr><tr><th>Complications</th><td><ul><li>Immédiates : asphyxie, surinfection</li><li>Long terme : trouble de la ventilation, déformation thoracique, difficulté scolaire, insuffisance respiratoire chronique</li></ul>
+</td></tr><tr><th>Traitement</th><td><ul><li>Préventif : activité physique</li><li>Curatif : bronchodilatateur (ventoline spray), nébulisation de salbutamol, perfusion de SSI avec électrolytes, corticoïde</li></ul>
+</td></tr></table></div></div><!-- Autres pathologies --><div class="tab-content" id="ped-3"><!-- Souffrance cérébrale du nouveau-né --><div class="definition-box"><h4>Souffrance cérébrale du nouveau-né</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Manifestations cliniques et/ou paradiniques consécutives à une atteinte du système nerveux central chez l'enfant de 0 à 28 jours
+</td></tr><tr><th>Étiologies</th><td>Asphyxie périnatale, traumatisme obstétrical, infections, troubles métaboliques (hypoglycémie, hypocalcémie, acidose)
+</td></tr><tr><th>Signes cliniques</th><td><ul><li>SC Mineur : succion faible, hyperexcitabilité</li><li>SC Modérée : torpeur, convulsions</li><li>SC Sévère : coma, convulsions, aréflexie, hypotonie</li></ul>
+</td></tr><tr><th>Diagnostic</th><td>Confirmé par la notation d'APGAR
+</td></tr><tr><th>Bilans</th><td><ul><li>Biologie : glycémie, calcémie, examen du LCR</li><li>Imagerie : Echographie transfontanellaire</li></ul>
+</td></tr><tr><th>Complications</th><td>Arrêt respiratoire, troubles neurologiques, mort
+</td></tr><tr><th>Traitement</th><td><ul><li>Préventif : fer + acide folique pendant la grossesse, plusieurs CPN</li><li>Curatif : 10 mg de VIT K1 en intramusculaire, 0,5-1mg/kg si convulsion, ATB</li></ul>
+</td></tr></table></div><!-- Maladie hémorragique du nouveau-né --><div class="protocol-box"><h4>Maladie hémorragique du nouveau-né</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Hémorragie provoquée par une carence en vitamine K1 survenant quelques jours ou semaines après la naissance
+</td></tr><tr><th>Étiologies</th><td>Prématurité, malformation hépatique, septicémie, accouchement dystocique, absence d'injection de VIT K1
+</td></tr><tr><th>Signes cliniques</th><td>Saignement en nappe après pansement ombilical, hématémèse, méléna, rectorragie
+</td></tr><tr><th>Diagnostic</th><td>Confirmé par le dossier obstétrical en fonction des soins et complications à la naissance
+</td></tr><tr><th>Bilans</th><td>Test de Koller, NFS, ionogramme sanguin
+</td></tr><tr><th>Complications</th><td>Anémie sévère, détresse respiratoire, souffrance cérébrale
+</td></tr><tr><th>Traitement</th><td><ul><li>Préventif : fer + acide folique pendant la grossesse, plusieurs CPN</li><li>Curatif : 10 mg de VIT K1 en intramusculaire, vaccination BCG, perfusion avec SG 10% selon prescription</li></ul>
+</td></tr></table></div><!-- Tétanos néonatal --><div class="warning-box"><h4>Tétanos néonatal</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Toxi-infection due à l'intoxication du système neuromusculaire par infection de la plaie ombilicale
+</td></tr><tr><th>Étiologies</th><td>Bacille de Nicolaïer tétanique (clostridium tetani), contamination par voie ombilicale ou autre porte d'entrée lors de l'accouchement
+</td></tr><tr><th>Signes cliniques</th><td><ul><li>Phase initiale : cris incessants avec agitation, difficulté d'alimentation</li><li>Période d'état : trismus, crises paroxystiques, hypertonie généralisée</li></ul>
+</td></tr><tr><th>Diagnostic</th><td>Incapacité du nouveau-né à saisir le mamelon, confirmation par ponction lombaire
+</td></tr><tr><th>Bilans</th><td><ul><li>Biologie : GE, NFS, glycémie, ionogramme, créatinine</li><li>Bactériologie : ECBU, CRP, étude du LCR</li></ul>
+</td></tr><tr><th>Complications</th><td>Infection pulmonaire, fracture des côtes, paralysie, hypoglycémie, retard mental et psychomoteur
+</td></tr><tr><th>Traitement</th><td><ul><li>Préventif : Vaccin VAT</li><li>Curatif : pénicilline G 50-100.000U/kg/jour, amoxicilline 50-100mg/kg/jour, macrolide, métronidazole</li></ul>
+</td></tr></table><div class="classification-box"><h4>Score de Dakar (évaluation de la gravité du tétanos néonatal)</h4>
+<table class="regimen-table"><tr><th>Critères</th><th>Score 1</th><th>Score 0</th></tr><tr><td>Incubation
+</td><td>&lt; 7 jours
+</td><td>&gt; 7 jours
+</td></tr><tr><td>Invasion
+</td><td>&lt; 2 jours
+</td><td>&gt; 2 jours
+</td></tr><tr><td>Porte d'entrée
+</td><td>Ombilicale
+</td><td>Autres
+</td></tr><tr><td>Paroxysme
+</td><td>+1
+</td><td>0
+</td></tr><tr><td>Pouls
+</td><td>&gt; 150/min
+</td><td>&lt; 150/min
+</td></tr></table><p><strong>Interprétation :</strong></p><ul><li>Score 0-2 : Tétanos bénin (taux de décès 10-20%)</li><li>Score 3-4 : Tétanos grave (taux de décès 30-60%)</li><li>Score 5-6 : Tétanos très grave (taux de décès &gt; 80%)</li></ul></div></div><!-- Tableau APGAR --><div class="protocol-box"><h4>Tableau récapitulatif de la cotation d'APGAR</h4>
+<table class="regimen-table"><tr><th>Critères</th><th>0</th><th>1</th><th>2</th></tr><tr><td>Coloration (Aspect)
+</td><td>Pâleur ou cyanose diffuse
+</td><td>Corps rose, extrémités cyanosées
+</td><td>Nouveau-né totalement rose
+</td></tr><tr><td>Fréquence cardiaque (Pouls)
+</td><td>Nulle (absente)
+</td><td>≤100/min (cœur lent)
+</td><td>&gt;100/min (cœur rapide)
+</td></tr><tr><td>Réactivité (Gesticulations)
+</td><td>Nulle (absente)
+</td><td>Grimace (léger mouvement ou faible cri)
+</td><td>Vive réaction (ou cri vigoureux)
+</td></tr><tr><td>Tonus musculaire (Activité)
+</td><td>Hypotonie globale (flasque)
+</td><td>Léger tonus en flexion des membres
+</td><td>Mouvements actifs (bon tonus en flexion des 4 membres)
+</td></tr><tr><td>Respiration
+</td><td>Nulle (absente)
+</td><td>Irregular ou lente
+</td><td>Régulière, efficace
+</td></tr></table><div class="indication-box"><h4>Interprétation des résultats</h4><ul><li>APGAR 7-10 : Nouveau-né normal (état neurologique satisfaisant)</li><li>APGAR 4-7 : Souffrance cérébrale modérée (gestes simples de réanimation nécessaires)</li><li>APGAR ≤3 : Souffrance cérébrale sévère (réanimation systématique nécessaire)</li></ul></div></div></div></div><!-- ============================================ --><!-- MODULE 12 : INTOXICATIONS ET URGENCES PÉDIATRIQUES --><!--
+============================================ --><div class="case-study-card" data-index="11" data-pathology="urgences"><h3><i class="fas fa-exclamation-triangle"></i>Module 12 : Intoxications et Urgences Pédiatriques</h3><p class="case-description">Prise en charge des intoxications accidentelles et urgences médicales chez l'enfant</p><div class="tabs"><div class="tab active" data-tab="urg-1">Intoxications médicamenteuses</div><div class="tab" data-tab="urg-2">Intoxications domestiques</div><div
+class="tab" data-tab="urg-3">Déshydratation</div></div><!-- Intoxications médicamenteuses --><div class="tab-content active" id="urg-1"><!-- Intoxication à la chloroquine --><div class="definition-box"><h4>Intoxication à la chloroquine</h4>
+<table class="regimen-table"><tr><th>Doses toxiques</th><td>25 mg/kg/24h (100 mg/kg/24h pour quinine)
+</td></tr><tr><th>Manifestations cliniques</th><td><ul><li>Neurologiques : céphalées, agitation, obnubilation, coma</li><li>Neuro-sensorielles : diplopie, cécité, bourdonnements d'oreille, vertiges</li><li>Digestives : vomissements</li><li>Cardio-vasculaires : diminution TA, bradycardie, arrêt cardiaque</li></ul>
+</td></tr><tr><th>Conduite à tenir</th><td><ul><li>Evacuation gastrique si ingestion &lt; 6h</li><li>Valium : 1 mg/kg en IV</li><li>Diurèse osmotique neutre</li></ul>
+</td></tr></table></div><!-- Intoxication par l'aspirine --><div class="protocol-box"><h4>Intoxication par l'aspirine</h4>
+<table class="regimen-table"><tr><th>Doses toxiques</th><td>100-120 mg/kg
+</td></tr><tr><th>Signes</th><td>Acidose métabolique avec : <ul><li>Convulsion, coma</li><li>Hyperventilation, odeur cétonique de l'haleine</li><li>Hématémèse et troubles de la coagulation</li><li>Hyperthermie majeure, hypersudation, déshydratation</li></ul>
+</td></tr><tr><th>Conduite à tenir</th><td><ul><li>Evacuation gastrique si ingestion &lt; 6h</li><li>Diurèse osmotique alcaline</li></ul>
+</td></tr></table></div><!-- Intoxication au paracétamol --><div class="warning-box"><h4>Intoxication au paracétamol</h4>
+<table class="regimen-table"><tr><th>Dose toxique</th><td>150 mg/kg
+</td></tr><tr><th>Signes</th><td>Insuffisance hépatocellulaire avec ictère franc, risque de saignement par diminution du TP
+</td></tr><tr><th>Conduite à tenir</th><td><ul><li>Evacuation gastrique si ingestion &lt; 6h</li><li>Acétylcystéine (Mucomyst) 70 mg/kg per os ou IV toutes les 4h</li><li>Diurèse osmotique neutre</li></ul>
+</td></tr></table></div></div><!-- Intoxications domestiques --><div class="tab-content" id="urg-2"><!-- Intoxication au pétrole --><div class="definition-box"><h4>Intoxication au pétrole</h4>
+<table class="regimen-table"><tr><th>1er cas (minime &lt;50cc)</th><td><ul><li>S-F = 0, S-P = 0</li><li>Examen clinique normal</li><li>Conduite à tenir : MEO ≈ 12-24h; ATB prophylaxie</li></ul>
+</td></tr><tr><th>2ème cas (moyenne &lt;150cc)</th><td><ul><li>S-F : dyspnée, toux, fièvre inconstante</li><li>S-P : râles crépitants discrets</li><li>Conduite à tenir : <ul><li>Hospitalisation</li><li>Corticoïdes : dexaméthasone 0,5 mg/kg</li><li>ATB : Erythromycine 50 mg/kg ou Amoxicilline 50-100 mg/kg</li></ul>
+</td></tr><tr><th>3ème cas (grave ou vue tard)</th><td><ul><li>S-F : D.R. + choc cardiovasculaire avec hyperthermie sévère</li><li>S-P : nombreux râles d'encombrement trachéo-bronchique</li><li>Conduite à tenir : <ul><li>Admission en REA</li><li>Aspiration, intubation + respirateur artificiel</li><li>Réanimation cardiovasculaire</li><li>Charbon activé par sonde naso-gastrique</li></ul>
+</td></tr><tr><th>NB</th><td>L'administration de lait ou huile de palme est formellement interdite !
+</td></tr></table></div><!-- Intoxication à l'eau de javel --><div class="protocol-box"><h4>Intoxication à l'eau de javel et autres caustiques</h4>
+<table class="regimen-table"><tr><th>Mode d'action</th><td>Brûlure du tube digestif
+</td></tr><tr><th>Manifestations</th><td><ul><li>Dysphagie, hématémèse</li><li>Œdème de la glotte avec risque d'asphyxie</li><li>Perforation œsophagienne ou gastrique</li><li>Sténose œsophagienne</li><li>Pneumopathie d'inhalation</li></ul>
+</td></tr><tr><th>Conduite à tenir</th><td><ul><li>Faire boire beaucoup d'eau pour diluer le produit</li><li>Antidote spécifique : hyposulfite de sodium</li><li>Examen ORL + Fibroscopie digestive pour bilan des lésions</li></ul>
+</td></tr><tr><th>Traitement</th><td><ul><li>Pansements gastriques</li><li>ATB</li><li>Corticoïdes si œdème de la glotte</li></ul>
+</td></tr></table></div></div><!-- Déshydratation --><div class="tab-content" id="urg-3"><!-- Déshydratation chez l'enfant --><div class="definition-box"><h4>Déshydratation chez l'enfant</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Perte brutale, non compensée d'eaux et d'électrolytes
+</td></tr><tr><th>Causes</th><td><ul><li>Digestives : diarrhée aiguë (90%), vomissements, aspirations digestives</li><li>Cutanées : hyperthermie, coup de chaleur, brûlures, dermatoses suintantes</li><li>Erreurs diététiques : défaut de boissons</li></ul>
+</td></tr><tr><th>Signes cliniques</th><td>
+<table class="regimen-table"><tr><th>Signes extra-cellulaires</th><th>Signes intra-cellulaires</th></tr><tr><td>Pli cutané +++
+</td><td>Soif +++
+</td></tr><tr><td>Dépression de la fontanelle
+</td><td>Sécheresse des muqueuses
+</td></tr><tr><td>Yeux creux
+</td><td>Somnolence
+</td></tr><tr><td>
+</td><td>Fièvre
+</td></tr></table>
+</td></tr><tr><th>Signes de gravité</th><td><ul><li>Respiration de Kussmaul (acidose)</li><li>Anurie depuis plusieurs heures</li><li>Convulsions</li><li>Signes d'occlusion fonctionnelle avec météorisme</li></ul>
+</td></tr><tr><th>Examens</th><td><ul><li>Examen parasitologique des selles</li><li>Coproculture</li><li>Ionogramme, urée, glycémie, NFS, créatininémie</li></ul>
+</td></tr><tr><th>Évolution</th><td><ul><li>Non traitée : mort</li><li>Traitement incorrect : troubles neurologiques, OAP, convulsions</li><li>Traitement précoce : guérison sans séquelle</li></ul>
+</td></tr></table></div><!-- Traitement de la déshydratation --><div class="protocol-box"><h4>Traitement de la déshydratation</h4>
+<table class="regimen-table"><tr><th>Réhydratation par voie orale (RVO)</th><td><ul><li><strong>Sachets OMS/UNICEF :</strong> contiennent 30g/l de glucose, 3,5g/l de NaCl, 1,5g/l de KCl, 2,5g/l de NaHCO3</li><li><strong>Eau de riz :</strong> 2-3 cuillères de riz + 1 litre d'eau + 1 c.à.c de sel + 8 morceaux de sucre</li><li><strong>Eau sucrée salée :</strong> 1 litre d'eau + 8 morceaux de sucre + 1 c.à.c de sel + jus de fruit</li></ul>
+</td></tr><tr><th>Réhydratation par voie veineuse (RVV)</th><td>Indiquée dans les déshydratations sévères mettant en jeu le pronostic vital
+</td></tr><tr><th>Plans de traitement</th><td><ul><li><strong>Plan A :</strong> Diarrhée sans signe de déshydratation → traitement à domicile (RVO + alimentation)</li><li><strong>Plan B :</strong> Diarrhée avec signes de déshydratation → hôpital puis domicile (SRO et solutés de perfusion)</li><li><strong>Plan C :</strong> Diarrhée avec déshydratation sévère → hospitalisation (solutés IV : Ringer lactate, sérum salé isotonique)</li></ul>
+</td></tr></table></div></div></div><!-- ============================================ --><!-- MODULE 13 : SANTÉ PUBLIQUE (COMPLÉMENT) --><!-- ============================================ --><div class="case-study-card" data-index="12" data-pathology="sns"><h3><i class="fas fa-clinic-medical"></i>Module 13 : Système national de santé</h3><p class="case-description">Système de santé, prévention et indicateurs de santé</p><div class="tabs"><div class="tab active" data-tab="sns-1">Système de santé</div>
+<div class="tab" data-tab="sns-2">Indicateurs</div><div class="tab" data-tab="sns-3">Épidémiologie</div></div><!-- Système de santé --><div class="tab-content active" id="sns-1"><div class="definition-box"><h4>Composantes d'un système national de santé</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Ensemble de moyens organisationnels, structurels, humains et financiers destinés à réaliser des objectifs d'une politique de santé
+</td></tr><tr><th>Objectifs</th><td><ul><li>Préserver ou améliorer la santé de la population</li><li>Fournir des services de soins répondant aux attentes</li><li>Garantir l'accès aux services de santé pour tous</li></ul>
+</td></tr><tr><th>Fonctions</th><td><ol><li>Prestation de services de santé</li><li>Fourniture et gestion de ressources</li><li>Financement</li><li>Fonction administrative</li></ol>
+</td></tr><tr><th>Composantes</th><td><ol><li>Structure organisationnelle</li><li>Prestation de services</li><li>Ressources humaines pour la santé</li><li>Financement et système d'assurance</li><li>Système d'information sur la santé</li><li>Achat, logistique et système d'approvisionnement</li><li>Recherche sur le système de santé</li></ol>
+</td></tr><tr><th>Caractéristiques</th><td>Globalité, accessibilité, équité, acceptabilité, efficacité, efficience, planifiable et évaluable, réactivité, liberté
+</td></tr></table></div><div class="protocol-box"><h4>Objectifs du PNDS 2009-2013</h4><p><strong>Objectif général :</strong> Améliorer l'état de santé et le bien-être des populations</p><ul><li>Améliorer l'efficacité et l'efficience</li><li>Améliorer l'offre et la qualité des services</li><li>Promouvoir des comportements individuels et collectifs favorables à la santé</li></ul><h4>Stratégies du PNDS :</h4><ul><li>Renforcement du cadre institutionnel</li><li>Renforcement du cadre gestionnaire du
+système de santé</li></ul><h4>Définitions clés :</h4><ul><li><strong>Santé :</strong> État de complet bien-être physique, mental et social (OMS)</li><li><strong>Maladie :</strong> Condition anormale du corps ou de l'esprit causant inconfort ou dysfonctionnement</li><li><strong>Santé publique :</strong> Science et art de prévenir les maladies, prolonger la vie et promouvoir la santé</li><li><strong>Santé communautaire :</strong> Processus par lequel les individus et familles prennent en charge
+leur santé</li></ul></div></div><!-- Indicateurs --><div class="tab-content" id="sns-2"><div class="definition-box"><h4>Indicateurs de santé à tendance positive</h4>
+<table class="regimen-table"><tr><th>Indicateur</th><th>Formule</th></tr><tr><td>Taux brut de natalité (TBN)
+</td><td>(Nombre de naissances vivantes / Population moyenne) × 10<sup>n</sup>
+</td></tr><tr><td>Taux général de fécondité (TGF)
+</td><td>(Naissances vivantes / Nombre de femmes en âge de reproduction) × 10<sup>n</sup>
+</td></tr><tr><td>Accroissement naturel (AN)
+</td><td>Naissances - Décès
+</td></tr><tr><td>Taux d'accroissement naturel (TAN)
+</td><td>((Naissances - Décès) / Population moyenne) × 10<sup>n</sup>
+</td></tr></table></div><div class="protocol-box"><h4>Indicateurs de santé à tendance négative</h4><h5>Indicateurs de morbidité :</h5>
+<table class="regimen-table"><tr><th>Indicateur</th><th>Formule</th></tr><tr><td>Taux d'incidence (TI)
+</td><td>(Nouveaux cas / Population moyenne) × 10<sup>n</sup>
+</td></tr><tr><td>Prévalence
+</td><td>((Anciens + Nouveaux cas) / Population moyenne) × 10<sup>n</sup>
+</td></tr></table><h5>Indicateurs de mortalité :</h5>
+<table class="regimen-table"><tr><th>Indicateur</th><th>Formule</th></tr><tr><td>Taux brut de mortalité (TBM)
+</td><td>(Nombre de décès / Population moyenne) × 10<sup>n</sup>
+</td></tr><tr><td>Taux de mortalité spécifique
+</td><td>(Décès d'une cause précise / Population moyenne) × 10<sup>n</sup>
+</td></tr><tr><td>Taux de létalité
+</td><td>(Décès d'une maladie / Cas de cette maladie) × 10<sup>n</sup>
+</td></tr><tr><td>Taux brut de mortalité infantile (TBMI)
+</td><td>(Décès <1an / Naissances vivantes) × 10<sup>n</sup>
+</td></tr><tr><td>Taux brut de mortalité maternelle (TBMM)
+</td><td>(Décès maternelles / Naissances vivantes) × 10<sup>n</sup>
+</td></tr></table></div><div class="warning-box"><h4>Définitions des mortalités :</h4><ul><li><strong>Mortalité néonatale :</strong> 0 à 28 jours</li><li><strong>Mortalité néonatale précoce :</strong> 0 à 7 jours</li><li><strong>Mortalité néonatale tardive :</strong> 8 à 28 jours</li><li><strong>Mortalité post-néonatale :</strong> 1 à 11 mois</li><li><strong>Mortalité infantile :</strong> 0 à 11 mois</li><li><strong>Mortalité juvénile :</strong> 1 à 4 ans</li></ul></div></div><!-- Épidémiologie
+--><div class="tab-content" id="sns-3"><div class="definition-box"><h4>Épidémiologie</h4>
+<table class="regimen-table"><tr><th>Définition</th><td>Étude de la distribution et des déterminants des états de santé et des maladies dans les populations
+</td></tr><tr><th>Buts</th><td><ol><li>Contribuer aux choix de meilleures méthodes de diagnostic</li><li>Identifier l'ampleur des maladies et groupes à risque</li><li>Découvrir les causes des maladies</li><li>Évaluer l'efficacité des programmes de santé</li><li>Surveillance épidémiologique</li></ol>
+</td></tr><tr><th>Domaines d'application</th><td><ul><li>Épidémiologie des maladies transmissibles</li><li>Épidémiologie des maladies non transmissibles</li></ul>
+</td></tr><tr><th>Axes en épidémiologie</th><td><ul><li>Descriptive</li><li>Analytique ou étiologique</li><li>Intervention</li></ul>
+</td></tr></table></div><div class="protocol-box"><h4>Phénomènes de masse</h4>
+<table class="regimen-table"><tr><th>Terme</th><th>Définition</th><th>Temps</th><th>Espace</th></tr><tr><td>Épidémie
+</td><td>Apparition soudaine et propagation rapide d'une maladie infectieuse
+</td><td>Limité
+</td><td>Limité
+</td></tr><tr><td>Endémie
+</td><td>Persistance d'une maladie due à une cause locale
+</td><td>Limité
+</td><td>Limité
+</td></tr><tr><td>Pandémie
+</td><td>Épidémie s'étendant à plusieurs continents ou à la planète
+</td><td>Limité
+</td><td>Étendu
+</td></tr></table><h4>Buts de la surveillance épidémiologique</h4><ul><li>Connaître l'indice et caractéristiques d'une maladie</li><li>Disposer de système d'alerte d'épidémie</li><li>Connaître les facteurs de risque</li><li>Évaluer les actions de prévention</li></ul></div></div></div><!-- ============================================ --><!-- MODULE 13 : PROGRAMME ÉLARGI DE VACCINATION --><!-- ============================================ --><div class="case-study-card" data-index="13"
+data-pathology="pev"><h3><i class="fas fa-syringe"></i>Module 14 : Programme Élargi de Vaccination (PEV)</h3><p class="case-description">Vaccins, calendriers de vaccination et gestion des consommables</p><div class="tabs"><div class="tab active" data-tab="pev-1">Définitions</div><div class="tab" data-tab="pev-2">Calendriers</div><div class="tab" data-tab="pev-3">Gestion</div></div><!-- Définitions --><div class="tab-content active" id="pev-1"><div class="definition-box"><h4>Définitions</h4>
+<table class="regimen-table"><tr><th>Terme</th><th>Définition</th></tr><tr><td>Vaccin
+</td><td>Substance qui détermine dans l'organisme un état de résistance à une maladie donnée
+</td></tr><tr><td>Vaccination
+</td><td>Processus d'administration d'une substance biologique pour stimuler l'immunité
+</td></tr><tr><td>Vaccin vivant atténué
+</td><td>Produit à partir de souches non pathogènes (ex: rougeole, rubéole, fièvre jaune)
+</td></tr><tr><td>Vaccin inactivé ou tué
+</td><td>Constitué d'organismes tués par la chaleur ou un agent chimique
+</td></tr><tr><td>Population cible
+</td><td>Population bénéficiaire d'un programme d'action
+</td></tr></table></div><div class="protocol-box"><h4>Maladies cibles du PEV</h4><ul><li>Tuberculose</li><li>Diphtérie</li><li>Tétanos</li><li>Coqueluche</li><li>Hépatite B</li><li>Méningite</li><li>Poliomyélite</li><li>Rougeole</li><li>Fièvre jaune</li><li>Infections pneumococciques</li></ul><h4>Missions du PEV</h4><ul><li>Assurer l'immunisation totale des enfants <1 an</li><li>Éradiquer globalement la poliomyélite</li><li>Réduire le tétanos maternel et néonatal</li><li>Diminuer de moitié les
+décès liés à la rougeole</li></ul></div><div class="warning-box"><h4>Contre-indications vaccinales</h4><ul><li>Ne pas administrer la 2<sup>e</sup> ou 3<sup>e</sup> dose si convulsions après première dose</li><li>Proscrire BCG ou antiamaril chez enfant présentant des symptômes du VIH/SIDA</li><li>Reporter la vaccination en cas d'hospitalisation, fièvre >39°C, altération de l'état général</li></ul></div></div><!-- Calendriers --><div class="tab-content" id="pev-2"><div class="definition-box"><h4>Calendrier
+de vaccination - Femmes enceintes</h4>
+<table class="regimen-table"><tr><th>Âge</th><th>Antigène</th></tr><tr><td>1er contact ou dès que possible pendant grossesse
+</td><td>VAT-1
+</td></tr><tr><td>≥4 semaines après VAT-1
+</td><td>VAT-2
+</td></tr><tr><td>≥6 mois après VAT-2 ou grossesse suivante
+</td><td>VAT-3
+</td></tr><tr><td>≥1 an après VAT-3 ou grossesse suivante
+</td><td>VAT-4
+</td></tr><tr><td>≥1 an après VAT-4 ou grossesse suivante
+</td><td>VAT-5
+</td></tr></table></div><div class="protocol-box"><h4>Calendrier de vaccination - Enfants 0-11 mois</h4>
+<table class="regimen-table"><tr><th>Âge</th><th>Antigène</th></tr><tr><td>Naissance
+</td><td>Dn HépB + BCG + VPO-0
+</td></tr><tr><td>6 semaines
+</td><td>DTC-HepB-Hib-1 + VPO-1 + PCV13-1 + Rota-1 + VPI-1
+</td></tr><tr><td>10 semaines
+</td><td>DTC-HepB-Hib-2 + VPO-2 + PCV-13-2 + Rota-2
+</td></tr><tr><td>14 semaines
+</td><td>DTC-HepB-Hib-3 + VPO-3 + PCV-13-3 + Rota-3 + VPI-2
+</td></tr><tr><td>24 semaines (6 mois)
+</td><td>VAP-1
+</td></tr><tr><td>32 semaines (8 mois)
+</td><td>VAP-2
+</td></tr><tr><td>9 mois
+</td><td>RR-1 + VAA + MenAfriVac + VAP-3
+</td></tr><tr><td>15 mois
+</td><td>RR-2 + VAP-4
+</td></tr></table></div></div><!-- Gestion --><div class="tab-content" id="pev-3"><div class="definition-box"><h4>Gestion des vaccins et consommables</h4><p><strong>But :</strong> Éviter les pénuries et gérer les doses à administrer</p><h5>Méthodes d'estimation des besoins :</h5><ol><li>Consommation antérieure</li><li>Nombre de séances de vaccination</li><li>Population cible (méthode la plus utilisée)</li></ol><h5>Processus :</h5><p>Estimer → Commander → Distribuer → Stocker</p></div><div
+class="protocol-box">
+            <h4>Population cible du PEV</h4>
+            <ul>
+                <li><strong>Enfants 0-11 mois :</strong> 3,5% de la population totale</li>
+                <li><strong>Enfants 0-6 mois :</strong> 1,45% de la population totale</li>
+                <li><strong>Enfants 0-23 mois :</strong> 6,82% de la population totale (Cible du PEV et monitorage)</li>
+                <li><strong>Enfants 12-23 mois :</strong> 3,32% de la population totale</li>
+                <li><strong>Enfants 0 à 5 ans :</strong> 20% (Cible du JNV)</li>
+                <li><strong>Enfants 1 à 4 ans :</strong> 17,32% de la population totale</li>
+                <li><strong>Grossesses attendues :</strong> 5% de la population totale (Cible du PEV)</li>
+                <li><strong>Femmes en âge de reproduction :</strong> 20% de la population totale (Cible campagne TD)</li>
+                <li><strong>Femmes séropositives :</strong> 4,5% des grossesses attendues</li>
+                <li><strong>Naissances attendues :</strong> 4,7% de la population totale</li>
+                <li><strong>9 mois à 14 ans :</strong> 45% de la population totale (Cible campagne RR)</li>
+                <li><strong>Jeunes filles de 9 ans :</strong> 1,86% de la population totale (Cible PEV)</li>
+            </ul>
+            
+            <h4>Objectifs vaccinaux</h4>
+            <table class="regimen-table">
+                <tr><th>Antigène</th><th>Routine</th><th>Campagne</th></tr>
+                <tr><td>BCG</td><td>95%</td><td>-</td></tr>
+                <tr><td>VPO</td><td>95%</td><td>100%</td></tr>
+                <tr><td>DTC-HepB-Hib</td><td>95%</td><td>-</td></tr>
+                <tr><td>RR (Rougeole/Rubéole)</td><td>95%</td><td>100%</td></tr>
+                <tr><td>VAT</td><td>95%</td><td>100%</td></tr>
+            </table></div><div class="warning-box"><h4>Vaccins sensibles</h4><h5>Sensibles à la chaleur :</h5><ul><li>Très sensibles : VPO, VAA</li><li>Sensibles : DTC-HepB+Hib, PCV13, VPI</li><li>Moins sensibles : BCG, VAT</li></ul><h5>Sensibles à la congélation :</h5><ul><li>Très sensibles : HepB, Hib liquide</li><li>Sensibles : DTC, DTC-HepB, PCV13, Rota</li></ul><h4>Politique du flacon entamé</h4><p>Un flacon entamé peut être réutilisé jusqu'à 4 semaines maxi si :</p><ul><li>Non périmé</li>
+<li>Non contaminé</li><li>Non exposé à des températures extrêmes</li><li>Non immergé dans l'eau</li><li>Pas de PCV virée</li></ul><p><strong>Ne s'applique pas aux vaccins reconstitués (BCG, VAR, VAA) qui ne se conservent pas plus de 6h.</strong></p></div></div></div><!-- ============================================ --><!-- MODULE 16 : HYGIÈNE ET ASSAINISSEMENT COMPLET --><!-- ============================================ --><div class="case-study-card" data-index="14" data-pathology="hygiene">
+<h3><i class="fas fa-hand-holding-water"></i>Module 15 : Hygiène et Assainissement</h3><p class="case-description">Gestion de l'eau, maladies liées à l'environnement et stratégies d'assainissement</p><div class="tabs"><div class="tab active" data-tab="hyg-1">Eau & Pollution</div><div class="tab" data-tab="hyg-2">Maladies Environnementales</div><div class="tab" data-tab="hyg-3">Stratégies d'Assainissement</div></div><!-- 1. Eau & Pollution --><div class="tab-content active" id="hyg-1"><div
+class="definition-box"><h4>Sources et Qualité de l'Eau</h4>
+<table class="regimen-table"><tr><th>Type</th><th>Description</th><th>Risques</th></tr><tr><td><strong>Eaux souterraines</strong>
+</td><td>Nappes phréatiques, puits
+</td><td>Contamination par produits chimiques (agriculture)
+</td></tr><tr><td><strong>Eaux de surface</strong>
+</td><td>Lacs, marigots, pluie
+</td><td>Pollution bactérienne (déchets, excréta)
+</td></tr></table></div><div class="protocol-box"><h4>Pollution de l'Eau</h4>
+<table class="regimen-table"><tr><th>Type</th><th>Sources</th><th>Impact</th></tr><tr><td>Domestique
+</td><td>Eaux usées, excréta
+</td><td>Choléra, typhoïde
+</td></tr><tr><td>Agricole
+</td><td>Pesticides, engrais
+</td><td>Saturnisme, fluorose
+</td></tr><tr><td>Industrielle
+</td><td>Rejets chimiques
+</td><td>Intoxications chroniques
+</td></tr></table><h4>Critères d'Eau Potable</h4><ul><li><strong>Physiques :</strong> Limpide, sans odeur, température stable</li><li><strong>Chimiques :</strong> pH 6.5-8.5, absence de métaux lourds</li><li><strong>Bactériologiques :</strong> 0 coliforme/100ml</li></ul></div><div class="warning-box"><h4>Purification à Domicile</h4><ol><li><strong>Filtration :</strong> Charbon/tissu pour éliminer les particules</li><li><strong>Ébullition :</strong> 1 minute minimum</li><li><strong>Désinfection :</strong>
+Chlore (2 gouttes/litre, 30 min d'attente)</li></ol></div></div><!-- 2. Maladies Environnementales --><div class="tab-content" id="hyg-2"><div class="definition-box"><h4>Maladies Liées à l'Eau</h4>
+<table class="regimen-table"><tr><th>Maladie</th><th>Cause</th><th>Prévention</th></tr><tr><td><strong>Goitre endémique</strong>
+</td><td>Carence en iode
+</td><td>Sel iodé, surveillance nutritionnelle
+</td></tr><tr><td><strong>Dysenterie bacillaire</strong>
+</td><td>Shigella (eau polluée)
+</td><td>Hygiène des mains, eau traitée
+</td></tr><tr><td><strong>Bilharziose</strong>
+</td><td>Vers (eau stagnante)
+</td><td>Éviter les bains en eau douce
+</td></tr></table></div><div class="protocol-box"><h4>Facteurs de Risque Environnementaux</h4><ul><li><strong>Favorisant la maladie :</strong><ul><li>Défécation à l'air libre</li><li>Stockage inadéquat de l'eau</li></ul></li><li><strong>Favorisant la santé :</strong><ul><li>Latrines ventilées</li><li>Poubelles couvertes</li></ul></li></ul></div><div class="warning-box"><h4>Surveillance Épidémiologique</h4><p>La <strong>monographie sanitaire</strong> permet de :</p><ul><li>Cartographier les
+points d'eau contaminés</li><li>Identifier les zones à risque (ex : marigots utilisés pour la lessive/toilette)</li></ul></div></div><!-- 3. Stratégies d'Assainissement --><div class="tab-content" id="hyg-3"><div class="definition-box"><h4>Systèmes d'Évacuation</h4>
+<table class="regimen-table"><tr><th>Solution</th><th>Avantages</th><th>Limites</th></tr><tr><td><strong>Latrine à fosse</strong>
+</td><td><ul><li>Coût faible</li><li>Durée 10-20 ans</li></ul>
+</td><td>Odeurs, accès difficile pour enfants
+</td></tr><tr><td><strong>Fosse septique</strong>
+</td><td>Traitement des eaux usées
+</td><td>Coût élevé, maintenance technique
+</td></tr></table></div><div class="protocol-box"><h4>Gestion des Déchets</h4><ol><li><strong>Stockage :</strong> Poubelles étanches (familiales/communautaires)</li><li><strong>Collecte :</strong> Calendrier régulier (éviter l'accumulation)</li><li><strong>Traitement :</strong><ul><li><strong>Compostage :</strong> Déchets organiques</li><li><strong>Incinération :</strong> Déchets médicaux/dangereux</li></ul></li></ol></div><div class="warning-box"><h4>Stratégies Communautaires</h4><ul><li><strong>IEC
+(Information, Éducation, Communication) :</strong><ul><li>Ateliers sur le lavage des mains</li><li>Démonstrations de purification d'eau</li></ul></li><li><strong>Participation :</strong> Impliquer les chefs locaux pour promouvoir les latrines</li><li><strong>Surveillance :</strong> Comités de santé pour le suivi des points d'eau</li></ul></div></div></div><!-- ============================================ --><!-- MODULE 17 : FLÉAUX SOCIAUX COMPLET --><!--
+============================================ --><div class="case-study-card" data-index="15" data-pathology="fleaux-sociaux"><h3><i class="fas fa-biohazard"></i>Module 16 : Fléaux Sociaux</h3><p class="case-description">Alcoolisme, drogues, tabagisme : impacts cliniques et stratégies intégrées</p><div class="tabs"><div class="tab active" data-tab="fleaux-1">Alcoolisme</div><div class="tab" data-tab="fleaux-2">Toxicomanie</div><div class="tab" data-tab="fleaux-3">Tabagisme</div><div class="tab"
+data-tab="fleaux-4">Concepts Clés</div></div><!-- 1. Alcoolisme --><div class="tab-content active" id="fleaux-1"><div class="definition-box"><h4>Définitions</h4><p><strong>Alcoolisme chronique :</strong> Pathologie entraînant pharmacodépendance et complications organiques.</p>
+<table class="regimen-table"><tr><th>Type</th><th>Exemples</th><th>Taux d'alcool</th></tr><tr><td>Fermentation
+</td><td>Vin, bière, tchapalo
+</td><td>3-12°
+</td></tr><tr><td>Distillation
+</td><td>Koutoukou, gin
+</td><td>20-50°
+</td></tr></table></div><div class="protocol-box"><h4>Impacts Cliniques </h4><div class="grid-2-col"><div><h5>➤ Effets aigus</h5><ul><li>Troubles neurologiques : ralentissement des réflexes</li><li>Comportementaux : euphorie → dépression</li><li>Risques : AVP, coma éthylique</li></ul></div><div><h5>➤ Effets chroniques</h5><ul><li><strong>Foie :</strong> Cirrhose, hépatite</li><li><strong>Cœur :</strong> Cardiomyopathie</li><li><strong>Grossesse :</strong> Hypotrophie fœtale</li></ul></div></div>
+</div><div class="warning-box"><h4>Stratégies de Lutte </h4>
+<table class="regimen-table"><tr><th>Niveau</th><th>Actions</th><th>Cibles</th></tr><tr><td><strong>Préventif</strong>
+</td><td><ul><li>Taxation des boissons alcoolisées</li><li>Interdiction de publicité</li></ul>
+</td><td>Population générale
+</td></tr><tr><td><strong>Curatif</strong>
+</td><td>Centres de désintoxication
+</td><td>Patients dépendants
+</td></tr></table></div></div><!-- 2. Toxicomanie --><div class="tab-content" id="fleaux-2"><div class="definition-box"><h4>Classification des Drogues </h4>
+<table class="regimen-table"><tr><th>Type</th><th>Exemples</th><th>Risques</th></tr><tr><td>Opiacés
+</td><td>Héroïne, morphine
+</td><td>Overdose, VIH
+</td></tr><tr><td>Stimulants
+</td><td>Cocaïne, amphétamines
+</td><td>Psychoses
+</td></tr><tr><td>Dépresseurs
+</td><td>Valium, barbituriques
+</td><td>Dépression respiratoire
+</td></tr></table></div><div class="protocol-box"><h4>Conséquences Obstétricales </h4><ul><li><strong>Grossesse :</strong> HRP (hématome rétro-placentaire), prématurité</li><li><strong>Fœtus :</strong> Retard de croissance, malformations</li><li><strong>Nouveau-né :</strong> Syndrome de sevrage</li></ul><h4>Stratégies </h4><ol><li><strong>Réduction des risques :</strong> Échanges de seringues</li><li><strong>Dépistage :</strong> Femmes enceintes à risque</li><li><strong>Législation :</strong>
+Convention ONU 1961</li></ol></div></div><!-- 3. Tabagisme --><div class="tab-content" id="fleaux-3"><div class="definition-box"><h4>Données Clés </h4><ul><li><strong>Coût économique :</strong> 6% des dépenses de santé mondiales (OMS)</li><li><strong>Composition :</strong> 4 000 substances (dont 50 cancérigènes)</li></ul></div><div class="protocol-box"><h4>Stratégies </h4><div class="grid-2-col"><div><h5>➤ Individuelles</h5><ul><li>Substituts nicotiniques</li><li>Thérapies cognitives</li></ul>
+</div><div><h5>➤ Collectives</h5><ul><li>Paquets neutres</li><li>Interdiction de fumer dans les lieux publics</li></ul></div></div></div></div><!-- 4. Concepts Clés --><div class="tab-content" id="fleaux-4"><div class="definition-box"><h4>Lexique </h4>
+<table class="regimen-table"><tr><th>Terme</th><th>Définition</th><th>Exemple</th></tr><tr><td>Accoutumance
+</td><td>Nécessité d'augmenter les doses
+</td><td>Alcool, opiacés
+</td></tr><tr><td>Tolérance
+</td><td>Résistance aux effets
+</td><td>Tabac
+</td></tr><tr><td>Dépendance
+</td><td>Besoin compulsif
+</td><td>Cocaïne
+</td></tr></table></div><div class="warning-box"><h4>Arbre Décisionnel</h4><p><strong>Repérage précoce :</strong> Outil CAGE (4 questions) pour l'alcool</p><ol><li>Avez-vous déjà pensé à diminuer ?</li><li>Votre entourage vous a-t-il critiqué ?</li><li>Vous êtes-vous déjà senti coupable ?</li><li>Avez-vous besoin d'un verre le matin ?</li></ol><p><em>Score ≥ 2 → Orientation vers un spécialiste</em></p></div></div></div><div class="case-study-card" data-index="16"
+data-pathology="gyneco-obstetrique"><h3><i class="fas fa-female"></i>Module 17 : Gynéco-Obstétrique</h3><p class="case-description">Pathologies gynécologiques, complications obstétricales et suivi de grossesse</p><div class="tabs"><div class="tab active" data-tab="gyneco-1">Infections & Tumeurs</div><div class="tab" data-tab="gyneco-2">Urgences Grossesse</div><div class="tab" data-tab="gyneco-3">Troubles Hormonaux</div><div class="tab" data-tab="gyneco-4">Suivi & Prévention</div></div><!-- 1.
+Infections & Tumeurs --><div class="tab-content active" id="gyneco-1"><!-- LEUCORRHEES --><div class="definition-box"><h4>Leucorrhées <span class="tag-orange">Infection</span></h4><p><strong>Définition :</strong> Pertes vaginales non sanglantes.</p><div class="grid-2-col"><div><h5>➤ Causes</h5><ul><li>Candida, Chlamydiae, gonocoque</li><li>Antibiotiques, pilule</li></ul></div><div><h5>➤ Traitement</h5><ul><li><strong>Médical :</strong> Flagyl 4cp/j × 8j</li><li><strong>Hygiène :</strong>
+Saforelle</li></ul></div></div></div><!-- SALPINGITES --><div class="protocol-box"><h4>Salpingites <span class="tag-red">Urgence</span></h4>
+<table class="regimen-table"><tr><th>Diagnostic</th><th>Complications</th><th>Thérapie</th></tr><tr><td>Fièvre >39°C + métrorragies
+</td><td>Stérilité, douleurs chroniques
+</td><td>Abitiothérapie + contraception
+</td></tr></table></div><!-- FIBROMES --><div class="warning-box"><h4>Fibromes Utérins <span class="tag-blue">Tumeur</span></h4><div class="grid-3-col"><div><h5>➤ Types</h5><ol><li>Interstitiels (muscle)</li><li>Sous-séreux (péritoine)</li><li>Sous-muqueux (endomètre)</li></ol></div><div><h5>➤ Signes</h5><ul><li>Ménorragies</li><li>Dyspareunie</li></ul></div><div><h5>➤ Chirurgie</h5><ul><li>Hystérectomie si anémie</li></ul></div></div></div></div><!-- 2. Urgences Grossesse --><div
+class="tab-content" id="gyneco-2"><!-- GEU --><div class="emergency-box"><h4>Grossesse Extra-Utérine <span class="tag-red">Urgence vitale</span></h4><div class="grid-2-col"><div><h5>➤ Diagnostic</h5><ul><li>Douleurs unilatérales</li><li>Échographie + BHCG</li></ul></div><div><h5>➤ Traitement</h5><ul><li>Salpingectomie en urgence</li><li>Mortalité maternelle si rupture</li></ul></div></div></div><!-- HRP --><div class="emergency-box"><h4>Hématome Rétro-Placentaire
+<span class="tag-red">Urgence</span></h4><ul><li><strong>Signe pathognomonique :</strong> Abdomen de bois</li><li><strong>Risque :</strong> Mort fœtale (50% des cas)</li><li><strong>Conduite :</strong> Césarienne en extrême urgence</li></ul></div><!-- PRE-ECLAMPSIE/ECLAMPSIE --><div class="protocol-box"><h4>Pré-Éclampsie → Éclampsie <span class="tag-red">Urgence</span></h4>
+<table class="regimen-table"><tr><th>Critères</th><th>Traitement</th><th>Complications</th></tr><tr><td>HTA + protéinurie >20SA
+</td><td>Sulfate de Mg + accouchement
+</td><td>Convulsions → coma
+</td></tr></table></div><!-- AUTRES PATHOLOGIES --><div class="definition-box"><h4>Autres Pathologies Obstétricales</h4><div class="grid-3-col"><div><h5>➤ Placenta Praevia</h5><ul><li>Saignements indolores</li><li>Césarienne systématique</li></ul></div><div><h5>➤ Souffrance Fœtale</h5><ul><li>Liquide amniotique vert</li><li>Césarienne en urgence</li></ul></div><div><h5>➤ HPPI</h5><ul><li>4T : Tonus, Tissus...</li><li>Ocytocine IV + Exacyl</li></ul></div></div></div></div><!-- 3. Troubles
+Hormonaux --><div class="tab-content" id="gyneco-3"><!-- TROUBLES MENSTRUELS --><div class="definition-box"><h4>Troubles du Cycle Menstruel</h4>
+<table class="regimen-table"><tr><th>Terme</th><th>Définition</th><th>Traitement</th></tr><tr><td>Aménorrhée
+</td><td>Absence règles
+</td><td>Progestatifs
+</td></tr><tr><td>Dysménorrhée
+</td><td>Règles douloureuses
+</td><td>AINS
+</td></tr><tr><td>Métrorragie
+</td><td>Saignements hors cycle
+</td><td>Curetage
+</td></tr></table></div><!-- ANEMIE --><div class="protocol-box"><h4>Anémie et Grossesse</h4><ul><li><strong>Cause :</strong> Carences (fer, folates)</li><li><strong>Risque :</strong> OAP, mort maternelle</li><li><strong>Traitement :</strong> Acide folique + fer</li></ul></div></div><!-- 4. Suivi & Prévention --><div class="tab-content" id="gyneco-4"><!-- CPN --><div class="warning-box"><h4>Consultation Prénatale (CPN)</h4><div class="grid-2-col"><div><h5>➤ 4 Visites Obligatoires</h5><ol><li>1<sup>ère</sup>
+: <12SA</li><li>2<sup>e</sup> : 15-28SA</li><li>3<sup>e</sup> : 28-36SA</li><li>4<sup>e</sup> : >36SA</li></ol></div><div><h5>➤ Examens Clés</h5><ul><li>Échographie morphologique</li><li>NFS + TP/TCA</li></ul></div></div></div><!-- CALCUL TERME --><div class="definition-box"><h4>Calcul du Terme Probable</h4><p><strong>Formule FIGO :</strong> DDR + 7 jours - 3 mois</p><p><strong>Exemple :</strong> DDR 05/01 → TP 12/10 ± 2 semaines</p></div></div></div></div><div class="navigation">
+<button class="nav-btn" id="prevBtn" disabled>Précédent</button> <button class="nav-btn" id="nextBtn">Suivant</button></div></main><!-- Modal de recherche avancée --><div class="modal" id="advancedSearchModal"><div class="modal-content"><div class="modal-header"><h2 class="modal-title">Filtres avancés</h2> <span class="close-modal" onclick="closeAdvancedSearch()">&times;</span></div><div class="filter-group"> <label for="ageFilter">Type de pathologie</label> <select id="ageFilter"><option
+value="all">Tous types</option><option value="traumatique">Traumatique</option><option value="infectieux">Infectieux</option><option value="tumoral">Tumoral</option><option value="congenital">Congénital</option></select></div><div class="filter-group"> <label for="themeFilter">Système concerné</label> <select id="themeFilter"><option value="all">Tous systèmes</option><option value="osseux">Osseux</option><option value="digestif">Digestif</option><option value="path_urinaire">Urinaire</option>
+<option value="thoracique">Thoracique</option></select></div><div class="modal-actions"> <button class="modal-btn cancel-btn" onclick="closeAdvancedSearch()">Annuler</button> <button class="modal-btn apply-btn" onclick="applyAdvancedFilters()">Appliquer</button></div></div></div>
+<script>
+    // Gestion du drawer et du menu latéral
+    function toggleDrawer() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const body = document.body;
+
+        if (sidebar.classList.contains('show')) {
+            sidebar.classList.remove('show');
+            overlay.style.display = 'none';
+            body.classList.remove('body-disabled');
+        } else {
+            sidebar.classList.add('show');
+            overlay.style.display = 'block';
+            body.classList.add('body-disabled');
+        }
+    }
+
+    function closeDrawer() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const body = document.body;
+
+        sidebar.classList.remove('show');
+        overlay.style.display = 'none';
+        body.classList.remove('body-disabled');
+    }
+
+    function navigateTo(url) {
+        window.location.href = url;
+    }
+
+    // Gestion des cartes et des onglets
+    let currentIndex = 0;
+    let filteredCards = Array.from(document.querySelectorAll('.case-study-card'));
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const pathologySelect = document.getElementById('pathologySelect');
+    const searchInput = document.getElementById('searchInput');
+    const dynamicTitle = document.getElementById('dynamicTitle');
+    const dynamicProtocol = document.getElementById('dynamicProtocol');
+
+    // Mise à jour initiale
+    updateDisplay();
+    updateNavigation();
+
+    // Écouteurs d'événements
+    pathologySelect.addEventListener('change', filterByPathology);
+    searchInput.addEventListener('input', filterBySearch);
+
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const card = tab.closest('.case-study-card');
+            const tabs = card.querySelectorAll('.tab');
+            const contents = card.querySelectorAll('.tab-content');
+
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+
+            tab.classList.add('active');
+            document.getElementById(tab.dataset.tab).classList.add('active');
+        });
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            filteredCards[currentIndex].classList.remove('active');
+            currentIndex--;
+            filteredCards[currentIndex].classList.add('active');
+            updateNavigation();
+            updateTitleAndProtocol();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < filteredCards.length - 1) {
+            filteredCards[currentIndex].classList.remove('active');
+            currentIndex++;
+            filteredCards[currentIndex].classList.add('active');
+            updateNavigation();
+            updateTitleAndProtocol();
+        }
+    });
+
+    // Fonctions de filtrage
+    function filterByPathology() {
+        const selectedPathology = pathologySelect.value;
+        
+        document.querySelectorAll('.case-study-card').forEach(card => {
+            card.style.display = 'none';
+        });
+        
+        if (selectedPathology === 'all') {
+            filteredCards = Array.from(document.querySelectorAll('.case-study-card'));
+        } else {
+            filteredCards = Array.from(document.querySelectorAll(`.case-study-card[data-pathology="${selectedPathology}"]`));
+        }
+        
+        filteredCards.forEach(card => {
+            card.style.display = 'block';
+        });
+        
+        currentIndex = 0;
+        updateDisplay();
+        updateNavigation();
+        updateTitleAndProtocol(selectedPathology);
+    }
+
+    function filterBySearch() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        const selectedPathology = pathologySelect.value;
+        
+        if (selectedPathology === 'all') {
+            filteredCards = Array.from(document.querySelectorAll('.case-study-card'));
+        } else {
+            filteredCards = Array.from(document.querySelectorAll(`.case-study-card[data-pathology="${selectedPathology}"]`));
+        }
+        
+        if (searchTerm) {
+            filteredCards = filteredCards.filter(card => {
+                return card.textContent.toLowerCase().includes(searchTerm);
+            });
+        }
+        
+        currentIndex = 0;
+        updateDisplay();
+        updateNavigation();
+    }
+
+    function updateDisplay() {
+        document.querySelectorAll('.case-study-card').forEach(card => {
+            card.classList.remove('active');
+        });
+        
+        if (filteredCards.length > 0) {
+            filteredCards[currentIndex].classList.add('active');
+        }
+    }
+
+    function updateNavigation() {
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === filteredCards.length - 1;
+    }
+
+    // Gestion de la recherche avancée
+    function openAdvancedSearch() {
+        document.getElementById('advancedSearchModal').style.display = 'flex';
+    }
+
+    function closeAdvancedSearch() {
+        document.getElementById('advancedSearchModal').style.display = 'none';
+    }
+
+    function applyAdvancedFilters() {
+        const ageFilter = document.getElementById('ageFilter').value;
+        const themeFilter = document.getElementById('themeFilter').value;
+        
+        const selectedPathology = pathologySelect.value;
+        
+        if (selectedPathology === 'all') {
+            filteredCards = Array.from(document.querySelectorAll('.case-study-card'));
+        } else {
+            filteredCards = Array.from(document.querySelectorAll(`.case-study-card[data-pathology="${selectedPathology}"]`));
+        }
+        
+        if (ageFilter !== 'all') {
+            // Implémentez la logique de filtrage par type
+        }
+        
+        if (themeFilter !== 'all') {
+            // Implémentez la logique de filtrage par système
+        }
+        
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        if (searchTerm) {
+            filteredCards = filteredCards.filter(card => {
+                return card.textContent.toLowerCase().includes(searchTerm);
+            });
+        }
+        
+        currentIndex = 0;
+        updateDisplay();
+        updateNavigation();
+        closeAdvancedSearch();
+    }
+    
+    // Mise à jour des titres dynamiques
+    function updateTitleAndProtocol(pathology) {
+    let title = "Résumé des cours ( 4 Matières du diplôme d'état IDE - INFAS)";
+    let protocol = "Licence 2 & 3 / 2019";
+    
+    switch(pathology) {
+        case 'traumatologie':
+            title = "Traumatologie et Orthopédie";
+            protocol = "Fractures, Luxations, Traumatismes";
+            break;
+        case 'chir_digestive':
+            title = "Chirurgie Digestive";
+            protocol = "Hernies, Appendicite, Occlusions";
+            break;
+        case 'urologie':
+            title = "Pathologies Urologiques";
+            protocol = "Adénome, Rétention, Cryptorchidie";
+            break;
+        case 'cancers':
+            title = "Pathologies Cancéreuses";
+            protocol = "Œsophage, Estomac, Rein";
+            break;
+        case 'divers':
+            title = "Pathologies Diverses";
+            protocol = "Péritonite, Mal de Pott";
+            break;
+        case 'respiratoire':
+            title = "Pathologies Respiratoires";
+            protocol = "Pneumonie, BPCO, Tuberculose";
+            break;
+        case 'cardio':
+            title = "Pathologies Cardiovasculaires";
+            protocol = "HTA, Insuffisance cardiaque, Angor";
+            break;
+        case 'path_digestive':
+            title = "Pathologies Digestives";
+            protocol = "RGO, Ulcère, Cirrhose";
+            break;
+        case 'path_urinaire':
+            title = "Pathologies Urinaires";
+            protocol = "Lithiase, Infections, Insuffisance rénale";
+            break;
+        case 'sante-publique':
+            title = "Virginia Henderson";
+            protocol = "Besoins fondamentaux";
+            break;
+        case 'pev':
+            title = "Programme Élargi de Vaccination (PEV)";
+            protocol = "Vaccins, calendriers de vaccination et gestion des consommables";
+            break;
+        case 'pediatrie':
+            title = "Pathologies Pédiatriques";
+            protocol = "Infections, Troubles respiratoires, Urgences néonatales";
+            break;
+        case 'urgences':
+            title = "Urgences et Intoxications";
+            protocol = "Intoxications médicamenteuses, Déshydratation";
+            break;
+        case 'sns':
+            title = "Système National de Santé";
+            protocol = "Indicateurs, Politiques de santé";
+            break;
+        case 'hygiene':
+            title = "Hygiène et Assainissement";
+            protocol = "Gestion de l'eau, Maladies environnementales";
+            break;
+        case 'fleaux-sociaux':
+            title = "Fléaux Sociaux";
+            protocol = "Alcoolisme, Toxicomanie, Tabagisme";
+            break;
+        case 'gyneco-obstetrique':
+            title = "Gynéco-Obstétrique";
+            protocol = "Pathologies gynécologiques, complications obstétricales et suivi de grossesse";
+            break;
+        default:
+            title = "Résumé des cours ( 4 Matières du diplôme d'état IDE - INFAS)";
+            protocol = "Licence 2 & 3 / 2019";
+    }
+    
+    dynamicTitle.textContent = title;
+    dynamicProtocol.textContent = protocol;
+}
+
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', function() {
+        if (filteredCards.length > 0) {
+            filteredCards[0].classList.add('active');
+        }
+        
+        updateTitleAndProtocol(pathologySelect.value);
+    });
+</script>
+</body>
+</html>

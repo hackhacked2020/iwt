@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Médicaments d'urgence en pédiatrie</title>
+    <style>
+        /* Thème Orange-Blanc-Vert */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header-orange {
+            background-color: #FF8F00; /* Orange */
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .content-green {
+            background-color: #E8F5E9; /* Vert clair */
+            border: 2px solid #C8E6C9;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .medicament-title {
+            color: #0D47A1; /* Bleu foncé */
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            font-size: 1.1em;
+            border-bottom: 2px solid #FF8F00;
+            padding-bottom: 5px;
+        }
+        
+        .medicament-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 10px 0;
+        }
+        
+        .medicament-item {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .medicament-item:before {
+            content: "•";
+            color: #FF8F00; /* Orange */
+            font-weight: bold;
+            position: absolute;
+            left: 5px;
+        }
+        
+        .update-date {
+            text-align: center;
+            color: #2E7D32; /* Vert foncé */
+            font-size: 0.9em;
+            margin-top: 25px;
+            font-style: italic;
+        }
+        
+        .highlight {
+            font-weight: bold;
+            color: #E65100; /* Orange foncé */
+        }
+    </style>
+</head>
+<body class="corps">
+    <div class="header-orange">
+        <h4>MÉDICAMENTS D'URGENCE EN PÉDIATRIE</h4>
+    </div>
+    
+    <div class="content-green">
+        <div class="medicament-title">ADALATE [nifédipine]</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Hypertension artérielle aiguë</li>
+            <li class="medicament-item">Capsule de 10 mg, en sublingual</li>
+            <li class="medicament-item">0,25 mg/kg (emploi limité à l'adolescent de plus de 40 kg)</li>
+        </ul>
+        
+        <div class="medicament-title">ADIARIL</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Déshydratation du nourrisson</li>
+            <li class="medicament-item">1 sachet pour 200 g d'eau</li>
+            <li class="medicament-item">Par petites quantités, très souvent</li>
+        </ul>
+        
+        <div class="medicament-title">ANAPEN</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Choc anaphylactique (notamment après piqûre d'insecte)</li>
+            <li class="medicament-item"><span class="highlight">Poids > 15 kg</span> : 0,15 mg</li>
+            <li class="medicament-item"><span class="highlight">Poids > 40 kg</span> : 0,30 mg</li>
+            <li class="medicament-item">En SC ou IM. À répéter après 15 minutes si nécessaire</li>
+        </ul>
+        
+        <div class="medicament-title">BRICANYL [terbutaline]</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Asthme (si inhalation difficile)</li>
+            <li class="medicament-item">Ampoule de 1 ml - 0,5 mg</li>
+            <li class="medicament-item">0,01 mg/kg en SC</li>
+        </ul>
+        
+        <div class="medicament-title">CODENFAN [codéïne]</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Douleur intense</li>
+            <li class="medicament-item">1 ml/kg chez l'enfant de plus d'un an, per os</li>
+        </ul>
+        
+        <div class="medicament-title">DOLIPRANE [paracétamol]</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Fièvre > 40,5°</li>
+            <li class="medicament-item">Sachets ou suppositoires à 100 mg, 150 mg, 200 mg, 300 mg, 500 mg</li>
+            <li class="medicament-item">25 mg/kg per os ou intrarectal</li>
+        </ul>
+        
+        <div class="medicament-title">EFFERALGAN CODEINE [paracétamol, codéïne]</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Douleur intense</li>
+            <li class="medicament-item"><span class="highlight">15-30 kg</span> : 1/2 cp</li>
+            <li class="medicament-item"><span class="highlight">30-50 kg</span> : 1 cp</li>
+        </ul>
+        
+        <div class="medicament-title">FUROSEMIDE</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Défaillance cardiaque, OAP (action diurétique et tonicardiaque)</li>
+            <li class="medicament-item">Ampoule 2 ml = 20 mg</li>
+            <li class="medicament-item">1 à 2 mg/kg en IM ou IV</li>
+        </ul>
+        
+        <div class="medicament-title">GLUCAGEN [glucagon]</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Hypoglycémie</li>
+            <li class="medicament-item">Flacon de 1 mg</li>
+            <li class="medicament-item"><span class="highlight">Poids > 25 kg</span> : 1 mg en SC</li>
+            <li class="medicament-item"><span class="highlight">Poids < 25 kg</span> : 1/2 mg en SC</li>
+            <li class="medicament-item">Gardé au réfrigérateur (entre 2 et 8°C)</li>
+        </ul>
+        
+        <div class="medicament-title">NALBUPHINE</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Analgésie (douleur intense : fracture)</li>
+            <li class="medicament-item">Ampoule de 20 mg = 2 ml</li>
+            <li class="medicament-item">0,2 mg/kg IV ou SC ou 0,35 mg/kg intrarectal</li>
+        </ul>
+        
+        <div class="medicament-title">ROCEPHINE [céftriaxone]</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Purpura fulminans</li>
+            <li class="medicament-item">Poudre à 500 mg + solvant 2 ml ou poudre à 1 g + solvant 3,5 ml</li>
+            <li class="medicament-item">50 mg/kg en IV ou IM</li>
+        </ul>
+        
+        <div class="medicament-title">SOLUMEDROL [méthylprednisolone]</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Laryngite. Asthme grave résistant aux bêta-2 adrénergiques</li>
+            <li class="medicament-item">Flacon de 2 ml = 20 mg et flacon de 2 ml = 40 mg</li>
+            <li class="medicament-item">2 mg/kg en IM ou IV</li>
+        </ul>
+        
+        <div class="medicament-title">SPASFON [phloroglucinol, triméthylphloroglucinol]</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Colique hépatique. Colique néphrétique</li>
+            <li class="medicament-item">Ampoule de 4 ml</li>
+            <li class="medicament-item">1 ampoule IM ou IV</li>
+        </ul>
+        
+        <div class="medicament-title">VALIUM [diazépam]</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Convulsions</li>
+            <li class="medicament-item">Ampoule de 2 ml = 10 mg</li>
+            <li class="medicament-item">0,5 mg/kg en intrarectal avec une canule, à renouveler 15 minutes plus tard si nécessaire</li>
+        </ul>
+        
+        <div class="medicament-title">VENTOLINE [salbutamol]</div>
+        <ul class="medicament-list">
+            <li class="medicament-item">Asthme</li>
+            <li class="medicament-item">Aérosol doseur : 1 bouffée/2 kg sans dépasser 15 bouffées avec une chambre d'inhalation (babyhaler, aéroscopic)</li>
+        </ul>
+    </div>
+    
+    <div class="update-date">Date de dernière mise à jour: 24/06/2025</div>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<?php
+
+// Démarrer la session si ce n'est pas déjà fait
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['from_index']) || $_SESSION['from_index'] != "actif3") {     header('Location: ../index.php');     exit(); }
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no"/>
+    <title>Menu Pédiatrie</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style1.css">
+    <style>
+        /* Thème Orange-Blanc-Vert */
+        .menu_div ul {
+            padding: 0px;
+            font-family: monospace;
+            font-size: 10px;
+            color: #FFF;
+            list-style: none;
+            margin: 0px;
+            font-weight: bold;
+        }
+        .menu_div ul li {
+            background: #ffffff;
+            background-repeat: repeat-x;
+            box-shadow: inset 0 0 3px #FFE0B2;
+            -moz-box-shadow: inset 0 0 0px #FFE0B2;
+            -webkit-box-shadow: inset 0 0 0px #FFE0B2;
+            line-height: 35px;
+            border-bottom: 3px solid #2E7D32;
+            font-weight: bold;
+        }
+        .menu_div ul li a {
+            text-decoration: none;
+            color: #FF8F00;
+            display: block;
+            padding: 7px;
+        }
+        .menu_div ul li a:hover {
+            background: #E8F5E9;
+        }
+        .menu_div ul li#themetype2 a {
+            background: #FF8F00;
+            color: #FFFFFF;
+            font-size: 24px;
+        }
+        .menu_div ul li#themetype1 a {
+            background: #2E7D32;
+            color: #FFFFFF;
+            font-size: 24px;
+        }
+        .menu_div ul li#themetype5 a {
+            background-color: #FFE0B2;
+            color: #2E7D32;
+            font-size: 20px;
+        }
+        .menu_div ul li#themetype52 a {
+            background-color: #E8F5E9;
+            color: #FF8F00;
+            font-size: 20px;
+        }
+
+        /* Drawer */
+        .drawer {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2E7D32; /* Vert pour correspondre au thème */
+            color: white;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            z-index: 1000;
+            font-size: 2rem; /* Taille de l'icône hamburger */
+        }
+
+        .drawer:hover {
+            background-color: #FF8F00; /* Orange au survol */
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        /* Style du menu latéral */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 6cm;
+            height: 100%;
+            background-color: #2E7D32; /* Vert pour correspondre au thème */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #888 #2E7D32;
+        }
+
+        .sidebar.show {
+            transform: translateX(0);
+        }
+
+        .icon {
+            color: white;
+            font-size: 2.5rem; /* Taille large pour les icônes, comme demandé */
+            margin: 10px 0;
+            cursor: pointer;
+            transition: transform 0.2s, color 0.2s;
+            width: 100%;
+            text-align: center;
+        }
+
+        .icon:hover {
+            transform: scale(1.2);
+            color: #FFE0B2; /* Orange clair pour le survol */
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background-color: #2E7D32;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .body-disabled {
+            overflow: hidden;
+        }
+
+        /* Responsive pour petits écrans */
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 4cm;
+            }
+            .icon {
+                font-size: 2rem;
+            }
+            .drawer {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+    <div id="sidebar" class="sidebar">
+        <div class="icon" onclick="navigateTo('https://sujetsinfas.com/index.php')">
+            <i class="fas fa-home"></i>
+        </div><!--
+        <div class="icon" onclick="navigateTo('adénopathie.html')">
+            <i class="fas fa-child"></i>
+        </div>
+        <div class="icon" onclick="navigateTo('allergie_pénicilline.html')">
+            <i class="fas fa-allergies"></i>
+        </div>-->
+    </div>
+    <div class="drawer" onclick="toggleDrawer()">☰</div>
+
+    <div class="menu_div" style="margin-top:2px">
+        <ul>
+            <li id="themetype1" style="font-size:24px;"><a href="https://sujetsinfas.com/index.php"><strong><center>INDEX</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="adénopathie.html"><strong><center>Adénopathies de l'enfant</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="allergie_pénicilline.html"><strong><center>Allergie à la pénicilline</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="anémie.html"><strong><center>Anémie ferriprive du nourrisson</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="anorexie.html"><strong><center>Anorexie</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="asthme_enfant.html"><strong><center>Asthme de l'enfant</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="asthme_nourrisson.html"><strong><center>Asthme du nourrisson</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="constipation_nourisson.html"><strong><center>Constipation du nourrisson</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="constipationenfant.html"><strong><center>Constipation fonctionnelle du nourrisson plus de 6 mois et de l'enfant</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="convulsion.html"><strong><center>Convulsion</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="Coqueluche.html"><strong><center>Coqueluche</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="cystite.html"><strong><center>Cystite aiguë</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="diarrhée_nourrisson.html"><strong><center>Diarrhée aiguë du nourrisson</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="drypano.html"><strong><center>Douleur chez un enfant drépanocytaire : crise vaso-occlusive</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="enurésie.html"><strong><center>Énurésie de l'enfant de plus de 6 ans</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="encoprésie.html"><strong><center>Encoprésie</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="epilepsie_generalise.html"><strong><center>Épilepsie généralisée du nourrisson et de l'enfant</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="epilepsie_partiel.html"><strong><center>Épilepsie partielle du nourrisson et de l'enfant</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="erytheme_fessier.html"><strong><center>Érythème fessier du nourrisson</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="fievrenourrisson.html"><strong><center>Fièvre du nourrisson</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="hernie.html"><strong><center>Hernies du nourrisson et phimosis</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="infection_urinaire.html"><strong><center>Infection urinaire</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="laryngite.html"><strong><center>Laryngite aiguë non dyspnéisante</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="mammite.html"><strong><center>Mammite du Nourrisson</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="médicament_durgence.html"><strong><center>Médicaments d'urgence en Pédiatrie</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="oreillon.html"><strong><center>Oreillons</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="otite_apres_2ans.html"><strong><center>Otite moyenne aiguë de l'enfant à partir de 2 ans</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="otiteavant2.html"><strong><center>Otite moyenne aiguë du nourrisson avant 2 ans</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="pneumo_commu_avant3.html"><strong><center>Pneumopathie aiguë communautaire avant 3 ans</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="rougeole.html"><strong><center>Rougeole</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="scarlatine.html"><strong><center>Scarlatine</center></strong></a></li>
+            <li id="themetype5" style="font-size:20px;"><a href="ectopie.html"><strong><center>Testicules ectopiques</center></strong></a></li>
+            <li id="themetype52" style="font-size:20px;"><a href="varicelle.html"><strong><center>Varicelle</center></strong></a></li>
+        </ul>
+    </div>
+
+    <script>
+        function toggleDrawer() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const body = document.body;
+
+            if (sidebar.classList.contains('show')) {
+                sidebar.classList.remove('show');
+                overlay.style.display = 'none';
+                body.classList.remove('body-disabled');
+            } else {
+                sidebar.classList.add('show');
+                overlay.style.display = 'block';
+                body.classList.add('body-disabled');
+            }
+        }
+
+        function closeDrawer() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const body = document.body;
+
+            sidebar.classList.remove('show');
+            overlay.style.display = 'none';
+            body.classList.remove('body-disabled');
+        }
+
+        function navigateTo(url) {
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

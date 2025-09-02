@@ -1,0 +1,4222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💉 QUIZ PRÉPA | CONCOURS INFAS 2025</title>
+<link href="css/all.min.css" rel="stylesheet">
+<script src="js/jspdf.umd.min.js"></script>
+<script src="js/jspdf.plugin.autotable.min.js"></script>
+<style>:root{--primary-color:#4a6bff;--secondary-color:#6c5ce7;--accent-color:#00b894;--warning-color:#fdcb6e;--stats-color:#e84393;--auth-color:#ff6b6b;--background-color:#ffffff;--text-color:#333333;--border-color:#e0e0e0;--card-shadow:rgba(0,0,0,0.1);--glass-effect:rgba(255,255,255,0.2);--dark-bg:#121212;--dark-text:#e0e0e0;--dark-card:#1e1e1e;}body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);min-height:100vh;margin:0;padding:0;color:
+var(--text-color);transition:background-color 0.3s,color 0.3s;}body.dark-mode{background:var(--dark-bg);color:var(--dark-text);}.container{max-width:1200px;margin:20px auto;padding:20px;}.d-none{display:none!important;}.quiz-card{background-color:var(--background-color);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.15);overflow:hidden;border:1px solid var(--border-color);transition:all 0.3s ease;}body.dark-mode .quiz-card{background-color:var(--dark-card);border-color:#444;}.quiz-header{
+padding:20px;background:linear-gradient(135deg,var(--primary-color) 0%,var(--secondary-color) 100%);color:white;display:flex;justify-content:space-between;align-items:center;}.quiz-body{padding:20px;height:100%;display:flex;flex-direction:column;}.question-container{min-height:150px;margin-bottom:20px;padding:20px;background-color:rgba(255,255,255,0.9);border-radius:10px;border:2px solid var(--primary-color);box-shadow:0 4px 12px rgba(74,107,255,0.2);}body.dark-mode .question-container{
+background-color:rgba(30,30,30,0.9);}.question-text{font-size:1.2rem;font-weight:600;line-height:1.5;margin-bottom:0;}.options-container{display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px;}.option-btn{padding:14px 20px;border:2px solid var(--border-color);border-radius:10px;background-color:var(--background-color);text-align:left;cursor:pointer;transition:all 0.2s ease;font-size:1rem;}body.dark-mode .option-btn{background-color:var(--dark-card);border-color:#444;}.option-btn:hover{
+transform:translateX(5px);border-color:var(--primary-color);}.option-btn.selected{background-color:rgba(74,107,255,0.1);border-color:var(--primary-color);}.option-btn.correct{background-color:rgba(0,184,148,0.1);border-color:var(--accent-color);}.option-btn.incorrect{background-color:rgba(244,67,54,0.1);border-color:var(--auth-color);}.quiz-footer{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;border-top:1px solid var(--border-color);}.timer{font-size:1.2rem;
+font-weight:600;color:var(--primary-color);}.timer-warning{color:var(--auth-color);animation:pulse 1s infinite;}@keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);} }.progress-container{width:100%;height:8px;background-color:#f0f0f0;border-radius:4px;margin:15px 0;overflow:hidden;}body.dark-mode .progress-container{background-color:#2d2d2d;}.progress-bar{height:100%;background:linear-gradient(90deg,var(--primary-color),var(--secondary-color));transition:
+width 0.3s ease;}#darkModeToggle{background:none;border:none;color:var(--text-color);margin-left:15px;cursor:pointer;font-size:16px;position:fixed;top:15px;right:15px;z-index:1000;background-color:var(--background-color);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.1);}body.dark-mode #darkModeToggle{background-color:var(--dark-card);}.bg-animation{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;
+overflow:hidden;}.bubble{position:absolute;border-radius:50%;background:var(--glass-effect);backdrop-filter:blur(5px);animation:float linear infinite;}@keyframes float{0%{transform:translateY(0) rotate(0deg);}100%{transform:translateY(-100vh) rotate(360deg);} }@media (max-width:768px){.container{padding:15px;}.question-text{font-size:1.1rem;}.option-btn{padding:12px 15px;font-size:0.95rem;} }#splashscreen{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--primary-color) 0%,var(--secondary-color) 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;color:white;}.spinner{width:50px;height:50px;border:5px solid rgba(255,255,255,0.3);border-radius:50%;border-top-color:
+white;animation:spin 1s ease-in-out infinite;}@keyframes spin{to{transform:rotate(360deg);} }.results-container{text-align:center;padding:20px;}.score-display{font-size:2.5rem;font-weight:700;margin:20px 0;color:var(--primary-color);}.detailed-results{max-height:400px;overflow-y:auto;margin-top:20px;padding:15px;background-color:rgba(255,255,255,0.9);border-radius:10px;}body.dark-mode .detailed-results{background-color:rgba(30,30,30,0.9);}.result-item{margin-bottom:15px;padding:15px;
+border-radius:8px;background-color:rgba(0,184,148,0.1);border-left:4px solid var(--accent-color);}.result-item.incorrect{background-color:rgba(244,67,54,0.1);border-left-color:var(--auth-color);}marquee{padding:8px 0;background-color:rgba(0,0,0,0.1);border-radius:4px;margin-bottom:10px;}marquee a{color:var(--primary-color);text-decoration:none;font-weight:500;margin:0 15px;}body.dark-mode marquee{background-color:rgba(255,255,255,0.1);}body.dark-mode marquee a{color:#74b9ff;}.category-card{
+cursor:pointer;transition:all 0.3s ease;border:1px solid var(--border-color);border-radius:10px;overflow:hidden;margin-bottom:20px;}body.dark-mode .category-card{border-color:#444;}.category-card:hover{transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,0,0,0.1);}.category-header{padding:15px;background-color:var(--primary-color);color:white;}.category-body{padding:15px;background-color:var(--background-color);}body.dark-mode .category-body{background-color:var(--dark-card);}.settings-card{
+margin-bottom:20px;padding:20px;background-color:var(--background-color);border-radius:10px;border:1px solid var(--border-color);}body.dark-mode .settings-card{background-color:var(--dark-card);border-color:#444;}.settings-title{font-size:1.2rem;font-weight:600;margin-bottom:15px;color:var(--primary-color);}.settings-option{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;}.switch{position:relative;display:inline-block;width:60px;height:34px;}.switch input{
+opacity:0;width:0;height:0;}.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.4s;border-radius:34px;}.slider:before{position:absolute;content:"";height:26px;width:26px;left:4px;bottom:4px;background-color:white;transition:.4s;border-radius:50%;}input:checked+.slider{background-color:var(--primary-color);}input:checked+.slider:before{transform:translateX(26px);}.instructions-card{padding:20px;background-color:var(--background-color);
+border-radius:10px;border:2px solid var(--primary-color);margin-bottom:20px;}body.dark-mode .instructions-card{background-color:var(--dark-card);}.instructions-title{font-size:1.3rem;font-weight:600;margin-bottom:15px;color:var(--primary-color);}.instructions-list{padding-left:20px;}.instructions-list li{margin-bottom:10px;}.btn{padding:10px 20px;border:none;border-radius:8px;cursor:pointer;transition:all 0.2s ease;font-weight:500;display:inline-flex;align-items:center;justify-content:center;
+gap:8px;}.btn-primary{background-color:var(--primary-color);color:white;}.btn-secondary{background-color:#6c757d;color:white;}.btn-success{background-color:var(--accent-color);color:white;}.btn-danger{background-color:var(--auth-color);color:white;}.btn:hover{opacity:0.9;transform:translateY(-2px);}.form-control{padding:10px 15px;border:1px solid var(--border-color);border-radius:8px;width:100%;font-size:1rem;transition:all 0.3s ease;background-color:var(--background-color);color:
+var(--text-color);}body.dark-mode .form-control{background-color:var(--dark-card);border-color:#444;}.form-control:focus{outline:none;border-color:var(--primary-color);box-shadow:0 0 0 3px rgba(74,107,255,0.2);}.input-group{display:flex;margin-bottom:20px;}.input-group .form-control{flex:1;border-top-right-radius:0;border-bottom-right-radius:0;}.input-group-append{display:flex;}.input-group-append .btn{border-top-left-radius:0;border-bottom-left-radius:0;}.row{display:flex;flex-wrap:wrap;margin:
+0 -15px;}.col-md-6{flex:0 0 50%;max-width:50%;padding:0 15px;}.col-lg-4{flex:0 0 33.33333%;max-width:33.33333%;padding:0 15px;}
+@media (max-width:768px){.col-md-6,.col-lg-4{flex:0 0 100%;max-width:100%;} }.badge{display:inline-block;padding:5px 10px;border-radius:20px;font-size:0.8rem;font-weight:600;}.bg-light{background-color:var(--background-color);color:var(--text-color);}.bg-success{background-color:var(--accent-color);color:white;}.mt-3{margin-top:1rem!important;}.mt-4{margin-top:1.5rem!important;}.mb-4{margin-bottom:1.5rem!important;}.mr-2{margin-right:0.5rem!important;}.gap-3{gap:1rem!important;}.text-center{
+text-align:center!important;}
+</style>
+</head>
+<body><!-- Animation de fond --><div class="bg-animation" id="bgAnimation"></div><!-- Bouton mode sombre --> <button id="darkModeToggle"> <i class="fas fa-moon"></i></button><!-- Conteneur principal --><div class="container"><marquee> <a href="https://wa.me/225054783595" target="_blank">ME CONTACTER SUR WHATSAPP ! 💬</a> <a href="https://whatsapp.com/channel/0029VaJvdFJF6smp7250ba2a" target="_blank">NOTRE CHAÎNE WHATSAPP 📱</a></marquee><!-- Écran d'accueil --><div id="welcome-screen"><div
+class="quiz-card"><div class="quiz-header"><h2><i class="fas fa-vial"></i> QUIZ PRÉPA | CONCOURS INFAS 2025</h2> <span class="badge bg-light">Version COMPLÈTE</span></div><div class="quiz-body"><div class="text-center mb-4"><h3>Le succès est la somme de petits efforts, répétés jour après jour : (Robert Collier)</h3><p>Sélectionnez une catégorie pour commencer le quiz</p></div><div class="input-group mb-4">
+<input type="text" id="searchInput" class="form-control" placeholder="Rechercher une question..."><div class="input-group-append"> <button class="btn btn-secondary" type="button" id="clearSearch"> <i class="fas fa-times"></i></button></div></div><div id="categories-container" class="row"><!-- Catégories seront chargées ici --></div></div></div></div><!-- Écran des paramètres --><div id="settings-screen" class="d-none"><div class="quiz-card"><div class="quiz-header"><h2><i class="fas fa-cog"></i>
+Paramètres du Quiz</h2> <button id="back-to-categories" class="btn btn-secondary"> <i class="fas fa-arrow-left"></i> Retour </button></div><div class="quiz-body"><div class="settings-card"><div class="settings-title">Options du Quiz</div><div class="settings-option"> <span>Mélanger les options de réponse</span> <label class="switch"> <input type="checkbox" id="shuffle-options" checked> <span class="slider"></span></label></div><div class="settings-option"> <span>Activer les effets sonores</span>
+<label class="switch"> <input type="checkbox" id="enable-sound" checked> <span class="slider"></span></label></div><div class="settings-option"> <span>Mode sombre</span> <label class="switch"> <input type="checkbox" id="dark-mode-toggle"> <span class="slider"></span></label></div></div><div class="settings-card"><div class="settings-title">Paramètres de Temps</div><div class="settings-option"> <span>Temps par question (secondes)</span>
+<input type="number" id="time-per-question" class="form-control" value="60" min="10" max="300" style="width:80px;"></div></div><div class="d-flex justify-content-center mt-4"> <button id="save-settings" class="btn btn-primary"> <i class="fas fa-save"></i> Enregistrer les paramètres </button></div></div></div></div><!-- Écran des instructions --><div id="instructions-screen" class="d-none"><div class="quiz-card"><div class="quiz-header"><h2 id="instructions-category-title"></h2>
+<button id="back-from-instructions" class="btn btn-secondary"> <i class="fas fa-arrow-left"></i> Retour </button></div><div class="quiz-body"><div class="instructions-card"><div class="instructions-title">Instructions du Quiz</div><ul class="instructions-list"><li>Vous aurez <span id="time-per-question-display">60</span> secondes pour répondre à chaque question</li><li>Sélectionnez la ou les bonnes réponses parmi les options proposées</li><li>Les questions peuvent avoir une ou plusieurs bonnes
+réponses</li><li>Vous gagnerez des points bonus en fonction du temps restant</li><li>Cliquez sur "Valider" pour confirmer votre réponse</li><li>Utilisez les boutons "Précédent" et "Suivant" pour naviguer</li></ul></div><div class="d-flex justify-content-center gap-3 mt-4"> <button id="start-quiz" class="btn btn-success"> <i class="fas fa-play"></i> Commencer le Quiz </button> <button id="go-to-settings" class="btn btn-primary"> <i class="fas fa-cog"></i> Paramètres </button></div></div></div>
+</div><!-- Écran du quiz --><div id="quiz-screen" class="d-none"><div class="quiz-card"><div class="quiz-header"><div><h4 id="category-title"></h4> <small>Question <span id="current-question">1</span>/<span id="total-questions">0</span></small></div><div class="d-flex align-items-center gap-3"> <span class="badge bg-light" id="timer">60s</span> <span class="badge bg-success">Score: <span id="current-score">0</span></span></div></div><div class="quiz-body"><div class="progress-container"><div
+class="progress-bar" id="quiz-progress" style="width:0%"></div></div><div class="question-container"><div id="question-text" class="question-text"></div></div><div id="options-container" class="options-container"><!-- Options seront chargées ici --></div></div><div class="quiz-footer"> <button id="prev-btn" class="btn btn-secondary d-none"> <i class="fas fa-arrow-left"></i> Précédent </button> <button id="validate-btn" class="btn btn-success"> <i class="fas fa-check"></i> Valider </button>
+<button id="next-btn" class="btn btn-primary d-none"> Suivant <i class="fas fa-arrow-right"></i></button></div></div></div><!-- Écran des résultats --><div id="results-screen" class="d-none"><div class="quiz-card"><div class="quiz-header"><h2><i class="fas fa-trophy"></i> Résultats du Quiz</h2></div><div class="quiz-body"><div class="results-container"><h3>Votre score final</h3><div class="score-display"> <span id="final-score">0</span>/<span id="max-score">0</span></div><div
+class="progress-container"><div id="score-progress" class="progress-bar" style="width:0%"></div></div><p>Points bonus rapidité : <span id="bonus-points">0</span></p><div class="d-flex justify-content-center gap-3 mt-4"> <button id="restart-btn" class="btn btn-primary"> <i class="fas fa-redo"></i> Recommencer </button> <button id="export-pdf-btn" class="btn btn-success"> <i class="fas fa-file-pdf"></i> Exporter PDF </button> <button id="new-quiz-btn" class="btn btn-secondary">
+<i class="fas fa-list"></i> Nouveau Quiz </button></div></div><div id="detailed-results" class="detailed-results mt-4"><!-- Détails des résultats --></div></div></div></div></div><!-- Splashscreen --><div id="splashscreen"><div class="spinner"></div><h2 class="mt-3">Chargement du Quiz...</h2></div>
+<script>
+        // Configuration initiale
+        const { jsPDF } = window.jspdf;
+        let categories = [];
+        let currentCategory = null;
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timer;
+        let timeLeft = 60;
+        let userAnswers = [];
+        let bonusPoints = 0;
+        let quizSettings = {
+            shuffleOptions: true,
+            enableSound: true,
+            darkMode: false,
+            timePerQuestion: 60
+        };
+
+
+
+async function loadJsonData() {
+  try {
+    const response = await fetch('prepde.json');
+    
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP! Statut: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    console.log('Données chargées:', data);
+    return data;
+  } catch (error) {
+    console.error('Échec du chargement:', error);
+    // Gestion d'erreur alternative
+    return { error: true, message: error.message };
+  }
+}
+
+
+async function loadJsonData() {
+  try {
+    console.log('Tentative de chargement du fichier ide.json...');
+    
+    // 1. Tentative de récupération du fichier
+    const response = await fetch('ide.json');
+    
+    // 2. Vérification que la réponse est OK (statut 200-299)
+    if (!response.ok) {
+      const errorDetails = {
+        status: response.status,
+        statusText: response.statusText,
+        url: response.url
+      };
+      console.error('Erreur de réponse:', errorDetails);
+      throw new Error(`Le serveur a retourné une erreur ${response.status}: ${response.statusText}`);
+    }
+    
+    // 3. Tentative de lecture du contenu JSON
+    const textData = await response.text();
+    console.log('Données brutes reçues:', textData.substring(0, 100) + '...'); // Log les 100 premiers caractères
+    
+    // 4. Validation et parsing du JSON
+    const data = JSON.parse(textData);
+    
+    // 5. Validation de la structure des données
+    if (!data.categories || !Array.isArray(data.categories)) {
+      throw new Error('Structure de données invalide: propriété "categories" manquante ou incorrecte');
+    }
+    
+    console.log('Données chargées avec succès:', data);
+    return data;
+    
+  } catch (error) {
+    console.error('Échec du chargement:', error);
+    
+    // Retourne un objet d'erreur standardisé
+    return { 
+      error: true,
+      message: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString()
+    };
+  }
+}
+
+// Charger les catégories et questions avec gestion d'erreur robuste
+async function loadQuizData() {
+  try {
+    console.log('Début du chargement des données du quiz...');
+    
+    // 1. Chargement des données
+    const result = await loadJsonData();
+    
+    // 2. Gestion des erreurs
+    if (result.error) {
+      console.warn('Chargement échoué, utilisation des données par défaut');
+      
+      // Données de secours
+      const backupData = {
+  "categories": [
+    {
+      "id": "0",
+      "name": "Cas cliniques pathologies de l'appareil respiratoire",
+      "icon": "book",
+      "description": "Questionnaire sur les pathologies de l'appareil respiratoires",
+      "questions": [
+        {
+          "question": "Cas1 : Vous recevez un patient dans votre centre pour une dyspnée.\n\n1. Cochez parmi ces informations, celles qui vous orientent vers une crise d'asthme",
+          "a": "Le patient est suivi pour une hypertension artérielle",
+          "b": "Le patient est très Souvent enrhumé",
+          "c": "Le patient a une intoxication tabagique",
+          "d": "Le patient a des antécédents de crises similaires depuis l'enfance",
+          "e": "Le patient a parfois une hémoptysie",
+          "f": "La dyspnée survient quand il mange des arachides ou quand il nettoie les vieux placards",
+          "correct": ["b", "c", "d", "f"]
+        },
+        {
+          "question": "Cochez parmi ces éléments de l'examen, celles qui vous orientent vers une crise d'asthme simple",
+          "a": "Présence de fièvre",
+          "b": "Absence de fièvre",
+          "c": "Présence de condensation pulmonaire",
+          "d": "Présence de sibilants",
+          "e": "Bon état général",
+          "f": "Bradypnée avec des sibilants",
+          "correct": ["b", "e", "f"]
+        },
+        {
+          "question": "Cochez parmi ces informations, celles qui vous orientent vers un cedème aigu du poumon (OAP) cardiogénique",
+          "a": "Le patient a une hypertension artérielle depuis 5ans",
+          "b": "Le patient tousse depuis 2 semaines",
+          "c": "Le patient est plus dyspnéique quand il se couche sur le dos",
+          "d": "Le patient se sent mieux quand il est assis ou debout",
+          "e": "Le patient fait la fièvre",
+          "f": "Le patient a une détresse respiratoire",
+          "correct": ["a", "c", "d", "f"]
+        },
+        {
+          "question": "Si vous pensez qu'il s'agit d'une crise d'asthme, quels médicaments prescrirez-Vous ?",
+          "a": "Corticoides inhalés (spray ou nébulisation)",
+          "b": "Antibiotiques",
+          "c": "Corticoïdes oraux ou injectables",
+          "d": "Bronchodilatateurs à action rapide en inhalation (spray ou nébulisation)",
+          "e": "Antitussif",
+          "f": "Bronchodilatateurs à action rapide par voie orale ou injectable",
+          "correct": ["a", "d"]
+        },
+        {
+          "question": "Vous décidez de prescrire un traitement de fond pour l'asthme après que la crise soit passée. Quels sont les médicaments essentiels ?",
+          "a": "Corticoides inhalés (spray)",
+          "b": "Antibiotiques",
+          "c": "Corticoïdes oraux ou injectables",
+          "d": "Association sous la forme inhalée de corticoide et bronchodilatateur de longue durée d'action",
+          "e": "Furosémide (Lasilix®)",
+          "f": "Héparine de bas poids moléculaire (Lovenox ®)",
+          "correct": ["d"]
+        },
+        {
+          "question": "Vous pensez qu'il s'agit un cedème aigu du poumon (OAP) cardiogénique, quelle serait votre conduite à tenir ?",
+          "a": "Garder le patient en observation",
+          "b": "Référer le patient",
+          "c": "Faire une injection d'antibiotique",
+          "d": "Prendre une voie veineuse avant son évacuation",
+          "e": "Faire une injection de furosémide si disponible",
+          "f": "Faire injection de corticoides si dişponible",
+          "correct": ["b", "d", "e"]
+        },
+        {
+          "question": "Cas 2 : Vous recevez un patient dans votre centre pour une toux.\nCochez parmi ces informations, celles qui vous orientent vers une pneunmopathie aiguë bactérienne type pneumonie franche lobaire aigue",
+          "a": "Toux productive avec des crachats muco-purulents",
+          "b": "Toux évoluent depuis de 6 semaines",
+          "c": "Toux sèche évoluant depuis 2 jours",
+          "d": "Début brutal,des symptômes",
+          "e": "Association d'une fièvre à 39° C",
+          "f": "Association de fébricule vespérale à 38°C",
+          "correct": ["a", "c", "d", "e"]
+        },
+        {
+          "question": "Cochez parmi ces éléments de l'examen, celles qui vous orientent vers une pneumopathie aiguë bactérienne type pneumonie franche lobaire aigue",
+          "a": "Examen physique normal",
+          "b": "Examen physique anormal",
+          "c": "Présence de condensation pulmonaire",
+          "d": "Présence de sibilants",
+          "e": "Présence de syndrome d'épanchement liquidien pleural",
+          "f": "Aucun de ces éléments",
+          "correct": ["b", "c", "e"]
+        },
+        {
+          "question": "Cochez parmi ces informations, celles qui vous orientent vers une tuberculose",
+          "a": "Toux productive avec des crachats muco-purulents",
+          "b": "Toux évoluent depuis plus de 6 semaines",
+          "c": "Toux sèche évoluant depuis 2 jours",
+          "d": "Début brutal des symptômes",
+          "e": "Association d'une fièvre à 39° C",
+          "f": "Association de fébricule vespérale à 38° C",
+          "correct": ["a", "b", "f"]
+        },
+        {
+          "question": "Vous pensez qu'il s'agit d'une tuberculose pulmonaire, cochez parmi ces bilans, les deux examens utiles pour confirmer cette tuberculose",
+          "a": "Numération formule sanguine (NFS)",
+          "b": "Hémoculture",
+          "c": "Bacilloscopies des crachats",
+          "d": "Goutte épaisse",
+          "e": "GeneXpert des crachats",
+          "f": "Intradermo-réaction à la tuberculine",
+          "correct": ["c", "e"]
+        },
+        {
+          "question": "Si C'est la tuberculose, vous lui prescrirez : Cochez la bonne réponse",
+          "a": "4 mois de HRZE suivis de 2 mois de RH",
+          "b": "2 mois de HRZE suivis de 4 mois RHE",
+          "c": "2 mois de HRZE plus 4 mois de RH",
+          "d": "6 mois de RHZE",
+          "e": "Aucune réponse n'est juste",
+          "f": "",
+          "correct": ["c"]
+        },
+        {
+          "question": "Au cours du traitement d'un nouveau cas de tuberculose pulmonaire bacillifère, les contrôles bactériologiques des crachats se font :",
+          "a": "Au 1err, 4eme et 6eme mois de traitement",
+          "b": "Au 2eme, 5eme et 6eme mois de traitement",
+          "c": "Au 2ene, 4eme et 6eme mois de traitement",
+          "d": "Au 5eme et 6eme mois de traitement",
+          "e": "Au 3eme, 5eme et 8eme mois de traitement",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Vous retenez le diagnostic d'une pneumopathie aiguë bactérienne type pneumonie franche lobaire aigue sans signes de gravité ; votre prescription comprendra : cochez les bonnes propositions.",
+          "a": "Amoxicilline",
+          "b": "Rendez-vous après 3 jours de traitement",
+          "c": "Hospitalisation",
+          "d": "Traitement ambulatoire",
+          "e": "Durée du traitement :8 à 10 jours",
+          "f": "Amoxicilline+ macrolides",
+          "correct": ["a", "d", "e"]
+        },
+        {
+          "question": "Le syndrome d'épanchement pleural liquidien est constitué par :",
+          "a": "Augmentation des vibrations vocales + tympanisme + diminution du murmure vésiculaire",
+          "b": "Abolition des vibrations vocales + matité + souffle tubaire + råles crépitants",
+          "c": "Augmentation des vibrations vocales + matité + souffle tubaire + râles crépitants",
+          "d": "Abolition des vibrations vocales + matité + abolition du murmure vésiculaire",
+          "e": "Aucune de ces propositions",
+          "f": "",
+          "correct": ["d"]
+        },
+        {
+          "question": "La voie habituelle de contamination par le bacile de Koch chez l'homme est la voie :",
+          "a": "Cutanée",
+          "b": "Digestive",
+          "c": "Aérienne",
+          "d": "Placentaire",
+          "e": "Oculaire",
+          "f": "",
+          "correct": ["c"]
+        },
+        {
+          "question": "Parmi ces éléments, cochez les causes acquises de l'embolie pulmonaire",
+          "a": "Anomalie congénitale due à une mutation du facteur V.",
+          "b": "Obésité",
+          "c": "Mutation du facteur ll",
+          "d": "Cardiopathie",
+          "e": "Diabète",
+          "f": "Déficit héréditaire en protéines naturelles anticoagulantes",
+          "correct": ["b", "d", "e"]
+        },
+        {
+          "question": "Cas 3: Vous recevez Mme A, âgée de 31 ans. L'interrogatoire retrouve un accouchement par césarienne ilya deux semaines. Elle a une polypnée et se plaint d'une douleur thoracique et d'une toux sèche, quinteuse, douloureuse. L'examen physique cbjective une tachycardie régulière avec un pouls filant. Elle ressent une douleur au mollet Bauche et la jambe gauche semble gonflée. il n'y a pas de fièvre.\n. Quelle est votre première hypothèse diagnostique",
+          "a": "Crise d'asthme",
+          "b": "CEdème aigu du poumon",
+          "c": "Embolie pulmonaire",
+          "d": "Pneumopathie aigue bactérienne",
+          "e": "Tuberculose pulmonaire",
+          "f": "Aucune des propositions",
+          "correct": ["c"]
+        },
+        {
+          "question": "Quelle sera votre conduite thérapeutique ?",
+          "a": "faire un traitement des symptômes",
+          "b": "faire une évacuation médicalisée",
+          "c": "hospitaliser la patiente pour un traitement efficace",
+          "d": "prendre une voie veineuse",
+          "e": "La renvoyer chez elle",
+          "f": "",
+          "correct": ["a", "b", "d"]
+        },
+        {
+          "question": "Cas 4 : MR DS consulte pour dyspnée. A l'interrogatoire, le patient est essoufflé depuis plus de 8 mois lors des efforts mais depuis 3jours, cette dyspnée est devenue permanente moindre effort. Dans les antécédents, on retrouve un tabagisme depuis plusieurs années. A l'examen, Ile thorax est distendu et vous avec des sibilants á l'auscultation.\n. Quel sera votre premier diagnostic ?",
+          "a": "Crise d'asthme",
+          "b": "Edème aigu du poumon",
+          "c": "Embolie pulmonaire",
+          "d": "Pneumopathie aigue bactérienne",
+          "e": "bronchopneumopathie chronique obstructive en crise",
+          "f": "Tuberculose pulmonaire",
+          "correct": ["e"]
+        },
+        {
+          "question": "Parmi ces agents infectieux, cochez ceux qui sont responsables de tuberculose",
+          "a": "Mycobacterium tuberculosis",
+          "b": "Staphylococcus aureus",
+          "c": "Mycobacterium bovis",
+          "d": "Mycobacterium bovin",
+          "e": "Mycobacterium africanum",
+          "f": "Mycobacterium africain",
+          "correct": ["a", "c", "e"]
+        },
+        {
+          "question": "La tuberculose pulmonaire est une maladie infectieuse souvent contagieuse",
+          "a": "Vrai",
+          "b": "Faux",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'asthme bronchique est une maladie infectieuse",
+          "a": "Vrai",
+          "b": "Faux",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La bronchite aiguë est très souvent bénigne",
+          "a": "Vrai",
+          "b": "Faux",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La bronchite aiguë est due au pneumocoque le plus souvent",
+          "a": "Vrai",
+          "b": "Faux",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La détresse respiratoire impose une évacuation médicalisée en urgence",
+          "a": "Vrai",
+          "b": "Faux",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La nicotine entraine la dépendance chez le sujet tabagique",
+          "a": "Vrai",
+          "b": "Faux",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Dans le traitement de la bronchite aiguë, les antibiotiques ne sont recommandés qu'a la phase catarrhale.",
+          "a": "Vrai",
+          "b": "Faux",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Le principal facteur étiologique de la BPCO est l'infection au VIHe",
+          "a": "Vrai",
+          "b": "Faux",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "L'éducation thérapeutique est un volet indispensable de la prise en charge de l'asthmatique",
+          "a": "Vrai",
+          "b": "Faux",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'hydro-pneumothorax est la présence de pneumothorax associé à une pleurésie",
+          "a": "Vrai",
+          "b": "Faux",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "name": "Système national de santé",
+      "icon": "book",
+      "description": "Questions sur le système national de santé",
+      "questions": [
+        {
+          "question": "L'accessibilité aux soins consiste à mettre les soins de santé à proximité des populations et à un prix non exorbitant.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'objectif principal du système de santé de la Côte d'Ivoire de la période pré-coloniale était la consolidation des acquis.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La globalité d'un système de santé se mesure par sa capacité à offrir des soins préventifs et des soins curatifs à la population.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La liberté comme caractéristique du système de santé consiste pour le malade à pouvoir s'adresser à la structure et à l'agent de santé de son choix.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Les soins sont acceptables lorsque leur administration tient compte des caractéristiques socio-culturelles des communautés.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Les soins sont dits accessibles lorsqu'ils sont administrés aux populations à un moindre coût.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Les soins sont dits accessibles lorsqu'ils sont mis à la disposition de toutes les populations, quelle que soit leur localisation géographique.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Les soins sont dits essentiels lorsqu'ils portent sur les besoins prioritaires des individus, des familles et des communautés.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Les techniciens de surface, les vigiles et les chauffeurs embauchés dans les structures de santé sont aussi considérés comme des ressources humaines pour la santé.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Un système de santé efficace est toujours efficient.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Un système de santé efficient est toujours efficace.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Les objectifs ci-dessous énumérés sont les objectifs d'un système de santé, sauf un. Lequel ?",
+          "a": "Restaurer la santé.",
+          "b": "Assurez la prévention des maladies.",
+          "c": "Assurer la promotion de la maladie.",
+          "d": "Assurez la prévention de la santé.",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La période de 1960 à 1980, la prestation des services était organisée selon deux (02) volets, lesquels ?",
+          "a": "Un volet orienté sur les soins curatifs avec pour caractéristiques essentielles la gratuité des soins.",
+          "b": "Un volet orienté sur la promotion de la santé.",
+          "c": "Un volet préventif basé sur une assistance médicale visant la lutte contre les grandes endémies.",
+          "e": "",
+          "f": "",
+          "correct": ["a", "c"]
+        },
+        {
+          "question": "Parmi les activités suivantes, indiquez celles qui sont du domaine de la prévention.",
+          "a": "La vaccination.",
+          "b": "Le dépistage involontaire du VIH-SIDA",
+          "c": "La consultation prénatale.",
+          "d": "Les spots publicitaires télévisés relatifs aux problèmes de Santé.",
+          "e": "La sensibilisation en Vu de l'utilisation de moustiquaires impregnés",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Parmi Les milieux suivants, indiquez ceux qui étaient concernés par les activités d'hygiène collective menées pendant la période coloniale.",
+          "a": "les domiciles privés.",
+          "b": "le milieu scolaire",
+          "c": "Les marchés.",
+          "d": "Les prisons.",
+          "e": "Les lieux de culte",
+          "f": "Les cinémas",
+          "correct": ["a", "c"]
+        },
+        {
+          "question": "Parmi les actions de prophylaxie suivantes indiquez, celles pratiquées en période coloniale.",
+          "a": "Le dépistage des cas de maladies",
+          "b": "Les consultations prénatales.",
+          "c": "L'isolement des cas dépistés.",
+          "d": "Les stratégies avancées",
+          "e": "les journées nationales de vaccination.",
+          "f": "",
+          "correct": ["a", "c", "e"]
+        },
+        {
+          "question": "De 1960 à 1980, selon quels volets était organisée la prestation des services de soins en Côte d'Ivoire ?",
+          "a": "Un volet orienté sur la soins curatif",
+          "b": "Un volet orienté sur le soins promotionnels.",
+          "c": "Un volet orienté vers les soins préventifs.",
+          "e": "",
+          "f": "",
+          "correct": ["a", "c"]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Programme Élargi de Vaccination (PEV)",
+      "icon": "book",
+      "description": "Questions sur les protocoles vaccinaux et la gestion des vaccins",
+      "questions": [
+        {
+          "question": "En cas d'oubli d'un vaccin devant être pris en compte dans une association combinée, il faut le faire un mois après.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "En matière de vaccination, l'intervalle minimum existe.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Entre deux doses d'un antigène à contact multiple, il faut un intervalle minimum de 4 semestres.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Il est possible d'oublier l'administration d'un antigène contenu dans une association combinée de vaccins.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La pastille de contrôle de vaccin est un cercle sensible à la chaleur placée à l'intérieur d'un carré qui change de couleur sous l'influence combinée de la chaleur et du froid.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La PCV permet d'apprécier la péremption des vaccins.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La perte de l'appétit est l'un des effets secondaires du Rotarix.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La température du réfrigérateur de vaccins doit se faire de façon quotidienne.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La voie d'injection du BCG est la face externe du haut du bras ou épaule gauche.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le BCG est un vaccin bactérien inactivé.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le coussinet et les chambres froides produisent du froid.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le Penta est une association successive d'antigènes.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le sérum est une substance qui a le désavantage d'avoir un effet moins durable que le vaccin.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le TD est une anatoxine qui peut être congelée sans inconvénient.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le vaccin combiné contre la rougeole et la rubéole s'administre en sous-cutanée à 9 mois aux enfants de 0 à 11 mois.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Les associations successives de vaccins peuvent se faire pendant des jours différents à condition de ne pas aller au-delà d'une semaine.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Les différents vaccins associés de façon combinée ont toujours le même point d'injection.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Les enfants de 0 à 9 mois font partie de la population cible du PEV ivoirien.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "MAPI signifie manifestation post-immunisation.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Un enfant âgé de 2 semaines ayant été déjà vacciné avec le VPO, le BCG et la dose d'hépatite B dès la naissance est correctement vacciné.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Un enfant de 0 à 11 mois correctement vacciné reçoit 3 doses d'hépatite B dans son organisme.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Parmi les vaccins suivants, indiquez ceux dont la voix d'administration est orale.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Parmi ces antigènes suivants, lequel est vivant atténué ?",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Indiquez l'ordre normal d'administration des antigènes suivantes.\n1.PENTA\n2.DN-HepB\n3.VPO 2\n4.RR\n5.PCV13-3",
+          "a": "( 1,2,3,4,5 )",
+          "b": "( 1,3,2,4,5 )",
+          "c": "( 2,1,3,5,4 )",
+          "d": "( 2,1,4,3,5 )",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Combien de doses d'hépatite B doit recevoir un enfant de 0 à 11 mois complètement vacciné?",
+          "a": "2 DOSES",
+          "b": "3 DOSES",
+          "c": "4 DOSES",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Cocher, la dose correct du vaccin Rotarix, à administrer aux enfants de 0 à 11 mois.",
+          "a": "0.05 ml",
+          "b": "0.5 ml",
+          "c": "2 ml",
+          "d": "2 gouttes",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Chez la femme enceinte, il est recommandé de faire le premier rappel du TD.",
+          "a": "6 mois après la première dose",
+          "b": "7 mois après la première dose",
+          "c": "1 mois après la deuxième dose",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Parmi ces vaccins de rattrapage, indiquez la combinaison qui doit être injectée à un enfant de 11 mois non vacciné dès le 1er contact.",
+          "a": "DTC1-HepB1-Hib1 + VPOo+Rota1+BCG",
+          "b": "DTC1-HepB1-Hib1 + VPO0 + RR + Rota1",
+          "c": "DTC2-Hep2-Hib2 + VPO1+ BCG+Rota2",
+          "d": "DTC3-Hep3-Hib3 + VPO2+ VAA + Rota3",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Vous recevez ce jour un nourrisson de 7 mois non vacciné présentant des symptômes de SIDA. Cochez les vaccins qu'il peut recevoir :",
+          "a": "1 dose de VAA",
+          "b": "1 dose de RR",
+          "c": "Aucune dose de vaccin",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "NUTRITION",
+      "icon": "book",
+      "description": "Questions sur le cours de nutrition",
+      "questions": [
+        {
+          "question": "Décongeler les aliments surgelés à température ambiante est une pratique d'hygiène alimentaire.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Conservez la nourriture dans des récipients ouverts est une mesure d'hygiène alimentaire.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Décongeler les aliments surgelés au réfrigérateur ou au four à micro-onde est une pratique d'hygiène alimentaire.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Faire bouillir les soupes et les ragouts jusqu'au moins 50°c est une pratique d'hygiène alimentaire.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'alimentation est une réaction métabolique.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'arachide est un aliment énergétique.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'igname est un aliment énergétique.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'œuf est un aliment de protection.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'œuf et l'huile de soja sont des aliments de construction.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'orange est un aliment énergétique.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La fièvre typhoïde et le marasme sont des maladies liées à un déficit de nutriments",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La kwashiorkor est une maladie liée à la carence alimentaire.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La mangue est un aliment de construction.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La nutrition est l'action d'introduire les aliments dans l'organisme par la bouche.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La viande est un aliment énergétique.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La volaille et l'orange sont des aliments de protection.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Laisser les aliments cuits plus de deux heures à la température ambiante est une pratique d'hygiène alimentaire.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Parmi les aliments suivants indiquez ceux qui sont des céréales",
+          "a": "Igname",
+          "b": "Blé",
+          "c": "Arachide",
+          "d": "Sorgho",
+          "e": "Taro",
+          "f": "Soja",
+          "correct": ["a", "b"]
+        },
+        {
+          "question": "Parmi les aliments suivants indiquez ceux qui sont des tubercules",
+          "a": "Igname",
+          "b": "Mil",
+          "c": "Arachide",
+          "d": "Manioc",
+          "e": "Taro",
+          "f": "Soja",
+          "correct": ["a", "d", "e"]
+        },
+        {
+          "question": "Parmi les aliments suivants indiquez ceux qui sont des matières grasses",
+          "a": "Maïs",
+          "b": "Mil",
+          "c": "Arachide",
+          "d": "Manioc",
+          "e": "Taro",
+          "f": "Soja",
+          "correct": ["c", "f"]
+        },
+        {
+          "question": "Parmi les aliments suivants indiquez ceux qui sont des aliments énergétiques",
+          "a": "Les protéines d'origine végétale",
+          "b": "Les céréales",
+          "c": "Les produits d'origine animale",
+          "d": "Les tubercules",
+          "e": "Les légumes",
+          "f": "Les fruits",
+          "correct": ["b", "d"]
+        },
+        {
+          "question": "Parmi les aliments suivants, indiquez ceux qui sont des aliments de construction.",
+          "a": "Les protéines d'origine végétale",
+          "b": "Les céréales",
+          "c": "Les produits d'origine animale",
+          "d": "Les tubercules",
+          "e": "Les légumes",
+          "f": "Les fruits",
+          "correct": ["a", "c"]
+        },
+        {
+          "question": "Parmi les aliments suivants, indiquez ceux qui sont des aliments de protection.",
+          "a": "Les protéines d'origine végétale",
+          "b": "Les céréales",
+          "c": "Les produits d'origine animale",
+          "d": "Les tubercules",
+          "e": "Les légumes",
+          "f": "Les fruits",
+          "correct": ["e", "f"]
+        },
+        {
+          "question": "Parmi les maladies suivantes, indiquez celles qui sont d'origine alimentaire.",
+          "a": "La fièvre typhoïde",
+          "b": "Le kwashiorkor",
+          "c": "Le choléra",
+          "d": "L'obésité",
+          "e": "",
+          "f": "",
+          "correct": ["a", "b"]
+        },
+        {
+          "question": "Parmi les maladies suivantes indiquées, celles qui sont dues à un manque d'hygiène alimentaire.",
+          "a": "La fièvre typhoïde",
+          "b": "Le marasme",
+          "c": "Le choléra",
+          "d": "L'obésité",
+          "e": "",
+          "f": "",
+          "correct": ["a", "c"]
+        },
+        {
+          "question": "Parmi les maladies suivantes indiquées, celles qui sont dues à une carence alimentaire.",
+          "a": "Le diabète",
+          "b": "Le marasme",
+          "c": "Le choléra",
+          "d": "L'obésité",
+          "e": "Le kwashiorkor",
+          "f": "",
+          "correct": ["b", "e"]
+        },
+        {
+          "question": "Parmi les maladies suivantes indiquez, celles qui sont dues à un excès alimentaire.",
+          "a": "Le diabète",
+          "b": "La fièvre typhoïde",
+          "c": "Le marasme",
+          "d": "L'obésité",
+          "e": "Le kwashiorkor",
+          "f": "",
+          "correct": ["a", "d"]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Etude du milieu",
+      "icon": "book",
+      "description": "Questions sur Etude du milieu",
+      "questions": [
+        {
+          "question": "L'absence d'un habitat salubre est un facteur socio-économique favorisant la santé.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "L'âge et les soucis sont des facteurs biologiques favorisant la maladie.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "L'existence d'un habitat insalubre est un facteur socio-économique favorisant la santé.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'existence d'un habitat salubre est un facteur socio-économique favorisant la santé.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'existence de promiscuité est un facteur socio-économique favorisant la maladie.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'existence des ordures et les parasites sont des facteurs déterminant la maladie.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'ignorance et les soucis sont des facteurs socio-culturels favorisant la maladie.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La présence de troubles métabolique est un facteur biologique favorisant la santé.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La présence de-troubles métabolique est un facteur physiologique favorisant la santé",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La présence de troubles psychiques psychologiques favorisant la santé.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le chômage et l'ignorance sont des facteurs économiques favorisant la maladie.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Les bruits et les virus sont des facteurs déterminant la maladie.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Les virus et les parasites sont des facteurs déterminant la santé.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "A l'occasion des vacances, ies jeunes décident de faire une mobilisation sociale et communautaire en rapport avec la vaccination. Quelle est l'étape suivante de cette stratégie de communication :",
+          "a": "Identifier le problème",
+          "b": "Créer un groupe d'initiative communautaire (GIC)",
+          "c": "Former les membres du groupe (GIC)",
+          "d": "Informer et sensibiliser les populations",
+          "e": "Elaborer un plan d'action",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les attitudes à développer par le personnel de santé pour mener une bonne étude du milieu sont :",
+          "a": "l'observation",
+          "b": "la méfiance",
+          "c": "le dialogue",
+          "d": "l'ethnocentrisme",
+          "e": "",
+          "f": "",
+          "correct": ["a", "c"]
+        },
+        {
+          "question": "Parmi les facteurs suivants, indiquez ceux qui favorisent la santé",
+          "a": "L'ignorance",
+          "b": "Les soucis",
+          "c": "Absence de troubles psychiques",
+          "d": "L'âge",
+          "e": "Absence de troubles métaboliques",
+          "f": "Environnement affectif satisfaisant",
+          "correct": ["c", "e", "f"]
+        },
+        {
+          "question": "Parmi les facteurs suivants, indiquez ceux qui favorisent la maladie",
+          "a": "L'ignorance",
+          "b": "Les soucis",
+          "c": "Absence de troubles psychiques",
+          "d": "Absence de troubles métaboliques",
+          "e": "L'âge",
+          "f": "Environnement affectif satisfaisant",
+          "correct": ["a", "b"]
+        },
+        {
+          "question": "Parmi les facteurs suivants favorisant la santé, indiquez ceux qui sont biologiques",
+          "a": "Absence de troubles psychiques",
+          "b": "Absence de troubles métaboliques",
+          "c": "Bonne aération",
+          "d": "Environnement affectif satisfaisant",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Parmi les facteurs suivants favorisant la santé, indiquez ceux qui sont psychologiques",
+          "a": "Absence de troubles psychiques",
+          "b": "Absence de troubles métaboliques",
+          "c": "Bonne aération",
+          "d": "Environnement affectif satisfaisant",
+          "e": "",
+          "f": "",
+          "correct": ["d"]
+        },
+        {
+          "question": "Parmi les facteurs suivants favorisant la santé, indiquez ceux qui sont socio-économiques",
+          "a": "Absence de troubles psychiques",
+          "b": "L'existence d'un habitat salubre",
+          "c": "Absence de troubles métaboliques",
+          "d": "Environnement affectif satisfaisant",
+          "e": "L'existence d'eau courante",
+          "f": "L'absence de promiscuité",
+          "correct": ["b", "e", "f"]
+        },
+        {
+          "question": "Parmi les facteurs suivants favorisant la santé, indiquez celui qui est lié à l'environnement physique",
+          "a": "L'existence d'eau courante",
+          "b": "Absence de pollution",
+          "c": "Absence de troubles psychiques",
+          "d": "Environnement affectif satisfaisant",
+          "e": "",
+          "f": "",
+          "correct": ["a", "b"]
+        },
+        {
+          "question": "Parmi les facteurs suivants favorisant la maladie indiquez celui qui est psychologique",
+          "a": "L'ignorance",
+          "b": "Les soucis",
+          "c": "Le chômage",
+          "d": "Le bruit",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Parmi les facteurs suivants favorisant la maladie indiquez ceux qui sont physiologiques",
+          "a": "Les bruits",
+          "b": "L'ignorance",
+          "c": "L'âge",
+          "d": "Le sexe",
+          "e": "Les soucis",
+          "f": "Les ordures",
+          "correct": ["c"]
+        },
+        {
+          "question": "Parmi les facteurs suivants favorisant la maladie indiquez celui qui est d'ordre socio-culturel",
+          "a": "L'ignorance",
+          "b": "Les soucis",
+          "c": "Le chômage",
+          "d": "Les ordures",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Parmi les facteurs suivants, indiquez ceux qui sont des déterminant de la maladie",
+          "a": "L'eau polluée",
+          "b": "Les microbes",
+          "c": "Les parasites",
+          "d": "Les ordures",
+          "e": "Les virus",
+          "f": "Les bruits",
+          "correct": ["a", "b", "c", "d", "e"]
+        },
+        {
+          "question": "Parmi les facteurs suivants favorisant la maladie indiquez ceux qui sont environnementaux",
+          "a": "Absence d'eau potable",
+          "b": "Présence d'ordures",
+          "c": "Présence de bruits",
+          "d": "Absence de pollution",
+          "e": "",
+          "f": "",
+          "correct": ["a", "b"]
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Santé publique",
+      "icon": "book",
+      "description": "Introduction à la santé publique",
+      "questions": [
+        {
+          "question": "L'identification des risques de santé est l'un des domaines de la santé publique.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La santé communautaire et la santé publique sont deux approches identiques.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La santé publique se situe au niveau de l'état ou de ses représentants.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La santé publique se situe au niveau de la communauté",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La santé publique vise la protection de la population.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le niveau décisionnel de la santé communautaire se situe au niveau de la communauté.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le niveau décisionnel de la santé publique se situe au niveau étatique.",
+          "a": "VRAI",
+          "b": "FAUX",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La 3° étape de la démarche de santé publique consiste à :",
+          "a": "Identifier des ressources",
+          "b": "Définir des priorités",
+          "c": "Formuler du problème avec la détermination de la population cible",
+          "e": "",
+          "f": "",
+          "correct": ["c"]
+        },
+        {
+          "question": "Le concept de santé publique a été défini par Wilson en :",
+          "a": "1920",
+          "b": "1945",
+          "c": "1946",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le concept de santé communautaire a été défini en :",
+          "a": "1920",
+          "b": "1986",
+          "c": "1987",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Le concept de promotion de la santé a été défini en :",
+          "a": "1920",
+          "b": "1986",
+          "c": "1987",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Le mouvement de la « Santé pour tous « est apparu en :",
+          "a": "1977",
+          "b": "1978",
+          "c": "1980",
+          "d": "1990",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Quel est l'ordre normal des étapes de la démarche en santé publique \n\n1.Analyse de la situation et identification du ou des problèmes de santé.\n2.Formulation du problème et détermination de la population cible.\n3.Suivi et évaluation du programme.\n4.Définition des priorités (problème prioritaire).\n5.Etablissement d'un plan d'action opérationnel.\n6.Formulation des objectifs.\n7.Choix des stratégies (activités).\n8.Identification des ressources (financières, matérielles, humaines, temporelles).\n9.Exécution du programme établi.",
+          "a": "(1,2,3,4,5,6,7,8,9)",
+          "b": "(1,4,2,6,7,8,5,9,3)",
+          "c": "(1,3,2,4,5,6,8,9,7)",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Parmi les éléments suivants, indiquez ceux qui constituent des niveaux de perception des besoins de santé",
+          "a": "Le niveau des besoins non satisfaits",
+          "b": "Le niveau des besoins latents",
+          "c": "Le niveau des besoins ressentis",
+          "d": "Le niveau des besoins satisfaits",
+          "e": "Le niveau des besoins fondamentaux",
+          "f": "Le niveau des besoins exprimés",
+          "correct": ["b", "c", "d", "f"]
+        },
+        {
+          "question": "Faites correspondre les caractéristiques aux concepts suivants :\n\n1/Santé communautaire\n2/Santé publique\na-Vise la protection de la santé de la population\nb-Vise la promotion de la santé\nc-Se situe au niveau de l'état\nd-Se situe au niveau de la communauté.",
+          "a": "(1,a,d)",
+          "b": "(1,a,c)",
+          "c": "(2,d,d)",
+          "d": "(2,b,c)",
+          "e": "(1,b,d)",
+          "f": "(2,c,a)",
+          "correct": ["e"]
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Soins infirmiers",
+      "icon": "book",
+      "description": "Questions sur les soins infirmiers",
+      "questions": [
+        {
+          "question": "Les soins peropératoires consistent à éliminer la flore bactérienne transitoire de l'ensemble du corps du patient par les mesures d'hygiène générale",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La somme des vertèbres cervicales et dorsales est de 12",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La respiration paradoxale ne s'observe qu'en cas de traumatisme du thorax avec volet costal",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les soins infirmiers en chirurgie sont repartis en quatre (04) groupes",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les soins préopératoires comportent les actes à effectuer pendant l'intervention chirurgicale",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les traumatismes du bassin peuvent provoquer des lésions viscérales abdominales",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Il peut avoir une rupture de vessie sans rupture d'urètre",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le traumatisme crânien est une lésion qui intéresse uniquement la voûte crânienne",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Plus le score de Glasgow est bas plus l'état du patient est grave",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le drainage de posture est un soin qui augmente l'écoulement des secrétions pulmonaires ou bronchiques retenus dans les voies respiratoires",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les soins préopératoires permettent de corriger les tares latentes",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Lorsque le temps de coagulation est très augmenté, il y a risque d'hémorragie opératoire et post-opératoire",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Les soins postopératoires consistent essentiellement à la surveillance de l'opéré",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La réfection de lit devant accueillir le patient à la sortie du bloc opératoire est un soin postopératoire",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "L'ostéosynthèse est un appareil qui permet de faire la rééducation des os fracturés",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le champ opératoire en chirurgie est l'état physiologique du corps à opérer",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Exécuter les pansements selon les règles de l'asepsie, plus rigoureux avec gants, champs instruments stériles et masque chez l'opérateur",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Lorsque le temps de saignement est court, il y a risque d'hémorragie",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Le taux de prothrombine est différent de la méthode de Quick",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La prothrombine est le facteur de coagulation sanguine produite par le rein",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Le drain thoracique s'appelle aussi drainage pleural",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le drainage trop rapide peut créer une hypotension",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Avant le réveil, l'opéré doit être installé en décubitus ventral, la tête sur le côté en position légèrement déclinée",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La diminution de la masse sanguine par perte de sang est une cause de choc de l'opéré",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le remplissage vasculaire s'effectue avec des cristalloïdes",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Les soins pré, per et post opératoires en vue d'une intervention chirurgicale requise sont :",
+          "a": "Soins corporels uniquement",
+          "b": "Soins locaux seulement",
+          "c": "Soins généraux uniquement",
+          "d": "Ensemble des soins corporels, locaux et généraux",
+          "e": "",
+          "f": "",
+          "correct": ["d"]
+        },
+        {
+          "question": "Quels sont les trois (03) soins qui ne sont pas des soins post-opératoires parmi ceux qui sont énumérés en dessous ?",
+          "a": "Expliquer au patient le déroulement de l'intervention qui a été pratiquée",
+          "b": "Prendre régulièrement les constantes",
+          "c": "Installer le patient en décubitus dorsal la tête tournée sur le côté",
+          "d": "Régler le débit des perfusions et transfusions",
+          "e": "Avoir l'adhésion du patient",
+          "f": "Réunir le dossier constitué de l'ensemble des données nécessaires à l'intervention et à l'anesthésie du patient",
+          "correct": ["a", "e", "f"]
+        },
+        {
+          "question": "La surveillance du malade opéré consiste à : (Quatre réponses)",
+          "a": "Prendre connaissance du compte rendu opératoire et des prescriptions de l'anesthésie",
+          "b": "Rechercher des signes hémorragiques par la plaie opératoire",
+          "c": "Prescrire des calmants si l'opéré ressent des douleurs",
+          "d": "Rechercher les signes de choc",
+          "e": "Prévenir les escarres",
+          "f": "Faire la prémédication",
+          "correct": ["a", "b", "d", "e"]
+        },
+        {
+          "question": "Trois actes ne sont pas des soins préopératoires parmi ceux qui sont énumérés en dessous. Lesquels ?",
+          "a": "Corriger les tares dépistées chez le patient",
+          "b": "Prendre les constantes.",
+          "c": "Réaliser le bilan préopératoire",
+          "d": "Aider le patient à surmonter les difficultés physiques ou mentales pressenties de l'intervention chirurgicale.",
+          "e": "Demander le contrôle du bilan postopératoire",
+          "f": "S'assurer du réveil physiologique du patient",
+          "correct": ["d", "e", "f"]
+        },
+        {
+          "question": "Trois de ces actes énumérés en dessous ne font pas partie des soins peropératoires. Lesquels ?",
+          "a": "Faire la prémédication",
+          "b": "Faire la préparation physique du patient",
+          "c": "Faire la préparation psychologique",
+          "d": "Refaire le lit du patient",
+          "e": "Vérifier le bon fonctionnement des appareils de la chambre du patient",
+          "f": "Apprêter le matériel de perfusion et de transfusion",
+          "correct": ["a", "b", "c"]
+        },
+        {
+          "question": "Lesquels de ces éléments ne sont pas des indications du drainage de posture parmi celles énumérées en dessous ? (Trois réponses)",
+          "a": "Tuberculose pulmonaire",
+          "b": "Encombrement bronchique localisé ou diffusé",
+          "c": "Vomique",
+          "d": "Trouble de la déglutition",
+          "e": "Anasarque",
+          "f": "Voussure abdominale importante",
+          "correct": ["a", "e", "f"]
+        },
+        {
+          "question": "Indiquer les rôles de l'IDE dans le drainage de posture parmi ceux-ci ? (Quatre réponses)",
+          "a": "Faire comprendre au malade la nécessité du soin",
+          "b": "Détendre le malade le plus possible",
+          "c": "Noter les résultats des expectorations",
+          "d": "Prélever un échantillon pour analyse",
+          "e": "Placer le drain",
+          "f": "Indiquer la date d'ablation du drain",
+          "correct": ["a", "b", "c", "d"]
+        },
+        {
+          "question": "Le bilan préopératoire comprend deux sortes d'examen. Lesquels ?",
+          "a": "l'examen psychologique",
+          "b": "l'examen psychique",
+          "c": "L'examen clinique",
+          "d": "L'examen paraclinique",
+          "e": "",
+          "f": "",
+          "correct": ["c", "d"]
+        },
+        {
+          "question": "Le drainage pleural est l'introduction d'un drain dans l'espace pleural pour évacuer : (Trois réponses)",
+          "a": "Un pneumothorax",
+          "b": "Un hémothorax",
+          "c": "Une pleurésie",
+          "d": "Une hydrocéphalie",
+          "e": "Une cardiomégalie",
+          "f": "Une microcéphalie",
+          "correct": ["a", "b", "c"]
+        },
+        {
+          "question": "Les signes de choc chez l'opéré sont marqués par:(Quatre réponses)",
+          "a": "Sujet agité",
+          "b": "Fourmillement des extrémités",
+          "c": "Respiration courte et rapide",
+          "d": "Pouls imperceptible",
+          "e": "Tension artérielle imprenable",
+          "f": "Insensibilité des extrémités",
+          "correct": ["a", "c", "d", "e"]
+        },
+        {
+          "question": "Lesquels ne sont pas des éléments de prévention des escarres parmi ceux qui sont énumérés en dessous ? (Trois réponses)",
+          "a": "Placer une sonde nasogastrique",
+          "b": "Placer une sonde urinaire",
+          "c": "Réfection de lit",
+          "d": "Changement fréquent de position du lit",
+          "e": "Faire une toilette de siège du patient",
+          "f": "Installation et maintien du patient en décubitus dorsal",
+          "correct": ["a", "b", "f"]
+        },
+        {
+          "question": "Une rupture de vessie se manifeste par : (Trois réponses)",
+          "a": "un globe vésical",
+          "b": "une polyurie",
+          "c": "une impériosité mictionnelle",
+          "d": "des Contractures abdominales",
+          "e": "des douleurs et des nausées",
+          "f": "une impossibilité d'uriner",
+          "correct": ["d", "e", "f"]
+        },
+        {
+          "question": "Une rupture de l'urètre est reconnaissable par l'apparition d': (Trois réponses)",
+          "a": "une pyurie",
+          "b": "un jet urinaire très faible",
+          "c": "une polyurie",
+          "d": "un globe vésical",
+          "e": "une urétrorragie",
+          "f": "une impossibilité d'uriner spontanément",
+          "correct": ["d", "e", "f"]
+        },
+        {
+          "question": "identifier trois (03) signes non infectieux urinaires parmi ceux qui sont énumérés en dessous :",
+          "a": "Fièvre avec frissons",
+          "b": "urines troubles et/ou fétides",
+          "c": "dysurie",
+          "d": "faiblesse sexuelle",
+          "e": "impuissance sexuelle",
+          "f": "inappétence",
+          "correct": ["d", "e", "f"]
+        },
+        {
+          "question": "Le traumatisme crânien provoqué par un agent extérieur est l'ensemble des lésions locales intéressant :(1 seule réponse)",
+          "a": "le cuir chevelu et la voûte crânienne seulement",
+          "b": "la voûte crânienne uniquement",
+          "c": "les lésions cérébro-méningées uniquement",
+          "d": "le cuir chevelu et la voûte crânienne seulement",
+          "e": "la voûte crânienne et les lésions cérébro-méningées seulement",
+          "f": "le cuir chevelu, la voûte crânienne et les lésions cérébro-méningées",
+          "correct": ["f"]
+        },
+        {
+          "question": "Qu'est-ce que la période d'intervalle libre ? (choisir la bonne définition)",
+          "a": "la période d'intervalle libre est la période d'aggravation des signes neurologiques entre la perte initiale de connaissance et l'apparition des symptômes secondaires",
+          "b": "la période d'intervalle libre est le délai écoulé entre le traumatisme crânien et l'apparition des troubles neurologiques",
+          "c": "La période pendant laquelle la conscience est anormale",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Quels sont les éléments de surveillance d'un plâtre parmi ceux qui sont énumérés en dessous ? (Quatre réponses)",
+          "a": "Couleur du plâtre",
+          "b": "Odeur du plâtre",
+          "c": "Douleur sous plâtre",
+          "d": "Refroidissement des extrémités du membre",
+          "e": "Date d'ablation du plâtre",
+          "f": "Date de pose du plâtre",
+          "correct": ["a", "b", "c", "d"]
+        },
+        {
+          "question": "Un patient qui ouvre les yeux au bruit, répond aux questions par des mots compréhensibles mais inappropriés et qui a une flexion lente du membre supérieur a pour score de Glasgow : (1 réponse)",
+          "a": "12",
+          "b": "9",
+          "c": "3",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Parmi les interventions infirmières suivantes, lesquelles ne sont pas à poser sur le lieu chez un accidenté de la voie publique? (Trois réponses)",
+          "a": "Faire la préparation physique",
+          "b": "Faire asseoir la victime",
+          "c": "Protéger la victime",
+          "d": "Baliser le lieu de l'accident",
+          "e": "Alerter rapidement le SAMU",
+          "f": "Mobiliser de façon intempestive la victime",
+          "correct": ["a", "b", "f"]
+        },
+        {
+          "question": "Deux (02) objectifs précis sont assignés à la réanimation du polytraumatisé. Lesquels ?",
+          "a": "S'assurer que la victime respire",
+          "b": "Maintenir les fonctions vitales",
+          "c": "Le ramassage et le transport du blessé doivent se faire rapidement",
+          "d": "Éviter les complications",
+          "e": "Faire le bilan lésionnel pour orienter le traitement",
+          "f": "Dégager et relever le blessé pour éviter la section de la moelle épinière",
+          "correct": ["b", "e"]
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "name": "pathologies gynécologiques et obstétricales",
+      "icon": "book",
+      "description": "Questions sur les pathologies gynécologiques et obstétricales",
+      "questions": [
+        {
+          "question": "L'anémie se définit par la baisse du taux d'hémoglobine inférieur à 11g/100ml quel que soit l'âge de la grossesse",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les ménorragies se définissent comme étant des saignements en dehors des règles",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les avortements provoqués se définissent comme étant l'expulsion provoquée du produit de conception après 28 semaines d'aménorrhée",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Infection à human papillomavirus oncogène est le facteur de risque principal dans le cancer du col",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le vaccin contre le cancer du col dispense les patientes vaccinées du dépistage des lésions précancéreuses",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "L'éclampsie se définit cliniquement par un état convulsif, survenant par accès à répétition, suivi d'un état comateux pendant la grossesse ou dans le post partum",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La grossesse extra utérine résulte d'un retard dans le transport de l'oeuf fécondé",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Chez la femme enceinte séropositive au VIH sous prophylaxie au Cotrimoxazole la sulfadoxine-pyriméthamine, est recommandé pour la prophylaxie antipalustre",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "L'hémorragie du post partum immédiat, est une hémorragie qui survient au-delà de 24 heures ou réapparaissant dans les 45 jours après l'accouchement",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les leucorrhées sont des pertes sanglantes provenant du bas appareil génital féminin (vestibule vulvaire, le vagin, l'exo col, l'endocol).",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La chimio prophylaxie antipalustre est obligatoire chez toutes les femmes enceintes après la 16ème semaine d'aménorrhée",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le placenta est dit praevia lorsque le petit côté des membranes est inférieur à 10 cm",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La rupture utérine est une solution de continuité chirurgicale de l'utérus survenant généralement au cours du travail et de l'accouchement",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Un placenta praevia non recouvrant est un placenta non compatible avec un accouchement par voie basse",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Le test de diagnostic rapide pour le paludisme est un test quantitatif",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La flore vaginale normale est essentiellement constituée de bacilles de Döderlein",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La gestion active de la troisième période(GATPA) d'accouchement n'est réalisée qu'en cas d'accouchement avec facteur de risque",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "L'infirmier ou la sage-femme doit réaliser l'évacuation molaire avant le transfert de la patiente pour une surveillance en milieu spécialisé",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "L'imperforation de l'hymen est une cause d'aménorrhée primaire",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Selon les directives nationales, le calendrier de surveillance post-natale répond à la règle des trois 3 (3heures, 3jours, 3 semaines).",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Concernant les leucorrhées cocher la ou les réponse(s) exactes :",
+          "a": "PH inférieur à 4,5 exclut gardnerella vaginalis",
+          "b": "Le traitement des leucorrhées est toujours probabiliste",
+          "c": "Les leucorrhées proviennent toujours de la muqueuse vaginale",
+          "d": "L'excès d'antiseptiques vaginaux est un facteur favorisant les leucorrhées pathologiques",
+          "e": "les leucorrhées physiologiques peuvent être source de stérilité",
+          "f": "",
+          "correct": ["a", "b", "d"]
+        },
+        {
+          "question": "Cocher le ou les complication(s) spécifique(s) de la carence en acide folique",
+          "a": "Avortement spontané",
+          "b": "Accouchement prématuré",
+          "c": "Menace d'accouchement",
+          "d": "œuf clair",
+          "e": "malformations foetale",
+          "f": "",
+          "correct": ["d", "e"]
+        },
+        {
+          "question": "Cocher le ou les signe(s) en rapport avec un syndrome de pré rupture uterine",
+          "a": "Métrorragies",
+          "b": "Signe de choc hypovolemique",
+          "c": "Déformation de l'utérus en sablier",
+          "d": "Tension douloureuse des ligaments ronds",
+          "e": "Ascension de l'anneau de rétraction",
+          "f": "",
+          "correct": ["c", "d", "e"]
+        },
+        {
+          "question": "Cocher le ou les examen(s) pour le dépistage des lésions précancéreuses du col",
+          "a": "CA 124",
+          "b": "Antigène carcino-embryonnaire",
+          "c": "frottis cervico utérin",
+          "d": "IVA/IVL",
+          "e": "Alpha foetoproteine",
+          "f": "",
+          "correct": ["c", "d"]
+        },
+        {
+          "question": "Cocher la ou les condition(s) nécessaire de la Méthode de l'Allaitement Maternel et de L'Aménorrhée (MAMA)",
+          "a": "L'allaitement a lieu pendant les 6 mois qui suivent l'accouchement",
+          "b": "la mère n'a pas encore revu ses règles depuis l'accouchement",
+          "c": "les tétées sont fréquentes",
+          "d": "les tétées ont lieu uniquement le jour",
+          "e": "l'enfant peut consommer d'autres aliments en dehors de la tétée.",
+          "f": "",
+          "correct": ["a", "b", "c"]
+        },
+        {
+          "question": "Cocher le ou les facteur(s) de risque d'un placenta praevia",
+          "a": "Primiparité",
+          "b": "Retard de croissance intra-utérin (RCIU)",
+          "c": "Grossesses multiples",
+          "d": "Prématurité",
+          "e": "Myomes sous-muqueux",
+          "f": "",
+          "correct": ["c"]
+        },
+        {
+          "question": "Cocher le ou les facteurs de risque du cancer du sein :",
+          "a": "Nulliparité",
+          "b": "ATCD personnel de cancer du sein",
+          "c": "L'allaitement",
+          "d": "La grossesse",
+          "e": "Le bas niveau socio-economique",
+          "f": "",
+          "correct": ["a", "b"]
+        },
+        {
+          "question": "Cocher la ou les phrases juste(s) en rapport avec L'éclampsie :",
+          "a": "C'est une complication fréquente de la pré-éclampsie",
+          "b": "Le traitement fait appel au sulfate de magnésie",
+          "c": "L'antidote de l'intoxication au sulfate de magnésie est le gluconate de sodium",
+          "d": "L'infirmier doit référer la patiente uniquement avec une voie veineuse",
+          "e": "La crise est caractérisée par l'émission d'urine chez la patiente",
+          "f": "",
+          "correct": ["a", "b"]
+        },
+        {
+          "question": "Les signes suivants sont rencontrés dans la grossesse extra utérine sauf :",
+          "a": "Douleur pelvienne",
+          "b": "Métrorragies dite sépia",
+          "c": "fièvre",
+          "d": "Débris placentaire",
+          "e": "Masse latero-uterine au TV",
+          "f": "",
+          "correct": ["c"]
+        },
+        {
+          "question": "Parmi ces examens cocher le seul examen indispensable chez la gestante en cas de difficulté financière:",
+          "a": "Urée",
+          "b": "Echographie",
+          "c": "Antigène HBs",
+          "d": "Groupe sanguin- rhésus",
+          "e": "Sérologie toxoplasmique",
+          "f": "",
+          "correct": ["d"]
+        },
+        {
+          "question": "Cocher le ou les facteur (s) de risque d'un hématome retroplacentaire :",
+          "a": "Chocs directs sur l'abdomen",
+          "b": "H.T.A. chronique",
+          "c": "Rupture utérine",
+          "d": "Présentation de siège",
+          "e": "Travail long",
+          "f": "",
+          "correct": ["a", "b"]
+        },
+        {
+          "question": "Cochez le ou les facteur(s) de risque d'une atonie utérine:",
+          "a": "Présentation de siège",
+          "b": "Travail trop rapide",
+          "c": "Épuisement utérin",
+          "d": "La rachianesthésie",
+          "e": "Usage du sulfate de magnesie",
+          "f": "",
+          "correct": ["b", "c"]
+        },
+        {
+          "question": "L'hémorragie du post-partum immédiat (HPPI) est causée par:",
+          "a": "Atonie utérine",
+          "b": "Souffrance fetale",
+          "c": "Rétention placentaire",
+          "d": "Disproportion foeto pelvienne",
+          "e": "Pré-éclampsie",
+          "f": "RPM",
+          "correct": ["a", "c"]
+        },
+        {
+          "question": "Cocher la ou les complication(s) tardive de la salpingite :",
+          "a": "Douleur pelvienne chronique",
+          "b": "Pelvipéritonite",
+          "c": "Péritonite",
+          "d": "Métrorragies",
+          "e": "Grossesse extra utérine",
+          "f": "",
+          "correct": ["a", "e"]
+        },
+        {
+          "question": "Cocher la ou les réponse(s) justes concernant la souffrance foetale :",
+          "a": "La souffrance foetale est dite chronique pendant le travail d'accouchement",
+          "b": "La souffrance foetale est dite aigue pendant la grossesse",
+          "c": "Le rythme cardiague normal est compris entre 120 et 160 batt/mm",
+          "d": "Le liquide amniotique méconial est un signe de souffrance",
+          "e": "Le liquide amniotique clair est un signe de souffrance",
+          "f": "",
+          "correct": ["c", "d"]
+        },
+        {
+          "question": "Cocher la ou les causes d'une inertie utérine:",
+          "a": "Rupture utérine",
+          "b": "Travail trop rapide",
+          "c": "Placenta accreta",
+          "d": "Déchirure du col",
+          "e": "Grossesse gémellaire",
+          "f": "",
+          "correct": ["b", "d"]
+        },
+        {
+          "question": "Concernant les leucorrhées à gardnerella vaginalis, cocher la ou les réponse(s) exactes",
+          "a": "Ont une couleur blanche",
+          "b": "Les leucorrhées sont malodorantes (odeur de poisson pourri)",
+          "c": "Favorisées par un déséquilibre de la flore vaginale",
+          "d": "S'accompagne de prurit vulvo vaginal intense",
+          "e": "Les leucorrhées adhèrent fortement aux parois vaginales",
+          "f": "",
+          "correct": ["b", "c"]
+        },
+        {
+          "question": "Cocher la ou les réponse(s) concernant la classification du placenta praevia pendant le travail",
+          "a": "Placenta praevia latéral",
+          "b": "Placenta praevia marginal",
+          "c": "Placenta praevia non recouvrant",
+          "d": "Placenta praevia central",
+          "e": "Placenta praevia recouvrant",
+          "f": "",
+          "correct": ["c", "d"]
+        },
+        {
+          "question": "Cocher la ou les complication(s) maternelle(s) immédiate(s) de la préeclampsie :",
+          "a": "HTA permanente",
+          "b": "Eclampsie",
+          "c": "HELLP SYNDROME",
+          "d": "Mort maternelle",
+          "e": "Maladie abortive",
+          "f": "",
+          "correct": ["b", "c", "d"]
+        },
+        {
+          "question": "Cochez la ou les cause(s) d'une rupture utérine provoquée :",
+          "a": "Hydramnios",
+          "b": "Injection des ocytociques (syntocinon en iM sur un utérus gravide ou un emploi abusif des ocytociques en perfusion sans suveillance correcte)",
+          "c": "Version par manoeuvre interne mal exécutée et mal indiquée",
+          "d": "Césarienne surtout corporéale",
+          "e": "Résection de la corne utérine",
+          "f": "",
+          "correct": ["b", "c"]
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "name": "IST/VIH",
+      "icon": "book",
+      "description": "Questionnaire sur les infections sexuellement transmissibles et le VIH",
+      "questions": [
+        {
+          "question": "L'accueil est une circonstance indéterminante pour le développement de la relation de qualité entre le prestataire et le client dans la prise en charge des IST / VIH",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "b"
+          ]
+        },
+        {
+          "question": "Les vaginites sont causées par les Candidas albicans, les Gardnerella vaginalis et les Trichomonas vaginalis qui ne sont pas nécessairement transmis sexuellement",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "b"
+          ]
+        },
+        {
+          "question": "Le germe responsable des végétations vénériennes est le papilloma virus humain",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "Le bubon inguinal est une solution de continuité non traumatique localisée des ganglions de la région de l'aine.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "La double protection est la prévention simultanée des IST y compris le VIH et des grossesses non désirées",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "La double protection améliore la santé de l'individu, le couple et la famille",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "Le virus de VIH est résistant dans du sang en dessiccation de 3-7 jours",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "Rupture des membranes de moins de 4 heures chez la femme enceinte séropositive est un facteur à risque de la transmission mère - enfant du VIH",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "Pendant la grossesse si la femme enceinte est positive au ViH on débute le TARV sans attendre le bilan initial après avoir éliminé la Tuberculose active",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "Le traitement ARV améliore la qualité de vie et restaure la dignité de la personne vivante avec le VIH",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "Les piqûres des moustiques sont des déterminants de la non transmission du VIH",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "Les IST désignent Infections du Tractus Génital",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "b"
+          ]
+        },
+        {
+          "question": "La prévention primaire des IST est la prise en charge qui permet d'éviter les complications et la transmission du VIH/sida",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "Ľ' approche clinique de prise en charge des IST est basée sur l'identification de groupes de signes et de symptômes",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "b"
+          ]
+        },
+        {
+          "question": "Le diagnostic syndromique est basé sur la dissociation de motif de consultation et des signes observés à l'examen",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "b"
+          ]
+        },
+        {
+          "question": "Tout écoulement vaginal chez la femme est toujours pathologique",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "b"
+          ]
+        },
+        {
+          "question": "Les femmes infectées par le VIH présentent une prévalence et une incidence élevée du HPV",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "La douleur pelvienne peut être la manifestation d'une endométrite ou d'une pelvipéritonite chez la femme",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "L'entretien-conseil a pour but d'aider le client/couple à prendre ses propres décisions",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "On utilise deux stratégies de l'annonce des lST dans la prise en charge des partenaires",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "Les préservatifs masculins /feminins sont moins efficaces pour empêcher la transmission du VIH /iST et une grossesse non désirée.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "b"
+          ]
+        },
+        {
+          "question": "La double protection est indiquée uniquement chez les jeunes sexuellement actifs et les professionels du sexe",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "b"
+          ]
+        },
+        {
+          "question": "L'initiative ONUSIDA d'accès aux soins pour les PVVIH en Côte d'lvoire a lieu en 1997",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "Le VIH est une Infection causée par un virus de la famille des rétrovirus",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "La sueur, la respiration et la toux sont des déterminants de la non transmission du VIH",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "La forme clinique terminale caractérise le stade SIDA de la maladie",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "Les moyens de prévention de la transmission sexuelle du VIH/SIDA sont uniquement l'abstinence sexuelle et la fidélité mutuelle",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "b"
+          ]
+        },
+        {
+          "question": "En milieu de soins, des mesures d'hygiène sont les déterminants de la prévention les accidents d'exposition au sang et produits biologiques",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "Le test rapide de dépistage est un test permettant de détecter les anticorps anti VIH",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "Les tests rapides offrent une plus grande satisfaction au niveau du client car les résultats peuvent être communiqués le même jour",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "La réplication virale a pour conséquence le transfert du matériel génétique du VIH dans celui des cellules cibles",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "La classification CDC combine les signes cliniques et le taux de lymphocytes CD4",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "La prévention des IST vise à réduire les contacts sexuels à risque",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "Le traitement précoce et efficace des d'iST consiste à:",
+          "a": "Assurer la Prise en charge des partenaires.",
+          "b": "limiter le nombre de nouveaux cas.",
+          "e": "Permettre le suivi et évaluation des IST",
+          "f": "Faire une recherche opérationnelle",
+          "correct": [
+            "b"
+          ]
+        },
+        {
+          "question": "Trois des thèmes suivant peuvent être abordé lors du counseling. Lesquels ?",
+          "a": "Les liens entre les IST et le VIH",
+          "b": "Le choix libre",
+          "e": "Les moyens de prévention",
+          "f": "La confidentialité",
+          "correct": [
+            "a",
+            "e"
+          ]
+        },
+        {
+          "question": "Le diagnostic du premier cas du VIH/SIDA aux USA a été posé",
+          "a": "1980",
+          "b": "1981",
+          "e": "1982",
+          "f": "1983",
+          "correct": [
+            "b"
+          ]
+        },
+        {
+          "question": "Un des éléments suivants dans le cadre du VIH a un impact socioéconomique sur l'agriculture. Lequel ?",
+          "a": "Réduction de la production agricole et abandon des champsts",
+          "b": "Accroissement des dépenses de santé",
+          "e": "Augmentation du taux de mortalité et de morbidité des enseignants",
+          "f": "Accroissement des Frais de funérailles",
+          "correct": [
+            "a"
+          ]
+        },
+        {
+          "question": "La prévention d'iST vise",
+          "a": "la prise en charge précoce des cas d'1ST",
+          "b": "Le changement de comportement;",
+          "e": "L'amélioration de la disponibilité des préservatifs",
+          "f": "la réduction de contagiosité",
+          "correct": [
+            "a",
+            "b",
+            "e",
+            "f"
+          ]
+        },
+        {
+          "question": "Le diagnostic d'urgence du VIH/SIDA repose sur les examens suivants :",
+          "a": "PCR",
+          "b": "NFS 33",
+          "e": "FROTTIS SANGUIN",
+          "f": "SEROLOGIE",
+          "correct": [
+            "a",
+            "f"
+          ]
+        },
+        {
+          "question": "La prévention primaire des IST repose sur :",
+          "a": "Le changement de comportement;",
+          "b": "la disponibilité des préservatifs",
+          "e": "Les Interventions ciblée",
+          "f": "Suivi et évaluation",
+          "correct": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "question": "Un des éléments suivant est un avantage clínique de l'approche de prise en charge des IST. Lequel ?",
+          "a": "Précision diagnostique",
+          "b": "Soulagement rapide",
+          "e": "Prend en compte les infections mixtes",
+          "f": "Prend en compte les infections multiples",
+          "correct": [
+            "b"
+          ]
+        },
+        {
+          "question": "Trois des ulcérations suivants sont les plus fréquentes dans les IST. Lesouelles ?",
+          "a": "herpès simplex virus type Il (Herpès génital)",
+          "b": "Neisseria gonorrhoeae",
+          "e": "hemophilus ducreyi (Chancre mou)",
+          "f": "Chlamydia trachomatis",
+          "correct": [
+            "a",
+            "e",
+            "f"
+          ]
+        },
+        {
+          "question": "La prise en charge des IST se déroule en",
+          "a": "5 étapes",
+          "b": "6 étapes",
+          "e": "7 étapes",
+          "f": "8 étapes",
+          "correct": [
+            "e"
+          ]
+        },
+        {
+          "question": "Trois des eléments suivant sont des liquides biologiques à risque élevé de la transmission ViH. Lesquels",
+          "a": "Sang",
+          "b": "Salive",
+          "e": "Sperme ",
+          "f": "Sueur ",
+          "correct": [
+            "a",
+            "e"
+          ]
+        },
+        {
+          "question": "Primo infection du VIH dure en moyenne",
+          "a": "1 mois",
+          "b": "2 mois",
+          "e": "3 mois ",
+          "f": "4 mois ",
+          "correct": [
+            "e"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "name": "IEC/CCSC",
+      "icon": "book",
+      "description": "Questionnaire sur les stratégies de communication et de mobilisation sociale",
+      "questions": [
+        {
+          "question": "ldentifier le thème sur lequel doit porter le plaidoyer est la première étape de cette stratégie de communication.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Analyser la situation pour identifier le problème est la première étape de la CCSC tandis que pour le plaidoyer, c'est identifier du thème sur lequel il doit porter.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le plaidoyer tout comme la CCSC peut promouvoir le changement social et comportemental",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Un des critères de sélection des membres du groupe d'initiative communautaire (GIC) est de ne pas avoir d'idées opposées.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Changer la situation d'un individu dans un sens favorable à la société et au groupe cible, selon ses valeurs et ses motivations est le but d'une mobilisation sociale et communautaire.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La CCsC et le plaidoyer sont deux stratégies de communication qui ont toujours eu la même cible.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Identifier les mécanismes de pérennisation est la dernière étape de la conduite d'une MOBSOC",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La question « QUOl >» qự'on se pose avant toute séance de la CCSC désigne les objectifs à atteindre après la mise en cœuvre de la CCSC.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "la société toutes entière peut être une cible de la MOBSOC.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "la cible du plaidoyer peut être tripartite en cible primaire, secondaire et tertiaire.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La 1ère étape de la conduite du plaidoyer n'est pas.",
+          "a": "Enoncer le but du plaidoyer.",
+          "b": "Choisir les partenaires du plaidoyer.",
+          "e": "ldentifier le thème objet du plaidoyer.",
+          "f": "ldentifier les décideurs et personnes influentes",
+          "correct": ["a", "b", "f"]
+        },
+        {
+          "question": "Les raisons pour lesquelles une préparation minutieuse du plaidoyer et de la CCSC est nécessaire sont:",
+          "a": "Tout changement social et comportemental est lent.",
+          "b": "L'improvisation risque de déstabiliser l'environnement culturel des populations bénéficiaires.",
+          "e": "Les ressources sont rares, il faut les rechercher en y mettant du temps.",
+          "f": "La prise de décision ou tout changement de politique prend du temps",
+          "correct": ["a", "b", "f"]
+        },
+        {
+          "question": "Cocher les bonnes réponses, le rôle du personnel de santé dans la mobilisation sociale et communautaire est de:",
+          "a": "les accompagner dans la mise en euvre des activités",
+          "b": "les accompagner en recherchant des fonds pour leurs activités.",
+          "e": "veiller à la pérennisation des activités",
+          "f": "initier et encourager la participation de tous aux activités.",
+          "correct": ["a", "e", "f"]
+        },
+        {
+          "question": "Cochez les bonnes réponses : Dans le plan d'action de la mobilisation sociale et communautaire, nous avons:",
+          "a": "La population cible.",
+          "b": "Les activités.",
+          "e": "Les objectifs",
+          "f": "Les observations",
+          "correct": ["a", "b", "f"]
+        },
+        {
+          "question": "Cocher les bonnes réponses, I'élaboration d'un plan d'action de la MOBSOC permet de :",
+          "a": "Minimiser les coûts des activités et de les faire financer si possible entièrement par la communauté.",
+          "b": "Rendre le projet durable.",
+          "e": "Minimiser les coûts des activités et de les faire financer si possible entièrement par les ONG.",
+          "f": "Rendre la communauté plus autonome si le projet est pérennisé.",
+          "correct": ["a", "b", "f"]
+        },
+        {
+          "question": "Cocher trois bonnes réponses. les similitudes entre la CCSC et le plaidoyer sont :",
+          "a": "Promouvoir le changement social et comportemental.",
+          "b": "Permettent d'identifier une audience cible.",
+          "e": "Efficaces quand ces stratégies sont planifiées simplement.",
+          "f": "Permettent d'adapter en conséquence des messages.",
+          "correct": ["a", "b", "f"]
+        },
+        {
+          "question": "Dans le questionnement qui précède toute stratégie de plaidoyer, Cochez les questions qui sont posées.",
+          "a": "Quelle est la solution proposée ?",
+          "b": "Quel est le problème?",
+          "e": "Comment le décideur trouve-t-il ies solutions au problème?",
+          "f": "Pourquoi le décideur devrait-il se préoccuper de ce problème ?",
+          "correct": ["a", "b", "f"]
+        },
+        {
+          "question": "Cochez les bonnes réponses: Vous décidez d'entreprendre une séance de CCSC pour améliorer le taux d'allaitement exclusif dans votre aire de santé. La population cible primaire n'est pas :",
+          "a": "Les femmes allaitantes.",
+          "b": "Les mères et grand-mères des femmes en enceinte.",
+          "e": "Les femmes enceintes",
+          "f": "Les matrones",
+          "correct": ["a", "b", "f"]
+        },
+        {
+          "question": "___ ETUDE DE CAS __ Le CSR de GREPLEU est un établissement de santé distant de 144 km de son district . Il est très peu fréquenté car les familles portent leurs premiers choix de soins sur les praticiens de la médecine traditionnelle. En novembre 2020, il a connu une épidémie de rougeole beaucoup plus létale chez les moins de 05 ans que les précédentes. Environ 4 enfants de 9 à 11 mois sur 10 sont vaccinés contre la rougeole car la communauté ne considère pas cette MPE (Maladie à Potentiel Epidémique) comme une maladie évitable par la vaccination. Par principes culturels, les enfants sains sont transportés aux domiciles de ceux qui sont malades pour provoquer une contamination afin d'induire une immunité naturelle si le traitement traditionnel est favorable à la guérison. __ \nIndiquer 03 problèmes de santé publique évoqués par ce texte:",
+          "a": "Eloignement du centre de santé",
+          "b": "Mortalité infanto-juvénile due à la rougeole.",
+          "e": "Faible couverture vaccinale",
+          "f": "Pesanteurs culturelles",
+          "correct": ["b", "e", "f"]
+        },
+        {
+          "question": "Dans le but de réduire la mortalité infanto-juvénile due à la rougeole, trois stratégies de communication sont à la portée du personnel et des populations : Choisissez une dont la cible primaire sera les mères des enfants de 0 à 5 ans et les femmes enceintes.",
+          "a": "Plaidoyer",
+          "b": "Communication pour le Changement social et comportemental",
+          "e": "Mobilisation sociale et communautaire",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Pour la CCSC à GREPLEU et à l'endroit les mères des enfants de 0 à 5 ans et des femmes enceintes, toutes les cibles suivantes peuvent être des cibles tertiaires excepté une,laquelle ?",
+          "a": "Les garants de la tradition",
+          "b": "Les Chefs religieux",
+          "e": "Le Député de la localité",
+          "f": "Les maris des mères des enfants de O à 5 ans et des femmes enceintes.",
+          "correct": ["f"]
+        },
+        {
+          "question": "A l'occasion des vacances, ies jeunes décident de faire une mobilisation sociale et communautaire en rapport avec la vaccination. Quelle est l'étape suivante de cette stratégie de communication :",
+          "a": "ldentifier le problème",
+          "b": "Créer un groupe d'initiative communautaire (GIC)",
+          "e": "Former les membres du groupe (GIC)",
+          "f": "informer et sensibiliser les populations",
+          "correct": ["b"]
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "name": "Chirurgie pédiatrique",
+      "icon": "book",
+      "description": "Questionnaire sur la chirurgie pédiatrique",
+      "questions": [
+        {
+          "question": "L'accouchement par siège est une circonstance de découverte de hanche à risque de luxation congénitale",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La manœuvre d'Ortolani-Damany peut permettre le dépistage de la luxation congénitale de la hanche en salle d'accouchement.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le cloaque est une malformation anorectale chez le garçon.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Tout nouveau-né qui vomit du lait a une occlusion néonatale",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Dans l'hydrocèle le contenu est l'anse intestinale",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Le kyste du cordon est une anomalie congénitale du canal péritonéo-vaginal qui se voit chez la fille",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La hernie inguinale se voit uniquement chez le garçon",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La tuméfaction inguino-scrotale non douloureuse n'est pas un signe de hernie inguino-scrotale étranglée",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Dans la luxation congénitale de la hanche, il existe une asymétrie de la mobilité des membres avec une limitation de l'abduction",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le spina bifida occulta est asymptomatique.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "la myéloméningocèle contient uniquement les méninges",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Le pied bot est une attitude vicieuse et permanente",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le pied bot varus équin: le pied repose sur le sol par ses appuis normaux.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Traitement du pied bot varus équin: la méthode de Ponseti consiste à faire des plâtres successifs, tous les 6 jours, suivi de la ténotomie (Section) du tendon d'Achille en percutanée",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'un des signes de la hernie étranglée est l'irréductibilité de la hernie",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La hernie de l'ovaire chez la fille ne peut jamais s'étrangler",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Le diagnostic différentiel du laparochisis se fait avec l'omphalocèle rompue",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "L'infection ostéo-articulaire du nourrisson, traitée tardivement entraine une destruction du cartilage de croissance chez l'enfant",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La fistule urétrale est une complication d'un accident de circoncision",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Vous recevez un enfant de 5 ans dans votre centre. La mère vous dit que depuis deux jours il boite et il fait 39°c de fièvre. La mère vous dit aussi qu'elle a la drépanocytose. A quoi pensez-vous ? et quelle sera votre attitude étant dans un dispensaire ? Cocher la ou les bonnes réponses",
+          "a": "vous pensez à une infection ostéoarticulaire",
+          "b": "vous pensez que l'enfant est tombé et à tout simplement une douleur au pied",
+          "e": "vous lui prescrivez des anti-inflammatoires en lui donnant un rendez-vous",
+          "f": "vous faites les mesures physiques, vous lui donné des antipyrétiques et vous le référez",
+          "correct": ["a", "f"]
+        },
+        {
+          "question": "Parmi ces complications de la circoncision, une complication met en jeu le pronostic vital.Laquelle ?",
+          "a": "infection",
+          "b": "sténose du méat urétral",
+          "e": "fistule de l'urètre",
+          "f": "section incomplète du prépuce",
+          "correct": ["f"]
+        },
+        {
+          "question": "Parmi ces pathologies, deux situations contre indiquent la circoncision. Lesquelles ?",
+          "a": "cryptorchidie",
+          "b": "Drépanocytose",
+          "e": "micropénis",
+          "f": "hypospadias",
+          "correct": ["b", "e"]
+        },
+        {
+          "question": "Quelles sont les deux différentes anomalies du canal péritonéo-vaginal chez la fille ? cochez-les.",
+          "a": "hernie inguinale",
+          "b": "hernie inguino-scrotale",
+          "e": "hernie de l'ovaire",
+          "f": "hydrocèle non communicante",
+          "correct": ["a", "e"]
+        },
+        {
+          "question": "Les circonstances de découvertes de luxation congénitale des hanches chez un nouveau-né sont",
+          "a": "gros poids de naissance",
+          "b": "hydramnios",
+          "e": "la gémellité",
+          "f": "accouchement par voie basse",
+          "correct": ["a", "b", "e"]
+        },
+        {
+          "question": "Dans le carnet de santé mère enfant cochez l'item qui vous permet d'évoquer le diagnostic d'une luxation congénitale de la hanche en salle d'accouchement",
+          "a": "anus normal (plissé perméable)",
+          "b": "colonne vertébrale anormale",
+          "e": "émission de méconium",
+          "f": "Hanche: signe de ressaut",
+          "correct": ["f"]
+        },
+        {
+          "question": "Parmi ces anomalies cinq font pas partie des malformations anorectales observées chez la fille ? Cochez les bonnes réponses :",
+          "a": "Cloaque",
+          "b": "MAR sans fistule;",
+          "e": "MAR avec fistule urétrale",
+          "f": "MAR avec fistule recto-vaginale;",
+          "correct": ["a", "e", "f"]
+        },
+        {
+          "question": "Vous recevez un nouveau-né de 3 jours de vie avec une malformation de la paroi antérieure de l'abdomen, et votre collègue infirmier vous dit que c'est un laparoschisis (cochez la bonne réponse)",
+          "a": "parce qu'il a vu une membrane vasculaire translucide",
+          "b": "parce que cette pathologie est toujours médiane",
+          "e": "parce qu'il n'y a pas de membrane recouvrant les anses; c'est une éviscération non recouverte.",
+          "f": "parce que le Contenu est du foie",
+          "correct": ["e"]
+        },
+        {
+          "question": "Quelle prise en charge médicale initiale proposez-vous en cas d'omphalocèle découverte en salle d'accouchement ? Cocher la (les) bonne(s) réponses :",
+          "a": "Prise d'une voie veineuse + réanimation hydroélectrolytique et calorique",
+          "b": "Lutte contre l'hypothermie par la mise en couveuse",
+          "e": "Lutte contre l'infection par l'antibioprophylaxie, et la Protection de l'omphalocèle",
+          "f": "Mise en place d'une sonde nasogastrique",
+          "correct": ["a", "b", "e", "f"]
+        },
+        {
+          "question": "Cochez les bonnes réponses:",
+          "a": "L'omphalocèle est une éviscération recouverte",
+          "b": "L'ombilic est implanté au pôle inférieur ou supérieur de l'omphalocèle",
+          "e": "Il existe une fente latéro-ombilicale",
+          "f": "",
+          "correct": ["a", "b"]
+        },
+        {
+          "question": "Le laparoschisis. Cochez les bonnes réponses :",
+          "a": "Est une éviscération non recouverte",
+          "b": "L'ombilic est normalement implanté",
+          "e": "Les anses sont normales",
+          "f": "",
+          "correct": ["a", "b"]
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "name": "CHIRURGIE DIGESTIVES",
+      "icon": "book",
+      "description": "Questionnaire sur les affections chirurgicales abdominales aiguës",
+      "questions": [
+        {
+          "question": "L'appendicite aigue est l'inflammation de l'appendice iléo-rectal.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La sténose pyloro-bulbaire c'est la diminution du calibre de la lumière pylorique ou bulbaire qui gène l'évacuation normale de l'estomac et survenant dans l'évolution de la maladie-ulcéro-bourgeonnante.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les contusions de l'abdomen sont des traumatismes de l'abdomen avec solution de continuité au niveau de la paroi abdominale.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Le syndrome péritonéal est l'ensemble de signes cliniques et biologiques traduisant une inflammation locale.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "L'appendicite aiguë est l'urgence chirurgicale abdominale la moins fréquente.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les plaies non pénétrantes intéressent la paroi de l'abdomen avec effraction du péritoine pariétal",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "L'appendicite aiguë de l'adulte jeune réalise un syndrome douloureux fébrile de la fosse iliaque droite et gauche.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les sténoses pyloro-bulbaires représentent la 2eme complication évolutive des ulcères gastro-duodénaux.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "L'étranglement herniaire est une urgence orthopédique",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La contracture abdominale se caractérise par une hypotension douloureuse, Involontaire, Intense, rigide, permanente et invincible des muscles de la paroi abdominale antérieure.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les plaies pénétrantes de l'abdomen franchissent le péritoine pariétal avec lésions pleurale.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Laparotomie écourtée est une chirurgie de sauvegarde qui va permettre de faire l'hémostase de lésions non hémorragiques engageant immédiatement le pronostic fonctionnel.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La hernie de la paroi abdominale c'est l'extériorisation spontanée, temporaire ou permanente d'un viscère à travers un point de faiblesse anatomique de la paroi abdominale.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Le traitement de l'appendicite aiguë n'est pas chirurgical.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Le diagnostic de la hernie de la paroi abdominale est radiologique.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les plaies de l'abdomen sont des traumatismes de l'abdomen sans solution de continuité de la paroi abdominale.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La péritonite aiguë est l'inflammation aiguë de la séreuse pleurale, le plus souvent secondaire à une agression bactérienne, chimique ou mixte.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Le scanner abdominal est l'examen de référence en cas d'appendicite aiguë.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "La principale complication de la hernie de la paroi abdominale est l'engouement",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Les accidents de la voie publique ne sont pas les causes les plus fréquentes des contusions abdominales",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Parmi ces items un seul, n'est pas un facteur responsable de hernie de la paroi abdominale:",
+          "a": "Toux chronique",
+          "b": "Travail de force",
+          "e": "Constipation chronique",
+          "f": "Alcool",
+          "correct": ["f"]
+        },
+        {
+          "question": "Les signes généraux à la phase de lutte de la sténose pyloro-bulbaire sont :",
+          "a": "Asthénie et anorexie",
+          "b": "Amaigrissement",
+          "e": "Signes de déshydratation",
+          "f": "Constipation",
+          "correct": ["a", "b", "e"]
+        },
+        {
+          "question": "Parmi ces signes lequel ne fait pas partir des signes cliniques de l'appendicite aiguë :",
+          "a": "Douleur spontanée de la FID",
+          "b": "Douleur provoquée de la FID",
+          "e": "Défense de la FID",
+          "f": "Dysphagie",
+          "correct": ["f"]
+        },
+        {
+          "question": "Parmi ces items seulement 3 font partir du tableau d'hémopéritoine secondaire à un traumatisme fermé de l'abdomen :",
+          "a": "Signes d'anémie aiguë",
+          "b": "Signes de choc hypovolémique",
+          "e": "Syndrome d'irritation péritonéale",
+          "f": "Signes d'épanchement liquidien intra pleural",
+          "correct": ["a", "b", "e"]
+        },
+        {
+          "question": "Les trois principales étiologies de péritonites aigues généralisées sont:",
+          "a": "Péritonites appendiculaires",
+          "b": "Péritonites diverticulaires",
+          "e": "Péritonites iléales",
+          "f": "Péritonites par perforation gastro-duodénale",
+          "correct": ["a", "e", "f"]
+        },
+        {
+          "question": "Les formes anatomo-pathologiques de gravité croissante de l'appendicite aiguë sont :",
+          "a": "Appendicite catarrhale",
+          "b": "Appendicite phlegmoneuse",
+          "e": "Appendicite gangreneuse",
+          "f": "Appendicite vermiculaire",
+          "correct": ["a", "b", "e"]
+        },
+        {
+          "question": "Parmi ces examens lequel ne fait pas partir des examens paracliniques en cas de sténose pyloro-duodénale:",
+          "a": "Tubage gastrique",
+          "b": "F.O.G.D",
+          "e": "T.O.G.D",
+          "f": "Echographie abdominale",
+          "correct": ["f"]
+        },
+        {
+          "question": "Quels sont les signes cliniques à la phase d'atonie :",
+          "a": "Vomissement nombreux et abondants",
+          "b": "Intolérance alimentaire absolue",
+          "e": "Amaigrissement",
+          "f": "Dysphonie",
+          "correct": ["a", "b", "e"]
+        },
+        {
+          "question": "Parmi ces hernies une seule ne concerne pas la paroi abdominale:",
+          "a": "Hernie crurale",
+          "b": "Hernie ombilicale",
+          "e": "hernie inguinale",
+          "f": "Hernie hiatale",
+          "correct": ["f"]
+        },
+        {
+          "question": "Un tableau ne fait pas partir des trois principaux tableaux dans une contusion abdominale isolée . lequel ? :",
+          "a": "Tableau d'hémopéritoine",
+          "b": "Tableau de péritonite par perforation d'organe creux",
+          "e": "Tableau d'abdomen contus apparemment normal",
+          "f": "Tableau d'hémorragie basse",
+          "correct": ["f"]
+        },
+        {
+          "question": "Parmi ces réponses lesquelles ne font pas partir des formes topographiques de l'appendicite aiguë:",
+          "a": "Appendicite aiguë pelvienne",
+          "b": "Appendicite aiguë péri-ombilicale",
+          "e": "Appendicite aiguë sous-hépatique",
+          "f": "Appendicite aiguë de l'aine",
+          "correct": ["b", "f"]
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "name": "besoins fondamentaux selon Virginia Henderson",
+      "icon": "book",
+      "description": "Questionnaire sur les besoins fondamentaux selon Virginia Henderson",
+      "questions": [
+        {
+          "question": "Capacité de bouger les muscles qui assurent le changement de position du corps et favorise une bonne circulation, c'est...",
+          "a": "Se mouvoir et maintenir une bonne posture",
+          "b": "Manger et boire",
+          "e": "Se recréer",
+          "f": "Apprendre",
+          "correct": ["a"]
+        },
+        {
+          "question": "Capacité de se protéger des agressions internes et externes, les menaces et les négligences, en vue de maintenir son intégrité physique et psychologique, c'est...",
+          "a": "Boire et manger",
+          "b": "Éviter les dangers",
+          "e": "Se recréer",
+          "f": "Dormir et se reposer",
+          "correct": ["b"]
+        },
+        {
+          "question": "Capacité de trouver l'équilibre entre la production de chaleur par le métabolisme et la perdition à la surface du corps, c'est...",
+          "a": "Maintenir la température du corps dans la limite de la normale",
+          "b": "Maintenir la température corporelle du chaud et du froid",
+          "e": "S'occuper en vue de se réaliser",
+          "f": "Respirer",
+          "correct": ["a"]
+        },
+        {
+          "question": "Capacité d'actualiser ses valeurs, de se poser des questions, de prendre des décisions en accord avec les notions personnelles du bien et du mal et d'adopter une philosophie de vie congruente, c'est...",
+          "a": "Éviter les dangers",
+          "b": "S'occuper en vue de se réaliser",
+          "e": "Se recréer",
+          "f": "Agir selon ses croyances et ses valeurs",
+          "correct": ["f"]
+        },
+        {
+          "question": "Capacité d'ingérer et de digérer et absorber l'eau et les nutriments indispensables de la vie, c'est...",
+          "a": "Boire et dormir",
+          "b": "Boire et manger",
+          "e": "Boire et éliminer",
+          "f": "Boire et se recréer",
+          "correct": ["b"]
+        },
+        {
+          "question": "Capacité de protéger son corps par des vêtements convenables, adaptés en fonction du climat, des normes sociales, de la réserve personnelle, c'est...",
+          "a": "S'habiller et se déshabiller",
+          "b": "Se vêtir et se dévêtir",
+          "e": "Se vêtir convenablement",
+          "f": "Se recréer",
+          "correct": ["b"]
+        },
+        {
+          "question": "Capacité de l'état de conscience et des activités, favorisant la reconstitution des forces et le maintien d'un état de confort et de bien-être, c'est...",
+          "a": "Dormir et se reposer",
+          "b": "Dormir et se détendre",
+          "e": "Éviter les dangers",
+          "f": "Éliminer et dormir",
+          "correct": ["a"]
+        },
+        {
+          "question": "Capacité d'exécuter les soins d'hygiènes indispensables à la santé, de porter une attention particulière à son hygiène, de préserver les tissus qui recouvrent le corps, c'est...",
+          "a": "Se laver et soigner ses téguments",
+          "b": "Porter une attention à son hygiène",
+          "e": "Être propre et soigné et protéger ses téguments",
+          "f": "Être propre et soigner son corps",
+          "correct": ["e"]
+        },
+        {
+          "question": "Capacité et désir de pratiquer des activités et des loisirs de détente et de divertissement, c'est...",
+          "a": "Se vêtir et se dévêtir",
+          "b": "Se recréer",
+          "e": "S'occuper en vue de se réaliser",
+          "f": "Manger et boire",
+          "correct": ["b"]
+        },
+        {
+          "question": "Capacité de rejeter des substances nuisibles ou inutiles résultant du métabolisme, c'est...",
+          "a": "Éliminer",
+          "b": "Éviter les dangers",
+          "e": "Dormir et se reposer",
+          "f": "Se vêtir et se dévêtir",
+          "correct": ["a"]
+        },
+        {
+          "question": "Capacité d'établir des liens avec les autres afin de s'épanouir en tant qu'être humain, c'est...",
+          "a": "Communiquer avec ses semblables",
+          "b": "Se recréer",
+          "e": "S'occuper en vue de se réaliser",
+          "f": "Éviter les dangers",
+          "correct": ["a"]
+        },
+        {
+          "question": "Capacité d'assumer certain rôle et de remplir certaine tâche en ayant le sentiment d'être utile et efficace en s'épanouissant, c'est...",
+          "a": "Se recréer",
+          "b": "S'occuper en vue de se réaliser",
+          "e": "Éliminer",
+          "f": "Éviter les dangers",
+          "correct": ["b"]
+        },
+        {
+          "question": "Capacité et désir d'acquérir des connaissances sur soi, sur le fonctionnement de son corps, les moyens de préventions, des maladies, les habitudes et les comportements, c'est...",
+          "a": "Se recréer",
+          "b": "Apprendre",
+          "e": "S'occuper en vue de se réaliser",
+          "f": "Éviter les dangers",
+          "correct": ["b"]
+        },
+        {
+          "question": "Capacité d'inspirer de l'oxygène et de la diffuser dans les cellules, et capacité d'expirer le gaz carbonique et les vapeurs d'eau, c'est...",
+          "a": "Apprendre",
+          "b": "Se recréer",
+          "e": "Éliminer",
+          "f": "Respirer",
+          "correct": ["f"]
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "name": "SONU",
+      "icon": "book",
+      "description": "Questionnaire sur le cours de sonu",
+      "questions": [
+        {
+          "question": "La prophylaxie de la pré-éclampsie repose sur la surveillance adéquate des grossesses au cours des CPN correctement réalisées.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "La prise en charge des hémorragies du post-partum se fait en fonction de l'étiologie, du tableau clinique et du plateau technique.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Il faut inclure trois (03) chaises dans la liste du matériel nécessaire pour une CPN.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Pour une séance de CPN, il est nécessaire de prévoir un stéthoscope médical.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Lors de la première CPN au premier trimestre, il est indispensable que la gestante présente la pièce d'identité de son époux.",
+          "a": "A",
+          "b": "B",
+          "e": "",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Devant une pré-éclampsie, pour le traitement obstétrical, si la grossesse doit être interrompue, c'est dans :",
+          "a": "Le centre de santé périphérique",
+          "b": "Le centre de santé urbain",
+          "e": "Le dispensaire",
+          "f": "Le centre de référence",
+          "correct": ["f"]
+        },
+        {
+          "question": "Devant une crise d'éclampsie, le traitement d'urgence doit être entrepris:",
+          "a": "Sur le lieu de la crise",
+          "b": "Au cours du transfert de la cliente",
+          "e": "Dans le centre de référence",
+          "f": "",
+          "correct": ["a"]
+        },
+        {
+          "question": "Devant une hémorragie du postpartum, si la cause est une rétention placentaire complète, il faut :",
+          "a": "Faire un massage de l'utérus",
+          "b": "Prendre une bonne voie veineuse, faire une délivrance artificielle et une révision utérine suivies des autres soins, puis surveiller la cliente",
+          "e": "Administrer 10 UI d'ocytocine",
+          "f": "Faire la surveillance",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les buts de la CPN au premier trimestre de grossesse sont : deux bonnes réponses.",
+          "a": "Etablir le diagnostic de la grossesse",
+          "b": "Orienter la gestante vers un gynécologue-obstétricien même s'il n'y a aucune pathologie associée",
+          "e": "Amener toutes les gestantes à se faire accompagner par leurs époux aux séances de CPN",
+          "f": "Planifier la prise en charge de la grossesse",
+          "correct": ["a", "f"]
+        },
+        {
+          "question": "Les éléments du bon accueil au cours d'une séance de CPN sont :",
+          "a": "Ne pas saluer chaleureusement la gestante",
+          "b": "Se présenter à la gestante ou au couple",
+          "e": "Ne pas offrir de siège à l'époux",
+          "f": "Accueillir la gestante avec respect et amabilité",
+          "correct": ["b", "f"]
+        },
+        {
+          "question": "Au cours de la CPN au premier trimestre, il est correct de: deux bonnes réponses.",
+          "a": "Ne pas mesurer la hauteur utérine",
+          "b": "Faire un toucher vaginal combiné au palper abdominal",
+          "e": "Ecouter les bruits du coeur foetal",
+          "f": "Rechercher la position du dos du foetus",
+          "correct": ["a", "b"]
+        },
+        {
+          "question": "Le bilan prénatal comporte dix (10) examens hiérarchisés dont le groupe sanguin et rhésus constitue :Une bonne réponse",
+          "a": "La priorité 10",
+          "b": "La priorité 3",
+          "e": "La priorité 1",
+          "f": "La priorité 5",
+          "correct": ["e"]
+        },
+        {
+          "question": "Le principal but de la CPN au 2e trimestre de la grossesse est de :",
+          "a": "Vérifier si la gestante mange équilibré",
+          "b": "Suivre l'évolution de la grossesse",
+          "e": "Préparer la gestante à l'accouchement",
+          "f": "",
+          "correct": ["b"]
+        },
+        {
+          "question": "Les éléments d'un bon pronostic d'accouchement par voie basse sont :",
+          "a": "Absence d'antécédent obstétrical pathologique",
+          "b": "Absence d'anorexie chez la gestante",
+          "e": "Présentation du sommet",
+          "f": "Lieu de l'accouchement a été choisi d'avance",
+          "correct": ["a", "e"]
+        },
+        {
+          "question": "Devant une pré-éclampsie, le traitement médical recommande à la gestante de :",
+          "a": "Ne pas manger le sel",
+          "b": "Réduire la quantité de sel à consommer",
+          "e": "Manger le sel normalement",
+          "f": "Consommer un sel spécial",
+          "correct": ["e"]
+        }
+      ]
+    }
+  ]
+};
+      
+      categories = backupData.categories;
+    } else {
+      // 3. Cas nominal - données chargées avec succès
+      categories = result.categories;
+    }
+    
+    // 4. Affichage des catégories
+    displayCategories();
+    
+    // 5. Chargement des paramètres
+    loadSettings();
+    
+  } catch (error) {
+    console.error('Erreur critique dans loadQuizData:', error);
+  } finally {
+    // 6. Cache toujours le splashscreen même en cas d'erreur
+    setTimeout(() => {
+      const splash = document.getElementById('splashscreen');
+      if (splash) {
+        splash.style.display = 'none';
+      }
+    }, 1000);
+  }
+}
+
+        // Afficher les catégories
+        function displayCategories(filteredCategories = categories) {
+            const container = document.getElementById('categories-container');
+            container.innerHTML = filteredCategories.map(category => `
+                <div class="col-md-6 col-lg-4">
+                    <div class="category-card" onclick="showCategoryInstructions('${category.id}')">
+                        <div class="category-header">
+                            <i class="fas fa-${category.icon} mr-2"></i>
+                            ${category.name}
+                        </div>
+                        <div class="category-body">
+                            <p>${category.description}</p>
+                            <small>${category.questions.length} questions - Cliquez pour commencer</small>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Afficher les instructions pour une catégorie
+        function showCategoryInstructions(categoryId) {
+            currentCategory = categories.find(c => c.id === categoryId);
+            questions = currentCategory.questions;
+            
+            document.getElementById('instructions-category-title').textContent = currentCategory.name;
+            document.getElementById('time-per-question-display').textContent = quizSettings.timePerQuestion;
+            
+            // Afficher l'écran des instructions
+            document.getElementById('welcome-screen').classList.add('d-none');
+            document.getElementById('instructions-screen').classList.remove('d-none');
+        }
+
+        // Démarrer le quiz
+        function startQuiz() {
+            document.getElementById('category-title').textContent = currentCategory.name;
+            document.getElementById('total-questions').textContent = questions.length;
+            
+            // Réinitialiser les scores
+            score = 0;
+            bonusPoints = 0;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            document.getElementById('current-score').textContent = '0';
+            
+            // Afficher l'écran du quiz
+            document.getElementById('instructions-screen').classList.add('d-none');
+            document.getElementById('quiz-screen').classList.remove('d-none');
+            
+            loadQuestion();
+        }
+
+        // Charger une question
+        function loadQuestion() {
+            const question = questions[currentQuestionIndex];
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            document.getElementById('question-text').innerHTML = question.question;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            // Mélanger les options si nécessaire
+            const options = quizSettings.shuffleOptions ? 
+                shuffleArray(getQuestionOptions(question)) : 
+                getQuestionOptions(question);
+            
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.innerHTML = `<strong>${option.letter.toUpperCase()})</strong> ${option.text}`;
+                button.setAttribute('data-option', option.letter);
+                button.onclick = () => selectOption(button);
+                optionsContainer.appendChild(button);
+            });
+            
+            // Réinitialiser le timer
+            resetTimer();
+            
+            // Gérer les boutons de navigation
+            document.getElementById('prev-btn').classList.toggle('d-none', currentQuestionIndex === 0);
+            document.getElementById('validate-btn').classList.remove('d-none');
+            document.getElementById('next-btn').classList.add('d-none');
+            
+            // Mettre à jour la barre de progression
+            updateProgressBar();
+        }
+
+        // Sélectionner une option
+        function selectOption(button) {
+            const question = questions[currentQuestionIndex];
+            
+            // Pour les questions à réponse unique, désélectionner les autres
+            if (question.correct.length === 1) {
+                document.querySelectorAll('.option-btn.selected').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+            }
+            
+            button.classList.toggle('selected');
+        }
+
+        // Valider la réponse
+        function validateAnswer() {
+            clearInterval(timer);
+            const question = questions[currentQuestionIndex];
+            const selectedOptions = Array.from(document.querySelectorAll('.option-btn.selected'))
+                .map(btn => btn.getAttribute('data-option'));
+            
+            const isCorrect = arraysEqual(selectedOptions.sort(), question.correct.sort());
+            userAnswers[currentQuestionIndex] = {
+                selected: selectedOptions,
+                isCorrect: isCorrect,
+                question: question.question,
+                options: getQuestionOptions(question),
+                correctAnswers: question.correct,
+                explanation: question.explanation || ""
+            };
+            
+            // Calculer les points bonus en fonction du temps restant
+            const timeBonus = Math.floor((timeLeft / quizSettings.timePerQuestion) * 100);
+            
+            if (isCorrect) {
+                score++;
+                bonusPoints += timeBonus;
+                document.getElementById('current-score').textContent = score;
+                
+                // Feedback visuel
+                selectedOptions.forEach(opt => {
+                    document.querySelector(`.option-btn[data-option="${opt}"]`).classList.add('correct');
+                });
+                
+                if (quizSettings.enableSound) {
+                    playSound('correct');
+                }
+            } else {
+                // Feedback visuel
+                question.correct.forEach(opt => {
+    const optionElement = document.querySelector(`.option-btn[data-option="${opt}"]`);
+    
+    // Vérification cruciale avant d'utiliser classList
+    if (optionElement) {
+        optionElement.classList.add('correct');
+    } else {
+        console.error(`Option button with data-option="${opt}" not found in DOM`);
+        // Vous pouvez aussi ajouter un fallback ici si nécessaire
+    }
+});
+                
+                if (quizSettings.enableSound) {
+                    playSound('incorrect');
+                }
+            }
+            
+            // Désactiver les options
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.disabled = true;
+            });
+            
+            // Mettre à jour les boutons
+            document.getElementById('validate-btn').classList.add('d-none');
+            document.getElementById('next-btn').classList.remove('d-none');
+            
+            if (currentQuestionIndex === questions.length - 1) {
+                document.getElementById('next-btn').innerHTML = '<i class="fas fa-chart-bar"></i> Voir les résultats';
+            }
+        }
+
+        // Passer à la question suivante
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        // Afficher les résultats
+        function showResults() {
+            document.getElementById('quiz-screen').classList.add('d-none');
+            document.getElementById('results-screen').classList.remove('d-none');
+            
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('max-score').textContent = questions.length;
+            document.getElementById('bonus-points').textContent = bonusPoints;
+            
+            // Mettre à jour la barre de progression des résultats
+            const percentage = (score / questions.length) * 100;
+            document.getElementById('score-progress').style.width = `${percentage}%`;
+            
+            // Afficher les détails des réponses
+            const detailedResults = document.getElementById('detailed-results');
+            detailedResults.innerHTML = questions.map((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer?.isCorrect;
+                const correctOptions = question.correct.map(opt => ({
+                    letter: opt,
+                    text: question[opt]
+                }));
+                
+                const userSelectedOptions = userAnswer?.selected?.map(opt => ({
+                    letter: opt,
+                    text: question[opt]
+                })) || [];
+                
+                return `
+                    <div class="result-item ${isCorrect ? '' : 'incorrect'}">
+                        <h5>Question ${index + 1}</h5>
+                        <p>${question.question}</p>
+                        
+                        <p><strong>Votre réponse:</strong> 
+                            ${userSelectedOptions.length > 0 ? 
+                                userSelectedOptions.map(o => `<strong>${o.letter.toUpperCase()})</strong> ${o.text}`).join(', ') : 
+                                'Aucune réponse'}
+                        </p>
+                        
+                        <p><strong>Réponse correcte:</strong> 
+                            ${correctOptions.map(o => `<strong>${o.letter.toUpperCase()})</strong> ${o.text}`).join(', ')}
+                        </p>
+                        
+                        ${question.explanation ? `<p class="mt-2"><strong>Explication:</strong> ${question.explanation}</p>` : ''}
+                    </div>
+                `;
+            }).join('');
+            
+            if (quizSettings.enableSound) {
+                playSound(score / questions.length > 0.7 ? 'success' : 'failure');
+            }
+        }
+
+        // Recommencer le quiz
+        function restartQuiz() {
+            document.getElementById('results-screen').classList.add('d-none');
+            document.getElementById('quiz-screen').classList.remove('d-none');
+            
+            // Réinitialiser les scores
+            score = 0;
+            bonusPoints = 0;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            document.getElementById('current-score').textContent = '0';
+            
+            loadQuestion();
+        }
+
+        // Retourner aux catégories
+        function backToCategories() {
+            document.getElementById('results-screen').classList.add('d-none');
+            document.getElementById('settings-screen').classList.add('d-none');
+            document.getElementById('instructions-screen').classList.add('d-none');
+            document.getElementById('welcome-screen').classList.remove('d-none');
+        }
+
+        // Exporter en PDF
+        function exportToPDF() {
+            const doc = new jsPDF();
+            
+            // Titre du document
+            doc.setFontSize(20);
+            doc.text(`Résultats du Quiz - ${currentCategory.name}`, 105, 20, { align: 'center' });
+            
+            // Informations générales
+            doc.setFontSize(12);
+            doc.text(`Score final: ${score}/${questions.length}`, 14, 40);
+            doc.text(`Points bonus: ${bonusPoints}`, 14, 50);
+            doc.text(`Date: ${new Date().toLocaleDateString()}`, 14, 60);
+            
+            // Tableau des résultats
+            const headers = [['Question', 'Votre réponse', 'Réponse correcte', 'Statut']];
+            const data = questions.map((q, i) => {
+                const userAnswer = userAnswers[i];
+                const isCorrect = userAnswer?.isCorrect;
+                
+                return [
+                    q.question,
+                    userAnswer?.selected?.map(o => `${o.toUpperCase()}) ${q[o]}`).join(', ') || 'Aucune',
+                    q.correct.map(o => `${o.toUpperCase()}) ${q[o]}`).join(', '),
+                    isCorrect ? 'Correct' : 'Incorrect'
+                ];
+            });
+            
+            doc.autoTable({
+                head: headers,
+                body: data,
+                startY: 70,
+                styles: {
+                    fontSize: 8,
+                    cellPadding: 3,
+                    overflow: 'linebreak'
+                },
+                columnStyles: {
+                    0: { cellWidth: 60 },
+                    1: { cellWidth: 50 },
+                    2: { cellWidth: 50 },
+                    3: { cellWidth: 30 }
+                },
+                didDrawPage: function(data) {
+                    doc.setFontSize(10);
+                    doc.setTextColor(150);
+                    doc.text(`Page ${data.pageCount}`, data.settings.margin.left, doc.internal.pageSize.height - 10);
+                }
+            });
+            
+            // Enregistrer le PDF
+            doc.save(`Resultats_Quiz_${currentCategory.name}_${new Date().toISOString().slice(0,10)}.pdf`);
+        }
+
+        // Afficher les paramètres
+        function showSettings() {
+            document.getElementById('instructions-screen').classList.add('d-none');
+            document.getElementById('settings-screen').classList.remove('d-none');
+            
+            // Remplir les paramètres actuels
+            document.getElementById('shuffle-options').checked = quizSettings.shuffleOptions;
+            document.getElementById('enable-sound').checked = quizSettings.enableSound;
+            document.getElementById('dark-mode-toggle').checked = quizSettings.darkMode;
+            document.getElementById('time-per-question').value = quizSettings.timePerQuestion;
+        }
+
+        // Sauvegarder les paramètres
+        function saveSettings() {
+            quizSettings = {
+                shuffleOptions: document.getElementById('shuffle-options').checked,
+                enableSound: document.getElementById('enable-sound').checked,
+                darkMode: document.getElementById('dark-mode-toggle').checked,
+                timePerQuestion: parseInt(document.getElementById('time-per-question').value) || 60
+            };
+            
+            // Appliquer le mode sombre si nécessaire
+            if (quizSettings.darkMode) {
+                document.body.classList.add('dark-mode');
+                document.getElementById('darkModeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                document.body.classList.remove('dark-mode');
+                document.getElementById('darkModeToggle').innerHTML = '<i class="fas fa-moon"></i>';
+            }
+            
+            // Sauvegarder dans le localStorage
+            localStorage.setItem('quizSettings', JSON.stringify(quizSettings));
+            
+            // Retourner aux instructions
+            document.getElementById('settings-screen').classList.add('d-none');
+            document.getElementById('instructions-screen').classList.remove('d-none');
+            document.getElementById('time-per-question-display').textContent = quizSettings.timePerQuestion;
+        }
+
+        // Charger les paramètres sauvegardés
+        function loadSettings() {
+            const savedSettings = localStorage.getItem('quizSettings');
+            if (savedSettings) {
+                quizSettings = JSON.parse(savedSettings);
+                
+                // Appliquer le mode sombre si nécessaire
+                if (quizSettings.darkMode) {
+                    document.body.classList.add('dark-mode');
+                    document.getElementById('darkModeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            }
+        }
+
+        // Gestion du timer
+        function resetTimer() {
+            timeLeft = quizSettings.timePerQuestion;
+            clearInterval(timer);
+            updateTimerDisplay();
+            timer = setInterval(updateTimer, 1000);
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            updateTimerDisplay();
+            
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                validateAnswer();
+            }
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const timerElement = document.getElementById('timer');
+            
+            timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            
+            if (timeLeft <= 10) {
+                timerElement.classList.add('timer-warning');
+            } else {
+                timerElement.classList.remove('timer-warning');
+            }
+            
+            // Mettre à jour la barre de progression du timer
+            const progressPercentage = (timeLeft / quizSettings.timePerQuestion) * 100;
+            document.getElementById('quiz-progress').style.width = `${progressPercentage}%`;
+        }
+
+        // Mettre à jour la barre de progression
+        function updateProgressBar() {
+            const progressPercentage = ((currentQuestionIndex) / questions.length) * 100;
+            document.getElementById('quiz-progress').style.width = `${progressPercentage}%`;
+        }
+
+        // Jouer un son
+        function playSound(type) {
+            if (!quizSettings.enableSound) return;
+            
+            const sounds = {
+    correct: new Audio('sounds/correct.mp3'),
+    incorrect: new Audio('sounds/incorrect.mp3'),
+    success: new Audio('sounds/success.mp3'),
+    failure: new Audio('sounds/failure.mp3')
+};
+            
+            if (sounds[type]) {
+                sounds[type].play().catch(e => console.log("Lecture audio bloquée:", e));
+            }
+        }
+
+        // Fonctions utilitaires
+        function getQuestionOptions(question) {
+            const options = [];
+            ['a', 'b', 'c', 'd', 'e', 'f'].forEach(letter => {
+                if (question[letter]) {
+                    options.push({ letter, text: question[letter] });
+                }
+            });
+            return options;
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function arraysEqual(a, b) {
+            return Array.isArray(a) && Array.isArray(b) &&
+                a.length === b.length &&
+                a.every((val, index) => val === b[index]);
+        }
+
+        // Recherche de questions
+        function searchQuestions(query) {
+            const searchTerm = query.toLowerCase().trim();
+            
+            if (!searchTerm) {
+                displayCategories();
+                return;
+            }
+            
+            const filteredCategories = categories
+                .map(category => ({
+                    ...category,
+                    questions: category.questions.filter(question =>
+                        question.question.toLowerCase().includes(searchTerm) ||
+                        ['a', 'b', 'c', 'd', 'e', 'f'].some(key => 
+                            question[key] && question[key].toLowerCase().includes(searchTerm)
+                        ))
+                }))
+                .filter(category => 
+                    category.name.toLowerCase().includes(searchTerm) || 
+                    category.questions.length > 0
+                );
+            
+            displayCategories(filteredCategories);
+        }
+
+        // Gestion du mode sombre
+        function initDarkMode() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedMode = localStorage.getItem('darkMode');
+            
+            if (savedMode === 'dark' || (prefersDark && savedMode !== 'light')) {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                quizSettings.darkMode = true;
+            }
+            
+            darkModeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                quizSettings.darkMode = !quizSettings.darkMode;
+                
+                if (quizSettings.darkMode) {
+                    localStorage.setItem('darkMode', 'dark');
+                    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    localStorage.setItem('darkMode', 'light');
+                    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+            });
+        }
+
+        // Créer des bulles d'animation
+        function createBubbles() {
+            const colors = ['rgba(74, 107, 255, 0.1)', 'rgba(108, 92, 231, 0.1)', 'rgba(0, 184, 148, 0.1)'];
+            const bgAnimation = document.getElementById('bgAnimation');
+            
+            for (let i = 0; i < 15; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                const size = Math.random() * 150 + 50;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.top = `${Math.random() * 100 + 100}%`;
+                bubble.style.background = colors[Math.floor(Math.random() * colors.length)];
+                bubble.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                bubble.style.animationDelay = `${Math.random() * 5}s`;
+                bgAnimation.appendChild(bubble);
+            }
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            initDarkMode();
+            createBubbles();
+            loadQuizData();
+            
+            // Écouteurs d'événements
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchQuestions(e.target.value);
+            });
+            
+            document.getElementById('clearSearch').addEventListener('click', () => {
+                document.getElementById('searchInput').value = '';
+                displayCategories();
+            });
+            
+            document.getElementById('validate-btn').addEventListener('click', validateAnswer);
+            document.getElementById('next-btn').addEventListener('click', nextQuestion);
+            document.getElementById('prev-btn').addEventListener('click', () => {
+                currentQuestionIndex--;
+                loadQuestion();
+            });
+            
+            document.getElementById('restart-btn').addEventListener('click', restartQuiz);
+            document.getElementById('new-quiz-btn').addEventListener('click', backToCategories);
+            document.getElementById('export-pdf-btn').addEventListener('click', exportToPDF);
+            
+            document.getElementById('start-quiz').addEventListener('click', startQuiz);
+            document.getElementById('go-to-settings').addEventListener('click', showSettings);
+            document.getElementById('back-from-instructions').addEventListener('click', backToCategories);
+            document.getElementById('back-to-categories').addEventListener('click', () => {
+                document.getElementById('settings-screen').classList.add('d-none');
+                document.getElementById('instructions-screen').classList.remove('d-none');
+            });
+            document.getElementById('save-settings').addEventListener('click', saveSettings);
+        });
+
+        // Exposer les fonctions globales
+        window.showCategoryInstructions = showCategoryInstructions;
+</script>
+</body>
+</html>

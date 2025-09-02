@@ -1,0 +1,126 @@
+<?php // Démarrer la session si ce n'est pas déjà fait if (session_status() == PHP_SESSION_NONE) { session_start(); } if (!isset($_SESSION['from_index']) || $_SESSION['from_index'] != "actif3") { header('Location: index.php'); exit(); } ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Études de Cas : Paludisme</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>:root{--primary-color:#8e44ad;--secondary-color:#6c3483;--accent-color:#e74c3c;--light-color:#f5eef8;--dark-color:#2c3e50;--transition-speed:0.3s;}*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}body{min-height:100vh;background-color:#f9f9f9;color:#333;padding:10px;user-select:none;}.drawer{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background-color:#333;color:white;width:60px;height:60px;display:flex;align-items:
+center;justify-content:center;border-radius:50%;box-shadow:0 4px 10px rgba(0,0,0,0.2);cursor:pointer;transition:background-color 0.3s ease,transform 0.2s ease;z-index:1000;}.drawer:hover{background-color:#555;transform:translateX(-50%) scale(1.1);}.sidebar{position:fixed;left:0;top:0;width:5cm;height:100%;background-color:#333;display:flex;flex-direction:column;align-items:center;padding-top:20px;z-index:1000;box-shadow:2px 0 10px rgba(0,0,0,0.1);transform:translateX(-100%);transition:transform
+0.3s ease;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#888 #333;}.sidebar.show{transform:translateX(0);}.icon{color:white;font-size:2rem;margin:10px 0;cursor:pointer;transition:transform 0.2s,color 0.2s;}.icon:hover{transform:scale(1.2);color:#1e90ff;}.sidebar::-webkit-scrollbar{width:8px;}.sidebar::-webkit-scrollbar-thumb{background-color:#888;border-radius:4px;}.sidebar::-webkit-scrollbar-track{background-color:#333;}.icon i{font-size:2.5rem;}.menu-button{position:fixed;top:20px;left:
+20px;background-color:#333;color:white;width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);z-index:1001;}.menu-button:hover{background-color:#555;}.overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:999;}.body-disabled{overflow:hidden;}.main-content{max-width:1200px;margin:0 auto;padding:10px;}.protocol-header{display:flex;justify-content:
+space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid #ddd;}.protocol-title{font-size:1.8rem;color:var(--secondary-color);}.protocol-number{background-color:var(--accent-color);color:white;padding:5px 10px;border-radius:20px;font-weight:bold;font-size:0.9rem;}.case-studies-container{position:relative;min-height:400px;}.case-study-card{background-color:white;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.08);padding:15px;margin-bottom:15px;display:
+none;transition:opacity 0.5s ease;}.case-study-card.active{display:block;opacity:1;}.case-study-card h3{font-size:1.3rem;color:var(--secondary-color);margin-bottom:10px;display:flex;align-items:center;gap:8px;}.case-study-card h3 i{color:var(--primary-color);}.case-description{line-height:1.6;margin-bottom:15px;font-size:0.95rem;}.tabs{display:flex;border-bottom:2px solid #ddd;margin-bottom:15px;}.tab{flex:1;padding:8px 0;text-align:center;cursor:pointer;font-weight:bold;color:var(--dark-color);
+border-bottom:3px solid transparent;transition:all 0.3s;font-size:0.9rem;}.tab.active{color:var(--primary-color);border-bottom:3px solid var(--primary-color);}.tab:hover{color:var(--primary-color);}.tab-content{display:none;line-height:1.6;font-size:0.9rem;}.tab-content.active{display:block;}.prescription-list{margin-left:15px;margin-bottom:10px;}.prescription-list li{margin-bottom:8px;}.navigation{display:flex;justify-content:space-between;margin-top:15px;gap:10px;}.nav-btn{background-color:
+var(--primary-color);color:white;border:none;padding:8px 15px;border-radius:4px;cursor:pointer;font-size:0.9rem;transition:background-color 0.3s;flex:1;}.nav-btn:disabled{background-color:#ccc;cursor:not-allowed;}.nav-btn:hover:not(:disabled){background-color:var(--secondary-color);}
+@media (max-width:768px){.main-content{padding:5px;}.protocol-header{flex-direction:column;align-items:flex-start;gap:8px;}.protocol-title{font-size:1.4rem;}.protocol-number{font-size:0.8rem;padding:4px 8px;}.case-study-card{padding:10px;}.case-study-card h3{font-size:1.1rem;}.case-description,.tab-content{font-size:0.85rem;}.tabs{flex-direction:column;}.tab{padding:8px;border-bottom:1px solid #ddd;}.tab:last-child{border-bottom:none;}.navigation{flex-direction:row;gap:5px;}.nav-btn{padding:6px
+10px;font-size:0.8rem;} }
+@media (max-width:480px){.protocol-title{font-size:1.2rem;}.case-study-card h3{font-size:1rem;}.case-description,.tab-content{font-size:0.8rem;}.nav-btn{padding:5px 8px;font-size:0.75rem;} }
+</style>
+</head>
+<body><div id="accordion" class="listview"></div><div id="overlay" class="overlay" onclick="closeDrawer()"></div><div id="sidebar" class="sidebar"><div class="icon" onclick="navigateTo('https://sujetsinfas.com/index.php')"> <i>🏛️</i></div><!-- <div class="icon" onclick="navigateTo('sfde.html')"> <i>🚼</i></div><div class="icon" onclick="navigateTo('ide.html')"> <i>💉</i></div><div class="icon" onclick="navigateTo('classification.html')"> <i>💊</i></div><div class="icon"
+onclick="navigateTo('flashcards.html')"> <i>🧑‍💻</i></div><div class="icon" onclick="navigateTo('audios.html')"> <i>🎧</i></div>--></div><div class="drawer" onclick="toggleDrawer()">☰</div><main class="main-content">
+<header class="protocol-header"><h1 class="protocol-title">Études de Cas : Paludisme</h1> <span class="protocol-number">Protocole Paludisme</span>
+</header><div class="case-studies-container" id="caseStudies"><!-- Cas 1 : Bébé de 6 mois --><div class="case-study-card" data-index="0"><h3><i class="fas fa-baby"></i> Cas 1 : Bébé de 6 mois (6 kg)</h3><p class="case-description">Un bébé de 6 mois, pesant 6 kg, présente des symptômes de paludisme confirmés par un test.</p><div class="tabs"><div class="tab active" data-tab="no-ci-0">Sans contre-indications</div><div class="tab" data-tab="with-ci-0">Avec contre-indications</div></div><div
+class="tab-content active" id="no-ci-0"><p><strong>Option 1 : Artesunate + Amodiaquine (combinaison fixe)</strong></p><ul class="prescription-list"><li>Présentation : Artesunate + Amodiaquine 25 mg + 67,5 mg (suspension buvable).</li><li>Posologie : 1 cp/jour (dissous dans l’eau).</li><li>Durée : 3 jours (Jour 1 : 1 cp, Jour 2 : 1 cp, Jour 3 : 1 cp).</li><li>Mode : Pendant ou après un repas.</li></ul><p><strong>Option 2 : Artéméther + Luméfantrine</strong></p><ul class="prescription-list"><li>Présentation
+: Artéméther + Luméfantrine 20 mg/120 mg (suspension buvable).</li><li>Posologie : 1 cp matin et 1 cp soir.</li><li>Durée : 3 jours (Jour 1 : 1 cp matin + 1 cp soir, Jour 2 : 1 cp matin + 1 cp soir, Jour 3 : 1 cp matin + 1 cp soir).</li><li>Mode : De préférence avec un repas gras.</li></ul><p><strong>Suivi</strong> : Observer un délai de 12 heures entre les prises bi-quotidiennes. Suivi à J3, J7 et J14 avec contrôle de la GEFS si fièvre persistante.</p></div><div class="tab-content"
+id="with-ci-0"><p><strong>Contre-indication</strong> : Allergie à l’Artesunate et l’Artéméther.</p><p><strong>Option : Quinine base</strong></p><ul class="prescription-list"><li>Posologie : 25 mg/kg/jour → 25 × 6 = 150 mg/jour, soit 50 mg par prise (3 prises/jour).</li><li>Durée : 5 jours consécutifs.</li><li>Mode : Administrer 50 mg de Quinine base 3 fois par jour (matin, midi, soir), dissous dans un peu d’eau, pendant ou après un repas.</li></ul><p><strong>Suivi</strong> : Suivi à J3, J7 et
+J14 avec contrôle de la GEFS si fièvre persistante.</p></div></div><!-- Cas 2 : Enfant de 4 ans --><div class="case-study-card" data-index="1"><h3><i class="fas fa-child"></i> Cas 2 : Enfant de 4 ans (14 kg)</h3><p class="case-description">Un enfant de 4 ans, pesant 14 kg, est diagnostiqué avec un paludisme simple.</p><div class="tabs"><div class="tab active" data-tab="no-ci-1">Sans contre-indications</div><div class="tab" data-tab="with-ci-1">Avec contre-indications</div></div><div
+class="tab-content active" id="no-ci-1"><p><strong>Option 1 : Artesunate + Amodiaquine (combinaison fixe)</strong></p><ul class="prescription-list"><li>Présentation : Artesunate + Amodiaquine 25 mg + 67,5 mg (suspension buvable).</li><li>Posologie : 2 cp/jour (dissous dans l’eau).</li><li>Durée : 3 jours (Jour 1 : 2 cp, Jour 2 : 2 cp, Jour 3 : 2 cp).</li><li>Mode : Pendant ou après un repas.</li></ul><p><strong>Option 2 : Artéméther + Luméfantrine</strong></p><ul class="prescription-list"><li>Présentation
+: Artéméther + Luméfantrine 20 mg/120 mg (suspension buvable).</li><li>Posologie : 1 cp matin et 1 cp soir.</li><li>Durée : 3 jours (Jour 1 : 1 cp matin + 1 cp soir, Jour 2 : 1 cp matin + 1 cp soir, Jour 3 : 1 cp matin + 1 cp soir).</li><li>Mode : De préférence avec un repas gras.</li></ul><p><strong>Suivi</strong> : Observer un délai de 12 heures entre les prises bi-quotidiennes. Suivi à J3, J7 et J14.</p></div><div class="tab-content" id="with-ci-1"><p><strong>Contre-indication</strong> :
+Allergie à l’Artesunate et l’Artéméther.</p><p><strong>Option : Quinine base</strong></p><ul class="prescription-list"><li>Posologie : 25 mg/kg/jour → 25 × 14 = 350 mg/jour, soit environ 117 mg par prise (3 prises/jour).</li><li>Durée : 5 jours consécutifs.</li><li>Mode : Administrer 117 mg de Quinine base 3 fois par jour (matin, midi, soir), dissous dans un peu d’eau, pendant ou après un repas.</li></ul><p><strong>Suivi</strong> : Suivi à J3, J7 et J14 avec contrôle de la GEFS si fièvre
+persistante.</p></div></div><!-- Cas 3 : Enfant de 10 ans --><div class="case-study-card" data-index="2"><h3><i class="fas fa-child"></i> Cas 3 : Enfant de 10 ans (30 kg)</h3><p class="case-description">Un enfant de 10 ans, pesant 30 kg, est diagnostiqué avec un paludisme simple.</p><div class="tabs"><div class="tab active" data-tab="no-ci-2">Sans contre-indications</div><div class="tab" data-tab="with-ci-2">Avec contre-indications</div></div><div class="tab-content active" id="no-ci-2"><p><strong>Option
+1 : Artesunate + Amodiaquine (combinaison fixe)</strong></p><ul class="prescription-list"><li>Présentation : Artesunate + Amodiaquine 25 mg + 67,5 mg (comprimé).</li><li>Posologie : 3 cp/jour.</li><li>Durée : 3 jours (Jour 1 : 3 cp, Jour 2 : 3 cp, Jour 3 : 3 cp).</li><li>Mode : À avaler avec un peu d’eau, pendant ou après un repas.</li></ul><p><strong>Option 2 : Artéméther + Luméfantrine</strong></p><ul class="prescription-list"><li>Présentation : Artéméther + Luméfantrine 20 mg/120 mg
+(comprimé).</li><li>Posologie : 2 cp matin et 2 cp soir.</li><li>Durée : 3 jours (Jour 1 : 2 cp matin + 2 cp soir, Jour 2 : 2 cp matin + 2 cp soir, Jour 3 : 2 cp matin + 2 cp soir).</li><li>Mode : De préférence avec un repas gras.</li></ul><p><strong>Suivi</strong> : Observer un délai de 12 heures entre les prises bi-quotidiennes. Suivi à J3, J7 et J14.</p></div><div class="tab-content" id="with-ci-2"><p><strong>Contre-indication</strong> : Allergie à l’Artesunate et l’Artéméther.</p><p><strong>Option
+: Quinine base</strong></p><ul class="prescription-list"><li>Posologie : 25 mg/kg/jour → 25 × 30 = 750 mg/jour, soit 250 mg par prise (3 prises/jour).</li><li>Durée : 5 jours consécutifs.</li><li>Mode : Administrer 250 mg de Quinine base 3 fois par jour (matin, midi, soir), à avaler avec un peu d’eau, pendant ou après un repas.</li></ul><p><strong>Suivi</strong> : Suivi à J3, J7 et J14 avec contrôle de la GEFS si fièvre persistante.</p></div></div><!-- Cas 4 : Adolescent de 15 ans --><div
+class="case-study-card" data-index="3"><h3><i class="fas fa-user"></i> Cas 4 : Adolescent de 15 ans (50 kg)</h3><p class="case-description">Un adolescent de 15 ans, pesant 50 kg, est diagnostiqué avec un paludisme simple.</p><div class="tabs"><div class="tab active" data-tab="no-ci-3">Sans contre-indications</div><div class="tab" data-tab="with-ci-3">Avec contre-indications</div></div><div class="tab-content active" id="no-ci-3"><p><strong>Option 1 : Artesunate + Amodiaquine (combinaison
+fixe)</strong></p><ul class="prescription-list"><li>Présentation : Artesunate + Amodiaquine 25 mg + 67,5 mg (comprimé).</li><li>Posologie : 4 cp/jour.</li><li>Durée : 3 jours (Jour 1 : 4 cp, Jour 2 : 4 cp, Jour 3 : 4 cp).</li><li>Mode : À avaler avec un peu d’eau, pendant ou après un repas.</li></ul><p><strong>Option 2 : Artéméther + Luméfantrine</strong></p><ul class="prescription-list"><li>Présentation : Artéméther + Luméfantrine 20 mg/120 mg (comprimé).</li><li>Posologie : 4 cp matin et 4 cp
+soir.</li><li>Durée : 3 jours (Jour 1 : 4 cp matin + 4 cp soir, Jour 2 : 4 cp matin + 4 cp soir, Jour 3 : 4 cp matin + 4 cp soir).</li><li>Mode : De préférence avec un repas gras.</li></ul><p><strong>Suivi</strong> : Observer un délai de 12 heures entre les prises bi-quotidiennes. Suivi à J3, J7 et J14.</p></div><div class="tab-content" id="with-ci-3"><p><strong>Contre-indication</strong> : Allergie à l’Artesunate et l’Artéméther.</p><p><strong>Option : Quinine base</strong></p><ul
+class="prescription-list"><li>Posologie : 25 mg/kg/jour → 25 × 50 = 1250 mg/jour, soit environ 417 mg par prise (3 prises/jour).</li><li>Durée : 5 jours consécutifs.</li><li>Mode : Administrer 417 mg de Quinine base 3 fois par jour (matin, midi, soir), à avaler avec un peu d’eau, pendant ou après un repas.</li></ul><p><strong>Suivi</strong> : Suivi à J3, J7 et J14 avec contrôle de la GEFS si fièvre persistante.</p></div></div><!-- Cas 5 : Adulte de 30 ans --><div class="case-study-card"
+data-index="4"><h3><i class="fas fa-user"></i> Cas 5 : Adulte de 30 ans (70 kg)</h3><p class="case-description">Un adulte de 30 ans, pesant 70 kg, est diagnostiqué avec un paludisme simple.</p><div class="tabs"><div class="tab active" data-tab="no-ci-4">Sans contre-indications</div><div class="tab" data-tab="with-ci-4">Avec contre-indications</div></div><div class="tab-content active" id="no-ci-4"><p><strong>Option 1 : Artesunate + Amodiaquine (combinaison fixe)</strong></p><ul
+class="prescription-list"><li>Présentation : Artesunate + Amodiaquine 25 mg + 67,5 mg (comprimé).</li><li>Posologie : 4 cp/jour.</li><li>Durée : 3 jours (Jour 1 : 4 cp, Jour 2 : 4 cp, Jour 3 : 4 cp).</li><li>Mode : À avaler avec un peu d’eau, pendant ou après un repas.</li></ul><p><strong>Option 2 : Artéméther + Luméfantrine</strong></p><ul class="prescription-list"><li>Présentation : Artéméther + Luméfantrine 20 mg/120 mg (comprimé).</li><li>Posologie : 4 cp matin et 4 cp soir.</li><li>Durée :
+3 jours (Jour 1 : 4 cp matin + 4 cp soir, Jour 2 : 4 cp matin + 4 cp soir, Jour 3 : 4 cp matin + 4 cp soir).</li><li>Mode : De préférence avec un repas gras.</li></ul><p><strong>Suivi</strong> : Observer un délai de 12 heures entre les prises bi-quotidiennes. Suivi à J3, J7 et J14.</p></div><div class="tab-content" id="with-ci-4"><p><strong>Contre-indication</strong> : Allergie à l’Artesunate et l’Artéméther.</p><p><strong>Option : Quinine base</strong></p><ul class="prescription-list"><li>Posologie
+: 25 mg/kg/jour → 25 × 70 = 1750 mg/jour, soit environ 583 mg par prise (3 prises/jour).</li><li>Durée : 5 jours consécutifs.</li><li>Mode : Administrer 583 mg de Quinine base 3 fois par jour (matin, midi, soir), à avaler avec un peu d’eau, pendant ou après un repas.</li></ul><p><strong>Suivi</strong> : Suivi à J3, J7 et J14 avec contrôle de la GEFS si fièvre persistante.</p></div></div></div><div class="navigation"> <button class="nav-btn" id="prevBtn" disabled>Précédent</button>
+<button class="nav-btn" id="nextBtn">Suivant</button></div></main>
+<script>
+        // Gestion du drawer et du menu latéral
+        function toggleDrawer() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const body = document.body;
+
+            if (sidebar.classList.contains('show')) {
+                sidebar.classList.remove('show');
+                overlay.style.display = 'none';
+                body.classList.remove('body-disabled');
+            } else {
+                sidebar.classList.add('show');
+                overlay.style.display = 'block';
+                body.classList.add('body-disabled');
+            }
+        }
+
+        function closeDrawer() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const body = document.body;
+
+            sidebar.classList.remove('show');
+            overlay.style.display = 'none';
+            body.classList.remove('body-disabled');
+        }
+
+        function navigateTo(url) {
+            window.location.href = url;
+        }
+
+        // Gestion des cartes et des onglets
+        let currentIndex = 0;
+        const cards = document.querySelectorAll('.case-study-card');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        cards[currentIndex].classList.add('active');
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const card = tab.closest('.case-study-card');
+                const tabs = card.querySelectorAll('.tab');
+                const contents = card.querySelectorAll('.tab-content');
+
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        function updateNavigation() {
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === cards.length - 1;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                cards[currentIndex].classList.remove('active');
+                currentIndex--;
+                cards[currentIndex].classList.add('active');
+                updateNavigation();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < cards.length - 1) {
+                cards[currentIndex].classList.remove('active');
+                currentIndex++;
+                cards[currentIndex].classList.add('active');
+                updateNavigation();
+            }
+        });
+
+        updateNavigation();
+</script>
+</body>
+</html>

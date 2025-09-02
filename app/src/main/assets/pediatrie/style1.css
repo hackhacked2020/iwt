@@ -1,0 +1,557 @@
+.texteRectangleBleu {
+    text-justify:inter-word;
+    color:#0D47A1;
+    text-align: center;
+    /*color: #FFFFFF;*/
+}
+
+.texteRectangleViolet {
+    font-weight: bold;
+    color:#311B92;
+    text-align: center;
+    /*color: #FFFFFF;*/
+}
+
+.texteRectangleVert {
+    text-justify:inter-word;
+    color:#1B5E20;
+    text-align: center;
+}
+
+.rectangleBleu {
+    background-color:#BBDEFB;
+    /*background-color:#BBDEFB;*/
+}
+
+.bulleJaune {
+    background-color:#FFF9C4;
+}
+
+.texteBulleJaune {
+    text-align:justify;
+    text-justify:inter-word;
+}
+
+.bulleRouge {
+    background-color:#FFCDD2;
+}
+
+.texteBulleRouge {
+    text-align:justify;
+    text-justify:inter-word;
+}
+
+.bulleGrise {
+    background-color:#F5F5F5;
+}
+
+.texteBulleGrise {
+    text-align:justify;
+    text-justify:inter-word;
+}
+
+td.image {
+	width:40%;
+}
+
+td.legende {
+	width:60%;
+	padding-left:10px;
+}
+
+.figureImg {
+	width:100%;
+}
+
+.figureImgPaysage {
+	width:60%;
+}
+
+.tableImg {
+	border-collapse:separate;
+	border-spacing:0 10px;
+}
+
+.espace {
+	margin-bottom:10px;
+}
+
+.center {
+	text-align:center;
+}
+
+.citationBasDroite {
+	text-align:right;
+}
+
+.note {
+	font-size:small;
+}
+
+.gras {
+	font-weight:bolder;
+ color:#FF0000;
+}
+.grass {
+	font-weight:bold;
+}
+.grasss {
+	font-weight:bold;
+ color:#ffba00;
+}
+.grasbleu {
+	font-weight:bold;
+ color:rgb(31,110,244);
+}
+.italique {
+	font-style:italic;
+}
+
+.zoneBleue {
+	border: 2px solid #2196F3;
+	background-color: #BBDEFB;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+
+.zoneViolet {
+	border: 2px solid #7E57C2;
+	background-color: #D1C4E9;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-top: 10px;
+	margin-bottom: 16px;
+}
+
+.zoneVerte {
+	border: 2px solid #4CAF50;
+	background-color: #E8F5E9;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+
+.zoneJaune {
+    border: 2px solid #867d00;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+    background-color: #FFF9C4;
+    border-radius: 14px;
+    margin-bottom: 16px;
+}
+
+.zoneRouge {
+    border: 2px solid #F44336;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+    background-color: #FFCDD2;
+    border-radius: 14px;
+    margin-bottom: 16px;
+}
+
+.zoneGrise {
+    border: 2px solid #9E9E9E;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+    background-color: #F5F5F5;
+    border-radius: 14px;
+    margin-bottom: 16px;
+}
+
+.zoneGriseSansPadding {
+    border: 2px solid #9E9E9E;
+	padding-top: 0px;
+	padding-bottom: 0px;
+    background-color: #F5F5F5;
+    border-radius: 14px;
+    margin-bottom: 16px;
+}
+
+.encadreVert {
+    border: 2px solid #4CAF50;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 16px;
+}
+
+.encadreRouge {
+    border: 4px solid #F44336;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-bottom: 10px;
+}
+
+.encadreImage {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 16px;
+}
+
+.imageMain {
+    padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 64px;
+	padding-bottom: 32px;
+}
+
+.imageTop {
+    padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+body.corps {
+	padding-left: 12px;
+	padding-right: 12px;
+	padding-top: 0;
+	padding-bottom: 0;
+	margin: 0;
+}
+
+.enTeteTableauVert {
+    background-color:#69b14f;
+    color:#fcffff;
+    /*line-height:30px;*/
+}
+
+.ligne1TableauVert {
+    background-color:#e2edd9;
+    /*line-height:30px;*/
+}
+
+.ligne2TableauVert {
+    background-color:#c2dbaf;
+    /*line-height:30px;*/
+}
+
+.height30px {
+	height:35px;
+}
+
+.tableauVert {
+    width:100%;
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+
+.alinea {
+    padding-left:10px;
+}
+
+.col1 {
+    width:28%;
+}
+
+.col2 {
+     width:18%;
+}
+
+.col3 {
+    width:16%;
+}
+
+.col4 {
+     width:28%;
+}
+
+.col5 {
+    width:34%;
+}
+
+.col6 {
+     width:22%;
+}
+
+.texteBulle {
+    text-align:justify;
+    text-justify:inter-word;
+}
+
+.bulleVerte {
+    border: 2px solid #c2dbaf;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+  background-color: #e2edd9;
+  border-radius: 14px;
+  margin-bottom: 16px;
+}
+
+.centerHorizontalLarge {
+	margin:auto;
+	width:95%;
+}
+
+.centerHorizontal {
+	margin:auto;
+	width:60%;
+}
+
+.centerHorizontalBis {
+	margin:auto;
+	width:40%;
+}
+
+.centerHorizontalTer {
+	margin:auto;
+	width:25%;
+}
+
+.titreUn {
+	font-size:large;
+	text-align:center;
+}
+
+.titreDeux {
+	font-size:medium;
+	text-align:center;
+}
+
+.alignRight {
+	text-align:right;
+}
+
+.alignLeft {
+	text-align:left;
+}
+
+ul.zeroIndentLeft {
+	padding-left:6px;
+}
+
+/* GOODIES */
+
+.tableGlobal {
+    width:100%;
+}
+
+.scoreGlasgowCol1 {
+	width:70%;
+}
+
+.scoreGlasgowCol2 {
+	width:30%;
+}
+
+.scoreGlasgowTr1 {
+	background-color:#a1e9b4;
+}
+
+.scoreGlasgowTd1 {
+	padding:10px;
+	height:40px;
+}
+
+.scoreGlasgowTd2 {
+	background:#FFFFFF;
+}
+
+.scoreGlasgowTd3 {
+	padding-top:10px;
+	padding-bottom:10px;
+	background:#FFFFFF;
+	height:60px;
+}
+
+.scoreGlasgowInput1 {
+	width:60px;
+	text-align:center;
+	height:30px;
+}
+
+.scoreGlasgowButton1 {
+	height:100%;
+	width:100%;
+}
+
+.width50p {
+	width:50%;
+}
+#searchbar{ 
+
+     margin-left: 15%; 
+
+     padding:15px; 
+
+     border-radius: 10px; 
+
+   } 
+
+ 
+
+   input[type=text] { 
+
+      width: 30%; 
+
+      -webkit-transition: width 0.15s ease-in-out; 
+
+      transition: width 0.15s ease-in-out; 
+
+   } 
+
+ 
+
+   /* When the input field gets focus, 
+
+        change its width to 100% */ 
+
+   input[type=text]:focus { 
+
+     width: 70%; 
+
+   } 
+
+ 
+
+  #list{ 
+
+    font-size:small;
+color:#ffba00;
+    margin-left: 50px; 
+
+   } 
+
+ 
+
+.animals{ 
+
+   display: list-item;     
+
+  }  
+
+/* Nouveau thème Orange-Blanc-Vert */
+.texteRectangleOrange {
+    text-justify: inter-word;
+    color: #FF8F00; /* Orange foncé */
+    text-align: center;
+}
+
+.texteRectangleBlanc {
+    font-weight: bold;
+    color: #FFFFFF; /* Blanc */
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Pour meilleure lisibilité */
+}
+
+.texteRectangleVert {
+    text-justify: inter-word;
+    color: #2E7D32; /* Vert foncé */
+    text-align: center;
+}
+
+.rectangleOrange {
+    background-color: #FFE0B2; /* Orange clair */
+}
+
+.rectangleBlanc {
+    background-color: #FFFFFF; /* Blanc */
+    border: 1px solid #E0E0E0; /* Bordure légère */
+}
+
+.rectangleVert {
+    background-color: #C8E6C9; /* Vert clair */
+}
+
+/* Zones colorées */
+.zoneOrange {
+    border: 2px solid #FF8F00;
+    background-color: #FFE0B2;
+    padding: 10px;
+    margin: 16px 0;
+    border-radius: 14px;
+}
+
+.zoneBlanche {
+    border: 2px solid #E0E0E0;
+    background-color: #FFFFFF;
+    padding: 10px;
+    margin: 16px 0;
+    border-radius: 14px;
+}
+
+.zoneVerte {
+    border: 2px solid #2E7D32;
+    background-color: #C8E6C9;
+    padding: 10px;
+    margin: 16px 0;
+    border-radius: 14px;
+}
+
+/* Éléments de texte spéciaux */
+.grasOrange {
+    font-weight: bold;
+    color: #E65100; /* Orange très foncé */
+}
+
+.grasVert {
+    font-weight: bold;
+    color: #1B5E20; /* Vert très foncé */
+}
+
+/* Tableaux */
+.enTeteTableauOrange {
+    background-color: #FF8F00;
+    color: #FFFFFF;
+}
+
+.ligne1TableauOrange {
+    background-color: #FFE0B2;
+}
+
+.ligne2TableauOrange {
+    background-color: #FFCC80;
+}
+
+/* Conserver les autres styles utiles */
+.center {
+    text-align: center;
+}
+
+.italique {
+    font-style: italic;
+}
+
+.figureImg {
+    width: 100%;
+}
+
+/* Ajouts pour la recherche */
+#searchbar {
+    margin-left: 15%;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #FF8F00;
+}
+
+input[type=text] {
+    width: 30%;
+    transition: width 0.15s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 70%;
+    border-color: #2E7D32;
+}

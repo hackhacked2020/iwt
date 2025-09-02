@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours VIH/SIDA - INFAS</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>:root{--primary-color:#e74c3c;--secondary-color:#c0392b;--accent-color:#3498db;--light-color:#f5eef8;--dark-color:#2c3e50;--transition-speed:0.3s;}*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}body{min-height:100vh;background-color:#f9f9f9;color:#333;padding:10px;user-select:none;}.drawer{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background-color:#333;color:white;width:60px;height:60px;display:flex;align-items:
+center;justify-content:center;border-radius:50%;box-shadow:0 4px 10px rgba(0,0,0,0.2);cursor:pointer;transition:background-color 0.3s ease,transform 0.2s ease;z-index:1000;}.drawer:hover{background-color:#555;transform:translateX(-50%) scale(1.1);}.sidebar{position:fixed;left:0;top:0;width:5cm;height:100%;background-color:#333;display:flex;flex-direction:column;align-items:center;padding-top:20px;z-index:1000;box-shadow:2px 0 10px rgba(0,0,0,0.1);transform:translateX(-100%);transition:transform
+0.3s ease;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#888 #333;}.sidebar.show{transform:translateX(0);}.icon{color:white;font-size:2rem;margin:10px 0;cursor:pointer;transition:transform 0.2s,color 0.2s;}.icon:hover{transform:scale(1.2);color:#1e90ff;}.sidebar::-webkit-scrollbar{width:8px;}.sidebar::-webkit-scrollbar-thumb{background-color:#888;border-radius:4px;}.sidebar::-webkit-scrollbar-track{background-color:#333;}.icon i{font-size:2.5rem;}.menu-button{position:fixed;top:20px;left:
+20px;background-color:#333;color:white;width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);z-index:1001;}.menu-button:hover{background-color:#555;}.overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:999;}.body-disabled{overflow:hidden;}.main-content{max-width:1200px;margin:0 auto;padding:10px;}.search-filter-container{display:flex;
+flex-wrap:wrap;gap:15px;margin-bottom:20px;padding:15px;background-color:white;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.08);}.search-box{flex:1;min-width:250px;}.search-box input{width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-size:1rem;}.pathology-selector{flex:1;min-width:250px;}.pathology-selector select{width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-size:1rem;background-color:white;}.advanced-search-btn{padding:10px 15px;
+background-color:var(--primary-color);color:white;border:none;border-radius:4px;cursor:pointer;font-size:1rem;transition:background-color 0.3s;}.advanced-search-btn:hover{background-color:var(--secondary-color);}.protocol-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid #ddd;}.protocol-title{font-size:1.8rem;color:var(--secondary-color);}.protocol-subtitle{font-size:1rem;color:#7f8c8d;margin-top:5px;}
+.protocol-number{background-color:var(--accent-color);color:white;padding:5px 10px;border-radius:20px;font-weight:bold;font-size:0.9rem;}.case-studies-container{position:relative;min-height:400px;}.case-study-card{background-color:white;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.08);padding:15px;margin-bottom:15px;display:none;transition:opacity 0.5s ease;}.case-study-card.active{display:block;opacity:1;}.case-study-card h3{font-size:1.3rem;color:var(--secondary-color);margin-bottom:
+10px;display:flex;align-items:center;gap:8px;}.case-study-card h3 i{color:var(--primary-color);}.case-description{line-height:1.6;margin-bottom:15px;font-size:0.95rem;}.tabs{display:flex;border-bottom:2px solid #ddd;margin-bottom:15px;}.tab{flex:1;padding:8px 0;text-align:center;cursor:pointer;font-weight:bold;color:var(--dark-color);border-bottom:3px solid transparent;transition:all 0.3s;font-size:0.9rem;}.tab.active{color:var(--primary-color);border-bottom:3px solid var(--primary-color);}
+.tab:hover{color:var(--primary-color);}.tab-content{display:none;line-height:1.6;font-size:0.9rem;}.tab-content.active{display:block;}.prescription-list{margin-left:15px;margin-bottom:10px;}.prescription-list li{margin-bottom:8px;}.navigation{display:flex;justify-content:space-between;margin-top:15px;gap:10px;}.nav-btn{background-color:var(--primary-color);color:white;border:none;padding:8px 15px;border-radius:4px;cursor:pointer;font-size:0.9rem;transition:background-color 0.3s;flex:1;}
+.nav-btn:disabled{background-color:#ccc;cursor:not-allowed;}.nav-btn:hover:not(:disabled){background-color:var(--secondary-color);}.definition-box{background-color:#f0f8ff;border-left:4px solid var(--primary-color);padding:15px;margin:15px 0;border-radius:0 5px 5px 0;}.classification-box{background-color:#fffaf0;border-left:4px solid #ffa500;padding:15px;margin:15px 0;border-radius:0 5px 5px 0;}.indication-box{background-color:#f0fff0;border-left:4px solid #2ecc71;padding:15px;margin:15px 0;
+border-radius:0 5px 5px 0;}.specialty-box{background-color:#f5f0ff;border-left:4px solid #9b59b6;padding:15px;margin:15px 0;border-radius:0 5px 5px 0;}.pillar{margin-bottom:30px;padding:15px;border-radius:5px;background-color:#f8f9fa;border-left:4px solid var(--secondary-color);}.pillar-title{font-weight:bold;color:var(--secondary-color);margin-bottom:10px;}.protocol-box{background-color:#e8f5e9;border-left:4px solid #4caf50;padding:15px;margin:15px 0;border-radius:0 5px 5px 0;}
+.who-recommendation{background-color:#e3f2fd;border-left:4px solid #2196f3;padding:10px;margin:10px 0;border-radius:0 5px 5px 0;font-style:italic;}.warning-box{background-color:#ffebee;border-left:4px solid #f44336;padding:10px;margin:10px 0;border-radius:0 5px 5px 0;}.regimen-table{width:100%;border-collapse:collapse;margin:15px 0;overflow-x:auto;display:block;white-space:nowrap;}.regimen-table th,.regimen-table td{border:1px solid #ddd;padding:8px;text-align:left;white-space:normal;}
+.regimen-table th{background-color:var(--primary-color);color:white;position:sticky;top:0;}.regimen-table tr:nth-child(even){background-color:#f2f2f2;}.side-effects{background-color:#fff3e0;border-left:4px solid #ff9800;padding:10px;margin:10px 0;border-radius:0 5px 5px 0;}
+@media (max-width:768px){.main-content{padding:5px;}.protocol-header{flex-direction:column;align-items:flex-start;gap:8px;}.protocol-title{font-size:1.4rem;}.protocol-number{font-size:0.8rem;padding:4px 8px;}.case-study-card{padding:10px;}.case-study-card h3{font-size:1.1rem;}.case-description,.tab-content{font-size:0.85rem;}.tabs{flex-direction:column;}.tab{padding:8px;border-bottom:1px solid #ddd;}.tab:last-child{border-bottom:none;}.navigation{flex-direction:row;gap:5px;}.nav-btn{padding:6px
+10px;font-size:0.8rem;}.search-filter-container{flex-direction:column;gap:10px;} }
+@media (max-width:480px){.protocol-title{font-size:1.2rem;}.case-study-card h3{font-size:1rem;}.case-description,.tab-content{font-size:0.8rem;}.nav-btn{padding:5px 8px;font-size:0.75rem;}.modal-content{width:95%;padding:15px;} }.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:2000;justify-content:center;align-items:center;}.modal-content{background-color:white;padding:20px;border-radius:8px;width:90%;max-width:600px;max-height:80vh;
+overflow-y:auto;}.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}.modal-title{font-size:1.5rem;color:var(--secondary-color);}.close-modal{font-size:1.5rem;cursor:pointer;color:var(--dark-color);}.filter-group{margin-bottom:15px;}.filter-group label{display:block;margin-bottom:5px;font-weight:bold;}.filter-group input,.filter-group select{width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;}.modal-actions{display:flex;justify-content:
+flex-end;gap:10px;margin-top:20px;}.modal-btn{padding:8px 15px;border:none;border-radius:4px;cursor:pointer;font-size:0.9rem;}.apply-btn{background-color:var(--primary-color);color:white;}.apply-btn:hover{background-color:var(--secondary-color);}.cancel-btn{background-color:#ddd;color:var(--dark-color);}.cancel-btn:hover{background-color:#ccc;}marquee{padding:8px 0;background-color:rgba(0,0,0,0.1);border-radius:4px;margin-bottom:10px;}marquee a{color:var(--primary-color);text-decoration:none;
+font-weight:500;margin:0 15px;}
+</style>
+</head>
+<body><marquee> <a href="https://wa.me/225054783595" target="_blank">ME CONTACTER SUR WHATSAPP ! 💬</a> <a href="https://whatsapp.com/channel/0029VaJvdFJF6smp7250ba2a" target="_blank">NOTRE CHAÎNE WHATSAPP 📱</a></marquee><div id="overlay" class="overlay" onclick="closeDrawer()"></div><div id="sidebar" class="sidebar"><div class="icon" onclick="navigateTo('https://sujetsinfas.com/index.php')"> <i>🏛️</i></div></div><div class="drawer" onclick="toggleDrawer()">☰</div><main class="main-content">
+<div class="search-filter-container"><div class="search-box"> <input type="text" id="searchInput" placeholder="Rechercher dans le cours VIH..."></div><!-- Mise à jour du sélecteur de pathologie --><div class="pathology-selector"> <select id="pathologySelect"><option value="all">Tous les modules VIH</option><option value="epidemiologie">Épidémiologie VIH</option><option value="virologie">Virologie du VIH</option><option value="clinique">Clinique du SIDA</option><option value="depistage">Dépistage
+VIH</option><option value="tarv">Traitements ARV (L1)</option><option value="tarv_l2">Traitements ARV - Approfondi (L2)</option><option value="ptme">PTME</option><option value="prevention">Santé Positive & Prévention</option></select></div> <button class="advanced-search-btn" onclick="openAdvancedSearch()"> <i class="fas fa-search-plus"></i> Filtres avancés </button></div>
+<header class="protocol-header"><div><h1 class="protocol-title" id="dynamicTitle">Cours complet VIH/SIDA</h1><p class="protocol-subtitle">Programme de formation INFAS - Référentiel national 2023</p></div> <span class="protocol-number" id="dynamicProtocol">Protocoles nationaux</span>
+</header><div class="case-studies-container" id="caseStudies"><!-- Module 1 : Épidémiologie du VIH (Version détaillée) --><div class="case-study-card active" data-index="0" data-pathology="epidemiologie"><h3><i class="fas fa-chart-line"></i> Module 1 : Épidémiologie et Historique du VIH</h3><p class="case-description">Données mondiales et nationales, historique, modes de transmission et impact socio-économique.</p><div class="tabs"><div class="tab active" data-tab="vih-1-1">Historique</div><div
+class="tab" data-tab="vih-1-2">Transmission</div><div class="tab" data-tab="vih-1-3">Impact</div></div><div class="tab-content active" id="vih-1-1"><div class="definition-box"><h4>Chronologie mondiale clé</h4>
+<table class="regimen-table"><tr><th>Année</th><th>Événement</th></tr><tr><td>1981
+</td><td>Premiers cas de SIDA identifiés aux USA (MMWR)
+</td></tr><tr><td>1983
+</td><td>Isolement du VIH-1 par Montagnier et Gallo
+</td></tr><tr><td>1986
+</td><td>Découverte du VIH-2 (Afrique de l'Ouest)
+</td></tr><tr><td>1996
+</td><td>Introduction des trithérapies (HAART)
+</td></tr><tr><td>2014
+</td><td>Stratégie 90-90-90 de l'ONUSIDA
+</td></tr></table></div><div class="protocol-box"><h4>Historique en Côte d'Ivoire</h4>
+<table class="regimen-table"><tr><th>Année</th><th>Événement</th></tr><tr><td>1985
+</td><td>Premier cas diagnostiqué
+</td></tr><tr><td>1987
+</td><td>Création du PNLS
+</td></tr><tr><td>2001
+</td><td>Gratuité des ARV pour enfants et PTME
+</td></tr><tr><td>2005
+</td><td>Gratuité généralisée des ARV
+</td></tr><tr><td>2014
+</td><td>Loi VIH (obligation de divulgation aux partenaires)
+</td></tr></table></div><div class="warning-box"><h4><i class="fas fa-exclamation-triangle"></i> Données épidémiologiques 2023</h4><ul><li><strong>Prévalence nationale</strong> : 1.94% (ONUSIDA)</li><li><strong>Femmes</strong> : 2.1% vs <strong>Hommes</strong> : 1.7%</li><li><strong>Nouvelles infections</strong> : 14,000/an</li><li><strong>Décès SIDA</strong> : 12,000/an</li><li><strong>Couverture ARV</strong> : 80% des PVVIH</li></ul></div></div><div class="tab-content" id="vih-1-2"><div
+class="classification-box"><h4>Modes de transmission confirmés</h4>
+<table class="regimen-table"><tr><th>Voie</th><th>Pourcentage</th><th>Facteurs de risque</th></tr><tr><td>Sexuelle
+</td><td>90%
+</td><td>IST ulcéreuses, rapports non protégés, multipartenariat
+</td></tr><tr><td>Sanguine
+</td><td>3%
+</td><td>Transfusions non testées, AES, UDI
+</td></tr><tr><td>Mère-enfant
+</td><td>7%
+</td><td>Charge virale élevée, allaitement mixte
+</td></tr></table></div><div class="indication-box"><h4>Facteurs favorisant la transmission sexuelle</h4><ul><li><strong>Chez l'homme</strong> : Circoncision non médicalisée, IST concomitantes</li><li><strong>Chez la femme</strong> : Jeune âge, rapports pendant les règles</li><li><strong>Comportementaux</strong> : Consommation d'alcool/drogues, partenaires multiples</li><li><strong>Biologiques</strong> : Charge virale élevée, stade SIDA</li></ul></div><div class="who-recommendation"><h4>Non-transmission
+(mythes à dissiper)</h4><ul><li>Salutations/baisers sociaux</li><li>Ustensiles de cuisine partagés</li><li>Piqûres d'insectes</li><li>Contacts professionnels</li><li>Sports ou natation</li></ul></div></div><div class="tab-content" id="vih-1-3"><div class="definition-box"><h4>Impact démographique</h4><ul><li><strong>Espérance de vie</strong> : Chute de 52 ans (1990) à 46 ans (2000)</li><li><strong>Mortalité adulte</strong> : 1ère cause devant paludisme</li><li><strong>Orphelins</strong> > 500,000
+dû au SIDA</li></ul></div><div class="protocol-box"><h4>Impact socio-économique</h4>
+<table class="regimen-table"><tr><th>Secteur</th><th>Impact</th></tr><tr><td>Santé
+</td><td>20% des consultations hospitalières, 80% d'occupation lits SMIT
+</td></tr><tr><td>Éducation
+</td><td>Décès enseignants, baisse scolarisation orphelins
+</td></tr><tr><td>Agriculture
+</td><td>Baisse de 60% de production dans les zones affectées
+</td></tr><tr><td>Entreprises
+</td><td>Absentéisme 4x plus élevé, coûts de formation
+</td></tr></table></div><div class="warning-box"><h4><i class="fas fa-exclamation-triangle"></i> Populations vulnérables</h4><ul><li><strong>Femmes</strong> : 55% des PVVIH, prévalence 2.1%</li><li><strong>Jeunes 15-24 ans</strong> : 50% des nouvelles infections</li><li><strong>Professionnels du sexe</strong> : Prévalence 10-30%</li><li><strong>HSH</strong> : Prévalence 15-25%</li><li><strong>Usagers de drogues injectables</strong> : Prévalence 5-15%
+</td></ul></div></div></div><!-- Module 2 : Virologie du VIH (Version détaillée) --><div class="case-study-card" data-index="1" data-pathology="virologie"><h3><i class="fas fa-dna"></i> Module 2 : Virologie et Pathogénie du VIH</h3><p class="case-description">Structure virale, cycle de réplication, variabilité génétique et mécanismes d'immunodéficience.</p><div class="tabs"><div class="tab active" data-tab="vih-2-1">Structure</div><div class="tab" data-tab="vih-2-2">Cycle viral</div><div
+class="tab" data-tab="vih-2-3">Pathogénie</div></div><div class="tab-content active" id="vih-2-1"><div class="definition-box"><h4>Structure du VIH (Microscopie électronique)</h4><ul><li><strong>Famille</strong> : Retroviridae (genre Lentivirus)</li><li><strong>Morphologie</strong> : Sphérique 100-120 nm</li><li><strong>Enveloppe</strong> : <ul><li>Lipoprotéique (origine cellulaire)</li><li>Glycoprotéines gp120 (fixation CD4) et gp41 (fusion)</li></ul></li><li><strong>Capside</strong> : <ul><li>Protéine
+p24 (marqueur antigénique)</li><li>2 brins d'ARN + enzymes (transcriptase inverse, intégrase, protéase)</li></ul></li></ul></div><div class="protocol-box"><h4>Comparaison VIH-1 vs VIH-2</h4>
+<table class="regimen-table"><tr><th>Caractéristique</th><th>VIH-1</th><th>VIH-2</th></tr><tr><td>Distribution
+</td><td>Mondiale
+</td><td>Afrique de l'Ouest
+</td></tr><tr><td>Transmissibilité
+</td><td>Élevée
+</td><td>Modérée
+</td></tr><tr><td>TME
+</td><td>Fréquente
+</td><td>Rare
+</td></tr><tr><td>Progression
+</td><td>Rapide (5-10 ans)
+</td><td>Lente (15-20 ans)
+</td></tr><tr><td>Sous-types
+</td><td>Groupe M (A-K), O, N, P
+</td><td>Groupes A-H
+</td></tr></table></div><div class="warning-box"><h4><i class="fas fa-exclamation-triangle"></i> Résistance environnementale</h4><ul><li><strong>Sensible à</strong> : <ul><li>Chaleur >56°C (5 min)</li><li>Eau de Javel 1% (10 min)</li><li>Alcool 70° (15 min)</li></ul></li><li><strong>Résistant à</strong> : <ul><li>Eau à 37°C (15 jours)</li><li>Sang séché (3-7 jours)</li></ul></li></ul></div></div><div class="tab-content" id="vih-2-2"><div class="classification-box"><h4>Cycle de réplication (7
+étapes détaillées)</h4><ol><li><strong>Fixation</strong> : <ul><li>Interaction gp120 avec CD4 + co-récepteur (CCR5 ou CXCR4)</li><li>Souche R5 (CCR5) : Transmission initiale</li><li>Souche X4 (CXCR4) : Apparaît aux stades avancés</li></ul></li><li><strong>Fusion</strong> : Changement conformationnel gp41 → fusion membrane</li><li><strong>Rétrotranscription</strong> : <ul><li>ARN viral → ADN complémentaire (cADN)</li><li>Catalysé par la transcriptase inverse (RT)</li><li>Taux d'erreur élevé (1
+mutation/réplication)</li></ul></li><li><strong>Intégration</strong> : <ul><li>ADN viral intégré dans génome hôte par intégrase</li><li>Forme provirale latente possible</li></ul></li><li><strong>Transcription</strong> : Production ARNm viraux par polymérase II</li><li><strong>Assemblage</strong> : <ul><li>Polyprotéines Gag et Gag-Pol</li><li>Clivage par protéase virale → particules matures</li></ul></li><li><strong>Bourgeonnement</strong> : Libération nouveaux virions</li></ol></div><div
+class="who-recommendation"><h4>Cibles thérapeutiques</h4>
+<table class="regimen-table"><tr><th>Étape</th><th>Cible</th><th>Classes ARV</th></tr><tr><td>Fixation/Fusion
+</td><td>gp120/gp41
+</td><td>Inhibiteurs d'entrée (Enfuvirtide, Maraviroc)
+</td></tr><tr><td>Rétrotranscription
+</td><td>Transcriptase inverse
+</td><td>INTI (TDF, 3TC), INNTI (EFV, NVP)
+</td></tr><tr><td>Intégration
+</td><td>Intégrase
+</td><td>INI (DTG, RAL)
+</td></tr><tr><td>Maturation
+</td><td>Protéase
+</td><td>IP (LPV/r, DRV/r)
+</td></tr></table></div></div><div class="tab-content" id="vih-2-3"><div class="indication-box"><h4>Mécanismes d'immunodéficience</h4><ol><li><strong>Destruction directe lymphocytes CD4</strong> : <ul><li>Effet cytopathique viral</li><li>Apoptose des cellules infectées</li></ul></li><li><strong>Dysfonctionnement immunitaire</strong> : <ul><li>Activation immune chronique</li><li>Épuisement thymique</li><li>Altération des cellules présentatrices d'antigène</li></ul></li><li><strong>Réservoirs
+viraux</strong> : <ul><li>Cellules mémoire latentes</li><li>Tissus sanctuaires (SNC, ganglions)</li></ul></li></ol></div><div class="protocol-box"><h4>Évolution de l'infection</h4>
+<table class="regimen-table"><tr><th>Phase</th><th>Durée</th><th>Caractéristiques</th><th>CD4/mm3</th></tr><tr><td>Primo-infection
+</td><td>2-4 semaines
+</td><td>Syndrome rétroviral aigu (40-90% des cas)
+</td><td>> 500
+</td></tr><tr><td>Latence clinique
+</td><td>4-10 ans
+</td><td>Asymptomatique ou adénopathies
+</td><td>350-500
+</td></tr><tr><td>Symptomatique précoce
+</td><td>1-2 ans
+</td><td>Infections mineures, perte poids
+</td><td>200-350
+</td></tr><tr><td>SIDA
+</td><td>1-2 ans
+</td><td>Infections opportunistes, cancers
+</td><td>< 200
+</td></tr></table></div><div class="warning-box"><h4><i class="fas fa-exclamation-triangle"></i> Particularités pédiatriques</h4><ul><li><strong>Progression rapide</strong> : 25-30% des enfants non traités</li><li><strong>Marqueurs immunologiques</strong> : <ul><li>CD4 élevés à la naissance (normes spécifiques)</li><li>Déficit immunitaire plus sévère à CD4 égal</li></ul></li><li><strong>Manifestations cliniques</strong> : <ul><li>Retard staturo-pondéral</li><li>Infections bactériennes
+récurrentes</li><li>Encéphalopathie progressive</li></ul></li></ul></div></div></div><!-- Ajoutez ici les autres modules (3 à 6) avec la même structure --><!-- Module 3 : Clinique du VIH/SIDA --><div class="case-study-card" data-index="2" data-pathology="clinique"><h3><i class="fas fa-stethoscope"></i> Module 3 : Clinique du VIH/SIDA</h3><p class="case-description">Histoire naturelle, classification clinique et immunologique, manifestations cliniques.</p><div class="tabs"><div class="tab active"
+data-tab="vih-3-1">Histoire naturelle</div><div class="tab" data-tab="vih-3-2">Classification</div><div class="tab" data-tab="vih-3-3">Manifestations</div></div><div class="tab-content active" id="vih-3-1"><div class="definition-box"><h4>Évolution de l'infection à VIH</h4><ol><li><strong>Primo-infection</strong> (3 mois) : Syndrome pseudo-grippal (fièvre, adénopathies, éruption cutanée), sérologie initialement négative puis positive après 1-3 mois</li><li><strong>Phase de latence</strong> (4-10
+ans) : Asymptomatique ou symptômes mineurs (candidose buccale, zona), taux CD4 > 350/mm3</li><li><strong>Phase SIDA</strong> (1-2 ans) : Infections opportunistes, cancers, CD4 < 200/mm3</li></ol></div><div class="protocol-box"><h4>Particularités chez l'enfant</h4>
+<table class="regimen-table"><tr><th>Type d'évolution</th><th>Caractéristiques</th><th>Survie</th></tr><tr><td>Précocement sévère
+</td><td>Contamination in utero, SIDA avant 1 an
+</td><td>10% à 5 ans
+</td></tr><tr><td>Lentement progressive
+</td><td>Contamination per partum/allaitement
+</td><td>95% à 5 ans
+</td></tr></table></div></div><div class="tab-content" id="vih-3-2"><div class="classification-box"><h4>Classification OMS (adultes)</h4>
+<table class="regimen-table"><tr><th>Stade</th><th>Critères cliniques</th><th>CD4/mm3</th></tr><tr><td>I
+</td><td>Asymptomatique, adénopathies
+</td><td>> 500
+</td></tr><tr><td>II
+</td><td>Perte poids <10%, infections mineures
+</td><td>350-499
+</td></tr><tr><td>III
+</td><td>Diarrhée chronique, fièvre, candidose
+</td><td>200-349
+</td></tr><tr><td>IV
+</td><td>Infections opportunistes, cachexie
+</td><td>< 200
+</td></tr></table></div><div class="who-recommendation"><h4>Classification pédiatrique (OMS 2005)</h4><ul><li><strong>Stade 1</strong> : Asymptomatique, adénopathies</li><li><strong>Stade 2</strong> : Dermatoses, infections ORL récidivantes</li><li><strong>Stade 3</strong> : Diarrhée chronique, malnutrition</li><li><strong>Stade 4</strong> : Infections opportunistes sévères</li></ul></div></div><div class="tab-content" id="vih-3-3"><div class="indication-box"><h4>Infections opportunistes
+majeures</h4>
+<table class="regimen-table"><tr><th>Infection</th><th>Agent</th><th>Stade</th></tr><tr><td>Tuberculose
+</td><td>M. tuberculosis
+</td><td>III-IV
+</td></tr><tr><td>Pneumocystose
+</td><td>P. jiroveci
+</td><td>IV
+</td></tr><tr><td>Candidose œsophagienne
+</td><td>C. albicans
+</td><td>IV
+</td></tr><tr><td>Toxoplasmose cérébrale
+</td><td>T. gondii
+</td><td>IV
+</td></tr></table></div><div class="warning-box"><h4><i class="fas fa-exclamation-triangle"></i> Manifestations tumorales</h4><ul><li><strong>Sarcome de Kaposi</strong> : HHV-8, lésions cutanées violacées</li><li><strong>Lymphomes non hodgkiniens</strong> : EBV, atteintes ganglionnaires</li><li><strong>Cancer du col utérin</strong> : HPV oncogène, dysplasies</li></ul></div></div></div><!-- Module 4 : Dépistage VIH --><div class="case-study-card" data-index="3" data-pathology="depistage"><h3><i
+class="fas fa-vial"></i> Module 4 : Dépistage VIH</h3><p class="case-description">Stratégies de dépistage, algorithmes diagnostiques, conseil pré et post-test.</p><div class="tabs"><div class="tab active" data-tab="vih-4-1">Méthodes</div><div class="tab" data-tab="vih-4-2">Algorithmes</div><div class="tab" data-tab="vih-4-3">Conseil</div></div><div class="tab-content active" id="vih-4-1"><div class="definition-box"><h4>Méthodes de diagnostic</h4><ul><li><strong>Directes</strong> : PCR (détection
+ADN viral), antigène p24, culture virale</li><li><strong>Indirectes</strong> : Tests rapides (Determine, Stat-Pak), ELISA, Western Blot</li></ul></div><div class="protocol-box"><h4>Tests rapides VIH</h4>
+<table class="regimen-table"><tr><th>Test</th><th>Type</th><th>Temps</th><th>Sensibilité</th></tr><tr><td>Determine
+</td><td>Bandelettes
+</td><td>15 min
+</td><td>> 99%
+</td></tr><tr><td>Stat-Pak
+</td><td>Cassette
+</td><td>10 min
+</td><td>> 98%
+</td></tr></table></div></div><div class="tab-content" id="vih-4-2"><div class="classification-box"><h4>Algorithme national (Côte d'Ivoire)</h4><ol><li>1er test : Determine (très sensible)</li><li>Si positif → 2ème test : Stat-Pak (spécifique)</li><li>Si discordant → Laboratoire référence (Western Blot)</li><li>Enfant <18 mois : PCR sur DBS (sang séché)</li></ol></div><div class="who-recommendation"><h4>Diagnostic pédiatrique</h4><ul><li><strong>PCR à 6 semaines</strong> : Détection précoce</li>
+<li><strong>Sérologie à 9 mois</strong> : Si PCR négative</li><li><strong>Confirmation à 18 mois</strong> : 2 tests sérologiques</li><li>Allaitement : Test 6 semaines après sevrage</li></ul></div></div><div class="tab-content" id="vih-4-3"><div class="indication-box"><h4>Conseil pré-test (5C)</h4><ul><li><strong>Consentement</strong> : Volontaire, éclairé</li><li><strong>Confidentialité</strong> : Résultats protégés</li><li><strong>Conseil</strong> : Avant/après test</li><li><strong>Connexion</strong>
+: Liens avec soins</li><li><strong>Correct</strong> : Résultats fiables</li></ul></div><div class="warning-box"><h4><i class="fas fa-exclamation-triangle"></i> Annonce résultats</h4><ul><li><strong>Négatif</strong> : Fenêtre sérologique (3 mois), prévention</li><li><strong>Positif</strong> : Soutien psychologique, orientation soins</li><li><strong>Couples</strong> : Dépistage conjoint, prévention discordance</li><li>Loi VIH : Obligation d'informer partenaire sous 3 mois</li></ul></div></div>
+</div><!-- Module 5 : Traitements ARV --><div class="case-study-card" data-index="4" data-pathology="tarv"><h3><i class="fas fa-pills"></i> Module 5 : Traitements ARV</h3><p class="case-description">Classes d'ARV, schémas thérapeutiques, suivi biologique, effets indésirables.</p><div class="tabs"><div class="tab active" data-tab="vih-5-1">Classes ARV</div><div class="tab" data-tab="vih-5-2">Schémas</div><div class="tab" data-tab="vih-5-3">Suivi</div></div><div class="tab-content active"
+id="vih-5-1"><div class="definition-box"><h4>Classes d'antirétroviraux</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Médicaments</th><th>Cible</th></tr><tr><td>INTI
+</td><td>TDF, 3TC, ABC, AZT
+</td><td>Transcriptase inverse
+</td></tr><tr><td>INNTI
+</td><td>EFV, NVP, DOR
+</td><td>Transcriptase inverse
+</td></tr><tr><td>IP
+</td><td>ATV/r, LPV/r, DRV/r
+</td><td>Protéase virale
+</td></tr><tr><td>INI
+</td><td>RAL, DTG, BIC
+</td><td>Intégrase virale
+</td></tr></table></div><div class="protocol-box"><h4>Mécanismes d'action</h4><ol><li><strong>Inhibiteurs d'entrée</strong> : Bloquent gp120/gp41</li><li><strong>INTI/INNTI</strong> : Empêchent ARN→ADN</li><li><strong>INI
+</td> : Bloquent intégration ADN viral</li><li><strong>IP</strong> : Inhibent maturation virale</li></ol></div></div><div class="tab-content" id="vih-5-2"><div class="classification-box"><h4>Schémas de 1ère ligne (CI 2023)</h4>
+<table class="regimen-table"><tr><th>Population</th><th>Traitement</th><th>Alternative</th></tr><tr><td>Adultes
+</td><td>TDF + 3TC + DTG
+</td><td>TDF + 3TC + EFV
+</td></tr><tr><td>Femmes enceintes
+</td><td>TDF + 3TC + DTG
+</td><td>AZT + 3TC + LPV/r
+</td></tr><tr><td>Enfants >3 ans
+</td><td>ABC + 3TC + DTG
+</td><td>AZT + 3TC + LPV/r
+</td></tr></table></div><div class="who-recommendation"><h4>Critères d'initiation ARV</h4><ul><li>Tous les patients quel que soit le stade (Test & Treat)</li><li>Urgence : Grossesse, TB co-infectée, CD4 < 200</li><li>Prévention : PTME, PrEP, PEP</li></ul></div></div><div class="tab-content" id="vih-5-3"><div class="indication-box"><h4>Suivi biologique</h4>
+<table class="regimen-table"><tr><th>Paramètre</th><th>Fréquence</th><th>Objectifs</th></tr><tr><td>CD4
+</td><td>6-12 mois
+</td><td>Immunité
+</td></tr><tr><td>Charge virale
+</td><td>6 mois
+</td><td>Efficacité
+</td></tr><tr><td>Bilan rénal
+</td><td>6 mois
+</td><td>Toxicite TDF
+</td></tr></table></div><div class="side-effects"><h4><i class="fas fa-exclamation-triangle"></i> Effets indésirables</h4><ul><li><strong>TDF</strong> : Néphrotoxicité, ostéoporose</li><li><strong>EFV</strong> : Troubles neuropsychiatriques</li><li><strong>DTG</strong> : Prise de poids, insomnie</li><li><strong>AZT</strong> : Anémie, neutropénie</li></ul></div></div></div><!-- Module 6 : PTME --><div class="case-study-card" data-index="5" data-pathology="ptme"><h3><i class="fas fa-baby"></i>
+Module 6 : PTME</h3><p class="case-description">Prévention de la Transmission Mère-Enfant, stratégies, protocoles et suivi.</p><div class="tabs"><div class="tab active" data-tab="vih-6-1">Stratégies</div><div class="tab" data-tab="vih-6-2">Protocoles</div><div class="tab" data-tab="vih-6-3">Suivi</div></div><div class="tab-content active" id="vih-6-1"><div class="definition-box"><h4>4 piliers de la PTME</h4><ol><li><strong>Prévention primaire</strong> : Dépistage couples, planning familial</li>
+<li><strong>Prévention grossesses</strong> : Contraception femmes VIH+</li><li><strong>Prévention transmission</strong> : ARV mère-enfant</li><li><strong>Soins & soutien</strong> : Prise en charge globale</li></ol></div><div class="protocol-box"><h4>Moments de transmission</h4>
+<table class="regimen-table"><tr><th>Période</th><th>Risque</th><th>Interventions</th></tr><tr><td>Grossesse
+</td><td>5-10%
+</td><td>ARV mère, bilan initial
+</td></tr><tr><td>Accouchement
+</td><td>10-20%
+</td><td>ARV mère, césarienne si CV↑
+</td></tr><tr><td>Allaitement
+</td><td>5-20%
+</td><td>ARV mère/enfant, substituts
+</td></tr></table></div></div><div class="tab-content" id="vih-6-2"><div class="classification-box"><h4>Protocoles PTME (CI 2023)</h4>
+<table class="regimen-table"><tr><th>Situation</th><th>Traitement mère</th><th>Prophylaxie enfant</th></tr><tr><td>Découverte grossesse
+</td><td>TDF + 3TC + DTG (à vie)
+</td><td>NVP x 6 semaines
+</td></tr><tr><td>Déjà sous ARV
+</td><td>Poursuite traitement
+</td><td>NVP x 6 semaines
+</td></tr><tr><td>Diagnostic accouchement
+</td><td>TDF + 3TC + DTG (à vie)
+</td><td>NVP + AZT x 6 semaines
+</td></tr></table></div><div class="who-recommendation"><h4>Options d'alimentation</h4><ul><li><strong>Allaitement maternel exclusif + ARV</strong> : 6 mois maximum</li><li><strong>Substituts lactés</strong> : Si conditions AFASS</li><li>Éviter allaitement mixte (risque ↑)</li></ul></div></div><div class="tab-content" id="vih-6-3"><div class="indication-box"><h4>Suivi mère-enfant</h4>
+<table class="regimen-table"><tr><th>Activité</th><th>Mère</th><th>Enfant</th></tr><tr><td>Dépistage
+</td><td>CPN, accouchement
+</td><td>PCR 6 semaines, 9 mois
+</td></tr><tr><td>ARV
+</td><td>Adhérence, CV
+</td><td>Prophylaxie 6 semaines
+</td></tr><tr><td>Consultations
+</td><td>CPN, CPoN
+</td><td>Vaccination, croissance
+</td></tr></table></div><div class="warning-box"><h4><i class="fas fa-exclamation-triangle"></i> Défis PTME</h4><ul><li>Dépistage tardif en grossesse</li><li>Perdues de vue postpartum</li><li>Allaitement mixte fréquent</li><li>Stigmatisation des mères</li></ul></div></div></div><!-- Ajouter après le module 6 existant --><!-- Module 7 : Introduction et directives du TARV --><div class="case-study-card" data-index="6" data-pathology="tarv_l2"><h3><i class="fas fa-book-medical"></i> Module 7 :
+Introduction au TARV</h3><p class="case-description">Principes directeurs du traitement antirétroviral, définition du HAART et intérêts du TARV.</p><div class="tabs"><div class="tab active" data-tab="vih-7-1">HAART</div><div class="tab" data-tab="vih-7-2">Intérêts</div><div class="tab" data-tab="vih-7-3">Principes</div></div><div class="tab-content active" id="vih-7-1"><div class="definition-box"><h4>Définition du HAART</h4><p>Le Traitement Antirétroviral Hautement Actif (HAART) est le
+traitement de l'infection à VIH par les antirétroviraux (ARV). Il s'agit d'une association efficace de trois médicaments ou plus, appartenant en général à au moins deux classes différentes.</p></div><div class="protocol-box"><h4>Objectifs du chapitre</h4><ul><li>Définir un traitement antirétroviral hautement actif (HAART)</li><li>Expliquer l'intérêt du TARV</li><li>Décrire les principes de base du TARV</li></ul></div></div><div class="tab-content" id="vih-7-2"><div class="classification-box">
+<h4>Intérêts du TARV</h4><ul><li>Suppression ou réduction forte et prolongée de la réplication virale (charge virale)</li><li>Restauration et amélioration de la fonction immunitaire</li><li>Amélioration de la qualité de vie</li><li>Réduction des maladies opportunistes, hospitalisations et décès liés au VIH</li><li>Réduction du nombre de nouvelles contaminations</li></ul></div></div><div class="tab-content" id="vih-7-3"><div class="indication-box"><h4>Principes de base du TARV</h4><ol><li><strong>Préparer
+le patient au traitement</strong> : Partenariat client/prestataire, 5 principes fondamentaux (5A)</li><li><strong>Associer les médicaments antirétroviraux</strong> : Au moins 3 médicaments de classes différentes</li><li><strong>Aider à l'observance</strong> : Respect des doses, horaires, restrictions alimentaires</li><li><strong>Prévenir les échecs thérapeutiques</strong> : Bon schéma, suivi, observance</li></ol></div><div class="warning-box"><h4><i class="fas fa-exclamation-triangle"></i>
+Limites du traitement ARV</h4><ul><li>Activité non virucide</li><li>Émergence rapide de mutants résistants</li><li>Nécessité d'un traitement précoce avec des molécules bien choisies</li></ul></div></div></div><!-- Module 8 : Molécules ARV --><div class="case-study-card" data-index="7" data-pathology="tarv"><h3><i class="fas fa-pills"></i> Module 8 : Molécules ARV</h3><p class="case-description">Classes thérapeutiques, modes d'action, médicaments disponibles en Côte d'Ivoire et effets
+secondaires.</p><div class="tabs"><div class="tab active" data-tab="vih-8-1">Classes</div><div class="tab" data-tab="vih-8-2">Médicaments</div><div class="tab" data-tab="vih-8-3">Effets secondaires</div></div><div class="tab-content active" id="vih-8-1"><div class="definition-box"><h4>Classes thérapeutiques des ARV</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Mode d'action</th><th>Exemples</th></tr><tr><td>Inhibiteurs d'entrée et de fusion
+</td><td>Bloquent l'entrée du VIH en se fixant à gp41
+</td><td>Enfuvirtide
+</td></tr><tr><td>INRT et INNRT
+</td><td>Bloquent la reverse transcriptase
+</td><td>TDF, 3TC, EFV, NVP
+</td></tr><tr><td>Inhibiteurs de l'intégrase
+</td><td>Empêchent l'intégration de l'ADN viral
+</td><td>DTG, RAL
+</td></tr><tr><td>Inhibiteurs de protéase
+</td><td>Empêchent l'assemblage des protéines virales
+</td><td>LPV/r, ATV/r
+</td></tr></table></div></div><div class="tab-content" id="vih-8-2"><div class="protocol-box"><h4>Médicaments disponibles en Côte d'Ivoire</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Médicaments</th><th>Activité</th></tr><tr><td>INRT
+</td><td>AZT, 3TC, ABC, TDF, FTC
+</td><td>VIH-1 et VIH-2
+</td></tr><tr><td>INNRT
+</td><td>EFV, NVP
+</td><td>VIH-1 seulement
+</td></tr><tr><td>Inhibiteurs intégrase
+</td><td>DTG, RAL
+</td><td>VIH-1 et VIH-2
+</td></tr><tr><td>Inhibiteurs protéase
+</td><td>LPV/r, ATV/r, DRV
+</td><td>VIH-1 et VIH-2
+</td></tr></table></div></div><div class="tab-content" id="vih-8-3"><div class="side-effects"><h4>Effets secondaires principaux par classe</h4>
+<table class="regimen-table"><tr><th>Classe</th><th>Effets secondaires</th></tr><tr><td>INRT
+</td><td>Anémie, neutropénie, acidose lactique, cytopathie mitochondriale
+</td></tr><tr><td>INNRT
+</td><td>Éruptions cutanées, hépatotoxicité, troubles neuropsychiatriques
+</td></tr><tr><td>IP
+</td><td>Hyperglycémie, hyperlipidémie, lipodystrophie
+</td></tr><tr><td>Inhibiteurs intégrase
+</td><td>Hypersensibilité, nausées, diarrhée, céphalées
+</td></tr></table></div></div></div><!-- Module 9 : Interactions médicamenteuses --><div class="case-study-card" data-index="8" data-pathology="tarv"><h3><i class="fas fa-exchange-alt"></i> Module 9 : Interactions ARV</h3><p class="case-description">Interactions alimentaires et médicamenteuses des antirétroviraux.</p><div class="tabs"><div class="tab active" data-tab="vih-9-1">Alimentaires</div><div class="tab" data-tab="vih-9-2">Médicamenteuses</div><div class="tab" data-tab="vih-9-3">Gestion</div>
+</div><div class="tab-content active" id="vih-9-1"><div class="definition-box"><h4>Interactions alimentaires</h4><ul><li><strong>Certains ARV</strong> : Biodisponibilité importante en jeûn (EFV)</li><li><strong>D'autres ARV</strong> : Biodisponibilité augmentée avec aliments (LPV/r)</li><li><strong>Aliments gras</strong> : Peuvent entraver ou faciliter l'absorption intestinale</li><li>Consulter la notice pour chaque médicament</li></ul></div></div><div class="tab-content" id="vih-9-2"><div
+class="classification-box"><h4>Interactions médicamenteuses importantes</h4><ol><li><strong>Entre ARV</strong> : Ritonavir comme booster pour d'autres IP</li><li><strong>ARV et antituberculeux</strong> : Rifampicine contre-indiquée avec IP</li><li><strong>ARV et contraceptifs</strong> : IP diminuent l'efficacité des contraceptifs oraux</li><li><strong>ARV et médications traditionnelles</strong> : Données limitées</li></ol></div></div><div class="tab-content" id="vih-9-3"><div
+class="indication-box"><h4>Gestion des interactions</h4><ul><li>Utiliser le site <a href="www.hiv-druginteractions.org" target="_blank">University of Liverpool HIV Drug Interactions</a></li><li>Vérifier systématiquement les interactions lors de nouvelles prescriptions</li><li>Adapter les posologies si nécessaire</li><li>Surveillance accrue en cas d'association inévitable</li></ul></div></div></div><!-- Module 10 : Modalités thérapeutiques --><div class="case-study-card" data-index="9"
+data-pathology="tarv"><h3><i class="fas fa-prescription-bottle-alt"></i> Module 10 : Modalités thérapeutiques</h3><p class="case-description">Protocoles de traitement selon les populations et situations cliniques.</p><div class="tabs"><div class="tab active" data-tab="vih-10-1">Adultes</div><div class="tab" data-tab="vih-10-2">Enfants</div><div class="tab" data-tab="vih-10-3">Prophylaxies</div></div><div class="tab-content active" id="vih-10-1"><div class="definition-box"><h4>Protocoles adultes
+(Côte d'Ivoire 2023)</h4>
+<table class="regimen-table"><tr><th>Situation</th><th>Traitement</th></tr><tr><td>Standard VIH-1/2
+</td><td>TDF + 3TC + DTG (TLD)
+</td></tr><tr><td>Alternative VIH-1
+</td><td>TDF + 3TC + EFV (TLE)
+</td></tr><tr><td>VIH-2 ou VIH-1+2
+</td><td>TDF + 3TC + LPV/r
+</td></tr><tr><td>Femme enceinte
+</td><td>TDF + 3TC + DTG
+</td></tr></table></div></div><div class="tab-content" id="vih-10-2"><div class="protocol-box"><h4>Protocoles pédiatriques</h4>
+<table class="regimen-table"><tr><th>Poids</th><th>Traitement</th></tr><tr><td>3-9.9 kg
+</td><td>ABC + 3TC + DTG
+</td></tr><tr><td>10-34.9 kg
+</td><td>ABC + 3TC + LPV/r
+</td></tr><tr><td>>35 kg
+</td><td>TDF + 3TC + DTG
+</td></tr></table></div></div><div class="tab-content" id="vih-10-3"><div class="classification-box"><h4>Prophylaxies</h4><ul><li><strong>Enfant exposé</strong> : NVP ou AZT selon le risque</li><li><strong>PrEP</strong> : TDF + 3TC pour populations clés</li><li><strong>PEP</strong> : TLD pour adultes, AZT + 3TC + LPV/r pour enfants</li></ul></div></div></div><!-- Module 11 : Suivi du TARV --><div class="case-study-card" data-index="10" data-pathology="tarv"><h3><i class="fas fa-user-md"></i>
+Module 11 : Suivi du TARV</h3><p class="case-description">Observance, suivi clinique et biologique, gestion des échecs thérapeutiques.</p><div class="tabs"><div class="tab active" data-tab="vih-11-1">Observance</div><div class="tab" data-tab="vih-11-2">Suivi</div><div class="tab" data-tab="vih-11-3">Échecs</div></div><div class="tab-content active" id="vih-11-1"><div class="definition-box"><h4>Observance du TARV</h4><p>Capacité d'une personne à prendre un traitement selon une prescription donnée
+(posologie, horaire, repas).</p><p>Seuil de bonne observance : >90% des prises</p></div><div class="warning-box"><h4><i class="fas fa-exclamation-triangle"></i> Causes de mauvaise observance</h4><ul><li>Effets secondaires des ARV</li><li>Complexité du traitement</li><li>Stigmatisation</li><li>Problèmes psychosociaux</li><li>Manque d'information</li></ul></div></div><div class="tab-content" id="vih-11-2"><div class="protocol-box"><h4>Calendrier de suivi</h4>
+<table class="regimen-table"><tr><th>Paramètre</th><th>Fréquence</th></tr><tr><td>CD4
+</td><td>6-12 mois
+</td></tr><tr><td>Charge virale
+</td><td>6 mois
+</td></tr><tr><td>NFS (sous AZT)
+</td><td>3 mois
+</td></tr><tr><td>Créatininémie (sous TDF)
+</td><td>6 mois
+</td></tr></table></div></div><div class="tab-content" id="vih-11-3"><div class="indication-box"><h4>Échec thérapeutique</h4><p>Charge virale >1000 copies après 6 mois de TARV continu et reste à cette même valeur au contrôle 3 mois après avoir renforcé l'observance.</p><h4>Causes</h4><ul><li>Mauvaise observance</li><li>Posologie inadaptée</li><li>Interactions médicamenteuses</li><li>Problèmes d'absorption</li><li>Résistances virales</li></ul></div></div></div><!-- Module 12 : Santé Positive -->
+<div class="case-study-card" data-index="11" data-pathology="prevention"><h3><i class="fas fa-heartbeat"></i> Module 12 : Santé Positive</h3><p class="case-description">Approche holistique de la prise en charge des PVVIH.</p><div class="tabs"><div class="tab active" data-tab="vih-12-1">Définition</div><div class="tab" data-tab="vih-12-2">Principes</div><div class="tab" data-tab="vih-12-3">Composantes</div></div><div class="tab-content active" id="vih-12-1"><div class="definition-box"><h4>Santé
+Positive, Dignité et Prévention</h4><p>Approche visant à améliorer et à maintenir la santé et la qualité de vie des PVVIH et des populations à haut risque de manière holistique.</p><p>Positionne la personne infectée au centre de la prise en charge de sa santé et de son bien-être.</p></div></div><div class="tab-content" id="vih-12-2"><div class="classification-box"><h4>Principes directeurs</h4><ul><li>Les PVVIH sont plus que des patients</li><li>Les PVVIH ne doivent pas être traitées comme les
+seules vecteurs de transmission</li><li>La prévention du VIH relève de la responsabilité partagée</li><li>Les PVVIH ont des besoins et des désirs à satisfaire</li></ul></div></div><div class="tab-content" id="vih-12-3"><div class="indication-box"><h4>8 composantes de la SPDP</h4><ol><li>Autonomisation</li><li>Égalité des sexes</li><li>Promotion et accès à la santé</li><li>Droits humains</li><li>Prévention des nouvelles infections</li><li>Droits de santé sexuelle et reproductive</li><li>Soutien
+social et économique</li><li>Mesure de l'impact</li></ol></div></div></div></div><div class="navigation"> <button class="nav-btn" id="prevBtn" disabled>Précédent</button> <button class="nav-btn" id="nextBtn">Suivant</button></div></main><!-- Modal de recherche avancée --><div class="modal" id="advancedSearchModal"><div class="modal-content"><div class="modal-header"><h2 class="modal-title">Filtres avancés VIH</h2> <span class="close-modal" onclick="closeAdvancedSearch()">&times;</span></div><div
+class="filter-group"> <label for="ageFilter">Population cible</label> <select id="ageFilter"><option value="all">Toutes populations</option><option value="enfant">Enfants/Adolescents</option><option value="adulte">Adultes</option><option value="femme_enceinte">Femmes enceintes</option><option value="population_cle">Populations clés</option></select></div><div class="filter-group"> <label for="themeFilter">Thématique</label> <select id="themeFilter"><option value="all">Tous thèmes</option><option
+value="prevention">Prévention</option><option value="diagnostic">Diagnostic</option><option value="traitement">Traitement</option><option value="suivi">Suivi</option></select></div><div class="modal-actions"> <button class="modal-btn cancel-btn" onclick="closeAdvancedSearch()">Annuler</button> <button class="modal-btn apply-btn" onclick="applyAdvancedFilters()">Appliquer</button></div></div></div>
+<script>
+        // Gestion du drawer et du menu latéral
+        function toggleDrawer() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const body = document.body;
+
+            if (sidebar.classList.contains('show')) {
+                sidebar.classList.remove('show');
+                overlay.style.display = 'none';
+                body.classList.remove('body-disabled');
+            } else {
+                sidebar.classList.add('show');
+                overlay.style.display = 'block';
+                body.classList.add('body-disabled');
+            }
+        }
+
+        function closeDrawer() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const body = document.body;
+
+            sidebar.classList.remove('show');
+            overlay.style.display = 'none';
+            body.classList.remove('body-disabled');
+        }
+
+        function navigateTo(url) {
+            window.location.href = url;
+        }
+
+        // Gestion des cartes et des onglets
+        let currentIndex = 0;
+        let filteredCards = Array.from(document.querySelectorAll('.case-study-card'));
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pathologySelect = document.getElementById('pathologySelect');
+        const searchInput = document.getElementById('searchInput');
+        const dynamicTitle = document.getElementById('dynamicTitle');
+        const dynamicProtocol = document.getElementById('dynamicProtocol');
+
+        // Mise à jour initiale
+        updateDisplay();
+        updateNavigation();
+
+        // Écouteurs d'événements
+        pathologySelect.addEventListener('change', filterByPathology);
+        searchInput.addEventListener('input', filterBySearch);
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const card = tab.closest('.case-study-card');
+                const tabs = card.querySelectorAll('.tab');
+                const contents = card.querySelectorAll('.tab-content');
+
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                filteredCards[currentIndex].classList.remove('active');
+                currentIndex--;
+                filteredCards[currentIndex].classList.add('active');
+                updateNavigation();
+                updateTitleAndProtocol();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < filteredCards.length - 1) {
+                filteredCards[currentIndex].classList.remove('active');
+                currentIndex++;
+                filteredCards[currentIndex].classList.add('active');
+                updateNavigation();
+                updateTitleAndProtocol();
+            }
+        });
+
+        // Fonctions de filtrage
+        function filterByPathology() {
+            const selectedPathology = pathologySelect.value;
+            
+            document.querySelectorAll('.case-study-card').forEach(card => {
+                card.style.display = 'none';
+            });
+            
+            if (selectedPathology === 'all') {
+                filteredCards = Array.from(document.querySelectorAll('.case-study-card'));
+            } else {
+                filteredCards = Array.from(document.querySelectorAll(`.case-study-card[data-pathology="${selectedPathology}"]`));
+            }
+            
+            filteredCards.forEach(card => {
+                card.style.display = 'block';
+            });
+            
+            currentIndex = 0;
+            updateDisplay();
+            updateNavigation();
+            updateTitleAndProtocol(selectedPathology);
+        }
+
+        function filterBySearch() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            const selectedPathology = pathologySelect.value;
+            
+            if (selectedPathology === 'all') {
+                filteredCards = Array.from(document.querySelectorAll('.case-study-card'));
+            } else {
+                filteredCards = Array.from(document.querySelectorAll(`.case-study-card[data-pathology="${selectedPathology}"]`));
+            }
+            
+            if (searchTerm) {
+                filteredCards = filteredCards.filter(card => {
+                    return card.textContent.toLowerCase().includes(searchTerm);
+                });
+            }
+            
+            currentIndex = 0;
+            updateDisplay();
+            updateNavigation();
+        }
+
+        function updateDisplay() {
+            document.querySelectorAll('.case-study-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            if (filteredCards.length > 0) {
+                filteredCards[currentIndex].classList.add('active');
+            }
+        }
+
+        function updateNavigation() {
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === filteredCards.length - 1;
+        }
+
+        // Gestion de la recherche avancée
+        function openAdvancedSearch() {
+            document.getElementById('advancedSearchModal').style.display = 'flex';
+        }
+
+        function closeAdvancedSearch() {
+            document.getElementById('advancedSearchModal').style.display = 'none';
+        }
+
+        function applyAdvancedFilters() {
+            const ageFilter = document.getElementById('ageFilter').value;
+            const themeFilter = document.getElementById('themeFilter').value;
+            
+            const selectedPathology = pathologySelect.value;
+            
+            if (selectedPathology === 'all') {
+                filteredCards = Array.from(document.querySelectorAll('.case-study-card'));
+            } else {
+                filteredCards = Array.from(document.querySelectorAll(`.case-study-card[data-pathology="${selectedPathology}"]`));
+            }
+            
+            if (ageFilter !== 'all') {
+                // Implémentez la logique de filtrage par population
+            }
+            
+            if (themeFilter !== 'all') {
+                // Implémentez la logique de filtrage par thème
+            }
+            
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            if (searchTerm) {
+                filteredCards = filteredCards.filter(card => {
+                    return card.textContent.toLowerCase().includes(searchTerm);
+                });
+            }
+            
+            currentIndex = 0;
+            updateDisplay();
+            updateNavigation();
+            closeAdvancedSearch();
+        }
+        
+        // Mise à jour de la fonction updateTitleAndProtocol
+function updateTitleAndProtocol(pathology) {
+    let title = "Cours VIH/SIDA";
+    let protocol = "Programme INFAS";
+    
+    switch(pathology) {
+        case 'epidemiologie':
+            title = "Épidémiologie VIH";
+            protocol = "Données ONUSIDA 2023";
+            break;
+        case 'virologie':
+            title = "Virologie du VIH";
+            protocol = "Structure virale et cycle de réplication";
+            break;
+        case 'clinique':
+            title = "Clinique du SIDA";
+            protocol = "Classification OMS et manifestations";
+            break;
+        case 'tarv':
+            title = "Traitements ARV (Licence 1)";
+            protocol = "Bases des protocoles ARV";
+            break;
+        case 'tarv_l2':
+            title = "Traitements ARV Approfondi";
+            protocol = "Protocoles nationaux 2023 - Licence 2";
+            break;
+        case 'ptme':
+            title = "PTME";
+            protocol = "Prévention Transmission Mère-Enfant";
+            break;
+        case 'depistage':
+            title = "Dépistage VIH";
+            protocol = "Algorithmes diagnostiques";
+            break;
+        case 'prevention':
+            title = "Santé Positive & Prévention";
+            protocol = "Approche holistique Licence 2";
+            break;
+        default:
+            title = "Cours complet VIH/SIDA";
+            protocol = "Programme national de formation INFAS";
+    }
+    
+    dynamicTitle.textContent = title;
+    dynamicProtocol.textContent = protocol;
+}
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            if (filteredCards.length > 0) {
+                filteredCards[0].classList.add('active');
+            }
+            
+            updateTitleAndProtocol(pathologySelect.value);
+        });
+</script>
+</body>
+</html>

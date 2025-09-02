@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="style1.css">
+		<meta name="viewport" content="width=device-width, user-scalable=no"/>
+		<style>
+			/* Thème Orange-Blanc-Vert */
+			.zoneOrange {
+				border: 2px solid #FF8F00;
+				background-color: #FFE0B2;
+				padding: 12px;
+				margin: 20px 0;
+				border-radius: 14px;
+				text-align: center;
+				box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+			}
+			
+			.zoneVerte {
+				border: 2px solid #2E7D32;
+				background-color: #E8F5E9;
+				padding: 20px;
+				margin: 20px 0;
+				border-radius: 14px;
+			}
+			
+			.texteRectangleOrange {
+				color: #E65100;
+				text-align: center;
+				font-weight: bold;
+				font-size: 1.2em;
+				margin: 0;
+			}
+			
+			.texteBulle {
+				color: #1B5E20;
+				line-height: 1.6;
+				font-size: 1em;
+			}
+			
+			.gras {
+				font-weight: bold;
+				color: #E65100;
+				margin-top: 15px;
+				margin-bottom: 8px;
+				font-size: 1.1em;
+			}
+			
+			.sous-titre {
+				color: #1B5E20;
+				margin: 10px 0;
+				font-style: italic;
+				padding-left: 15px;
+			}
+			
+			.zeroIndentLeft {
+				padding-left: 10px;
+				list-style-type: none;
+				margin: 15px 0;
+			}
+			
+			.zeroIndentLeft li {
+				margin-bottom: 10px;
+				padding-left: 25px;
+				position: relative;
+			}
+			
+			.zeroIndentLeft li:before {
+				content: "•";
+				color: #FF8F00;
+				font-weight: bold;
+				position: absolute;
+				left: 0;
+			}
+			
+			.option-separator {
+				text-align: center;
+				color: #FF8F00;
+				font-weight: bold;
+				margin: 5px 0;
+			}
+			
+			body.corps {
+				padding: 20px;
+				margin: 0;
+				background-color: white;
+				font-family: 'Segoe UI', Arial, sans-serif;
+			}
+			
+			.date-maj {
+				text-align: center;
+				color: #2E7D32;
+				font-size: 0.9em;
+				margin-top: 25px;
+				font-style: italic;
+			}
+		</style>
+	</head>
+	<body class="corps">
+		<div class="zoneOrange texteRectangleOrange">
+			<h4>PNEUMOPATHIE COMMUNAUTAIRE SANS SIGNE DE GRAVITÉ APRÈS 3 ANS</h4>
+		</div>
+		
+		<div class="zoneVerte texteBulle">
+			<p class="gras">Si forme brutale très fébrile</p>
+			<p class="sous-titre">Pneumocoque probable pénicilline</p>
+			<ul class="zeroIndentLeft">
+				<li>Amoxicilline : 80 à 100 mg/kg/j en 3 prises sans dépasser 1 g × 3/j pendant 7 à 10 j</li>
+			</ul>
+			
+			<p class="sous-titre">Mycoplasme probable macrolide</p>
+			<ul class="zeroIndentLeft">
+				<li>Josamycine : 50 mg/kg/j en 2 prises pendant 14 j</li>
+				<p class="option-separator">OU</p>
+				<li>Clarithromycine : 15 mg/kg/j en 2 prises pendant 10 j</li>
+				<p class="option-separator">OU</p>
+				<li>Roxithromycine : 5 à 8 mg/kg/j en 2 prises pendant 10 j</li>
+			</ul>
+			
+			<p class="gras">Si forme brutale très fébrile</p>
+			<ul class="zeroIndentLeft">
+				<li>Remplacer amoxicilline par macrolide ou inversement selon antibiotique initial</li>
+			</ul>
+		</div>
+		
+		<h6 class="date-maj">Date de dernière mise à jour: 24/06/2025</h6>
+	</body>
+</html>

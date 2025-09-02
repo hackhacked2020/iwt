@@ -1,0 +1,107 @@
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	<LinearLayout
+		android:id="@+id/bg"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="30dp"
+		android:layout_marginRight="30dp"
+		android:orientation="vertical">
+		<LinearLayout
+			android:id="@+id/bg2"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginTop="20dp"
+			android:layout_marginBottom="20dp"
+			android:padding="20dp"
+			android:background="#FFFFFF"
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
+			<LinearLayout
+				android:id="@+id/linear2"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:layout_marginRight="20dp"
+				android:orientation="horizontal">
+				<ImageView
+					android:id="@+id/imageview1"
+					android:focusable="false"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:src="@drawable/project"
+					android:scaleType="fitCenter" />
+			</LinearLayout>
+			<LinearLayout
+				android:id="@+id/linear5"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="left|center_vertical"
+				android:orientation="vertical">
+				<TextView
+					android:id="@+id/textview1"
+					android:focusable="false"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:gravity="center_horizontal|center_vertical"
+					android:text="Nouvelle Mise À Jour Disponible"
+					android:textSize="16sp"
+					android:textColor="#FF9800" />
+				<TextView
+					android:id="@+id/version"
+					android:focusable="false"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Version: 2.3"
+					android:textSize="12sp"
+					android:textColor="#000000" />
+			</LinearLayout>
+		</LinearLayout>
+		<LinearLayout
+			android:id="@+id/bg3"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginBottom="20dp"
+			android:paddingLeft="20dp"
+			android:paddingRight="20dp"
+			android:paddingBottom="20dp"
+			android:background="#FFFFFF"
+			android:orientation="vertical">
+			<TextView
+				android:id="@+id/textview3"
+				android:focusable="false"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="7dp"
+				android:text="Nouveautés"
+				android:textSize="16sp"
+				android:textStyle="bold"
+				android:textColor="#FF9800" />
+			<TextView
+				android:id="@+id/whats_new"
+				android:focusable="false"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Your Features\n\n- Improvement on Profile page UI/UX\n- Brand new like &amp; appreciations for posts boys\n- Now users can access to posts photos and download them\n- Now comments support GIFs and stickers provide by GitHub.\n\nThese Are Examples"
+				android:textSize="14sp"
+				android:textColor="#000000" />
+			<TextView
+				android:id="@+id/now"
+				android:focusable="false"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="20dp"
+				android:padding="10dp"
+				android:background="#FF9800"
+				android:gravity="center_horizontal|center_vertical"
+				android:text="Veuillez vous rendre sur https://sujetsinfas.com pour l'installer"
+				android:textSize="14sp"
+				android:textStyle="bold"
+				android:textColor="#FFFFFF" />
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>
