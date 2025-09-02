@@ -1,3 +1,4 @@
+# Configuration Codemagic pour Android Natif
 workflows:
   android-workflow:
     name: Build Android Natif & Publier sur le Play Store
@@ -8,15 +9,50 @@ workflows:
       vars:
         PACKAGE_NAME: "dcmchonorable.iwt"
     scripts:
-      # --- Étape 1 : Décoder le keystore de signature ---
+      # --- Étape 1 : Vérifier la structure du projet ---
+      - name: Vérifier la structure
+        script: |
+          echo "Structure du projet :"
+          ls -la
+          echo ""
+          echo "Dossier android existe ? :"
+          ls -la android/ || echo "Dossier android non trouvé"
+          echo ""
+          echo "Recherche de fichiers Gradle :"
+          find . -name "*.gradle" -type f | head -10
+
+      # --- Étape 2 : Générer le Gradle Wrapper ---
+      - name: Générer le Gradle Wrapper
+        script: |
+          # Vérifier si on est dans le dossier android ou à la racine
+          if [ -d "android" ]; then
+            cd android
+            echo "Génération du wrapper dans le dossier android..."
+          fi
+          
+          # Générer le wrapper Gradle
+          gradle wrapper --gradle-version 8.14.1 --distribution-type bin
+          chmod +x ./gradlew
+          echo "Gradle Wrapper généré avec succès"
+          
+          # Afficher la version pour vérification
+          ./gradlew --version
+
+      # --- Étape 3 : Décoder le keystore de signature ---
       - name: Décoder le keystore de signature
         script: |
+          if [ -d "android" ]; then
+            cd android
+          fi
           echo $CM_KEYSTORE | base64 --decode > app/keystore.jks
           echo "Keystore décodé avec succès."
 
-      # --- Étape 2 : Créer le fichier key.properties ---
+      # --- Étape 4 : Créer le fichier key.properties ---
       - name: Créer le fichier key.properties
         script: |
+          if [ -d "android" ]; then
+            cd android
+          fi
           cat > app/key.properties <<EOL
           storeFile=keystore.jks
           storePassword=$CM_KEYSTORE_PASSWORD
@@ -25,10 +61,13 @@ workflows:
           EOL
           echo "Fichier key.properties créé."
 
-      # --- Étape 3 : Construire avec Gradle 8.14.1 ---
+      # --- Étape 5 : Build Android App Bundle ---
       - name: Build Android App Bundle (AAB)
         script: |
-          ./gradlew bundleRelease --no-daemon --warning-mode=all
+          if [ -d "android" ]; then
+            cd android
+          fi
+          ./gradlew bundleRelease --no-daemon
           echo "Build AAB terminé."
 
     artifacts:
