@@ -30,12 +30,12 @@ workflows:
       # --- Étape 2 : Créer le fichier key.properties ---
       - name: Créer le fichier key.properties
         script: |
-          cat > app/key.properties <<EOL
+          cat > app/key.properties << 'EOF'
 storeFile=keystore.jks
 storePassword=$CM_KEYSTORE_PASSWORD
 keyAlias=$CM_KEY_ALIAS
 keyPassword=$CM_KEY_PASSWORD
-EOL
+EOF
           echo "Fichier key.properties créé."
 
       # --- Étape 3 : Utiliser Gradle système ---
