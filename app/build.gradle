@@ -66,8 +66,13 @@ dependencies {
     // GSON
     implementation 'com.google.code.gson:gson:2.10.1'
     
-    // Dépendances de support pour la compatibilité
+    // Dépendances pour les attributs personnalisés
+    implementation 'de.hdodenhof:circleimageview:3.1.0' // Pour civ_* attributes
+    implementation 'com.airbnb.android:lottie:6.4.0'    // Pour lottie_* attributes
+    
+    // Autres dépendances de support
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
 }
+
 
