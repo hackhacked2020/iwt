@@ -1,30 +1,60 @@
-# Configuration de base pour Android (Flutter ou natif)
+# Configuration Codemagic pour Android (Flutter)
+# Ce fichier doit être placé à la racine de votre dépôt Git.
 workflows:
-  android-workflow: # Vous pouvez changer ce nom
-    name: Android Build & Publish
+  android-workflow:
+    name: Build Andoid & Publier sur le Play Store
     environment:
       groups:
-        - play_console_credentials # Groupe qui contient les credentials Google Play
-        - keystore_credentials # Groupe qui contient votre keystore et ses mots de passe
+        - play_console_credentials # Groupe contenant les credentials Google Play (fichier JSON)
+        - keystore_credentials # Groupe contenant le keystore et ses mots de passe
       vars:
-        BUNDLE_ID: "com.votrecompagnie.votreapp" # Remplacez par votre ID d'application
+        PACKAGE_NAME: "com.votrecompagnie.votreapp" # REMPLACEZ par votre ID d'application
+        BUNDLE_NAME: "app-release" # Nom base du fichier de sortie
     scripts:
-      # Script pour construire l'app
-      - name: Build Android
+      # --- Étape 1 : Décoder le keystore ---
+      - name: Décoder le keystore de signature
         script: |
-          # Pour un projet FLUTTER :
-          flutter build appbundle --release # ou "flutter build apk --release"
+          # Décode la variable CM_KEYSTORE (en Base64) pour recréer le fichier keystore.jks
+          echo $CM_KEYSTORE | base64 --decode > $CM_BUILD_DIR/keystore.jks
+          echo "Keystore décodé avec succès."
 
-          # Pour un projet ANDROID NATIF (Kotlin/Java) :
-          # cd app && ./gradlew bundleRelease # pour un AAB
-          # cd app && ./gradlew assembleRelease # pour un APK
+      # --- Étape 2 : Construire l'Android App Bundle (AAB) signé ---
+      - name: Build Android App Bundle (AAB)
+        script: |
+          # Build Flutter en mode release avec les paramètres de signature
+          flutter build appbundle --release \
+            --target-platform android-arm,android-arm64,android-x64 \
+            --build-name=1.0.0 \ # Optionnel : Définit le versionName
+            --build-number=1 \ # Optionnel : Incrémente le versionCode
+            --keystore="$CM_BUILD_DIR/keystore.jks" \
+            --store-password="$CM_KEYSTORE_PASSWORD" \
+            --key-alias="$CM_KEY_ALIAS" \
+            --key-password="$CM_KEY_PASSWORD"
+          echo "Build AAB terminé."
+
+      # --- (Optionnel) Construire un APK universel signé ---
+      # - name: Build APK Universel
+      #   script: |
+      #     flutter build apk --release \
+      #       --target-platform android-arm,android-arm64,android-x64 \
+      #       --keystore="$CM_BUILD_DIR/keystore.jks" \
+      #       --store-password="$CM_KEYSTORE_PASSWORD" \
+      #       --key-alias="$CM_KEY_ALIAS" \
+      #       --key-password="$CM_KEY_PASSWORD"
+      #     echo "Build APK terminé."
 
     artifacts:
-      - build/**/outputs/**/*.aab # Chemin vers le fichier AAB généré
-      # - build/**/outputs/**/*.apk # Décommentez si vous builduez un APK
+      - build/app/outputs/bundle/release/**/*.aab # Chemin vers le AAB généré
+      # - build/app/outputs/apk/release/**/*.apk # Décommentez si vous builduez un APK
 
     publishing:
-      app_store_connect: # Publication sur Google Play (App Store Connect est le nom générique chez Codemagic)
-        credentials: $PLAY_STORE_CREDENTIALS # Référence à la variable d'environnement
-        track: internal # Piste de publication : internal, alpha, beta, production
-        # submit_to_review: true # Décommentez pour soumettre automatiquement à l'examen (déconseillé au début)
+      email:
+        recipients:
+          - votre.email@exemple.com # REMPLACEZ par votre email pour les notifications
+      app_store_connect: # Publication sur Google Play
+        credentials: $PLAY_STORE_CREDENTIALS # Référence à la variable contenant le JSON
+        track: internal # Piste de déploiement : internal, alpha, beta, production
+        # in_progress: true # Déploie en "version draft" (brouillon)
+        # submit_to_review: false # NE PAS soumettre automatiquement en review pour production
+        # changes_not_sent_for_review: true # Pour les tracks qui ne nécessitent pas de review (internal)
+        
