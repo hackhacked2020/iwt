@@ -3,13 +3,11 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
-// --- DÉBUT DE LA CONFIGURATION DE SIGNATURE ---
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('app/key.properties')
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
-// --- FIN DE LA CONFIGURATION DE SIGNATURE ---
 
 android {
     namespace 'dcmchonorable.iwt'
@@ -24,7 +22,6 @@ android {
         jvmTarget = '1.8'
     }
     
-    // --- CONFIGURATION DE SIGNATURE ---
     signingConfigs {
         release {
             if (keystorePropertiesFile.exists()) {
@@ -35,7 +32,6 @@ android {
             }
         }
     }
-    // --- FIN DE LA CONFIGURATION DE SIGNATURE ---
     
     defaultConfig {
         applicationId "dcmchonorable.iwt"
@@ -47,24 +43,30 @@ android {
     
     buildTypes {
         release {
-            // --- ACTIVATION DE LA SIGNATURE ---
             signingConfig signingConfigs.release
-            // --- FIN DE L'ACTIVATION ---
-            
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     
-    // Pour la bibliothèque Apache HTTP legacy
     useLibrary 'org.apache.http.legacy'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    
+    // Dépendances AndroidX de base
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
-    implementation 'com.google.firebase:firebase-database:20.3.1'
-    implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'androidx.core:core-ktx:1.12.0'
+    
+    // Firebase
+    implementation 'com.google.firebase:firebase-database:20.3.1'
+    
+    // GSON
+    implementation 'com.google.code.gson:gson:2.10.1'
+    
+    // Dépendances de support pour la compatibilité
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
 }
