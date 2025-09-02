@@ -7,23 +7,29 @@ workflows:
         - play_console_credentials # Groupe contenant les credentials Google Play (fichier JSON)
         - keystore_credentials # Groupe contenant le keystore et ses mots de passe
       vars:
-        PACKAGE_NAME: "dcmchonorable.iwt" # REMPLACEZ par votre ID d'application
+        PACKAGE_NAME: "dcmchonorable.iwt" # Votre ID d'application
     scripts:
       # --- Étape 1 : Décoder le keystore ---
       - name: Décoder le keystore de signature
         script: |
-          echo $CM_KEYSTORE | base64 --decode > $CM_BUILD_DIR/keystore.jks
+          echo $CM_KEYSTORE | base64 --decode > android/keystore.jks
           echo "Keystore décodé avec succès."
 
-      # --- Étape 2 : Construire l'Android App Bundle (AAB) signé ---
+      # --- Étape 2 : Créer le fichier key.properties ---
+      - name: Créer le fichier key.properties
+        script: |
+          cat > android/key.properties <<EOL
+          storeFile=keystore.jks
+          storePassword=$CM_KEYSTORE_PASSWORD
+          keyAlias=$CM_KEY_ALIAS
+          keyPassword=$CM_KEY_PASSWORD
+          EOL
+          echo "Fichier key.properties créé."
+
+      # --- Étape 3 : Construire l'Android App Bundle (AAB) signé ---
       - name: Build Android App Bundle (AAB)
         script: |
-          flutter build appbundle --release \
-            --target-platform android-arm,android-arm64,android-x64 \
-            --keystore="$CM_BUILD_DIR/keystore.jks" \
-            --store-password="$CM_KEYSTORE_PASSWORD" \
-            --key-alias="$CM_KEY_ALIAS" \
-            --key-password="$CM_KEY_PASSWORD"
+          cd android && ./gradlew bundleRelease
           echo "Build AAB terminé."
 
     artifacts:
@@ -33,9 +39,6 @@ workflows:
       email:
         recipients:
           - votre.email@exemple.com # REMPLACEZ par votre email pour les notifications
-      # --- SECTION CORRIGÉE : Utiliser google_play au lieu de app_store_connect ---
-      google_play: # <- CORRECTION ICI. C'est pour GOOGLE.
+      google_play:
         credentials: $PLAY_STORE_CREDENTIALS # Référence à la variable contenant le JSON Google
         track: internal # Piste de déploiement : internal, alpha, beta, production
-        # in_progress: true # Déploie en "version draft" (brouillon)
-        # submit_to_review: false # NE PAS soumettre automatiquement en review
