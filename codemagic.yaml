@@ -1,7 +1,7 @@
-# Configuration Codemagic pour Android (Flutter) - CORRIGÉ
+# Configuration Codemagic pour Android Natif
 workflows:
   android-workflow:
-    name: Build Android & Publier sur le Play Store
+    name: Build Android Natif & Publier sur le Play Store
     environment:
       groups:
         - play_console_credentials
@@ -9,41 +9,31 @@ workflows:
       vars:
         PACKAGE_NAME: "dcmchonorable.iwt"
     scripts:
-      # --- Étape 1 : Se positionner dans le dossier android ---
-      - name: Se positionner dans le dossier android
-        script: |
-          cd android
-          echo "Dossier courant: $(pwd)"
-
-      # --- Étape 2 : Décoder le keystore de signature ---
+      # --- Étape 1 : Décoder le keystore de signature ---
       - name: Décoder le keystore de signature
         script: |
-          cd android
-          echo $CM_KEYSTORE | base64 --decode > keystore.jks
+          echo $CM_KEYSTORE | base64 --decode > app/keystore.jks
           echo "Keystore décodé avec succès."
 
-      # --- Étape 3 : Créer le fichier key.properties ---
+      # --- Étape 2 : Créer le fichier key.properties ---
       - name: Créer le fichier key.properties
         script: |
-          cd android
-          cat > key.properties <<EOL
+          cat > app/key.properties <<EOL
           storeFile=keystore.jks
           storePassword=$CM_KEYSTORE_PASSWORD
           keyAlias=$CM_KEY_ALIAS
           keyPassword=$CM_KEY_PASSWORD
           EOL
           echo "Fichier key.properties créé."
-          cat key.properties # Affiche le contenu pour vérification (optionnel)
 
-      # --- Étape 4 : Construire l'Android App Bundle (AAB) signé ---
+      # --- Étape 3 : Construire l'Android App Bundle (AAB) signé ---
       - name: Build Android App Bundle (AAB)
         script: |
-          cd android
           ./gradlew bundleRelease
           echo "Build AAB terminé."
 
     artifacts:
-      - build/app/outputs/bundle/release/**/*.aab
+      - app/build/outputs/bundle/release/**/*.aab
 
     publishing:
       email:
