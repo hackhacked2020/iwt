@@ -21,8 +21,8 @@ workflows:
           echo "Recherche de gradle wrapper :"
           find . -name "gradle-wrapper.properties" -exec cat {} \;
 
-      # --- Étape 1 : Créer le wrapper Gradle 6.9.4 manuellement ---
-      - name: Créer le wrapper Gradle manuellement
+      # --- Étape 1 : Télécharger Gradle 6.9.4 ---
+      - name: Télécharger Gradle 6.9.4
         script: |
           # Créer la structure de dossier gradle
           mkdir -p gradle/wrapper
@@ -32,42 +32,37 @@ workflows:
           unzip gradle-6.9.4-bin.zip
           mv gradle-6.9.4 gradle
           rm gradle-6.9.4-bin.zip
-          
-          # Créer le script gradlew manuellement
-          cat > gradlew << 'EOL'
+          echo "Gradle 6.9.4 téléchargé"
+
+      # --- Étape 2 : Créer le script gradlew ---
+      - name: Créer le script gradlew
+        script: |
+          # Créer le script gradlew avec une syntaxe simplifiée
+          cat > gradlew << 'EOF'
 #!/usr/bin/env bash
 
-##############################################################################
-##
-##  Gradle start up script for UN*X
-##
-##############################################################################
-
-# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
-DEFAULT_JVM_OPTS=""
-
 APP_NAME="Gradle"
-APP_BASE_NAME=`basename "$0"`
+APP_BASE_NAME=$(basename "$0")
 
 # Use the maximum available, or set MAX_FD != -1 to use that value.
 MAX_FD="maximum"
 
-warn ( ) {
+warn() {
     echo "$*"
 }
 
-die ( ) {
+die() {
     echo
     echo "$*"
     echo
     exit 1
 }
 
-# OS specific support (must be 'true' or 'false').
+# OS specific support
 cygwin=false
 msys=false
 darwin=false
-case "`uname`" in
+case "$(uname)" in
   CYGWIN* )
     cygwin=true
     ;;
@@ -79,27 +74,20 @@ case "`uname`" in
     ;;
 esac
 
-# For Cygwin, ensure paths are in UNIX format before anything is touched.
-if $cygwin ; then
-    [ -n "$JAVA_HOME" ] && JAVA_HOME=`cygpath --unix "$JAVA_HOME"`
-fi
-
 # Attempt to set APP_HOME
-# Resolve links: $0 may be a link
 PRG="$0"
-# Need this for relative symlinks.
 while [ -h "$PRG" ] ; do
-    ls=`ls -ld "$PRG"`
-    link=`expr "$ls" : '.*-> \(.*\)$'`
+    ls=$(ls -ld "$PRG")
+    link=$(expr "$ls" : '.*-> \(.*\)$')
     if expr "$link" : '/.*' > /dev/null; then
         PRG="$link"
     else
-        PRG=`dirname "$PRG"`"/$link"
+        PRG=$(dirname "$PRG")"/$link"
     fi
 done
-SAVED="`pwd`"
-cd "`dirname \"$PRG\"`/" >/dev/null
-APP_HOME="`pwd -P`"
+SAVED="$(pwd)"
+cd "$(dirname "$PRG")/" >/dev/null
+APP_HOME="$(pwd -P)"
 cd "$SAVED" >/dev/null
 
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
@@ -119,65 +107,35 @@ else
     which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH."
 fi
 
-# Increase the maximum file descriptors if we can.
-if [ "$cygwin" = "false" -a "$darwin" = "false" ] ; then
-    MAX_FD_LIMIT=`ulimit -H -n`
-    if [ $? -eq 0 ] ; then
-        if [ "$MAX_FD" = "maximum" -a "$MAX_FD_LIMIT" > 0 ] ; then
-            MAX_FD="$MAX_FD_LIMIT"
-        fi
-        ulimit -n $MAX_FD
-        if [ $? -ne 0 ] ; then
-            warn "Could not set maximum file descriptor limit: $MAX_FD"
-        fi
-    else
-        warn "Could not query maximum file descriptor limit: $MAX_FD_LIMIT"
-    fi
-fi
-
-ENV_BEGIN=$(env)
-
-# For Darwin, add options to specify how the application appears in the dock
-if $darwin; then
-    GRADLE_OPTS="$GRADLE_OPTS \"-Xdock:name=$APP_NAME\" \"-Xdock:icon=$APP_HOME/media/gradle.icns\""
-fi
-
-# For Cygwin, switch paths to Windows format before running java
-if $cygwin ; then
-    APP_HOME=`cygpath --path --windows "$APP_HOME"`
-    CLASSPATH=`cygpath --path --windows "$CLASSPATH"`
-fi
-
+# Execute Gradle
 exec "$JAVACMD" \
-    $JAVA_OPTS \
-    $DEFAULT_JVM_OPTS \
     -classpath "$CLASSPATH" \
-    -Dorg.gradle.appname=$APP_BASE_NAME \
+    -Dorg.gradle.appname="$APP_BASE_NAME" \
     org.gradle.wrapper.GradleWrapperMain \
     "$@"
-EOL
+EOF
 
           chmod +x gradlew
-          echo "Gradle wrapper 6.9.4 créé manuellement"
+          echo "Script gradlew créé"
 
-      # --- Étape 2 : Décoder le keystore de signature ---
+      # --- Étape 3 : Décoder le keystore de signature ---
       - name: Décoder le keystore de signature
         script: |
           echo $CM_KEYSTORE | base64 --decode > app/keystore.jks
           echo "Keystore décodé avec succès."
 
-      # --- Étape 3 : Créer le fichier key.properties ---
+      # --- Étape 4 : Créer le fichier key.properties ---
       - name: Créer le fichier key.properties
         script: |
           cat > app/key.properties <<EOL
-          storeFile=keystore.jks
-          storePassword=$CM_KEYSTORE_PASSWORD
-          keyAlias=$CM_KEY_ALIAS
-          keyPassword=$CM_KEY_PASSWORD
-          EOL
+storeFile=keystore.jks
+storePassword=$CM_KEYSTORE_PASSWORD
+keyAlias=$CM_KEY_ALIAS
+keyPassword=$CM_KEY_PASSWORD
+EOL
           echo "Fichier key.properties créé."
 
-      # --- Étape 4 : Construire l'Android App Bundle (AAB) signé ---
+      # --- Étape 5 : Construire l'Android App Bundle (AAB) signé ---
       - name: Build Android App Bundle (AAB)
         script: |
           ./gradlew bundleRelease --no-daemon --warning-mode=none
