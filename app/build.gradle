@@ -24,9 +24,10 @@ android {
     
     signingConfigs {
         release {
-            // PRIORITÉ 1: Variables d'environnement Codemagic
-            if (System.getenv("CM_KEYSTORE_PATH")) {
-                storeFile file(System.getenv("CM_KEYSTORE_PATH"))
+            // PRIORITÉ 1: Codemagic - le keystore est TOUJOURS à cet emplacement
+            if (System.getenv("FCI_BUILD_DIR")) {
+                // Chemin fixe du keystore dans Codemagic
+                storeFile file("keystore.jks")
                 storePassword System.getenv("CM_KEYSTORE_PASSWORD")
                 keyAlias System.getenv("CM_KEY_ALIAS")
                 keyPassword System.getenv("CM_KEY_PASSWORD")
@@ -82,3 +83,4 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
 }
+
