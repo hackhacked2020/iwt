@@ -54,10 +54,14 @@ workflows:
           cat key.properties
 
       # --- Étape 6 : Build AAB ---
+      - name: Nettoyer le projet
+        script: |
+        ./gradlew clean --no-daemon
+         echo "Nettoyage terminé."
       - name: Build Android App Bundle (AAB)
         script: |
-          ./gradlew bundleRelease --no-daemon --warning-mode=none
-          echo "Build AAB terminé."
+        ./gradlew bundleRelease --no-daemon --warning-mode=none
+        echo "Build AAB terminé."
 
     artifacts:
       - app/build/outputs/bundle/release/**/*.aab
