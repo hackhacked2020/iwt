@@ -1,4 +1,3 @@
-# Configuration Codemagic pour Android Natif
 workflows:
   android-workflow:
     name: Build Android Natif & Publier sur le Play Store
@@ -9,31 +8,6 @@ workflows:
       vars:
         PACKAGE_NAME: "dcmchonorable.iwt"
     scripts:
-      # --- Étape de diagnostic ---
-      - name: Diagnostiquer la structure du projet
-        script: |
-          echo "Structure du projet :"
-          ls -la
-          echo ""
-          echo "Contenu du dossier courant :"
-          pwd
-          echo ""
-          echo "Liste des fichiers build.gradle :"
-          find . -type f -name "build.gradle" | head -10
-          echo ""
-          echo "Recherche de gradlew :"
-          find . -name "gradlew" -type f
-
-      # --- Étape 0 : Installer Gradle si nécessaire ---
-      - name: Installer Gradle
-        script: |
-          if [ ! -f "./gradlew" ]; then
-            echo "gradlew non trouvé, installation de Gradle..."
-            gradle wrapper --gradle-version 7.5.1
-          else
-            echo "gradlew trouvé, poursuite du build..."
-          fi
-
       # --- Étape 1 : Décoder le keystore de signature ---
       - name: Décoder le keystore de signature
         script: |
@@ -51,16 +25,10 @@ workflows:
           EOL
           echo "Fichier key.properties créé."
 
-      # --- Étape 3 : Donner les permissions à gradlew ---
-      - name: Donner les permissions d'exécution à gradlew
-        script: |
-          chmod +x ./gradlew
-          echo "Permissions gradlew mises à jour."
-
-      # --- Étape 4 : Construire l'Android App Bundle (AAB) signé ---
+      # --- Étape 3 : Construire avec Gradle 8.14.1 ---
       - name: Build Android App Bundle (AAB)
         script: |
-          ./gradlew bundleRelease
+          ./gradlew bundleRelease --no-daemon --warning-mode=all
           echo "Build AAB terminé."
 
     artifacts:
