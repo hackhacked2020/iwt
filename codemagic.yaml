@@ -1,0 +1,30 @@
+# Configuration de base pour Android (Flutter ou natif)
+workflows:
+  android-workflow: # Vous pouvez changer ce nom
+    name: Android Build & Publish
+    environment:
+      groups:
+        - play_console_credentials # Groupe qui contient les credentials Google Play
+        - keystore_credentials # Groupe qui contient votre keystore et ses mots de passe
+      vars:
+        BUNDLE_ID: "com.votrecompagnie.votreapp" # Remplacez par votre ID d'application
+    scripts:
+      # Script pour construire l'app
+      - name: Build Android
+        script: |
+          # Pour un projet FLUTTER :
+          flutter build appbundle --release # ou "flutter build apk --release"
+
+          # Pour un projet ANDROID NATIF (Kotlin/Java) :
+          # cd app && ./gradlew bundleRelease # pour un AAB
+          # cd app && ./gradlew assembleRelease # pour un APK
+
+    artifacts:
+      - build/**/outputs/**/*.aab # Chemin vers le fichier AAB généré
+      # - build/**/outputs/**/*.apk # Décommentez si vous builduez un APK
+
+    publishing:
+      app_store_connect: # Publication sur Google Play (App Store Connect est le nom générique chez Codemagic)
+        credentials: $PLAY_STORE_CREDENTIALS # Référence à la variable d'environnement
+        track: internal # Piste de publication : internal, alpha, beta, production
+        # submit_to_review: true # Décommentez pour soumettre automatiquement à l'examen (déconseillé au début)
