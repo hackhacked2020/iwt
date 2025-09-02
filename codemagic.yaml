@@ -4,41 +4,51 @@ workflows:
     name: Build Android & Publier sur le Play Store
     environment:
       groups:
-        - play_console_credentials # Groupe contenant les credentials Google Play (fichier JSON)
-        - keystore_credentials # Groupe contenant le keystore et ses mots de passe
+        - play_console_credentials
+        - keystore_credentials
       vars:
-        PACKAGE_NAME: "dcmchonorable.iwt" # Votre ID d'application
+        PACKAGE_NAME: "dcmchonorable.iwt"
     scripts:
-      # --- Étape 1 : Décoder le keystore ---
+      # --- Étape 1 : Se positionner dans le dossier android ---
+      - name: Se positionner dans le dossier android
+        script: |
+          cd android
+          echo "Dossier courant: $(pwd)"
+
+      # --- Étape 2 : Décoder le keystore de signature ---
       - name: Décoder le keystore de signature
         script: |
-          echo $CM_KEYSTORE | base64 --decode > android/keystore.jks
+          cd android
+          echo $CM_KEYSTORE | base64 --decode > keystore.jks
           echo "Keystore décodé avec succès."
 
-      # --- Étape 2 : Créer le fichier key.properties ---
+      # --- Étape 3 : Créer le fichier key.properties ---
       - name: Créer le fichier key.properties
         script: |
-          cat > android/key.properties <<EOL
+          cd android
+          cat > key.properties <<EOL
           storeFile=keystore.jks
           storePassword=$CM_KEYSTORE_PASSWORD
           keyAlias=$CM_KEY_ALIAS
           keyPassword=$CM_KEY_PASSWORD
           EOL
           echo "Fichier key.properties créé."
+          cat key.properties # Affiche le contenu pour vérification (optionnel)
 
-      # --- Étape 3 : Construire l'Android App Bundle (AAB) signé ---
+      # --- Étape 4 : Construire l'Android App Bundle (AAB) signé ---
       - name: Build Android App Bundle (AAB)
         script: |
-          cd android && ./gradlew bundleRelease
+          cd android
+          ./gradlew bundleRelease
           echo "Build AAB terminé."
 
     artifacts:
-      - build/app/outputs/bundle/release/**/*.aab # Chemin vers le AAB généré
+      - build/app/outputs/bundle/release/**/*.aab
 
     publishing:
       email:
         recipients:
-          - votre.email@exemple.com # REMPLACEZ par votre email pour les notifications
+          - votre.email@exemple.com
       google_play:
-        credentials: $PLAY_STORE_CREDENTIALS # Référence à la variable contenant le JSON Google
-        track: internal # Piste de déploiement : internal, alpha, beta, production
+        credentials: $PLAY_STORE_CREDENTIALS
+        track: internal
