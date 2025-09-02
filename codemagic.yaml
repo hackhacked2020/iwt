@@ -14,29 +14,22 @@ workflows:
           echo "Structure du projet :"
           ls -la
           echo ""
-          echo "Dossier android existe ? :"
-          ls -la android/ || echo "Dossier android non trouvé"
+          echo "Dossier app existe ? :"
+          ls -la app/ || echo "Dossier app non trouvé"
 
-      # --- Étape 2 : Créer gradle.properties pour AndroidX ---
+      # --- Étape 2 : Configurer AndroidX ---
       - name: Configurer AndroidX
         script: |
-          if [ -d "android" ]; then
-            cd android
-          fi
           cat > gradle.properties <<EOL
           android.useAndroidX=true
           android.enableJetifier=true
           org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
-          android.defaults.buildfeatures.buildconfig=true
           EOL
           echo "Fichier gradle.properties créé pour AndroidX"
 
       # --- Étape 3 : Générer le Gradle Wrapper ---
       - name: Générer le Gradle Wrapper
         script: |
-          if [ -d "android" ]; then
-            cd android
-          fi
           gradle wrapper --gradle-version 8.14.1 --distribution-type bin
           chmod +x ./gradlew
           echo "Gradle Wrapper généré"
@@ -44,32 +37,25 @@ workflows:
       # --- Étape 4 : Décoder le keystore ---
       - name: Décoder le keystore de signature
         script: |
-          if [ -d "android" ]; then
-            cd android
-          fi
-          echo $CM_KEYSTORE | base64 --decode > app/keystore.jks
+          echo $CM_KEYSTORE | base64 --decode > keystore.jks
           echo "Keystore décodé avec succès."
+          ls -la keystore.jks || echo "Keystore non créé"
 
       # --- Étape 5 : Créer key.properties ---
       - name: Créer le fichier key.properties
         script: |
-          if [ -d "android" ]; then
-            cd android
-          fi
-          cat > app/key.properties <<EOL
+          cat > key.properties <<EOL
           storeFile=keystore.jks
           storePassword=$CM_KEYSTORE_PASSWORD
           keyAlias=$CM_KEY_ALIAS
           keyPassword=$CM_KEY_PASSWORD
           EOL
           echo "Fichier key.properties créé."
+          cat key.properties
 
       # --- Étape 6 : Build AAB ---
       - name: Build Android App Bundle (AAB)
         script: |
-          if [ -d "android" ]; then
-            cd android
-          fi
           ./gradlew bundleRelease --no-daemon --warning-mode=none
           echo "Build AAB terminé."
 
