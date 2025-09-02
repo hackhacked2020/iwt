@@ -24,7 +24,15 @@ android {
     
     signingConfigs {
         release {
-            if (keystorePropertiesFile.exists()) {
+            // PRIORITÉ 1: Variables d'environnement Codemagic
+            if (System.getenv("CM_KEYSTORE_PATH")) {
+                storeFile file(System.getenv("CM_KEYSTORE_PATH"))
+                storePassword System.getenv("CM_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("CM_KEY_ALIAS")
+                keyPassword System.getenv("CM_KEY_PASSWORD")
+            }
+            // PRIORITÉ 2: Fichier key.properties (développement local)
+            else if (keystorePropertiesFile.exists()) {
                 keyAlias keystoreProperties['keyAlias']
                 keyPassword keystoreProperties['keyPassword']
                 storeFile file(keystoreProperties['storeFile'])
@@ -67,12 +75,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
     
     // Dépendances pour les attributs personnalisés
-    implementation 'de.hdodenhof:circleimageview:3.1.0' // Pour civ_* attributes
-    implementation 'com.airbnb.android:lottie:6.4.0'    // Pour lottie_* attributes
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.airbnb.android:lottie:6.4.0'
     
     // Autres dépendances de support
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
 }
-
-
