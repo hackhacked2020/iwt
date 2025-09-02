@@ -8,7 +8,6 @@ workflows:
         - keystore_credentials
       vars:
         PACKAGE_NAME: "dcmchonorable.iwt"
-        GRADLE_VERSION: "6.9.4" # Version compatible avec votre ancien projet
     scripts:
       # --- Étape de diagnostic ---
       - name: Diagnostiquer la structure du projet
@@ -19,16 +18,8 @@ workflows:
           echo "Fichiers build.gradle :"
           find . -name "build.gradle" -exec echo {} \;
           echo ""
-          echo "Fichiers gradle-wrapper.properties :"
+          echo "Recherche de gradle wrapper :"
           find . -name "gradle-wrapper.properties" -exec cat {} \;
-
-      # --- Étape 0 : Installer la bonne version de Gradle ---
-      - name: Installer Gradle compatible
-        script: |
-          echo "Installation de Gradle $GRADLE_VERSION..."
-          gradle wrapper --gradle-version $GRADLE_VERSION --distribution-type all
-          chmod +x ./gradlew
-          echo "Gradle $GRADLE_VERSION installé"
 
       # --- Étape 1 : Décoder le keystore de signature ---
       - name: Décoder le keystore de signature
@@ -47,10 +38,16 @@ workflows:
           EOL
           echo "Fichier key.properties créé."
 
-      # --- Étape 3 : Construire avec l'ancienne version de Gradle ---
+      # --- Étape 3 : Utiliser Gradle directement avec les bonnes options ---
       - name: Build Android App Bundle (AAB)
         script: |
-          ./gradlew bundleRelease --no-daemon
+          # Essayer avec gradle directement en forçant les bonnes options
+          gradle bundleRelease \
+            --no-daemon \
+            --no-build-cache \
+            --no-configuration-cache \
+            --warning-mode=none \
+            -Dorg.gradle.java.home=$JAVA_HOME
           echo "Build AAB terminé."
 
     artifacts:
